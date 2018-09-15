@@ -1,5 +1,5 @@
 package negocio;
 
-public class Cerrada {
+public class Cerrada  extends Juego{
 
 }

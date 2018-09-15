@@ -1,5 +1,5 @@
 package negocio;
 
-public class Jugador {
+public abstract class Jugador {
 
 }
