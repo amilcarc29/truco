@@ -22,4 +22,7 @@ public class Pareja {
 	public void setJugadores(List<Jugador> jugadores) {
 		this.jugadores = jugadores;
 	}
+	
+	
+	
 }
