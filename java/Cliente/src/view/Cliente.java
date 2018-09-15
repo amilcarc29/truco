@@ -15,6 +15,7 @@ public class Cliente {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 
+		
 
 	}
 
