@@ -10,6 +10,7 @@ import interfaces.InterfaceRemota;
 
 public class BusinessDelegate {
 
+	
 	private InterfaceRemota ir;
 	
 	public BusinessDelegate() throws ComunicacionException{
