@@ -1,4 +1,4 @@
-package entities;
+package negocio;
 
 public class Grupo {
  private int IdGrupo;
