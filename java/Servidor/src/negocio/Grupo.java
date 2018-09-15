@@ -8,7 +8,7 @@ public class Grupo {
 	private Usuario administrador;
 	private String nombre;
 	private int puntoPorPartida;
-	private List<Cerrada> partidas;
+	private List<ModalidadCerrada> partidas;
 
 	public Grupo() {
 
@@ -42,11 +42,11 @@ public class Grupo {
 		this.puntoPorPartida = puntoPorPartida;
 	}
 
-	public List<Cerrada> getPartidas() {
+	public List<ModalidadCerrada> getPartidas() {
 		return partidas;
 	}
 
-	public void setPartidas(List<Cerrada> partidas) {
+	public void setPartidas(List<ModalidadCerrada> partidas) {
 		this.partidas = partidas;
 	}
 
