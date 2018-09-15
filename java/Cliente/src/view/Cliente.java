@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JOptionPane;
 
+
 import delegado.BusinessDelegate;
 import excepciones.ComunicacionException;
 
