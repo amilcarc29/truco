@@ -1,14 +1,14 @@
 package dao;
 
-public class UsuarioDao {
-	private static UsuarioDao instancia;
+public class UsuarioDAO {
+	private static UsuarioDAO instancia;
 
-	private UsuarioDao() {
+	public UsuarioDAO() {
 	}
 
-	public static UsuarioDao getInstance() {
+	public static UsuarioDAO getInstance() {
 		if (instancia == null)
-			instancia = new UsuarioDao();
+			instancia = new UsuarioDAO();
 		return instancia;
 	}
 
