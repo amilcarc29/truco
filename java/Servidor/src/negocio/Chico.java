@@ -1,14 +1,24 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Chico {
 	private int idChico;
 	private List<Mano> manos;
+	private List<Pareja> parejas;
 	private List<Puntuacion> puntos;
 	private Pareja ganador;
 	private int puntosPorGanar;
-
+	
+	public Chico(List<Pareja> parejas) {
+		this.manos = new ArrayList<>();
+		this.parejas = parejas;
+		this.puntos = new ArrayList<>();
+		this.ganador = null;
+		this.puntosPorGanar = 30;
+	}
+	
 	public int getIdChico() {
 		return idChico;
 	}
@@ -45,6 +55,14 @@ public class Chico {
 		this.puntosPorGanar = puntosPorGanar;
 	}
 
+	public List<Pareja> getParejas() {
+		return parejas;
+	}
+
+	public void setParejas(List<Pareja> parejas) {
+		this.parejas = parejas;
+	}
+
 	public boolean verificarChico() {
 		return false;
 
@@ -67,7 +85,10 @@ public class Chico {
 
 	}
 
-	public void altaMano(List<Jugador> jugadores, int puntosParaTerminar) {
-
+	// TODO Agregar parámetro parejas a Diagrama.
+	public void altaMano(List<Pareja> parejas, List<Jugador> jugadores, int puntosParaTerminar) {
+		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y puntosPorTerminar del Chico?
+		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
+		manos.add(mano);
 	}
 }

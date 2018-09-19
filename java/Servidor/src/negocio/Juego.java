@@ -1,9 +1,11 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public abstract class Juego {
+
 	private int idJuego;
 	private List<Pareja> parejas;
 	private List<Chico> chicos;
@@ -11,6 +13,16 @@ public abstract class Juego {
 	private int puntoBase;
 	private Date fecha;
 	private boolean activo;
+	
+	public Juego() {
+		super();
+		this.parejas = new ArrayList<>();
+		this.chicos = new ArrayList<>();
+		setPuntoBase(0);
+		this.fecha = new Date();
+		setActivo(true);
+	}
+
 
 	public abstract void calcularPuntos();
 
@@ -82,5 +94,11 @@ public abstract class Juego {
 	public Categoria obtenerCategoriaMayor() {
 		return null;
 
+	}
+	
+	// TODO Agregar a Diagrama.
+	public void crearChico() {
+		Chico chico = new Chico(parejas);
+		chicos.add(chico);
 	}
 }
