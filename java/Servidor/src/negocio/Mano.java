@@ -1,8 +1,10 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mano {
+
 	private int idMano;
 	private List<Pareja> parejas;
 	private List<Baza> bazas;
@@ -12,6 +14,15 @@ public class Mano {
 	private int puntoParaTerminarChico;
 	private Mazo mazo;
 	private Pareja ganadorBaza1;
+
+	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico) {
+		super();
+		setParejas(parejas);
+		setJugadores(jugadores);
+		setPuntoParaTerminarChico(puntoParaTerminarChico);
+		this.mazo = new Mazo();
+		this.bazas = new ArrayList<>();
+	}
 
 	public int getIdMano() {
 		return idMano;
