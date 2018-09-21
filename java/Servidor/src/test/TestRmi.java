@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import servidor.Server;
 
-public class Test {
+public class TestRmi {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
