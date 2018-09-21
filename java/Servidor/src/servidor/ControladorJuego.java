@@ -20,8 +20,10 @@ public class ControladorJuego {
 
 	public void iniciarJuego(GrupoJuego grupo) {
 		Juego j = fcJuegos.getJuego(grupo.getTipoJuego());
-		if (j != null)
+		if (j != null) {
+			j.setParejas(grupo.getParejas());
 			juegos.add(j);
+		}
 	}
 
 }

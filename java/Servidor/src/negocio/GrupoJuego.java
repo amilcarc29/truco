@@ -6,12 +6,12 @@ import java.util.List;
 
 public class GrupoJuego {
 	private int id;
-	private List<Pareja> pareja;
+	private List<Pareja> parejas;
 	private Date fechaCreacion;
 	private String tipoJuego;
 
 	public GrupoJuego() {
-		pareja = new LinkedList<Pareja>();
+		parejas = new LinkedList<Pareja>();
 		fechaCreacion = new Date();
 	}
 
@@ -19,12 +19,12 @@ public class GrupoJuego {
 		return id;
 	}
 
-	public List<Pareja> getPareja() {
-		return pareja;
+	public List<Pareja> getParejas() {
+		return parejas;
 	}
 
 	public void setPareja(List<Pareja> pareja) {
-		this.pareja = pareja;
+		this.parejas = pareja;
 	}
 
 	public Date getFechaCreacion() {
@@ -53,23 +53,20 @@ public class GrupoJuego {
 
 	// TODO addJugadores YA NO ESTA
 
-	public boolean agregarJugador(Jugador jugador) {
+	public boolean agregarJugador(Jugador jugador1, Jugador jugador2) {
 
-		for (int i = 0; i < this.pareja.size(); i++) {
-			if (this.pareja.get(i).tieneLugar()) {
-				this.pareja.get(i).addJugador(jugador);
-				break;
-			}
-		}
+		Pareja p = new Pareja();
+		p.addJugador(jugador1);
+		p.addJugador(jugador2);
+		return agregarPareja(p);
 
-		return false;
 	}
 
 	public boolean agregarPareja(Pareja pareja) {
 
-		if (this.pareja.size() < 2) {
+		if (this.parejas.size() < 2) {
 
-			this.pareja.add(pareja);
+			this.parejas.add(pareja);
 			return true;
 		}
 		return false;
