@@ -1,6 +1,6 @@
 package negocio;
 
-public abstract class Envite {
+public  class Envite {
 	private int idEnvite;
 	private int puntos;
 	private int orden;

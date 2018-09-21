@@ -9,7 +9,7 @@ public class Mano {
 	private List<Pareja> parejas;
 	private List<Baza> bazas;
 	private List<Jugador> jugadores;
-	private Envite envite;
+	private Envido envido;
 	private Truco truco;
 	private int puntoParaTerminarChico;
 	private Mazo mazo;
@@ -22,14 +22,7 @@ public class Mano {
 		setPuntoParaTerminarChico(puntoParaTerminarChico);
 		this.mazo = new Mazo();
 		this.bazas = new ArrayList<>();
-	}
-
-	public int getIdMano() {
-		return idMano;
-	}
-
-	public void setIdMano(int idMano) {
-		this.idMano = idMano;
+		this.bazas.add(new Baza());
 	}
 
 	public List<Pareja> getParejas() {
@@ -56,22 +49,6 @@ public class Mano {
 		this.jugadores = jugadores;
 	}
 
-	public Envite getEnvite() {
-		return envite;
-	}
-
-	public void setEnvite(Envite envite) {
-		this.envite = envite;
-	}
-
-	public Truco getTruco() {
-		return truco;
-	}
-
-	public void setTruco(Truco truco) {
-		this.truco = truco;
-	}
-
 	public int getPuntoParaTerminarChico() {
 		return puntoParaTerminarChico;
 	}
@@ -95,5 +72,75 @@ public class Mano {
 	public void setGanadorBaza1(Pareja ganadorBaza1) {
 		this.ganadorBaza1 = ganadorBaza1;
 	}
+	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
+	public void cantarTruco(int idJugador) {
+		// TODO Auto-generated method stub
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(idJugador);
+
+		this.truco = new Truco();
+
+	}
+
+	public void cantarVale4(int idJugador) {
+		// TODO Auto-generated method stub
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(idJugador);
+
+		if (this.truco == null)
+			this.truco = new Truco();
+
+		Vale4 v4 = new Vale4();
+		this.truco.addDec(v4);
+
+	}
+
+	public void cantarReTruco(int idJugador) {
+		// TODO Auto-generated method stub
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(idJugador);
+		this.truco = new Truco();
+
+		ReTruco rt = new ReTruco();
+
+		Vale4 v4 = new Vale4();
+		v4.addDec(rt);
+
+		this.truco.addDec(v4);
+
+	}
+
+	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
+		if (quieroSiNo)
+			System.out.println("puntos quiero Truco " + this.truco.getPuntosQuiero());
+		else
+			System.out.println("puntos no Quiero Truco  " + this.truco.getPuntosNoQuiero());
+
+		// TODO Auto-generated method stub
+
+	}
+
+	public void finalizarMano() {
+
+	}
+
+	public void cantarEnvido(int idJugador) {
+		// TODO Auto-generated method stub
+		this.bazas.get(this.bazas.size() - 1).cantarEnvido(idJugador);
+		if (this.envido == null)
+			this.envido = new Envido();
+		else {
+			Envido env = new Envido();
+			this.envido.addDec(env);
+
+		}
+
+	}
+	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
+		if (quieroSiNo)
+			System.out.println("puntos quiero Envido " + this.envido.getPuntosQuiero());
+		else
+			System.out.println("puntos no quiero Envido  " + this.envido.getPuntosNoQuiero());
+
+		// TODO Auto-generated method stub
+
+	}
 }

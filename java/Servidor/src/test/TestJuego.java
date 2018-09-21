@@ -34,6 +34,17 @@ public class TestJuego {
 		g.setTipoJuego("LIBRE");
 		ju = new ControladorJuego();
 		ju.iniciarJuego(g);
+		ju.cantarEnvido(1, 1);
+		ju.cantarEnvido(1, 3);
+		ju.cantarQuieroEnvido(true, 1, 3);
+
+		
+		ju.cantarTruco(1, 1);
+		ju.cantarReTruco(1, 3);
+		ju.cantarVale4(1, 1);
+		
+		ju.cantarQuieroTruco(false, 1, 3);
+		
 		
 		
 		

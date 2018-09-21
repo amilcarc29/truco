@@ -10,7 +10,7 @@ public class Chico {
 	private List<Puntuacion> puntos;
 	private Pareja ganador;
 	private int puntosPorGanar;
-	
+
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
 		this.parejas = parejas;
@@ -18,18 +18,11 @@ public class Chico {
 		this.ganador = null;
 		this.puntosPorGanar = 30;
 	}
-	
+
 	public int getIdChico() {
 		return idChico;
 	}
 
-	public List<Mano> getManos() {
-		return manos;
-	}
-
-	public void setManos(List<Mano> manos) {
-		this.manos = manos;
-	}
 
 	public List<Puntuacion> getPuntos() {
 		return puntos;
@@ -87,8 +80,39 @@ public class Chico {
 
 	// TODO Agregar parámetro parejas a Diagrama.
 	public void altaMano(List<Pareja> parejas, List<Jugador> jugadores, int puntosParaTerminar) {
-		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y puntosPorTerminar del Chico?
+		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
+		// puntosPorTerminar del Chico?
 		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
 		manos.add(mano);
+	}
+
+	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
+
+
+
+	public void cantarTruco(int idJugador) {
+		// TODO Auto-generated method stub
+		this.manos.get(this.manos.size()-1).cantarTruco(idJugador);	
+	}
+	public void cantarVale4(int idJugador) {
+		// TODO Auto-generated method stub
+		this.manos.get(this.manos.size()-1).cantarVale4(idJugador);	
+	}
+	public void cantarReTruco(int idJugador) {
+		// TODO Auto-generated method stub
+		this.manos.get(this.manos.size()-1).cantarReTruco(idJugador);	
+	}
+
+	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
+		// TODO Auto-generated method stub
+		this.manos.get(this.manos.size()-1).cantarQuieroTruco(quieroSiNo, idJugador);
+	}
+	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
+		// TODO Auto-generated method stub
+		this.manos.get(this.manos.size()-1).cantarQuieroEnvido(quieroSiNo, idJugador);
+	}
+	public void cantarEnvido(int idJugador) {
+		this.manos.get(this.manos.size()-1).cantarEnvido(idJugador);
+		
 	}
 }

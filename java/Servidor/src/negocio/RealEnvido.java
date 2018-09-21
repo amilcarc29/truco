@@ -1,11 +1,29 @@
 package negocio;
 
-public class RealEnvido extends DecoradorEnvido{
+public class RealEnvido extends ComponenteEnvido {
+
+	private ComponenteEnvido dec = null;
+
+	public void addDec(ComponenteEnvido dec) {
+		this.dec = dec;
+	}
 
 	@Override
-	public int getPuntos() {
+	public int getPuntosQuiero() {
 		// TODO Auto-generated method stub
-		return 0;
+		if (dec != null)
+			return 3 + this.dec.getPuntosQuiero();
+
+		return 3;
+	}
+
+	@Override
+	public int getPuntosNoQuiero() {
+		// TODO Auto-generated method stub
+		if (dec != null)
+			return 2 + this.dec.getPuntosQuiero();
+
+		return 2;
 	}
 
 }

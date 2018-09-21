@@ -2,9 +2,11 @@ package negocio;
 
 public abstract class Jugador {
 	private String nombre = "";
+	private static int idJugador = 0;
 
 	public Jugador() {
 		super();
+		idJugador++;
 	}
 
 	public String getNombre() {
@@ -13,6 +15,12 @@ public abstract class Jugador {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	// TODO agregar
+
+	public boolean esJugador(int idjugador) {
+
+		return (idJugador == idjugador);
 	}
 
 }

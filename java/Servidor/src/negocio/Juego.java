@@ -6,14 +6,14 @@ import java.util.List;
 
 public abstract class Juego {
 
-	private int idJuego;
+	private static int idJuego = 0;
 	private List<Pareja> parejas;
 	private List<Chico> chicos;
 	private Pareja ganador;
 	private int puntoBase;
 	private Date fecha;
 	private boolean activo;
-	
+
 	public Juego() {
 		super();
 		this.parejas = new ArrayList<>();
@@ -21,13 +21,13 @@ public abstract class Juego {
 		setPuntoBase(0);
 		this.fecha = new Date();
 		setActivo(true);
+		idJuego++;
 	}
-
 
 	public abstract void calcularPuntos();
 
-	public int getIdJuego() {
-		return idJuego;
+	public boolean sosJuego(int idJuego) {
+		return (this.idJuego == idJuego);
 	}
 
 	public List<Pareja> getParejas() {
@@ -36,14 +36,6 @@ public abstract class Juego {
 
 	public void setParejas(List<Pareja> parejas) {
 		this.parejas = parejas;
-	}
-
-	public List<Chico> getChicos() {
-		return chicos;
-	}
-
-	public void setChicos(List<Chico> chicos) {
-		this.chicos = chicos;
 	}
 
 	public Pareja getGanador() {
@@ -95,10 +87,51 @@ public abstract class Juego {
 		return null;
 
 	}
-	
+
 	// TODO Agregar a Diagrama.
 	public void crearChico() {
 		Chico chico = new Chico(parejas);
+		List<Jugador> jugadores = new ArrayList<Jugador>();
+
+		for (int i = 0; i < jugadores.size(); i++) {
+			jugadores.add(jugadores.get(i));
+		}
+		
+		chico.altaMano(parejas, jugadores, 0);
 		chicos.add(chico);
+	}
+
+	// TODO Agregar a Diagrama.
+
+	public void cantarTruco(int idJugador) {
+
+		chicos.get(chicos.size() - 1).cantarTruco(idJugador);
+
+	}
+
+	public void cantarReTruco(int idJugador) {
+
+		chicos.get(chicos.size() - 1).cantarReTruco(idJugador);
+
+	}
+
+	public void cantarVale4(int idJugador) {
+
+		chicos.get(chicos.size() - 1).cantarVale4(idJugador);
+
+	}
+
+	public void cantarQuieroEnvido(boolean quieroSiNo,int idJugador) {
+		// TODO Auto-generated method stub
+		chicos.get(chicos.size() - 1).cantarQuieroEnvido(quieroSiNo, idJugador);
+	}
+
+	public void cantarQuieroTruco(boolean quieroSiNo,int idJugador) {
+		// TODO Auto-generated method stub
+		chicos.get(chicos.size() - 1).cantarQuieroTruco(quieroSiNo, idJugador);
+	}
+	public void cantarEnvido(int idJugador) {
+		chicos.get(chicos.size() - 1).cantarEnvido(idJugador);
+		
 	}
 }

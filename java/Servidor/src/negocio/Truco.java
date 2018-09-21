@@ -1,23 +1,26 @@
 package negocio;
 
-public class Truco {
-	private int idTruco;
-	private int puntos;
-	private int orden;
+public class Truco extends ComponenteTruco {
+	private ComponenteTruco dec = null;
 
-	public void setIdEnvite(int idTruco) {
-		this.idTruco = idTruco;
+	public Truco() {
+
 	}
-	public int getPuntos() {
-		return puntos;
+
+	public void addDec(ComponenteTruco dec) {
+		this.dec = dec;
 	}
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
+
+	public int getPuntosQuiero() {
+		if (dec != null)
+			return 	this.dec.getPuntosQuiero();
+		return 2;
 	}
-	public int getOrden() {
-		return orden;
+
+	public int getPuntosNoQuiero() {
+		if (dec != null)
+			return this.dec.getPuntosNoQuiero();
+		return 1;
 	}
-	public void setOrden(int orden) {
-		this.orden = orden;
-	}
+
 }
