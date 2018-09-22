@@ -12,10 +12,10 @@ public class Carta {
 		super();
 		// TODO Levantar el idCarta de la base de datos.
 		this.idCarta = idCarta;
-		this.numero = numero;
-		this.palo = palo;
-		this.pesoTruco = pesoTruco;
-		this.pesoEnvido = pesoEnvido;
+		setNumero(numero);
+		setPalo(palo);
+		setPesoTruco(pesoTruco);
+		setPesoEnvido(pesoEnvido);
 	}
 
 	public Carta() {
