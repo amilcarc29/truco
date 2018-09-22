@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Baza {
-	private int idBaza;
 	private List<Jugador> jugadores;
 	private List<Jugada> jugadas;
 	private Jugador jugadaMayor;
@@ -14,14 +13,6 @@ public class Baza {
 	public Baza() {
 		this.jugadas = new LinkedList<Jugada>();
 
-	}
-
-	public int getIdBaza() {
-		return idBaza;
-	}
-
-	public List<Jugador> getJugadores() {
-		return jugadores;
 	}
 
 	public void setJugadores(List<Jugador> jugadores) {
@@ -60,8 +51,8 @@ public class Baza {
 		this.numero = numero;
 	}
 
-	public boolean controlarFinalizacion() {
-		return false;
+	public boolean finalizoBaza() {
+		return (this.jugadas.size() == 4);
 
 	}
 
@@ -79,23 +70,27 @@ public class Baza {
 
 	}
 
-	public void jugarCarta(int idJugador, int idCarta) {
+	public void jugarCarta(int idJugador, int numero, String palo) {
 		// TODO Auto-generated method stub
-		Jugada jugada = new Jugada();
 		Jugador jugador = this.buscaJugador(idJugador);
-		jugada.setJugador(jugador);
-		Carta c = jugador.getCarta(idCarta);
-		jugada.setCarta(c);
-		this.jugadas.add(jugada);
-		
-		System.out.println("JUGADOR "  + jugador.getNombre() + " , JUGO " );
-		c.dbg();
+		Carta c = jugador.getCarta(numero, palo);
 
-		
+		if ((jugador == null) || (c == null)) {
+
+			System.out.println("NO se encuentra la carta o el jugador");
+		} else {
+			Jugada jugada = new Jugada();
+			jugada.setJugador(jugador);
+
+			jugada.setCarta(c);
+			this.jugadas.add(jugada);
+			System.out.println("jugador " + jugador.getNombre() + " , jugo " + c.getNumero() + " " + c.getPalo());
+		}
+
 	}
 
 	private Jugador buscaJugador(int idJugador) {
-		for (Jugador j : jugadores) {
+		for (Jugador j : this.jugadores) {
 			if (j.esJugador(idJugador))
 				return j;
 

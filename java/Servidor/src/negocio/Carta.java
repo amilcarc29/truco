@@ -2,23 +2,25 @@ package negocio;
 
 public class Carta {
 
-	private int idCarta;
+	private int idCarta = 0;
 	private int numero;
 	private String palo;
 	private int pesoTruco;
 	private int pesoEnvido;
+	private static int cnt = 0;
 
-	public Carta(int idCarta, int numero, String palo, int pesoTruco, int pesoEnvido) {
+	private static int getID() {
+		return cnt++;
+	}
+
+	public Carta(int numero, String palo, int pesoTruco, int pesoEnvido) {
 		super();
 		// TODO Levantar el idCarta de la base de datos.
-		this.idCarta = idCarta;
 		this.numero = numero;
 		this.palo = palo;
 		this.pesoTruco = pesoTruco;
 		this.pesoEnvido = pesoEnvido;
-	}
-
-	public Carta() {
+		idCarta = getID();
 	}
 
 	public int getNumero() {
@@ -53,14 +55,10 @@ public class Carta {
 		this.pesoEnvido = pesoEnvido;
 	}
 
-	public boolean esCarta(int idCarta) {
+	public boolean esCarta(int numero, String palo) {
 		// TODO Auto-generated method stub
-		return (this.idCarta == idCarta);
+		return (this.numero == numero) && (this.palo.equals(palo));
 	}
 
-	public void dbg() {
-
-		System.out.println("Nmero " + this.numero + "Palo " + this.palo);
-	}
 
 }

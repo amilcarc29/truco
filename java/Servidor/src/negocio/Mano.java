@@ -17,28 +17,31 @@ public class Mano {
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico) {
 		super();
-		setParejas(parejas);
-		setJugadores(jugadores);
+		this.parejas = parejas;
+		this.jugadores = jugadores;
 		setPuntoParaTerminarChico(puntoParaTerminarChico);
 		this.mazo = new Mazo();
 		this.bazas = new ArrayList<>();
 		repartir();
 		// TODO primera baza
-		this.bazas.add(new Baza());
-		Dbg();
-	}
-	//TODO LOG
-	private void Dbg(){
+		altaBaza();
+
 		for (Jugador jug : jugadores) {
-			System.out.println(" JUG = >"  + jug.getNombre());
+			System.out.println(" JUG = >" + jug.getNombre());
 		}
 
-		
 	}
-	
+
+	private void altaBaza() {
+		Baza b = new Baza();
+		b.setJugadores(jugadores);
+		this.bazas.add(b);
+		System.out.println(" baza num " + this.bazas.size());
+	}
+
 	private void repartir() {
 		for (Jugador jug : jugadores) {
-			
+
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
 			jug.setCartas(cartas);
 
@@ -122,10 +125,6 @@ public class Mano {
 
 	}
 
-	public void finalizarMano() {
-
-	}
-
 	public void cantarEnvido(int idJugador) {
 		// TODO Auto-generated method stub
 		this.bazas.get(this.bazas.size() - 1).cantarEnvido(idJugador);
@@ -149,10 +148,17 @@ public class Mano {
 
 	}
 
-	public void jugarCarta(int idJugador, int idCarta) {
+	public void jugarCarta(int idJugador, int numero, String palo) {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).jugarCarta(idJugador, idCarta);
-		
+		this.bazas.get(this.bazas.size() - 1).jugarCarta(idJugador, numero, palo);
 
+		if (this.bazas.get(this.bazas.size() - 1).finalizoBaza()) {
+			altaBaza();
+		}
+
+	}
+
+	public boolean finalizoMano() {
+		return false;
 	}
 }
