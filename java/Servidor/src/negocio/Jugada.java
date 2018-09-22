@@ -6,6 +6,15 @@ public class Jugada {
 	private Carta carta;
 	private int orden;
 
+	public Jugada(Jugador jugador, Carta carta, int orden) {
+		super();
+		setJugador(jugador);
+		setCarta(carta);
+		setOrden(orden);
+	}
+
+	public Jugada() {
+	}
 
 	public Jugador getJugador() {
 		return jugador;
