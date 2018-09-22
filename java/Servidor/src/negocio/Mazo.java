@@ -14,6 +14,9 @@ public class Mazo {
 		// Agregar carta por carta o vemos de agregar todas las cartas en este constructor.
 		cartas = new Vector<>();
 		generator = new Random();
+		
+		
+		
 	}
 
 	// TODO Cambiar a Public en Diagrama

@@ -96,7 +96,7 @@ public abstract class Juego {
 		for (int i = 0; i < jugadores.size(); i++) {
 			jugadores.add(jugadores.get(i));
 		}
-		
+
 		chico.altaMano(parejas, jugadores, 0);
 		chicos.add(chico);
 	}
@@ -121,17 +121,35 @@ public abstract class Juego {
 
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo,int idJugador) {
+	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
 		// TODO Auto-generated method stub
 		chicos.get(chicos.size() - 1).cantarQuieroEnvido(quieroSiNo, idJugador);
 	}
 
-	public void cantarQuieroTruco(boolean quieroSiNo,int idJugador) {
+	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
 		// TODO Auto-generated method stub
 		chicos.get(chicos.size() - 1).cantarQuieroTruco(quieroSiNo, idJugador);
 	}
+
 	public void cantarEnvido(int idJugador) {
 		chicos.get(chicos.size() - 1).cantarEnvido(idJugador);
-		
+
+	}
+
+	public void jugarCarta(int idJugador, int idCarta) {
+		// TODO Auto-generated method stub
+		chicos.get(chicos.size() - 1).jugarCarta(idJugador, idCarta);
+
+	}
+
+	//TODO alta de mano en el ultimo chico
+	public void altaMano() {
+		List<Jugador> jugadores = new ArrayList<Jugador>();
+
+		for (int i = 0; i < jugadores.size(); i++) {
+			jugadores.add(jugadores.get(i));
+		}
+
+		chicos.get(chicos.size() - 1).altaMano(this.parejas, jugadores, 0);
 	}
 }

@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Baza {
@@ -9,6 +10,11 @@ public class Baza {
 	private Jugador jugadaMayor;
 	private boolean parda;
 	private int numero;
+
+	public Baza() {
+		this.jugadas = new LinkedList<Jugada>();
+
+	}
 
 	public int getIdBaza() {
 		return idBaza;
@@ -72,4 +78,29 @@ public class Baza {
 		// TODO Auto-generated method stub
 
 	}
+
+	public void jugarCarta(int idJugador, int idCarta) {
+		// TODO Auto-generated method stub
+		Jugada jugada = new Jugada();
+		Jugador jugador = this.buscaJugador(idJugador);
+		jugada.setJugador(jugador);
+		Carta c = jugador.getCarta(idCarta);
+		jugada.setCarta(c);
+		this.jugadas.add(jugada);
+		
+		System.out.println("JUGADOR "  + jugador.getNombre() + " , JUGO " );
+		c.dbg();
+
+		
+	}
+
+	private Jugador buscaJugador(int idJugador) {
+		for (Jugador j : jugadores) {
+			if (j.esJugador(idJugador))
+				return j;
+
+		}
+		return null;
+	}
+
 }

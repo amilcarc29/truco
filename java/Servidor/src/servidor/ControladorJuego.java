@@ -76,5 +76,15 @@ public class ControladorJuego {
 		}
 		return null;
 	}
+	
+	public void jugarCarta(int idJuego, int idJugador, int idCarta) {
+		Juego j = this.buscarJuego(idJuego);
+		j.jugarCarta(idJugador,idCarta);
+	}
+
+	public void nuevaMano(int idJuego) {
+		Juego j = this.buscarJuego(idJuego);
+		j.altaMano();
+	}	
 
 }

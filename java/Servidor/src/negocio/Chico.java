@@ -23,7 +23,6 @@ public class Chico {
 		return idChico;
 	}
 
-
 	public List<Puntuacion> getPuntos() {
 		return puntos;
 	}
@@ -83,36 +82,46 @@ public class Chico {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
 		// puntosPorTerminar del Chico?
 		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
+
 		manos.add(mano);
 	}
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
-
-
 	public void cantarTruco(int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarTruco(idJugador);	
+		this.manos.get(this.manos.size() - 1).cantarTruco(idJugador);
 	}
+
 	public void cantarVale4(int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarVale4(idJugador);	
+		this.manos.get(this.manos.size() - 1).cantarVale4(idJugador);
 	}
+
 	public void cantarReTruco(int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarReTruco(idJugador);	
+		this.manos.get(this.manos.size() - 1).cantarReTruco(idJugador);
 	}
 
 	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarQuieroTruco(quieroSiNo, idJugador);
+		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(quieroSiNo, idJugador);
 	}
+
 	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarQuieroEnvido(quieroSiNo, idJugador);
+		this.manos.get(this.manos.size() - 1).cantarQuieroEnvido(quieroSiNo, idJugador);
 	}
+
 	public void cantarEnvido(int idJugador) {
-		this.manos.get(this.manos.size()-1).cantarEnvido(idJugador);
-		
+		this.manos.get(this.manos.size() - 1).cantarEnvido(idJugador);
+
 	}
+
+	public void jugarCarta(int idJugador, int idCarta) {
+		// TODO Auto-generated method stub
+		this.manos.get(this.manos.size() - 1).jugarCarta(idJugador, idCarta);
+
+	}
+
 }

@@ -52,4 +52,15 @@ public class Carta {
 	public void setPesoEnvido(int pesoEnvido) {
 		this.pesoEnvido = pesoEnvido;
 	}
+
+	public boolean esCarta(int idCarta) {
+		// TODO Auto-generated method stub
+		return (this.idCarta == idCarta);
+	}
+
+	public void dbg() {
+
+		System.out.println("Nmero " + this.numero + "Palo " + this.palo);
+	}
+
 }

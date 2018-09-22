@@ -2,10 +2,10 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class Mano {
 
-	private int idMano;
 	private List<Pareja> parejas;
 	private List<Baza> bazas;
 	private List<Jugador> jugadores;
@@ -22,7 +22,27 @@ public class Mano {
 		setPuntoParaTerminarChico(puntoParaTerminarChico);
 		this.mazo = new Mazo();
 		this.bazas = new ArrayList<>();
+		repartir();
+		// TODO primera baza
 		this.bazas.add(new Baza());
+		Dbg();
+	}
+	//TODO LOG
+	private void Dbg(){
+		for (Jugador jug : jugadores) {
+			System.out.println(" JUG = >"  + jug.getNombre());
+		}
+
+		
+	}
+	
+	private void repartir() {
+		for (Jugador jug : jugadores) {
+			
+			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
+			jug.setCartas(cartas);
+
+		}
 	}
 
 	public List<Pareja> getParejas() {
@@ -31,14 +51,6 @@ public class Mano {
 
 	public void setParejas(List<Pareja> parejas) {
 		this.parejas = parejas;
-	}
-
-	public List<Baza> getBazas() {
-		return bazas;
-	}
-
-	public void setBazas(List<Baza> bazas) {
-		this.bazas = bazas;
 	}
 
 	public List<Jugador> getJugadores() {
@@ -55,14 +67,6 @@ public class Mano {
 
 	public void setPuntoParaTerminarChico(int puntoParaTerminarChico) {
 		this.puntoParaTerminarChico = puntoParaTerminarChico;
-	}
-
-	public Mazo getMazo() {
-		return mazo;
-	}
-
-	public void setMazo(Mazo mazo) {
-		this.mazo = mazo;
 	}
 
 	public Pareja getGanadorBaza1() {
@@ -134,6 +138,7 @@ public class Mano {
 		}
 
 	}
+
 	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
 		if (quieroSiNo)
 			System.out.println("puntos quiero Envido " + this.envido.getPuntosQuiero());
@@ -141,6 +146,13 @@ public class Mano {
 			System.out.println("puntos no quiero Envido  " + this.envido.getPuntosNoQuiero());
 
 		// TODO Auto-generated method stub
+
+	}
+
+	public void jugarCarta(int idJugador, int idCarta) {
+		// TODO Auto-generated method stub
+		this.bazas.get(this.bazas.size() - 1).jugarCarta(idJugador, idCarta);
+		
 
 	}
 }
