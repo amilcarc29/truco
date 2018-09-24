@@ -64,12 +64,23 @@ public class Baza {
 	}
 
 	public void cantarTruco(int idJugador) {
-		// TODO Auto-generated method stub
-
+		// TODO qué hace esta función
+		jugadores.stream()
+			.filter(jugador -> jugador.esJugador(idJugador))
+			.findFirst()
+			.ifPresent(jugador -> {
+				System.out.println("Jugador " + jugador.getNombre() + "cantó Truco.");
+			});
 	}
 
 	public void cantarEnvido(int idJugador) {
-		// TODO Auto-generated method stub
+		// TODO qué hace esta función
+		jugadores.stream()
+		.filter(jugador -> jugador.esJugador(idJugador))
+		.findFirst()
+		.ifPresent(jugador -> {
+			System.out.println("Jugador " + jugador.getNombre() + "cantó Envido.");
+		});
 
 	}
 }
