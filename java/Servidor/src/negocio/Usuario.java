@@ -8,9 +8,20 @@ public class Usuario {
 
 	private String apodo;
 	private String pass;
+	private String email;
 
 	private Categoria categoria;
 	private boolean activo;
+
+	public Usuario() {
+	}
+
+	public Usuario(String apodo, String email, String password) {
+		super();
+		setApodo(apodo);
+		setEmail(email);
+		setPass(password);
+	}
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -56,6 +67,14 @@ public class Usuario {
 		this.pass = pass;
 	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -72,4 +91,12 @@ public class Usuario {
 		this.activo = activo;
 	}
 
+	public boolean validarLogin(String pass) {
+		return getPass().equals(pass);
+	}
+
+	// TODO Agregar al Diagrama.
+	public boolean esUsuario(String apodo) {
+		return getApodo().equals(apodo);
+	}
 }

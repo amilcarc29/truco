@@ -16,10 +16,18 @@ public class Carta {
 	public Carta(int numero, String palo, int pesoTruco, int pesoEnvido) {
 		super();
 		// TODO Levantar el idCarta de la base de datos.
-		this.numero = numero;
-		this.palo = palo;
-		this.pesoTruco = pesoTruco;
-		this.pesoEnvido = pesoEnvido;
+		this.idCarta = idCarta;
+		setNumero(numero);
+		setPalo(palo);
+		setPesoTruco(pesoTruco);
+		setPesoEnvido(pesoEnvido);
+	}
+
+	public Carta() {
+		setNumero(numero);
+		setPalo(palo);
+		setPesoTruco(pesoTruco);
+		setPesoEnvido(pesoEnvido);
 		idCarta = getID();
 	}
 
@@ -59,6 +67,4 @@ public class Carta {
 		// TODO Auto-generated method stub
 		return (this.numero == numero) && (this.palo.equals(palo));
 	}
-
-
 }
