@@ -4,6 +4,13 @@ public abstract class Jugador {
 	private String nombre = "";
 	private static int idJugador = 0;
 
+	public Jugador(String nombre) {
+		super();
+		setNombre(nombre);
+		// TODO levantar el id de la bd.
+		this.idJugador = 0;
+	}
+
 	public Jugador() {
 		super();
 		idJugador++;
