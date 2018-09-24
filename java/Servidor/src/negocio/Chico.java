@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chico {
-	private int idChico;
 	private List<Mano> manos;
 	private List<Pareja> parejas;
 	private List<Puntuacion> puntos;
 	private Pareja ganador;
 	private int puntosPorGanar;
+	private List<Jugador> jugadores;
+	private int puntosParaTerminar;
 
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
@@ -18,11 +19,6 @@ public class Chico {
 		this.ganador = null;
 		this.puntosPorGanar = 30;
 	}
-
-	public int getIdChico() {
-		return idChico;
-	}
-
 
 	public List<Puntuacion> getPuntos() {
 		return puntos;
@@ -56,7 +52,8 @@ public class Chico {
 		this.parejas = parejas;
 	}
 
-	public boolean verificarChico() {
+	public boolean finalizoChico() {
+
 		return false;
 
 	}
@@ -82,37 +79,57 @@ public class Chico {
 	public void altaMano(List<Pareja> parejas, List<Jugador> jugadores, int puntosParaTerminar) {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
 		// puntosPorTerminar del Chico?
+		this.parejas = parejas;
+		this.jugadores = jugadores;
+		this.puntosParaTerminar = puntosParaTerminar;
+
 		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
+
 		manos.add(mano);
+
+		System.out.println("MANO NUM" + manos.size());
 	}
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
-
-
 	public void cantarTruco(int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarTruco(idJugador);	
+		this.manos.get(this.manos.size() - 1).cantarTruco(idJugador);
 	}
+
 	public void cantarVale4(int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarVale4(idJugador);	
+		this.manos.get(this.manos.size() - 1).cantarVale4(idJugador);
 	}
+
 	public void cantarReTruco(int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarReTruco(idJugador);	
+		this.manos.get(this.manos.size() - 1).cantarReTruco(idJugador);
 	}
 
 	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarQuieroTruco(quieroSiNo, idJugador);
+		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(quieroSiNo, idJugador);
 	}
+
 	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size()-1).cantarQuieroEnvido(quieroSiNo, idJugador);
+		this.manos.get(this.manos.size() - 1).cantarQuieroEnvido(quieroSiNo, idJugador);
 	}
+
 	public void cantarEnvido(int idJugador) {
-		this.manos.get(this.manos.size()-1).cantarEnvido(idJugador);
-		
+		this.manos.get(this.manos.size() - 1).cantarEnvido(idJugador);
+
 	}
+
+	public void jugarCarta(int idJugador, int numero, String palo) {
+		// TODO Auto-generated method stub
+
+		this.manos.get(this.manos.size() - 1).jugarCarta(idJugador, numero, palo);
+
+		if (this.manos.get(this.manos.size() - 1).finalizoMano())
+			altaMano(parejas, jugadores, puntosParaTerminar);
+
+	}
+
 }

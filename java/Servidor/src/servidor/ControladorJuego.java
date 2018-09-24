@@ -77,4 +77,9 @@ public class ControladorJuego {
 		return null;
 	}
 
+	public void jugarCarta(int idJuego, int idJugador, int numero, String palo) {
+		Juego j = this.buscarJuego(idJuego);
+		j.jugarCarta(idJugador, numero, palo);
+	}
+
 }

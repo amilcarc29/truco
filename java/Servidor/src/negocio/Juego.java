@@ -5,14 +5,18 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class Juego {
-
-	private static int idJuego = 0;
+	private static int cnt = 0;
+	private int idJuego;
 	private List<Pareja> parejas;
 	private List<Chico> chicos;
 	private Pareja ganador;
 	private int puntoBase;
 	private Date fecha;
 	private boolean activo;
+
+	private static int getID() {
+		return cnt++;
+	}
 
 	public Juego() {
 		super();
@@ -21,13 +25,13 @@ public abstract class Juego {
 		setPuntoBase(0);
 		this.fecha = new Date();
 		setActivo(true);
-		idJuego++;
+		this.idJuego = getID();
 	}
 
 	public abstract void calcularPuntos();
 
-	public boolean sosJuego(int idJuego) {
-		return (this.idJuego == idJuego);
+	public boolean sosJuego(int id) {
+		return (this.idJuego == id);
 	}
 
 	public List<Pareja> getParejas() {
@@ -90,13 +94,13 @@ public abstract class Juego {
 
 	// TODO Agregar a Diagrama.
 	public void crearChico() {
-		Chico chico = new Chico(parejas);
 		List<Jugador> jugadores = new ArrayList<Jugador>();
 
-		for (int i = 0; i < jugadores.size(); i++) {
-			jugadores.add(jugadores.get(i));
+		for (int i = 0; i < this.parejas.size(); i++) {
+
+			jugadores.addAll(this.parejas.get(i).getJugadores());
 		}
-		
+		Chico chico = new Chico(parejas);
 		chico.altaMano(parejas, jugadores, 0);
 		chicos.add(chico);
 	}
@@ -121,17 +125,31 @@ public abstract class Juego {
 
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo,int idJugador) {
+	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
 		// TODO Auto-generated method stub
 		chicos.get(chicos.size() - 1).cantarQuieroEnvido(quieroSiNo, idJugador);
 	}
 
-	public void cantarQuieroTruco(boolean quieroSiNo,int idJugador) {
+	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
 		// TODO Auto-generated method stub
 		chicos.get(chicos.size() - 1).cantarQuieroTruco(quieroSiNo, idJugador);
 	}
+
 	public void cantarEnvido(int idJugador) {
 		chicos.get(chicos.size() - 1).cantarEnvido(idJugador);
-		
+
 	}
+
+	public void jugarCarta(int idJugador, int numero, String palo) {
+		// TODO Auto-generated method stub
+
+		
+		chicos.get(chicos.size() - 1).jugarCarta(idJugador, numero, palo);
+		
+		if (chicos.get(chicos.size() - 1).finalizoChico())
+			crearChico();
+
+
+	}
+
 }
