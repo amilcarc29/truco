@@ -14,6 +14,13 @@ public abstract class Jugador {
 		return cnt++;
 	}
 
+	public Jugador(String nombre) {
+		super();
+		setNombre(nombre);
+		// TODO levantar el id de la bd.
+		this.idJugador = 0;
+	}
+
 	public Jugador() {
 		super();
 		idJugador = getID();

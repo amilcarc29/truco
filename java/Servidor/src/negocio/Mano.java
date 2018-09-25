@@ -152,13 +152,14 @@ public class Mano {
 		// TODO Auto-generated method stub
 		this.bazas.get(this.bazas.size() - 1).jugarCarta(idJugador, numero, palo);
 
-		if (this.bazas.get(this.bazas.size() - 1).finalizoBaza()) {
-			altaBaza();
-		}
-
 	}
 
 	public boolean finalizoMano() {
-		return false;
+		return this.bazas.size() == 3;
+	}
+
+	public void calcularPuntos() {
+		// TODO Auto-generated method stub
+		
 	}
 }

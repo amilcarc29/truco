@@ -92,7 +92,7 @@ public abstract class Juego {
 
 	}
 
-	// TODO Agregar a Diagrama.
+	// TODO tener en cuenta el orden para cada mano
 	public void crearChico() {
 		List<Jugador> jugadores = new ArrayList<Jugador>();
 
@@ -101,7 +101,7 @@ public abstract class Juego {
 			jugadores.addAll(this.parejas.get(i).getJugadores());
 		}
 		Chico chico = new Chico(parejas);
-		chico.altaMano(parejas, jugadores, 0);
+		chico.altaMano(parejas, jugadores, 30);
 		chicos.add(chico);
 	}
 
@@ -143,13 +143,25 @@ public abstract class Juego {
 	public void jugarCarta(int idJugador, int numero, String palo) {
 		// TODO Auto-generated method stub
 
-		
 		chicos.get(chicos.size() - 1).jugarCarta(idJugador, numero, palo);
+
+	}
+
+	public boolean verificarFinChico() {
 		
-		if (chicos.get(chicos.size() - 1).finalizoChico())
+		//GANA 2 O EMPATAN Y JUEGAN 3, verificar empate
+		//if (chicos.size()>=2)
+		
+		
+		if (chicos.get(chicos.size() - 1).finalizoChico()) {
 			crearChico();
+			return true;
+		}
+		return false;
+	}
 
-
+	public void contarPuntos() {
+		chicos.get(chicos.size() - 1).calcularPuntos();
 	}
 
 }

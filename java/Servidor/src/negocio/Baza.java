@@ -6,7 +6,9 @@ import java.util.List;
 public class Baza {
 	private List<Jugador> jugadores;
 	private List<Jugada> jugadas;
-	private Jugador jugadaMayor;
+	private Jugada jugadaMayor = null;
+	
+	
 	private boolean parda;
 	private int numero;
 
@@ -27,14 +29,6 @@ public class Baza {
 		this.jugadas = jugadas;
 	}
 
-	public Jugador getJugadaMayor() {
-		return jugadaMayor;
-	}
-
-	public void setJugadaMayor(Jugador jugadaMayor) {
-		this.jugadaMayor = jugadaMayor;
-	}
-
 	public boolean isParda() {
 		return parda;
 	}
@@ -52,7 +46,8 @@ public class Baza {
 	}
 
 	public boolean finalizoBaza() {
-		return (this.jugadas.size() == 4);
+		//TODO cuenta desde 0 las jugadas en la jugada simple son 4 maximo
+		return (this.jugadas.size() == 3);
 
 	}
 
@@ -61,12 +56,23 @@ public class Baza {
 	}
 
 	public void cantarTruco(int idJugador) {
-		// TODO Auto-generated method stub
-
+		// TODO qué hace esta función
+		jugadores.stream()
+			.filter(jugador -> jugador.esJugador(idJugador))
+			.findFirst()
+			.ifPresent(jugador -> {
+				System.out.println("Jugador " + jugador.getNombre() + "cantó Truco.");
+			});
 	}
 
 	public void cantarEnvido(int idJugador) {
-		// TODO Auto-generated method stub
+		// TODO qué hace esta función
+		jugadores.stream()
+		.filter(jugador -> jugador.esJugador(idJugador))
+		.findFirst()
+		.ifPresent(jugador -> {
+			System.out.println("Jugador " + jugador.getNombre() + "cantó Envido.");
+		});
 
 	}
 
@@ -78,13 +84,29 @@ public class Baza {
 		if ((jugador == null) || (c == null)) {
 
 			System.out.println("NO se encuentra la carta o el jugador");
+
 		} else {
 			Jugada jugada = new Jugada();
 			jugada.setJugador(jugador);
 
 			jugada.setCarta(c);
 			this.jugadas.add(jugada);
+
+			if (jugadaMayor == null)
+				jugadaMayor = jugada;
+
+			else {
+
+				if (this.jugadaMayor.esMayor(jugada))
+					this.jugadaMayor = jugada;
+
+				System.out.println("jugada mayor " + this.jugadaMayor.getJugador().getNombre() + " ,  "
+						+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
+
+			}
+
 			System.out.println("jugador " + jugador.getNombre() + " , jugo " + c.getNumero() + " " + c.getPalo());
+			numero++;
 		}
 
 	}
