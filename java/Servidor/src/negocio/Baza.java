@@ -8,7 +8,6 @@ public class Baza {
 	private List<Jugada> jugadas;
 	private Jugada jugadaMayor = null;
 	
-	
 	private boolean parda;
 	private int numero;
 
