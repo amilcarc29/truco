@@ -39,11 +39,8 @@ public class Jugada {
 	public void setOrden(int orden) {
 		this.orden = orden;
 	}
-
 	public boolean esMayor(Jugada jugada) {
-
 		return carta.esMayor(jugada.getCarta());
 
 	}
-
 }
