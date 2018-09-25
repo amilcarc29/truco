@@ -14,6 +14,7 @@ public class ControladorJuego {
 	private ControladorJuego instancia;
 
 	public ControladorJuego() {
+		juegos = new Vector<>();
 	}
 
 	public ControladorJuego(Vector<Juego> juegos, FactoryJuegos factory) {

@@ -17,6 +17,11 @@ public class ControladorArmadoJuegos {
 	private static ControladorArmadoJuegos instancia;
 
 	public ControladorArmadoJuegos() {
+		grupos = new Vector<>();
+		jugadores = new Vector<>();
+		parejas = new Vector<>();
+		jugadoresEnEspera = new Vector<>();
+		parejasEnEspera = new Vector<>();
 	}
 
 	public ControladorArmadoJuegos(Vector<GrupoJuego> grupos, Vector<Jugador> jugadores, Vector<Pareja> parejas,

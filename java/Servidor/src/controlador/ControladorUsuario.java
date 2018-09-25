@@ -11,6 +11,7 @@ public class ControladorUsuario {
 	private static ControladorUsuario instancia;
 
 	public ControladorUsuario() {
+		usuarios = new Vector<>();
 	}
 
 	public ControladorUsuario(Vector<Usuario> usuarios) {
