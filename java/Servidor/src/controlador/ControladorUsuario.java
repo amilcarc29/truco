@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.Vector;
 
+import excepciones.UsuarioException;
 import negocio.Usuario;
 
 public class ControladorUsuario {
@@ -32,13 +33,13 @@ public class ControladorUsuario {
 		this.usuarios.add(usuario);
 	}
 
-	public Usuario buscarUsuarioPorApodo(String apodo) {
+	public Usuario buscarUsuarioPorApodo(String apodo) throws UsuarioException {
 		for (Usuario usuario : getUsuarios()) {
 			if (usuario.esUsuario(apodo)) {
 				return usuario;
 			}
 		}
-		return null;
+		throw new UsuarioException("El usuario: " + apodo + "no existe.");
 	}
 
 	public Usuario buscarUsuarioPorEmail(String email) {
@@ -47,14 +48,14 @@ public class ControladorUsuario {
 	}
 
 	// TODO Agregar a Diagrama.
-	public void modificarUsuario(String apodo, String email, String password) {
+	public void modificarUsuario(String apodo, String email, String password) throws UsuarioException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		usuario.setEmail(email);
 		usuario.setPass(password);
 	}
 
 	// TODO Agregar a Diagrama. Y Modificar
-	public void loggearUsuario(String apodo, String password) {
+	public void loggearUsuario(String apodo, String password) throws UsuarioException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		if (usuario.validarLogin(password)) {
 			System.out.println("Usuario: " + usuario.getApodo() + "se loggeó.");

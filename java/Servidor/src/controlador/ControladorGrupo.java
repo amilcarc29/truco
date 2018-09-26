@@ -2,11 +2,12 @@ package controlador;
 
 import java.util.Vector;
 
-import negocio.GrupoJuego;
+import excepciones.GrupoException;
+import negocio.Grupo;
 
 public class ControladorGrupo {
 
-	private Vector<GrupoJuego> grupos;
+	private Vector<Grupo> grupos;
 
 	private static ControladorGrupo instancia;
 
@@ -14,16 +15,26 @@ public class ControladorGrupo {
 		grupos = new Vector<>();
 	}
 
-	public ControladorGrupo(Vector<GrupoJuego> grupos) {
+	public ControladorGrupo(Vector<Grupo> grupos) {
 		setGrupos(grupos);
 	}
 
-	public Vector<GrupoJuego> getGrupos() {
+	public Vector<Grupo> getGrupos() {
 		return grupos;
 	}
 
-	public void setGrupos(Vector<GrupoJuego> grupos) {
+	public void setGrupos(Vector<Grupo> grupos) {
 		this.grupos = grupos;
+	}
+
+	// FIXME Por qué String nombre si el grupo tiene un id?
+	public Grupo buscarGrupo(String nombre) throws GrupoException {
+		for (Grupo grupo : grupos) {
+			if (grupo.esGrupo(nombre)) {
+				return grupo;
+			}
+		}
+		throw new GrupoException("El grupo con nombre: " + nombre + "no existe.");
 	}
 
 	public static ControladorGrupo getInstancia() {

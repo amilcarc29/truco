@@ -2,6 +2,9 @@ package controlador;
 
 import java.util.Vector;
 
+import excepciones.GrupoJuegoException;
+import excepciones.JugadorException;
+import excepciones.ParejaException;
 import negocio.GrupoJuego;
 import negocio.Jugador;
 import negocio.Pareja;
@@ -115,19 +118,31 @@ public class ControladorArmadoJuegos {
 		// TODO
 	}
 
-	public GrupoJuego buscarGrupo(int idGrupo) {
-		// TODO
-		return null;
+	public GrupoJuego buscarGrupo(int idGrupo) throws GrupoJuegoException {
+		for (GrupoJuego grupoJuego : grupos) {
+			if (grupoJuego.esGrupoJuego(idGrupo)) {
+				return grupoJuego;
+			}
+		}
+		throw new GrupoJuegoException("El GrupoJuego: " + idGrupo + "no existe.");
 	}
 
-	public Jugador buscarJugador(int idJugador) {
-		// TODO
-		return null;
+	public Jugador buscarJugador(int idJugador) throws JugadorException {
+		for (Jugador jugador : jugadores) {
+			if (jugador.esJugador(idJugador)) {
+				return jugador;
+			}
+		}
+		throw new JugadorException("El jugador: " + idJugador + "no existe.");
 	}
 
-	public Pareja buscarPareja(int idPareja) {
-		// TODO
-		return null;
+	public Pareja buscarPareja(int idPareja) throws ParejaException {
+		for (Pareja pareja : parejas) {
+			if (pareja.esPareja(idPareja)) {
+				return pareja;
+			}
+		}
+		throw new ParejaException("La pareja: " + idPareja + "no existe.");
 	}
 
 	public static ControladorArmadoJuegos getInstancia() {

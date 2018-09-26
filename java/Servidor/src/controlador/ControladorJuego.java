@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.Vector;
 
+import excepciones.JuegoException;
 import negocio.FactoryJuegos;
 import negocio.GrupoJuego;
 import negocio.Juego;
@@ -93,6 +94,16 @@ public class ControladorJuego {
 
 	public void salir(int idJuego, int idJugador) {
 		// TODO
+	}
+
+	// TODO Agregar al Diagrama.
+	public Juego buscarJuego(int idJuego) throws JuegoException {
+		for (Juego juego : juegos) {
+			if (juego.sosJuego(idJuego)) {
+				return juego;
+			}
+		}
+		throw new JuegoException("El juego: " + idJuego + "no existe.");
 	}
 
 	public ControladorJuego getInstancia() {
