@@ -82,4 +82,16 @@ public class ControladorJuego {
 		j.jugarCarta(idJugador, numero, palo);
 	}
 
+	public boolean verificarFinJuego(int idJuego) {
+		Juego j = this.buscarJuego(idJuego);
+		return j.verificarFinChico();
+
+	}
+
+	public void contarPuntos(int idJuego) {
+		// TODO Auto-generated method stub
+		Juego j = this.buscarJuego(idJuego);
+		j.contarPuntos();
+	}
+
 }

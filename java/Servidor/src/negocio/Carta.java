@@ -67,4 +67,11 @@ public class Carta {
 		// TODO Auto-generated method stub
 		return (this.numero == numero) && (this.palo.equals(palo));
 	}
+
+	
+	public boolean esMayor(Carta carta) {
+
+		return carta.getPesoTruco() > this.pesoTruco;
+
+	}
 }

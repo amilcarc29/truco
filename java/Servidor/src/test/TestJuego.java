@@ -38,26 +38,24 @@ public class TestJuego {
 		ju = new ControladorJuego();
 		ju.iniciarJuego(g);
 
-		// ju.cantarEnvido(1, 1);
-		// ju.cantarEnvido(1, 3);
-		// ju.cantarQuieroEnvido(true, 1, 3);
+		// ju.cantarEnvido(0, 1);
+		// ju.cantarEnvido(0, 3);
+		// ju.cantarQuieroEnvido(true, 0, 3);
 		//
-		//
-		// ju.cantarTruco(1, 1);
-		// ju.cantarReTruco(1, 3);
-		// ju.cantarVale4(1, 1);
-		//
-		// ju.cantarQuieroTruco(false, 1, 3);
+		// ju.cantarTruco(0, 1);
+		// ju.cantarReTruco(0, 3);
+		// ju.cantarVale4(0, 1);
+
+		// ju.cantarQuieroTruco(false, 0, 3);
 
 		// ju.jugarCarta(0, 0, 2);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			try {
-				
+
 				mostrarCartas();
-				
-				
+
 				System.out.println("jug num: ");
 				int idj = Integer.parseInt(br.readLine());
 				if (idj < 0)
@@ -70,6 +68,9 @@ public class TestJuego {
 				String cp = br.readLine();
 
 				ju.jugarCarta(0, idj, cn, cp);
+				
+				ju.contarPuntos(0);
+				ju.verificarFinJuego(0);
 
 			} catch (NumberFormatException nfe) {
 				System.err.println("Invalid Format!");
@@ -94,7 +95,6 @@ public class TestJuego {
 		j4.mostrarCartas();
 		System.out.println(" ------------------------------------------------------------");
 		System.out.println(" ");
-
 
 	}
 }

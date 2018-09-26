@@ -8,13 +8,21 @@ public class Chico {
 	private List<Pareja> parejas;
 	private List<Puntuacion> puntos;
 	private Pareja ganador;
+
+	// 30 PUNTOS MAXIMO
 	private int puntosPorGanar;
+
 	private List<Jugador> jugadores;
+
+	// PARA FALTA ENVIDO
 	private int puntosParaTerminar;
 
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
+
 		this.parejas = parejas;
+
+		// puntos por manos
 		this.puntos = new ArrayList<>();
 		this.ganador = null;
 		this.puntosPorGanar = 30;
@@ -53,6 +61,19 @@ public class Chico {
 	}
 
 	public boolean finalizoChico() {
+
+		if (this.manos.get(this.manos.size() - 1).finalizoMano()) {
+
+			for (Puntuacion p : this.puntos) {
+				// MAYOR PORQUE PUEDE QUE SUME MAS DE 30
+				if (p.getPuntos() >= puntosPorGanar) {
+					this.ganador = p.getPareja();
+					return true;
+				}
+
+			}
+
+		}
 
 		return false;
 
@@ -127,8 +148,12 @@ public class Chico {
 
 		this.manos.get(this.manos.size() - 1).jugarCarta(idJugador, numero, palo);
 
-		if (this.manos.get(this.manos.size() - 1).finalizoMano())
-			altaMano(parejas, jugadores, puntosParaTerminar);
+	}
+
+	public void calcularPuntos() {
+		// TODO Auto-generated method stub
+
+		this.manos.get(this.manos.size() - 1).calcularPuntos();
 
 	}
 
