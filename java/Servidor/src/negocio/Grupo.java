@@ -58,6 +58,14 @@ public class Grupo {
 
 	}
 
+	public boolean esGrupo(int id) {
+		return this.idGrupo == id;
+	}
+
+	public boolean esGrupo(String nombre) {
+		return getNombre().equalsIgnoreCase(nombre);
+	}
+
 	public boolean sePuedeJugar() {
 		return false;
 		

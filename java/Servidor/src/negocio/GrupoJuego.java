@@ -72,4 +72,9 @@ public class GrupoJuego {
 		return false;
 
 	}
+
+	// TODO Agregar a Diagrama.
+	public boolean esGrupoJuego(int idGrupo) {
+		return getId() == idGrupo;
+	}
 }
