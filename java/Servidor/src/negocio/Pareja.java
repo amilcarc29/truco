@@ -43,4 +43,8 @@ public class Pareja {
 		return false;
 	}
 
+	// TODO Agregar a Diagrama.
+	public boolean esPareja(int idPareja) {
+		return getIdPareja() == idPareja;
+	}
 }
