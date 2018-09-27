@@ -95,10 +95,6 @@ public class Baza {
 				this.jugadaMayor = jugada;
 			System.out.println("jugada mayor " + this.jugadaMayor.getJugador().getNombre() + " ,  "
 					+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
-		if ((jugador == null) || (c == null)) {
-
-			System.out.println("NO se encuentra la carta o el jugador");
-
 		}
 		System.out.println("jugador " + jugador.getNombre() + " , jugo " + c.getNumero() + " " + c.getPalo());
 		numero++;
