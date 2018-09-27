@@ -82,34 +82,26 @@ public class Baza {
 		Jugador jugador = this.buscaJugador(idJugador);
 		Carta c = jugador.getCarta(numero, palo);
 
+		Jugada jugada = new Jugada();
+		jugada.setJugador(jugador);
+
+		jugada.setCarta(c);
+		this.jugadas.add(jugada);
+
+		if (jugadaMayor == null)
+			jugadaMayor = jugada;
+		else {
+			if (this.jugadaMayor.esMayor(jugada))
+				this.jugadaMayor = jugada;
+			System.out.println("jugada mayor " + this.jugadaMayor.getJugador().getNombre() + " ,  "
+					+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
 		if ((jugador == null) || (c == null)) {
 
 			System.out.println("NO se encuentra la carta o el jugador");
 
-		} else {
-			Jugada jugada = new Jugada();
-			jugada.setJugador(jugador);
-
-			jugada.setCarta(c);
-			this.jugadas.add(jugada);
-
-			if (jugadaMayor == null)
-				jugadaMayor = jugada;
-
-			else {
-
-				if (this.jugadaMayor.esMayor(jugada))
-					this.jugadaMayor = jugada;
-
-				System.out.println("jugada mayor " + this.jugadaMayor.getJugador().getNombre() + " ,  "
-						+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
-
-			}
-
-			System.out.println("jugador " + jugador.getNombre() + " , jugo " + c.getNumero() + " " + c.getPalo());
-			numero++;
 		}
-
+		System.out.println("jugador " + jugador.getNombre() + " , jugo " + c.getNumero() + " " + c.getPalo());
+		numero++;
 	}
 
 	private Jugador buscaJugador(int idJugador) throws JugadorException {

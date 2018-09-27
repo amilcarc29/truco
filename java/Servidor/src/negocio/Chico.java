@@ -22,8 +22,8 @@ public class Chico {
 
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
+		setParejas(parejas);
 
-		this.parejas = parejas;
 
 		// puntos por manos
 		this.puntos = new ArrayList<>();
@@ -148,16 +148,12 @@ public class Chico {
 
 	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		// TODO Auto-generated method stub
-
 		this.manos.get(this.manos.size() - 1).jugarCarta(idJugador, numero, palo);
-
 	}
 
 	public void calcularPuntos() {
 		// TODO Auto-generated method stub
-
 		this.manos.get(this.manos.size() - 1).calcularPuntos();
-
 	}
 
 }
