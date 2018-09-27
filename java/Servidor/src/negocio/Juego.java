@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import excepciones.CartaException;
+import excepciones.JugadorException;
+
 public abstract class Juego {
 	private static int cnt = 0;
 	private int idJuego;
@@ -137,14 +140,11 @@ public abstract class Juego {
 
 	public void cantarEnvido(int idJugador) {
 		chicos.get(chicos.size() - 1).cantarEnvido(idJugador);
-
 	}
 
-	public void jugarCarta(int idJugador, int numero, String palo) {
+	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		// TODO Auto-generated method stub
-
 		chicos.get(chicos.size() - 1).jugarCarta(idJugador, numero, palo);
-
 	}
 
 	public boolean verificarFinChico() {

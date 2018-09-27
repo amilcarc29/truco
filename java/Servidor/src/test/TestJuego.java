@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import excepciones.CartaException;
+import excepciones.JuegoException;
+import excepciones.JugadorException;
 import negocio.GrupoJuego;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
@@ -20,7 +23,7 @@ public class TestJuego {
 	static Jugador j3 = new JugadorIndividual(us1);
 	static Jugador j4 = new JugadorIndividual(us1);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JugadorException, CartaException, JuegoException {
 
 		j1.setNombre("Emiliano");
 

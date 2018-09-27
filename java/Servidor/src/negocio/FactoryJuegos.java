@@ -1,7 +1,9 @@
 package negocio;
 
+import excepciones.JuegoException;
+
 public class FactoryJuegos {
-	public Juego getJuego(String tipo) {
+	public Juego getJuego(String tipo) throws JuegoException {
 
 		if (tipo.equals("LIBRE"))
 			return new ModalidadLibreIndividual();
@@ -12,7 +14,7 @@ public class FactoryJuegos {
 		if (tipo.equals("ENPAREJA"))
 			return new ModalidadLibreEnPareja();
 
-		return null;
+		throw new JuegoException("El tipo " + tipo + "no existe.");
 
 	}
 }

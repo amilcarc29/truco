@@ -42,9 +42,13 @@ public class ControladorUsuario {
 		throw new UsuarioException("El usuario: " + apodo + "no existe.");
 	}
 
-	public Usuario buscarUsuarioPorEmail(String email) {
-		// TODO
-		return null;
+	public Usuario buscarUsuarioPorEmail(String email) throws UsuarioException {
+		for (Usuario usuario : getUsuarios()) {
+			if (usuario.getEmail().equals(email)) {
+				return usuario;
+			}
+		}
+		throw new UsuarioException("El usuario: " + email + "no existe.");
 	}
 
 	// TODO Agregar a Diagrama.
@@ -60,7 +64,7 @@ public class ControladorUsuario {
 		if (usuario.validarLogin(password)) {
 			System.out.println("Usuario: " + usuario.getApodo() + "se loggeó.");
 		} else {
-			System.out.println("Usuario: " + usuario.getApodo() + "incorrecto.");
+			System.out.println("Contraseña incorrecta para: " + usuario.getApodo());
 		}
 	}
 

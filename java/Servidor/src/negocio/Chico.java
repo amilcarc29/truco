@@ -3,6 +3,9 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import excepciones.CartaException;
+import excepciones.JugadorException;
+
 public class Chico {
 	private List<Mano> manos;
 	private List<Pareja> parejas;
@@ -143,7 +146,7 @@ public class Chico {
 
 	}
 
-	public void jugarCarta(int idJugador, int numero, String palo) {
+	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		// TODO Auto-generated method stub
 
 		this.manos.get(this.manos.size() - 1).jugarCarta(idJugador, numero, palo);

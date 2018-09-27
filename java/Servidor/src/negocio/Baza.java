@@ -3,6 +3,9 @@ package negocio;
 import java.util.LinkedList;
 import java.util.List;
 
+import excepciones.CartaException;
+import excepciones.JugadorException;
+
 public class Baza {
 	private List<Jugador> jugadores;
 	private List<Jugada> jugadas;
@@ -75,8 +78,7 @@ public class Baza {
 
 	}
 
-	public void jugarCarta(int idJugador, int numero, String palo) {
-		// TODO Auto-generated method stub
+	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		Jugador jugador = this.buscaJugador(idJugador);
 		Carta c = jugador.getCarta(numero, palo);
 
@@ -110,13 +112,11 @@ public class Baza {
 
 	}
 
-	private Jugador buscaJugador(int idJugador) {
+	private Jugador buscaJugador(int idJugador) throws JugadorException {
 		for (Jugador j : this.jugadores) {
 			if (j.esJugador(idJugador))
 				return j;
-
 		}
-		return null;
+		throw new JugadorException("No se encontró al jugador " + idJugador);
 	}
-
 }

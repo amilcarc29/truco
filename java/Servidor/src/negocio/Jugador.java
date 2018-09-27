@@ -3,6 +3,8 @@ package negocio;
 import java.util.LinkedList;
 import java.util.List;
 
+import excepciones.CartaException;
+
 public abstract class Jugador {
 	private String nombre = "";
 	private int idJugador = 0;
@@ -46,7 +48,7 @@ public abstract class Jugador {
 		return (cartas.size() > 0);
 	}
 
-	public Carta getCarta(int numero, String palo) {
+	public Carta getCarta(int numero, String palo) throws CartaException {
 
 		for (Carta carta : cartas) {
 			if (carta.esCarta(numero, palo)) {
@@ -54,7 +56,7 @@ public abstract class Jugador {
 				return carta;
 			}
 		}
-		return null;
+		throw new CartaException("No se encontró a la carta: " + numero + " de " + palo);
 	}
 
 	public void mostrarCartas() {
