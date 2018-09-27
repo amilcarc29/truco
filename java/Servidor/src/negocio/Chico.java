@@ -3,6 +3,9 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import excepciones.CartaException;
+import excepciones.JugadorException;
+
 public class Chico {
 	private List<Mano> manos;
 	private List<Pareja> parejas;
@@ -19,8 +22,12 @@ public class Chico {
 
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
+		this.jugadores = new ArrayList<>();
+		setParejas(parejas);
 
-		this.parejas = parejas;
+		for (Pareja pareja : getParejas()) {
+			jugadores.addAll(pareja.getJugadores());
+		}
 
 		// puntos por manos
 		this.puntos = new ArrayList<>();
@@ -143,18 +150,14 @@ public class Chico {
 
 	}
 
-	public void jugarCarta(int idJugador, int numero, String palo) {
+	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		// TODO Auto-generated method stub
-
 		this.manos.get(this.manos.size() - 1).jugarCarta(idJugador, numero, palo);
-
 	}
 
 	public void calcularPuntos() {
 		// TODO Auto-generated method stub
-
 		this.manos.get(this.manos.size() - 1).calcularPuntos();
-
 	}
 
 }

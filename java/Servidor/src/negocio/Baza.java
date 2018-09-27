@@ -3,6 +3,9 @@ package negocio;
 import java.util.LinkedList;
 import java.util.List;
 
+import excepciones.CartaException;
+import excepciones.JugadorException;
+
 public class Baza {
 	private List<Jugador> jugadores;
 	private List<Jugada> jugadas;
@@ -75,48 +78,33 @@ public class Baza {
 
 	}
 
-	public void jugarCarta(int idJugador, int numero, String palo) {
-		// TODO Auto-generated method stub
+	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		Jugador jugador = this.buscaJugador(idJugador);
 		Carta c = jugador.getCarta(numero, palo);
 
-		if ((jugador == null) || (c == null)) {
+		Jugada jugada = new Jugada();
+		jugada.setJugador(jugador);
 
-			System.out.println("NO se encuentra la carta o el jugador");
+		jugada.setCarta(c);
+		this.jugadas.add(jugada);
 
-		} else {
-			Jugada jugada = new Jugada();
-			jugada.setJugador(jugador);
-
-			jugada.setCarta(c);
-			this.jugadas.add(jugada);
-
-			if (jugadaMayor == null)
-				jugadaMayor = jugada;
-
-			else {
-
-				if (this.jugadaMayor.esMayor(jugada))
-					this.jugadaMayor = jugada;
-
-				System.out.println("jugada mayor " + this.jugadaMayor.getJugador().getNombre() + " ,  "
-						+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
-
-			}
-
-			System.out.println("jugador " + jugador.getNombre() + " , jugo " + c.getNumero() + " " + c.getPalo());
-			numero++;
+		if (jugadaMayor == null)
+			jugadaMayor = jugada;
+		else {
+			if (this.jugadaMayor.esMayor(jugada))
+				this.jugadaMayor = jugada;
+			System.out.println("jugada mayor " + this.jugadaMayor.getJugador().getNombre() + " ,  "
+					+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
 		}
-
+		System.out.println("jugador " + jugador.getNombre() + " , jugo " + c.getNumero() + " " + c.getPalo());
+		numero++;
 	}
 
-	private Jugador buscaJugador(int idJugador) {
+	private Jugador buscaJugador(int idJugador) throws JugadorException {
 		for (Jugador j : this.jugadores) {
 			if (j.esJugador(idJugador))
 				return j;
-
 		}
-		return null;
+		throw new JugadorException("No se encontró al jugador " + idJugador);
 	}
-
 }

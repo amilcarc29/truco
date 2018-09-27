@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import excepciones.CartaException;
+import excepciones.JugadorException;
+
 public class Mano {
 
 	private List<Pareja> parejas;
@@ -148,7 +151,7 @@ public class Mano {
 
 	}
 
-	public void jugarCarta(int idJugador, int numero, String palo) {
+	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		// TODO Auto-generated method stub
 		this.bazas.get(this.bazas.size() - 1).jugarCarta(idJugador, numero, palo);
 
