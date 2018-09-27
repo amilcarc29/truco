@@ -22,8 +22,12 @@ public class Chico {
 
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
+		this.jugadores = new ArrayList<>();
 		setParejas(parejas);
 
+		for (Pareja pareja : getParejas()) {
+			jugadores.addAll(pareja.getJugadores());
+		}
 
 		// puntos por manos
 		this.puntos = new ArrayList<>();
