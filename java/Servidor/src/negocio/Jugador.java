@@ -28,6 +28,10 @@ public abstract class Jugador {
 		idJugador = getID();
 		cartas = new LinkedList<Carta>();
 	}
+	
+	public int getId(){
+		return this.idJugador;
+	}
 
 	public String getNombre() {
 		return nombre;

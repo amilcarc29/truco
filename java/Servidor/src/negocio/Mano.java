@@ -12,11 +12,18 @@ public class Mano {
 	private List<Pareja> parejas;
 	private List<Baza> bazas;
 	private List<Jugador> jugadores;
+
+	/// TODO VER!!
+	private List<Puntuacion> puntos;
+
 	private Envido envido;
 	private Truco truco;
+
 	private int puntoParaTerminarChico;
 	private Mazo mazo;
-	private Pareja ganadorBaza1;
+
+	private Pareja ganadorBaza1 = null;
+	private int jugadorOrden = 0;
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico) {
 		super();
@@ -25,6 +32,16 @@ public class Mano {
 		setPuntoParaTerminarChico(puntoParaTerminarChico);
 		this.mazo = new Mazo();
 		this.bazas = new ArrayList<>();
+
+		this.puntos = new ArrayList<>();
+
+		// puntos pareja mano
+		for (Pareja p : parejas) {
+			Puntuacion punt = new Puntuacion();
+			punt.setPareja(p);
+			puntos.add(punt);
+		}
+
 		repartir();
 		// TODO primera baza
 		altaBaza();
@@ -40,6 +57,11 @@ public class Mano {
 		b.setJugadores(jugadores);
 		this.bazas.add(b);
 		System.out.println(" baza num " + this.bazas.size());
+		jugadorOrden = 0;
+	}
+
+	public List<Puntuacion> getPuntos() {
+		return this.puntos;
 	}
 
 	private void repartir() {
@@ -119,11 +141,18 @@ public class Mano {
 	}
 
 	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
-		if (quieroSiNo)
-			System.out.println("puntos quiero Truco " + this.truco.getPuntosQuiero());
-		else
-			System.out.println("puntos no Quiero Truco  " + this.truco.getPuntosNoQuiero());
 
+		Puntuacion p = getPuntosJugador(idJugador);
+
+		if (quieroSiNo) {
+			p.sumarPuntos(this.envido.getPuntosQuiero());
+
+			System.out.println("puntos quiero Truco " + this.truco.getPuntosQuiero());
+		} else {
+			p.sumarPuntos(this.envido.getPuntosNoQuiero());
+
+			System.out.println("puntos no Quiero Truco  " + this.truco.getPuntosNoQuiero());
+		}
 		// TODO Auto-generated method stub
 
 	}
@@ -142,27 +171,67 @@ public class Mano {
 	}
 
 	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
-		if (quieroSiNo)
-			System.out.println("puntos quiero Envido " + this.envido.getPuntosQuiero());
-		else
-			System.out.println("puntos no quiero Envido  " + this.envido.getPuntosNoQuiero());
 
 		// TODO Auto-generated method stub
+		Puntuacion p = getPuntosJugador(idJugador);
+
+		if (quieroSiNo) {
+
+			p.sumarPuntos(this.envido.getPuntosQuiero());
+
+			System.out.println("puntos quiero Envido " + this.envido.getPuntosQuiero());
+
+		} else {
+
+			p.sumarPuntos(this.envido.getPuntosNoQuiero());
+
+			System.out.println("puntos no quiero Envido  " + this.envido.getPuntosNoQuiero());
+
+		}
 
 	}
 
-	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
+	/// TODO AGREGAR!
+	public void sinCantar() {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).jugarCarta(idJugador, numero, palo);
 
+		Jugada j = this.bazas.get(this.bazas.size() - 1).jugadaMayor();
+		Puntuacion p = getPuntosJugador(j.getJugador().getId());
+
+		// sin truco ni envido 1 PUNTO
+		p.sumarPuntos(1);
+
+	}
+
+	// TODO agregar
+
+	private Puntuacion getPuntosJugador(int idJugador) {
+		for (Puntuacion pun : puntos)
+			/// TODO VER!!
+			if (pun.tieneJugador(idJugador))
+				return pun;
+
+		return null;
+	}
+
+	public void jugarCarta(int numero, String palo) throws JugadorException, CartaException {
+		// TODO Auto-generated method stub
+		this.bazas.get(this.bazas.size() - 1).jugarCarta(jugadorOrden, numero, palo);
+		jugadorOrden++;
 	}
 
 	public boolean finalizoMano() {
-		return this.bazas.size() == 3;
+		if (this.bazas.get(this.bazas.size() - 1).finalizoBaza()) {
+			if (this.bazas.size() <= 3) {
+				altaBaza();
+				
+			} else {
+				
+				return true;
+			}
+
+		}
+		return false;
 	}
 
-	public void calcularPuntos() {
-		// TODO Auto-generated method stub
-		
-	}
 }

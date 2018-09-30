@@ -33,7 +33,7 @@ public class Pareja {
 	}
 
 	// TODO tiene jugador
-
+	
 	public boolean tieneJugador(int idJugador) {
 		for (Jugador jug : jugadores) {
 			if (jug.esJugador(idJugador))

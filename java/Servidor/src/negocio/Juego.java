@@ -141,27 +141,42 @@ public abstract class Juego {
 	public void cantarEnvido(int idJugador) {
 		chicos.get(chicos.size() - 1).cantarEnvido(idJugador);
 	}
-
-	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
+	public void sinCantar() {
 		// TODO Auto-generated method stub
-		chicos.get(chicos.size() - 1).jugarCarta(idJugador, numero, palo);
+		chicos.get(chicos.size() - 1).sinCantar();
+
 	}
 
-	public boolean verificarFinChico() {
+	public void jugarCarta( int numero, String palo) throws JugadorException, CartaException {
+		// TODO Auto-generated method stub
+		chicos.get(chicos.size() - 1).jugarCarta( numero, palo);
+	}
+
+	public boolean terminoMano() {
+		return	chicos.get(chicos.size() - 1).terminoMano();
+	}
+
+
+	public void contarPuntos() {
+	
+	}
+
+	public boolean verificarFinJuego() {
 		
-		//GANA 2 O EMPATAN Y JUEGAN 3, verificar empate
-		//if (chicos.size()>=2)
-		
-		
-		if (chicos.get(chicos.size() - 1).finalizoChico()) {
-			crearChico();
+		if (chicos.size()>=2) {
+			System.out.println("FIN CHICOS");
+
 			return true;
+		}else
+		{
+			if (chicos.get(chicos.size() - 1).finalizoChico()) 
+				crearChico();
 		}
+		
 		return false;
 	}
 
-	public void contarPuntos() {
-		chicos.get(chicos.size() - 1).calcularPuntos();
-	}
+
+
 
 }

@@ -10,13 +10,17 @@ public class Baza {
 	private List<Jugador> jugadores;
 	private List<Jugada> jugadas;
 	private Jugada jugadaMayor = null;
-	
-	private boolean parda;
+
+	private boolean parda = false;
 	private int numero;
 
 	public Baza() {
 		this.jugadas = new LinkedList<Jugada>();
 
+	}
+
+	public Jugada jugadaMayor() {
+		return this.jugadaMayor;
 	}
 
 	public void setJugadores(List<Jugador> jugadores) {
@@ -48,8 +52,10 @@ public class Baza {
 	}
 
 	public boolean finalizoBaza() {
-		//TODO cuenta desde 0 las jugadas en la jugada simple son 4 maximo
-		return (this.jugadas.size() == 3);
+		// TODO cuenta desde 0 las jugadas en la jugada simple son 4 maximo
+		if (parda)
+			return (this.jugadas.size() >= 3);
+		return (this.jugadas.size() == 4);
 
 	}
 
@@ -59,27 +65,22 @@ public class Baza {
 
 	public void cantarTruco(int idJugador) {
 		// TODO qué hace esta función
-		jugadores.stream()
-			.filter(jugador -> jugador.esJugador(idJugador))
-			.findFirst()
-			.ifPresent(jugador -> {
-				System.out.println("Jugador " + jugador.getNombre() + "cantó Truco.");
-			});
+		jugadores.stream().filter(jugador -> jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
+			System.out.println("Jugador " + jugador.getNombre() + "cantó Truco.");
+		});
 	}
 
 	public void cantarEnvido(int idJugador) {
 		// TODO qué hace esta función
-		jugadores.stream()
-		.filter(jugador -> jugador.esJugador(idJugador))
-		.findFirst()
-		.ifPresent(jugador -> {
+		jugadores.stream().filter(jugador -> jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
 			System.out.println("Jugador " + jugador.getNombre() + "cantó Envido.");
 		});
 
 	}
 
 	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
-		Jugador jugador = this.buscaJugador(idJugador);
+		Jugador jugador = jugadores.get(idJugador);
+		System.out.println(" Juega " + jugador.getNombre());
 		Carta c = jugador.getCarta(numero, palo);
 
 		Jugada jugada = new Jugada();

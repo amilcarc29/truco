@@ -2,7 +2,7 @@ package negocio;
 
 public class Puntuacion {
 	private Pareja pareja;
-	private int puntos;
+	private int puntos = 0;
 
 	public Pareja getPareja() {
 		return pareja;
@@ -15,8 +15,21 @@ public class Puntuacion {
 	public int getPuntos() {
 		return puntos;
 	}
+	public void sumarPuntos(Puntuacion puntuacion) {
+		this.puntos += puntuacion.getPuntos();
+	}
 
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
+	public void sumarPuntos(int puntos) {
+		this.puntos += puntos;
+	}
+
+	public boolean esPuntuacion(Puntuacion puntuacion) {
+		// TODO Auto-generated method stub
+		return this.pareja.esPareja(puntuacion.getPareja().getIdPareja());
+	}
+
+	public boolean tieneJugador(int idJugador) {
+		// TODO Auto-generated method stub
+		return this.pareja.tieneJugador(idJugador);
 	}
 }

@@ -80,14 +80,15 @@ public class ControladorJuego {
 		throw new JuegoException("El juego " + idJuego + "no existe.");
 	}
 
-	public void jugarCarta(int idJuego, int idJugador, int numero, String palo) throws JugadorException, CartaException, JuegoException {
+	public void jugarCarta(int idJuego, int numero, String palo)
+			throws JugadorException, CartaException, JuegoException {
 		Juego j = this.buscarJuego(idJuego);
-		j.jugarCarta(idJugador, numero, palo);
+		j.jugarCarta( numero, palo);
 	}
 
 	public boolean verificarFinJuego(int idJuego) throws JuegoException {
 		Juego j = this.buscarJuego(idJuego);
-		return j.verificarFinChico();
+		return j.verificarFinJuego();
 
 	}
 
@@ -96,5 +97,20 @@ public class ControladorJuego {
 		Juego j = this.buscarJuego(idJuego);
 		j.contarPuntos();
 	}
+
+	public boolean terminoMano(int idJuego) throws JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+
+		return j.terminoMano();
+	}
+
+	public void sinCantar(int idJuego) throws JuegoException {
+		// TODO Auto-generated method stub
+		Juego j = this.buscarJuego(idJuego);
+		j.sinCantar();
+
+	}
+
+	
 
 }

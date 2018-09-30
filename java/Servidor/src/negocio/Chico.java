@@ -9,7 +9,7 @@ import excepciones.JugadorException;
 public class Chico {
 	private List<Mano> manos;
 	private List<Pareja> parejas;
-	private List<Puntuacion> puntos;
+	private List<Puntuacion> puntosChico;
 	private Pareja ganador;
 
 	// 30 PUNTOS MAXIMO
@@ -19,28 +19,33 @@ public class Chico {
 
 	// PARA FALTA ENVIDO
 	private int puntosParaTerminar;
+	
+	
 
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
 		this.jugadores = new ArrayList<>();
-		setParejas(parejas);
+		this.parejas = parejas;
+		this.puntosChico = new ArrayList<>();
 
-		for (Pareja pareja : getParejas()) {
-			jugadores.addAll(pareja.getJugadores());
+		/// se tiene que pasar a una funcion
+		jugadores.add(this.parejas.get(0).getJugadores().get(0));
+		jugadores.add(this.parejas.get(1).getJugadores().get(0));
+		jugadores.add(this.parejas.get(0).getJugadores().get(1));
+		jugadores.add(this.parejas.get(1).getJugadores().get(1));
+
+		for (Pareja pareja : this.parejas) {
+
+			/// puntos en 0
+			Puntuacion p = new Puntuacion();
+			p.setPareja(pareja);
+			this.puntosChico.add(p);
 		}
 
 		// puntos por manos
-		this.puntos = new ArrayList<>();
+
 		this.ganador = null;
 		this.puntosPorGanar = 30;
-	}
-
-	public List<Puntuacion> getPuntos() {
-		return puntos;
-	}
-
-	public void setPuntos(List<Puntuacion> puntos) {
-		this.puntos = puntos;
 	}
 
 	public Pareja getGanador() {
@@ -59,19 +64,36 @@ public class Chico {
 		this.puntosPorGanar = puntosPorGanar;
 	}
 
-	public List<Pareja> getParejas() {
-		return parejas;
+	private void sumarPuntosMano(Puntuacion puntuacion) {
+		for (Puntuacion puntosChico : puntosChico) {
+
+			if (puntosChico.esPuntuacion(puntuacion)) {
+				puntosChico.sumarPuntos(puntuacion);
+			}
+
+		}
 	}
 
-	public void setParejas(List<Pareja> parejas) {
-		this.parejas = parejas;
+	public boolean terminoMano() {
+		return this.manos.get(this.manos.size() - 1).finalizoMano();
 	}
 
 	public boolean finalizoChico() {
+		// finalizo ultima mano
 
-		if (this.manos.get(this.manos.size() - 1).finalizoMano()) {
+		Mano ultimaMano = this.manos.get(this.manos.size() - 1);
 
-			for (Puntuacion p : this.puntos) {
+		if (ultimaMano.finalizoMano()) {
+
+			System.out.println("FIN MANO");
+
+			List<Puntuacion> puntosMano = ultimaMano.getPuntos();
+
+			for (Puntuacion puntuacion : puntosMano) {
+				sumarPuntosMano(puntuacion);
+			}
+
+			for (Puntuacion p : this.puntosChico) {
 				// MAYOR PORQUE PUEDE QUE SUME MAS DE 30
 				if (p.getPuntos() >= puntosPorGanar) {
 					this.ganador = p.getPareja();
@@ -80,6 +102,12 @@ public class Chico {
 
 			}
 
+			cambiarOrden();
+			Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
+			manos.add(mano);
+
+		}else{
+			
 		}
 
 		return false;
@@ -150,14 +178,27 @@ public class Chico {
 
 	}
 
-	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
+	public void sinCantar() {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).jugarCarta(idJugador, numero, palo);
+		this.manos.get(this.manos.size() - 1).sinCantar();
+
 	}
 
-	public void calcularPuntos() {
+	public void jugarCarta(int numero, String palo) throws JugadorException, CartaException {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).calcularPuntos();
+		
+		this.manos.get(this.manos.size() - 1).jugarCarta(numero, palo);
+		
 	}
 
+	// pasa el primer jugador al final del vecor para modificar la mano
+	private void cambiarOrden() {
+		jugadores.add(jugadores.get(0));
+		jugadores.remove(0);
+		
+		System.out.println("ORDEN---------------------------");
+		for (Jugador jugador : jugadores) {
+			System.out.println(" "  + jugador.getNombre());
+		}
+	}
 }
