@@ -199,6 +199,9 @@ public class Chico {
 		System.out.println("ORDEN---------------------------");
 		for (Jugador jugador : jugadores) {
 			System.out.println(" "  + jugador.getNombre());
+			jugador.mostrarCartas();
 		}
+		System.out.println("---------------------------");
+
 	}
 }

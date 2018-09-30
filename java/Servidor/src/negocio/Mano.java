@@ -46,17 +46,14 @@ public class Mano {
 		// TODO primera baza
 		altaBaza();
 
-		for (Jugador jug : jugadores) {
-			System.out.println(" JUG = >" + jug.getNombre());
-		}
-
+	
 	}
 
 	private void altaBaza() {
 		Baza b = new Baza();
 		b.setJugadores(jugadores);
 		this.bazas.add(b);
-		System.out.println(" baza num " + this.bazas.size());
+		System.out.println("BAZA num " + this.bazas.size());
 		jugadorOrden = 0;
 	}
 
@@ -222,7 +219,7 @@ public class Mano {
 
 	public boolean finalizoMano() {
 		if (this.bazas.get(this.bazas.size() - 1).finalizoBaza()) {
-			if (this.bazas.size() <= 3) {
+			if (this.bazas.size() < 3) {
 				altaBaza();
 				
 			} else {

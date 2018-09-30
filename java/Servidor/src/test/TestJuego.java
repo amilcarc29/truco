@@ -46,14 +46,12 @@ public class TestJuego {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		
-
+		 mostrarCartas();
 		
 		while (true) {
 			try {
 				System.out.println("  ");
-				System.out.println("  ");
 
-				mostrarCartas();
 			
 
 				System.out.println("carta numero: ");

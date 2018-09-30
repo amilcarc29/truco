@@ -60,6 +60,7 @@ public abstract class Jugador {
 				return carta;
 			}
 		}
+
 		throw new CartaException("No se encontró a la carta: " + numero + " de " + palo);
 	}
 

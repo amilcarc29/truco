@@ -80,7 +80,9 @@ public class Baza {
 
 	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		Jugador jugador = jugadores.get(idJugador);
-		System.out.println(" Juega " + jugador.getNombre());
+		
+		
+		System.out.println("jugador " + jugador.getNombre());
 		Carta c = jugador.getCarta(numero, palo);
 
 		Jugada jugada = new Jugada();
@@ -97,7 +99,6 @@ public class Baza {
 			System.out.println("jugada mayor " + this.jugadaMayor.getJugador().getNombre() + " ,  "
 					+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
 		}
-		System.out.println("jugador " + jugador.getNombre() + " , jugo " + c.getNumero() + " " + c.getPalo());
 		numero++;
 	}
 
