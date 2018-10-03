@@ -92,7 +92,6 @@ public abstract class Juego {
 
 	public Categoria obtenerCategoriaMayor() {
 		return null;
-
 	}
 
 	// TODO tener en cuenta el orden para cada mano

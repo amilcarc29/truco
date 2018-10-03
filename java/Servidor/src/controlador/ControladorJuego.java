@@ -12,7 +12,7 @@ public class ControladorJuego {
 	private Vector<Juego> juegos;
 	private FactoryJuegos factory;
 
-	private ControladorJuego instancia;
+	private static ControladorJuego instancia;
 
 	public ControladorJuego() {
 		juegos = new Vector<>();
@@ -106,7 +106,7 @@ public class ControladorJuego {
 		throw new JuegoException("El juego: " + idJuego + "no existe.");
 	}
 
-	public ControladorJuego getInstancia() {
+	public static ControladorJuego getInstancia() {
 		if (instancia == null) {
 			instancia = new ControladorJuego();
 		}

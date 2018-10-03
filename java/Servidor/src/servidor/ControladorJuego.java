@@ -18,7 +18,6 @@ public class ControladorJuego {
 	public ControladorJuego() {
 		juegos = new LinkedList<Juego>();
 		fcJuegos = new FactoryJuegos();
-
 	}
 
 	public void iniciarJuego(GrupoJuego grupo) throws JuegoException {
@@ -63,7 +62,6 @@ public class ControladorJuego {
 	public void cantarEnvido(int idJuego, int idJugador) throws JuegoException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarEnvido(idJugador);
-
 	}
 
 	// TODO AGREGAR
@@ -72,7 +70,6 @@ public class ControladorJuego {
 	}
 
 	public Juego buscarJuego(int idJuego) throws JuegoException {
-
 		for (Juego juego : juegos) {
 			if (juego.sosJuego(idJuego))
 				return juego;
@@ -89,7 +86,6 @@ public class ControladorJuego {
 	public boolean verificarFinJuego(int idJuego) throws JuegoException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.verificarFinJuego();
-
 	}
 
 	public void contarPuntos(int idJuego) throws JuegoException {
@@ -100,7 +96,6 @@ public class ControladorJuego {
 
 	public boolean terminoMano(int idJuego) throws JuegoException {
 		Juego j = this.buscarJuego(idJuego);
-
 		return j.terminoMano();
 	}
 
@@ -110,7 +105,4 @@ public class ControladorJuego {
 		j.sinCantar();
 
 	}
-
-	
-
 }

@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Grupo {
@@ -11,7 +12,7 @@ public class Grupo {
 	private List<ModalidadCerrada> partidas;
 
 	public Grupo() {
-
+		partidas = new ArrayList<>();
 	}
 
 	public int getIdGrupo() {
@@ -68,9 +69,6 @@ public class Grupo {
 
 	public boolean sePuedeJugar() {
 		return false;
-		
-		
-		
 	}
 
 }

@@ -5,8 +5,11 @@ import java.util.Vector;
 import excepciones.GrupoJuegoException;
 import excepciones.JugadorException;
 import excepciones.ParejaException;
+import excepciones.UsuarioException;
+import negocio.Categoria;
 import negocio.GrupoJuego;
 import negocio.Jugador;
+import negocio.JugadorIndividual;
 import negocio.Pareja;
 
 public class ControladorArmadoJuegos {
@@ -77,21 +80,31 @@ public class ControladorArmadoJuegos {
 		this.parejasEnEspera = parejasEnEspera;
 	}
 
-	public void agregarJugadorLibreAEspera(int idUsuario) {
-		// TODO
+	public void agregarJugadorLibreAEspera(int idUsuario) throws UsuarioException {
+		getJugadoresEnEspera().add(new JugadorIndividual(ControladorUsuario.getInstancia().buscarUsuarioPorId(idUsuario)));
 	}
 
 	public void agregarParejaLibreAEspera(Pareja pareja) {
-		// TODO
+		getParejasEnEspera().add(pareja);
 	}
 
 	// TODO Renombrar en Diagrama
 	public void confirmarGrupo(GrupoJuego grupo) {
-		// TODO
+		ControladorJuego.getInstancia().iniciarJuego(grupo);
 	}
 
-	public boolean armarGrupoDeIgualCategoria() {
+	public boolean armarGrupoDeIgualCategoria() throws UsuarioException {
 		// TODO
+		Categoria categoria = ControladorUsuario.getInstancia().buscarUsuarioPorApodo(getJugadoresEnEspera().get(0).getNombre()).getCategoria();
+		Vector<Jugador> jugadoresGrupo = new Vector<>();
+		int cantidadJugadoresEnGrupo = 0;
+		for (Jugador jugador : getJugadoresEnEspera()) {
+			if (ControladorUsuario.getInstancia().buscarUsuarioPorApodo(jugador.getNombre()).getCategoria().getIdCategoria() == categoria.getIdCategoria()
+					&& cantidadJugadoresEnGrupo < 4) {
+				jugadoresGrupo.add(jugador);
+				cantidadJugadoresEnGrupo++;
+			}
+		}
 		return false;
 	}
 
@@ -110,12 +123,12 @@ public class ControladorArmadoJuegos {
 		return false;
 	}
 
-	public void cancelarEsperaJugador(int idJugador) {
-		// TODO
+	public void cancelarEsperaJugador(int idJugador) throws JugadorException {
+		getJugadoresEnEspera().remove(buscarJugador(idJugador));
 	}
 
-	public void cancelarEsperaPareja(int idPareja) {
-		// TODO
+	public void cancelarEsperaPareja(int idPareja) throws ParejaException {
+		getParejasEnEspera().remove(buscarPareja(idPareja));
 	}
 
 	public GrupoJuego buscarGrupo(int idGrupo) throws GrupoJuegoException {
