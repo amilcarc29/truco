@@ -51,6 +51,15 @@ public class ControladorUsuario {
 		throw new UsuarioException("El usuario: " + email + "no existe.");
 	}
 
+	public Usuario buscarUsuarioPorId(int id) throws UsuarioException {
+		for (Usuario usuario : getUsuarios()) {
+			if (usuario.getIdUsuario() == id) {
+				return usuario;
+			}
+		}
+		throw new UsuarioException("El usuario: " + id + "no existe.");
+	}
+
 	// TODO Agregar a Diagrama.
 	public void modificarUsuario(String apodo, String email, String password) throws UsuarioException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);

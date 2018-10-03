@@ -21,6 +21,7 @@ public abstract class Jugador {
 		setNombre(nombre);
 		// TODO levantar el id de la bd.
 		this.idJugador = 0;
+		cartas = new LinkedList<>();
 	}
 
 	public Jugador() {
