@@ -132,11 +132,10 @@ public class Chico {
 	}
 
 	// TODO Agregar parámetro parejas a Diagrama.
-	public void altaMano(List<Pareja> parejas, List<Jugador> jugadores, int puntosParaTerminar) {
+	public void altaMano(int puntosParaTerminar) {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
 		// puntosPorTerminar del Chico?
-		this.parejas = parejas;
-		this.jugadores = jugadores;
+
 		this.puntosParaTerminar = puntosParaTerminar;
 
 		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
@@ -202,6 +201,12 @@ public class Chico {
 			jugador.mostrarCartas();
 		}
 		System.out.println("---------------------------");
+
+	}
+
+	public int getJugadorTurno() {
+		// TODO Auto-generated method stub
+		return this.manos.get(this.manos.size() - 1).getJugadorTurno();
 
 	}
 }

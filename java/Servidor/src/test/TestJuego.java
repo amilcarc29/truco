@@ -44,23 +44,23 @@ public class TestJuego {
 		// ju.jugarCarta(0, 0, 2);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		
-		 mostrarCartas();
-		
+
+		mostrarCartas();
+
 		while (true) {
 			try {
 				System.out.println("  ");
-
-			
 
 				System.out.println("carta numero: ");
 				int cn = Integer.parseInt(br.readLine());
 
 				System.out.println("carta palo: ");
 				String cp = br.readLine();
-				ju.jugarCarta(0, cn, cp);
+
+				ju.getJugadorTurno(0);
 				
+				ju.jugarCarta(0, cn, cp);
+
 				ju.contarPuntos(0);
 
 				// ju.cantarEnvido(0, 1);
@@ -72,9 +72,8 @@ public class TestJuego {
 				// ju.cantarVale4(0, 1);
 
 				// ju.cantarQuieroTruco(false, 0, 3);
-					
 
-				if (ju.verificarFinJuego(0)){
+				if (ju.verificarFinJuego(0)) {
 					ju.sinCantar(0);
 					break;
 				}

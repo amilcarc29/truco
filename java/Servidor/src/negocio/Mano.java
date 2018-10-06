@@ -231,4 +231,9 @@ public class Mano {
 		return false;
 	}
 
+	public int getJugadorTurno() {
+		// TODO Auto-generated method stub
+		return jugadorOrden;
+	}
+
 }

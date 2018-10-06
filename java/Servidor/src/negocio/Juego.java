@@ -103,7 +103,7 @@ public abstract class Juego {
 			jugadores.addAll(this.parejas.get(i).getJugadores());
 		}
 		Chico chico = new Chico(parejas);
-		chico.altaMano(parejas, jugadores, 30);
+		chico.altaMano(30);
 		chicos.add(chico);
 	}
 
@@ -173,6 +173,12 @@ public abstract class Juego {
 		}
 		
 		return false;
+	}
+
+	public int getJugadorTurno() {
+		// TODO Auto-generated method stub
+		return chicos.get(chicos.size() - 1).getJugadorTurno();
+
 	}
 
 

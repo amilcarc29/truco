@@ -80,7 +80,7 @@ public class ControladorJuego {
 	public void jugarCarta(int idJuego, int numero, String palo)
 			throws JugadorException, CartaException, JuegoException {
 		Juego j = this.buscarJuego(idJuego);
-		j.jugarCarta( numero, palo);
+		j.jugarCarta(numero, palo);
 	}
 
 	public boolean verificarFinJuego(int idJuego) throws JuegoException {
@@ -104,5 +104,11 @@ public class ControladorJuego {
 		Juego j = this.buscarJuego(idJuego);
 		j.sinCantar();
 
+	}
+
+	public int getJugadorTurno(int idJuego) throws JuegoException {
+		// TODO Auto-generated method stub
+		Juego j = this.buscarJuego(idJuego);
+		return j.getJugadorTurno();
 	}
 }

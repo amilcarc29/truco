@@ -81,8 +81,15 @@ public class Baza {
 	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		Jugador jugador = jugadores.get(idJugador);
 		
+		//solo para debug
+		if(jugadores.size()>(idJugador+1)){
+			Jugador nextj = jugadores.get(idJugador+1);
+
+			System.out.println("****jugo " + jugador.getNombre() + " SIGUIENTE "  + nextj.getNombre());
+		}
+		//solo para debug
+
 		
-		System.out.println("jugador " + jugador.getNombre());
 		Carta c = jugador.getCarta(numero, palo);
 
 		Jugada jugada = new Jugada();
