@@ -19,8 +19,6 @@ public class Chico {
 
 	// PARA FALTA ENVIDO
 	private int puntosParaTerminar;
-	
-	
 
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
@@ -65,10 +63,11 @@ public class Chico {
 	}
 
 	private void sumarPuntosMano(Puntuacion puntuacion) {
-		for (Puntuacion puntosChico : puntosChico) {
+		for (Puntuacion p : puntosChico) {
 
-			if (puntosChico.esPuntuacion(puntuacion)) {
-				puntosChico.sumarPuntos(puntuacion);
+			if (p.esPuntuacion(puntuacion)) {
+				p.sumarPuntos(puntuacion);
+
 			}
 
 		}
@@ -91,6 +90,8 @@ public class Chico {
 
 			for (Puntuacion puntuacion : puntosMano) {
 				sumarPuntosMano(puntuacion);
+				System.out.println(
+						"getIdPareja	" + puntuacion.getPareja().getIdPareja() + " " + puntuacion.getPuntos());
 			}
 
 			for (Puntuacion p : this.puntosChico) {
@@ -102,12 +103,13 @@ public class Chico {
 
 			}
 
-			cambiarOrden();
+		
 			Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
 			manos.add(mano);
+			return false;
 
-		}else{
-			
+		} else {
+
 		}
 
 		return false;
@@ -167,13 +169,13 @@ public class Chico {
 		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(quieroSiNo, idJugador);
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
+	public void cantarQuieroEnvido(boolean quieroSiNo) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarQuieroEnvido(quieroSiNo, idJugador);
+		this.manos.get(this.manos.size() - 1).cantarQuieroEnvido(quieroSiNo);
 	}
 
-	public void cantarEnvido(int idJugador) {
-		this.manos.get(this.manos.size() - 1).cantarEnvido(idJugador);
+	public void cantarEnvido() {
+		this.manos.get(this.manos.size() - 1).cantarEnvido();
 
 	}
 
@@ -185,28 +187,24 @@ public class Chico {
 
 	public void jugarCarta(int numero, String palo) throws JugadorException, CartaException {
 		// TODO Auto-generated method stub
-		
+
 		this.manos.get(this.manos.size() - 1).jugarCarta(numero, palo);
-		
+
 	}
 
 	// pasa el primer jugador al final del vecor para modificar la mano
 	private void cambiarOrden() {
 		jugadores.add(jugadores.get(0));
 		jugadores.remove(0);
-		
+
 		System.out.println("ORDEN---------------------------");
 		for (Jugador jugador : jugadores) {
-			System.out.println(" "  + jugador.getNombre());
+			System.out.println(" " + jugador.getNombre());
 			jugador.mostrarCartas();
 		}
 		System.out.println("---------------------------");
 
 	}
 
-	public int getJugadorTurno() {
-		// TODO Auto-generated method stub
-		return this.manos.get(this.manos.size() - 1).getJugadorTurno();
 
-	}
 }

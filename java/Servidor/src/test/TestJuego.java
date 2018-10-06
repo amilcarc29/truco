@@ -57,15 +57,35 @@ public class TestJuego {
 				System.out.println("carta palo: ");
 				String cp = br.readLine();
 
-				ju.getJugadorTurno(0);
-				
-				ju.jugarCarta(0, cn, cp);
 
-				ju.contarPuntos(0);
+				try {
 
-				// ju.cantarEnvido(0, 1);
+					String env = null;
+					System.out.println("cantar envido: ");
+					env = br.readLine();
+
+					if ((env != null) && (env.equals("S"))) {
+						ju.cantarEnvido(0);
+
+						System.out.println("querer envido: ");
+						env = br.readLine();
+						if ((env != null) && (env.equals("S")))
+							ju.cantarQuieroEnvido(0, true);
+						else
+							ju.cantarQuieroEnvido(0, false);
+
+					}
+					
+					
+					ju.jugarCarta(0, cn, cp);
+					ju.contarPuntos(0);
+
+				} catch (CartaException e) {
+
+					System.out.println(e.getMessage());
+				}
+
 				// ju.cantarEnvido(0, 3);
-				// ju.cantarQuieroEnvido(true, 0, 3);
 				//
 				// ju.cantarTruco(0, 1);
 				// ju.cantarReTruco(0, 3);

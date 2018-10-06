@@ -53,15 +53,15 @@ public class ControladorJuego {
 		j.cantarQuieroTruco(quieroSiNo, idJugador);
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo, int idJuego, int idJugador) throws JuegoException {
+	public void cantarQuieroEnvido( int idJuego,boolean quieroSiNo) throws JuegoException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
-		j.cantarQuieroEnvido(quieroSiNo, idJugador);
+		j.cantarQuieroEnvido(quieroSiNo);
 	}
 
-	public void cantarEnvido(int idJuego, int idJugador) throws JuegoException {
+	public void cantarEnvido(int idJuego) throws JuegoException {
 		Juego j = this.buscarJuego(idJuego);
-		j.cantarEnvido(idJugador);
+		j.cantarEnvido();
 	}
 
 	// TODO AGREGAR
@@ -106,9 +106,5 @@ public class ControladorJuego {
 
 	}
 
-	public int getJugadorTurno(int idJuego) throws JuegoException {
-		// TODO Auto-generated method stub
-		Juego j = this.buscarJuego(idJuego);
-		return j.getJugadorTurno();
-	}
+
 }

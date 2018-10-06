@@ -58,6 +58,12 @@ public class Mano {
 	}
 
 	public List<Puntuacion> getPuntos() {
+		for (Puntuacion p : this.puntos) {
+			if (p.getPareja().esPareja(ganadorBaza1.getIdPareja())){
+				p.sumarPuntos(1);
+			}
+		}
+		
 		return this.puntos;
 	}
 
@@ -154,9 +160,9 @@ public class Mano {
 
 	}
 
-	public void cantarEnvido(int idJugador) {
+	public void cantarEnvido() {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarEnvido(idJugador);
+		this.bazas.get(this.bazas.size() - 1).cantarEnvido(jugadorOrden);
 		if (this.envido == null)
 			this.envido = new Envido();
 		else {
@@ -167,10 +173,10 @@ public class Mano {
 
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
+	public void cantarQuieroEnvido(boolean quieroSiNo) {
 
-		// TODO Auto-generated method stub
-		Puntuacion p = getPuntosJugador(idJugador);
+		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
+		Puntuacion p = getPuntosJugador(jugadorOrden);
 
 		if (quieroSiNo) {
 
@@ -220,6 +226,7 @@ public class Mano {
 	public boolean finalizoMano() {
 		if (this.bazas.get(this.bazas.size() - 1).finalizoBaza()) {
 			if (this.bazas.size() < 3) {
+				cambiarOrden();
 				altaBaza();
 				
 			} else {
@@ -230,10 +237,19 @@ public class Mano {
 		}
 		return false;
 	}
+	
+	private void cambiarOrden() {
+		jugadores.add(jugadores.get(0));
+		jugadores.remove(0);
+		
+		System.out.println("ORDEN---------------------------");
+		for (Jugador jugador : jugadores) {
+			System.out.println(" "  + jugador.getNombre());
+			jugador.mostrarCartas();
+		}
+		System.out.println("---------------------------");
 
-	public int getJugadorTurno() {
-		// TODO Auto-generated method stub
-		return jugadorOrden;
 	}
 
+	
 }

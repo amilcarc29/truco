@@ -102,6 +102,7 @@ public abstract class Juego {
 
 			jugadores.addAll(this.parejas.get(i).getJugadores());
 		}
+
 		Chico chico = new Chico(parejas);
 		chico.altaMano(30);
 		chicos.add(chico);
@@ -127,9 +128,9 @@ public abstract class Juego {
 
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo, int idJugador) {
+	public void cantarQuieroEnvido(boolean quieroSiNo) {
 		// TODO Auto-generated method stub
-		chicos.get(chicos.size() - 1).cantarQuieroEnvido(quieroSiNo, idJugador);
+		chicos.get(chicos.size() - 1).cantarQuieroEnvido(quieroSiNo);
 	}
 
 	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
@@ -137,51 +138,44 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).cantarQuieroTruco(quieroSiNo, idJugador);
 	}
 
-	public void cantarEnvido(int idJugador) {
-		chicos.get(chicos.size() - 1).cantarEnvido(idJugador);
+	public void cantarEnvido() {
+		chicos.get(chicos.size() - 1).cantarEnvido();
 	}
+
 	public void sinCantar() {
 		// TODO Auto-generated method stub
 		chicos.get(chicos.size() - 1).sinCantar();
 
 	}
 
-	public void jugarCarta( int numero, String palo) throws JugadorException, CartaException {
+	public void jugarCarta(int numero, String palo) throws JugadorException, CartaException {
 		// TODO Auto-generated method stub
-		chicos.get(chicos.size() - 1).jugarCarta( numero, palo);
+		chicos.get(chicos.size() - 1).jugarCarta(numero, palo);
 	}
 
 	public boolean terminoMano() {
-		return	chicos.get(chicos.size() - 1).terminoMano();
+		return chicos.get(chicos.size() - 1).terminoMano();
 	}
 
-
 	public void contarPuntos() {
-	
+
+		
+			
 	}
 
 	public boolean verificarFinJuego() {
-		
-		if (chicos.size()>=2) {
+
+		if (chicos.size() >= 2) {
 			System.out.println("FIN CHICOS");
 
 			return true;
-		}else
-		{
-			if (chicos.get(chicos.size() - 1).finalizoChico()) 
+		} else {
+			if (chicos.get(chicos.size() - 1).finalizoChico())
 				crearChico();
 		}
-		
+
 		return false;
 	}
-
-	public int getJugadorTurno() {
-		// TODO Auto-generated method stub
-		return chicos.get(chicos.size() - 1).getJugadorTurno();
-
-	}
-
-
 
 
 }

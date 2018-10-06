@@ -85,7 +85,7 @@ public class Baza {
 		if(jugadores.size()>(idJugador+1)){
 			Jugador nextj = jugadores.get(idJugador+1);
 
-			System.out.println("****jugo " + jugador.getNombre() + " SIGUIENTE "  + nextj.getNombre());
+			System.out.println("*JUGO " + jugador.getNombre() + " SIGUIENTE "  + nextj.getNombre());
 		}
 		//solo para debug
 
