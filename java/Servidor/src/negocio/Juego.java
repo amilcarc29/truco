@@ -157,12 +157,6 @@ public abstract class Juego {
 		return chicos.get(chicos.size() - 1).terminoMano();
 	}
 
-	public void contarPuntos() {
-
-		
-			
-	}
-	
 	public boolean sePuedeCantarEnvido(){
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
 	}
@@ -179,6 +173,15 @@ public abstract class Juego {
 		}
 
 		return false;
+	}
+
+	public Jugador proximoDbg() {
+		// TODO Auto-generated method stub
+		return chicos.get(chicos.size() - 1).proximoDbg();
+	}
+
+	public void puntosDbg(int idPareja) {
+		 chicos.get(chicos.size() - 1).puntosDbg(idPareja);
 	}
 
 

@@ -70,6 +70,7 @@ public abstract class Jugador {
 			System.out.println("Carta " + carta.getNumero() + " " + carta.getPalo());
 		}
 	}
+	
 
 	public void setCartas(List<Carta> cartas) {
 

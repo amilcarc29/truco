@@ -148,7 +148,7 @@ public class Chico {
 
 		manos.add(mano);
 
-		System.out.println("MANO NUM" + manos.size());
+		System.out.println("MANO NUMERO " + manos.size());
 	}
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
@@ -198,23 +198,21 @@ public class Chico {
 
 	}
 
-	// pasa el primer jugador al final del vecor para modificar la mano
-	private void cambiarOrden() {
-		jugadores.add(jugadores.get(0));
-		jugadores.remove(0);
-
-		System.out.println("ORDEN---------------------------");
-		for (Jugador jugador : jugadores) {
-			System.out.println(" " + jugador.getNombre());
-			jugador.mostrarCartas();
-		}
-		System.out.println("---------------------------");
-
-	}
 
 	public boolean sePuedeCantarEnvido() {
 		// TODO Auto-generated method stub
 		return sePuedeCantarEnvido;
+	}
+
+	public Jugador proximoDbg() {
+		// TODO Auto-generated method stub
+		return this.manos.get(this.manos.size() - 1).proximoDbg();
+	}
+
+	public void puntosDbg(int idPareja) {
+		// TODO Auto-generated method stub
+		 this.manos.get(this.manos.size() - 1).puntosDbg(idPareja);
+
 	}
 
 

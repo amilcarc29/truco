@@ -41,19 +41,18 @@ public class TestJuego {
 		ju = new ControladorJuego();
 		ju.iniciarJuego(g);
 
-		// ju.jugarCarta(0, 0, 2);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		mostrarCartas();
+		
 
 		while (true) {
 			try {
-				System.out.println("  ");
+				System.out.println("");
+				ju.imprimirDbg();
 
 				System.out.println("carta numero: ");
 				int cn = Integer.parseInt(br.readLine());
-
 				System.out.println("carta palo: ");
 				String cp = br.readLine();
 
@@ -78,20 +77,15 @@ public class TestJuego {
 					}
 
 					ju.jugarCarta(0, cn, cp);
-					ju.contarPuntos(0);
-
+					
+					
+					
 				} catch (CartaException e) {
 
 					System.out.println(e.getMessage());
 				}
 
-				// ju.cantarEnvido(0, 3);
-				//
-				// ju.cantarTruco(0, 1);
-				// ju.cantarReTruco(0, 3);
-				// ju.cantarVale4(0, 1);
-
-				// ju.cantarQuieroTruco(false, 0, 3);
+			
 
 				if (ju.verificarFinJuego(0)) {
 					ju.sinCantar(0);
@@ -107,20 +101,5 @@ public class TestJuego {
 		}
 	}
 
-	public static void mostrarCartas() {
-
-		System.out.println(" ------------------------PAREJA1---------------------------  ");
-		System.out.println(j1.getNombre());
-		j1.mostrarCartas();
-		System.out.println(j2.getNombre());
-		j2.mostrarCartas();
-		System.out.println(" ------------------------PAREJA2---------------------------  ");
-		System.out.println(j3.getNombre());
-		j3.mostrarCartas();
-		System.out.println(j4.getNombre());
-		j4.mostrarCartas();
-		System.out.println(" ------------------------------------------------------------");
-		System.out.println(" ");
-
-	}
+	
 }

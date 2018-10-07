@@ -52,7 +52,7 @@ public class Mano {
 		Baza b = new Baza();
 		b.setJugadores(jugadores);
 		this.bazas.add(b);
-		System.out.println("BAZA num " + this.bazas.size());
+		System.out.println("BAZA NUMERO " + this.bazas.size());
 		jugadorOrden = 0;
 	}
 
@@ -172,6 +172,10 @@ public class Mano {
 
 	}
 
+	public Jugador proximoDbg() {
+		return jugadores.get(jugadorOrden);
+	}
+
 	public void cantarQuieroEnvido(boolean quieroSiNo) {
 
 		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
@@ -263,13 +267,25 @@ public class Mano {
 		jugadores.add(jugadores.get(0));
 		jugadores.remove(0);
 
-		System.out.println("ORDEN---------------------------");
 		for (Jugador jugador : jugadores) {
-			System.out.println(" " + jugador.getNombre());
 			jugador.mostrarCartas();
 		}
-		System.out.println("---------------------------");
 
+	}
+
+	public boolean sePuedeCantarEnvido() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void puntosDbg(int idPareja) {
+		// TODO Auto-generated method stub
+		for (Puntuacion p : this.puntos) {
+			if (idPareja == p.getPareja().getIdPareja()) {
+				System.out.println("Puntos =>" + p.getPuntos());
+			}
+
+		}
 	}
 
 }

@@ -6,7 +6,15 @@ import java.util.List;
 public class Pareja {
 	private int idPareja = 0;
 	private List<Jugador> jugadores;
+	
+	private static int cnt = 0;
+
+	private static int getID() {
+		return cnt++;
+	}
+	
 	public Pareja() {
+		idPareja = getID();
 		jugadores = new LinkedList<Jugador>();
 	}
 

@@ -9,6 +9,7 @@ import excepciones.JugadorException;
 import negocio.FactoryJuegos;
 import negocio.GrupoJuego;
 import negocio.Juego;
+import negocio.Pareja;
 
 public class ControladorJuego {
 
@@ -53,7 +54,7 @@ public class ControladorJuego {
 		j.cantarQuieroTruco(quieroSiNo, idJugador);
 	}
 
-	public void cantarQuieroEnvido( int idJuego,boolean quieroSiNo) throws JuegoException {
+	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo) throws JuegoException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarQuieroEnvido(quieroSiNo);
@@ -88,12 +89,6 @@ public class ControladorJuego {
 		return j.verificarFinJuego();
 	}
 
-	public void contarPuntos(int idJuego) throws JuegoException {
-		// TODO Auto-generated method stub
-		Juego j = this.buscarJuego(idJuego);
-		j.contarPuntos();
-	}
-
 	public boolean terminoMano(int idJuego) throws JuegoException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.terminoMano();
@@ -105,12 +100,34 @@ public class ControladorJuego {
 		j.sinCantar();
 
 	}
-	
+
 	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.sePuedeCantarEnvido();
 	}
 
-	
+	public void imprimirDbg() throws JuegoException {
+		for (Juego juego : juegos) {
+			List<Pareja> par = juego.getParejas();
+			for (Pareja p : par) {
+
+
+						System.out.println("Pareja num " + p.getIdPareja());
+						System.out.println("Jugadores " + p.getJugadores().get(0).getNombre() + " y "+ p.getJugadores().get(1).getNombre());
+						System.out.println("Cartas de " + p.getJugadores().get(0).getNombre());
+						p.getJugadores().get(0).mostrarCartas();
+						System.out.println("Cartas de " + p.getJugadores().get(1).getNombre());
+						p.getJugadores().get(1).mostrarCartas();
+						System.out.println("Tanto envido " + p.getMayorTanto());
+
+						juego.puntosDbg(p.getIdPareja());
+						
+						System.out.println("");
+			
+			}
+			System.out.println("juega " + juego.proximoDbg().getNombre());
+			System.out.println("");
+		}
+	}
 
 }
