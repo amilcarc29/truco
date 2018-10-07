@@ -105,6 +105,12 @@ public class ControladorJuego {
 		j.sinCantar();
 
 	}
+	
+	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+		return j.sePuedeCantarEnvido();
+	}
 
+	
 
 }

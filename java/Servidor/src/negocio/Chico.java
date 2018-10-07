@@ -20,6 +20,9 @@ public class Chico {
 	// PARA FALTA ENVIDO
 	private int puntosParaTerminar;
 
+	
+	private boolean sePuedeCantarEnvido = true;
+	
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
 		this.jugadores = new ArrayList<>();
@@ -85,7 +88,8 @@ public class Chico {
 		if (ultimaMano.finalizoMano()) {
 
 			System.out.println("FIN MANO");
-
+			sePuedeCantarEnvido = true;
+			
 			List<Puntuacion> puntosMano = ultimaMano.getPuntos();
 
 			for (Puntuacion puntuacion : puntosMano) {
@@ -175,6 +179,8 @@ public class Chico {
 	}
 
 	public void cantarEnvido() {
+		sePuedeCantarEnvido = false;
+
 		this.manos.get(this.manos.size() - 1).cantarEnvido();
 
 	}
@@ -204,6 +210,11 @@ public class Chico {
 		}
 		System.out.println("---------------------------");
 
+	}
+
+	public boolean sePuedeCantarEnvido() {
+		// TODO Auto-generated method stub
+		return sePuedeCantarEnvido;
 	}
 
 

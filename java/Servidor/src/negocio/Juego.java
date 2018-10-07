@@ -162,6 +162,10 @@ public abstract class Juego {
 		
 			
 	}
+	
+	public boolean sePuedeCantarEnvido(){
+		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
+	}
 
 	public boolean verificarFinJuego() {
 

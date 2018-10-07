@@ -29,8 +29,8 @@ public abstract class Jugador {
 		idJugador = getID();
 		cartas = new LinkedList<Carta>();
 	}
-	
-	public int getId(){
+
+	public int getId() {
 		return this.idJugador;
 	}
 
@@ -67,7 +67,7 @@ public abstract class Jugador {
 
 	public void mostrarCartas() {
 		for (Carta carta : cartas) {
-			System.out.println("Carta " + carta.getNumero() + " "+ carta.getPalo()  );
+			System.out.println("Carta " + carta.getNumero() + " " + carta.getPalo());
 		}
 	}
 
@@ -75,4 +75,43 @@ public abstract class Jugador {
 
 		this.cartas = cartas;
 	}
+//calcula cuanto tiene de envido un jugador
+	public int getTanto() {
+		// TODO Auto-generated method stub
+
+		String palo = cartas.get(0).getPalo();
+		int rep = 0;
+		int mayotenvido = 0;
+		int envido = cartas.get(0).getPesoEnvido();
+
+		for (int i = 1; i < cartas.size(); i++) {
+
+			if (palo.equals(cartas.get(i).getPalo())) {
+				rep++;
+				envido += cartas.get(i).getPesoEnvido();
+			}
+
+			if (mayotenvido < cartas.get(i).getPesoEnvido())
+				mayotenvido = cartas.get(i).getPesoEnvido();
+		}
+
+		if (rep == 2) {
+			if (cartas.get(1).getPesoEnvido() < cartas.get(2).getPesoEnvido()) {
+				envido += cartas.get(2).getPesoEnvido();
+			} else {
+				envido += cartas.get(1).getPesoEnvido();
+
+			}
+		}
+
+		if (rep == 0) {
+			return mayotenvido;
+		} else if (rep == 1) {
+			return envido+20;
+		} else if (rep == 2)
+			return envido+20;
+
+		return 0;
+	}
+
 }

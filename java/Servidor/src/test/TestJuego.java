@@ -57,26 +57,26 @@ public class TestJuego {
 				System.out.println("carta palo: ");
 				String cp = br.readLine();
 
-
 				try {
-
-					String env = null;
-					System.out.println("cantar envido: ");
-					env = br.readLine();
-
-					if ((env != null) && (env.equals("S"))) {
-						ju.cantarEnvido(0);
-
-						System.out.println("querer envido: ");
+					if (ju.sePuedeCantarEnvido(0)) {
+						
+						String env = null;
+						System.out.println("cantar envido  ?: ");
 						env = br.readLine();
-						if ((env != null) && (env.equals("S")))
-							ju.cantarQuieroEnvido(0, true);
-						else
-							ju.cantarQuieroEnvido(0, false);
 
+						if ((env != null) && (env.equals("S"))) {
+							ju.cantarEnvido(0);
+
+							System.out.println("quiere envido ?: ");
+							env = br.readLine();
+							if ((env != null) && (env.equals("S")))
+								ju.cantarQuieroEnvido(0, true);
+							else
+								ju.cantarQuieroEnvido(0, false);
+
+						}
 					}
-					
-					
+
 					ju.jugarCarta(0, cn, cp);
 					ju.contarPuntos(0);
 

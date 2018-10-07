@@ -46,7 +46,6 @@ public class Mano {
 		// TODO primera baza
 		altaBaza();
 
-	
 	}
 
 	private void altaBaza() {
@@ -59,11 +58,11 @@ public class Mano {
 
 	public List<Puntuacion> getPuntos() {
 		for (Puntuacion p : this.puntos) {
-			if (p.getPareja().esPareja(ganadorBaza1.getIdPareja())){
+			if (p.getPareja().esPareja(ganadorBaza1.getIdPareja())) {
 				p.sumarPuntos(1);
 			}
 		}
-		
+
 		return this.puntos;
 	}
 
@@ -145,7 +144,7 @@ public class Mano {
 
 	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
 
-		Puntuacion p = getPuntosJugador(idJugador);
+		Puntuacion p = getPuntosPareja(idJugador);
 
 		if (quieroSiNo) {
 			p.sumarPuntos(this.envido.getPuntosQuiero());
@@ -176,16 +175,29 @@ public class Mano {
 	public void cantarQuieroEnvido(boolean quieroSiNo) {
 
 		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
-		Puntuacion p = getPuntosJugador(jugadorOrden);
+		Puntuacion p;
+		// si quiere envido
+		//
 
 		if (quieroSiNo) {
+
+			if (parejas.get(0).getMayorTanto() > parejas.get(1).getMayorTanto()) {
+				// gana pareja 1
+				p = getPuntosPareja(jugadorOrden);
+
+			} else {
+				// gana pareja 2
+
+				p = getPuntosParejaContraria(jugadorOrden);
+
+			}
 
 			p.sumarPuntos(this.envido.getPuntosQuiero());
 
 			System.out.println("puntos quiero Envido " + this.envido.getPuntosQuiero());
 
 		} else {
-
+			p = getPuntosPareja(jugadorOrden);
 			p.sumarPuntos(this.envido.getPuntosNoQuiero());
 
 			System.out.println("puntos no quiero Envido  " + this.envido.getPuntosNoQuiero());
@@ -199,7 +211,7 @@ public class Mano {
 		// TODO Auto-generated method stub
 
 		Jugada j = this.bazas.get(this.bazas.size() - 1).jugadaMayor();
-		Puntuacion p = getPuntosJugador(j.getJugador().getId());
+		Puntuacion p = getPuntosPareja(j.getJugador().getId());
 
 		// sin truco ni envido 1 PUNTO
 		p.sumarPuntos(1);
@@ -208,7 +220,16 @@ public class Mano {
 
 	// TODO agregar
 
-	private Puntuacion getPuntosJugador(int idJugador) {
+	private Puntuacion getPuntosParejaContraria(int idJugador) {
+		for (Puntuacion pun : puntos)
+			/// TODO VER!!
+			if (!pun.tieneJugador(idJugador))
+				return pun;
+
+		return null;
+	}
+
+	private Puntuacion getPuntosPareja(int idJugador) {
 		for (Puntuacion pun : puntos)
 			/// TODO VER!!
 			if (pun.tieneJugador(idJugador))
@@ -228,28 +249,27 @@ public class Mano {
 			if (this.bazas.size() < 3) {
 				cambiarOrden();
 				altaBaza();
-				
+
 			} else {
-				
+
 				return true;
 			}
 
 		}
 		return false;
 	}
-	
+
 	private void cambiarOrden() {
 		jugadores.add(jugadores.get(0));
 		jugadores.remove(0);
-		
+
 		System.out.println("ORDEN---------------------------");
 		for (Jugador jugador : jugadores) {
-			System.out.println(" "  + jugador.getNombre());
+			System.out.println(" " + jugador.getNombre());
 			jugador.mostrarCartas();
 		}
 		System.out.println("---------------------------");
 
 	}
 
-	
 }
