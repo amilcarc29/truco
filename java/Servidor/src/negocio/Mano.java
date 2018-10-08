@@ -22,7 +22,9 @@ public class Mano {
 	private int puntoParaTerminarChico;
 	private Mazo mazo;
 
+	private List<Pareja> historicoPuntos = null;
 	private Pareja ganadorBaza1 = null;
+
 	private int jugadorOrden = 0;
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico) {
@@ -34,7 +36,7 @@ public class Mano {
 		this.bazas = new ArrayList<>();
 
 		this.puntos = new ArrayList<>();
-
+		this.historicoPuntos = new ArrayList<>();
 		// puntos pareja mano
 		for (Pareja p : parejas) {
 			Puntuacion punt = new Puntuacion();
@@ -57,6 +59,7 @@ public class Mano {
 	}
 
 	public List<Puntuacion> getPuntos() {
+
 		for (Puntuacion p : this.puntos) {
 			if (p.getPareja().esPareja(ganadorBaza1.getIdPareja())) {
 				p.sumarPuntos(1);
@@ -99,13 +102,6 @@ public class Mano {
 		this.puntoParaTerminarChico = puntoParaTerminarChico;
 	}
 
-	public Pareja getGanadorBaza1() {
-		return ganadorBaza1;
-	}
-
-	public void setGanadorBaza1(Pareja ganadorBaza1) {
-		this.ganadorBaza1 = ganadorBaza1;
-	}
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
 	public void cantarTruco(int idJugador) {
@@ -176,6 +172,30 @@ public class Mano {
 		return jugadores.get(jugadorOrden);
 	}
 
+	public Pareja getPareja(int idJugador) {
+		for (Pareja p : parejas) {
+			if (p.tieneJugador(idJugador))
+				return p;
+		}
+		return null;
+	}
+
+	public Pareja getParejaActual() {
+		for (Pareja p : parejas) {
+			if (p.tieneJugador(jugadorOrden))
+				return p;
+		}
+		return null;
+	}
+
+	public Pareja getParejaContrariaActual() {
+		for (Pareja p : parejas) {
+			if (!p.tieneJugador(jugadorOrden))
+				return p;
+		}
+		return null;
+	}
+
 	public void cantarQuieroEnvido(boolean quieroSiNo) {
 
 		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
@@ -185,7 +205,10 @@ public class Mano {
 
 		if (quieroSiNo) {
 
-			if (parejas.get(0).getMayorTanto() > parejas.get(1).getMayorTanto()) {
+			Pareja parejaactual = getParejaActual();
+			Pareja parejacontraria = getParejaContrariaActual();
+
+			if (parejaactual.getMayorTanto() > parejacontraria.getMayorTanto()) {
 				// gana pareja 1
 				p = getPuntosPareja(jugadorOrden);
 
@@ -215,7 +238,7 @@ public class Mano {
 		// TODO Auto-generated method stub
 
 		Jugada j = this.bazas.get(this.bazas.size() - 1).jugadaMayor();
-		Puntuacion p = getPuntosPareja(j.getJugador().getId());
+		Puntuacion p = getPuntosPareja(j.getJugador());
 
 		// sin truco ni envido 1 PUNTO
 		p.sumarPuntos(1);
@@ -250,11 +273,34 @@ public class Mano {
 
 	public boolean finalizoMano() {
 		if (this.bazas.get(this.bazas.size() - 1).finalizoBaza()) {
+			
+			Pareja g = getPareja(this.bazas.get(this.bazas.size() - 1).jugadaMayor().getJugador());
+
+			
+			
 			if (this.bazas.size() < 3) {
+
+				Puntuacion pmano = getPuntosPareja(this.bazas.get(this.bazas.size() - 1).jugadaMayor().getJugador());
+				pmano.sumarPuntos(1);
+
+
+				if (historicoPuntos.indexOf(g) > 0){
+					ganadorBaza1 = g;
+				
+					return true;
+				
+				}else
+					historicoPuntos.add(g);
+
 				cambiarOrden();
 				altaBaza();
 
 			} else {
+				
+				ganadorBaza1 = g;
+				
+				
+				
 
 				return true;
 			}

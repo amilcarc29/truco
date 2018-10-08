@@ -111,19 +111,23 @@ public class ControladorJuego {
 			List<Pareja> par = juego.getParejas();
 			for (Pareja p : par) {
 
+				System.out.println("Pareja num " + p.getIdPareja());
+				System.out.println("Jugadores " + p.getJugadores().get(0).getNombre() + " y "
+						+ p.getJugadores().get(1).getNombre());
+				System.out.println("Cartas de " + p.getJugadores().get(0).getNombre());
+				p.getJugadores().get(0).mostrarCartas();
+				System.out.println("Cartas de " + p.getJugadores().get(1).getNombre());
+				p.getJugadores().get(1).mostrarCartas();
 
-						System.out.println("Pareja num " + p.getIdPareja());
-						System.out.println("Jugadores " + p.getJugadores().get(0).getNombre() + " y "+ p.getJugadores().get(1).getNombre());
-						System.out.println("Cartas de " + p.getJugadores().get(0).getNombre());
-						p.getJugadores().get(0).mostrarCartas();
-						System.out.println("Cartas de " + p.getJugadores().get(1).getNombre());
-						p.getJugadores().get(1).mostrarCartas();
-						System.out.println("Tanto envido " + p.getMayorTanto());
+				if (this.sePuedeCantarEnvido(juego.getId())) {
 
-						juego.puntosDbg(p.getIdPareja());
-						
-						System.out.println("");
-			
+					System.out.println("Tanto envido " + p.getMayorTanto());
+
+				}
+				juego.puntosDbg(p.getIdPareja());
+
+				System.out.println("");
+
 			}
 			System.out.println("juega " + juego.proximoDbg().getNombre());
 			System.out.println("");

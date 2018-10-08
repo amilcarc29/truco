@@ -31,6 +31,10 @@ public abstract class Juego {
 		this.idJuego = getID();
 	}
 
+	public int getId() {
+		return this.idJuego;
+	}
+
 	public abstract void calcularPuntos();
 
 	public boolean sosJuego(int id) {
@@ -157,7 +161,7 @@ public abstract class Juego {
 		return chicos.get(chicos.size() - 1).terminoMano();
 	}
 
-	public boolean sePuedeCantarEnvido(){
+	public boolean sePuedeCantarEnvido() {
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
 	}
 
@@ -181,8 +185,7 @@ public abstract class Juego {
 	}
 
 	public void puntosDbg(int idPareja) {
-		 chicos.get(chicos.size() - 1).puntosDbg(idPareja);
+		chicos.get(chicos.size() - 1).puntosDbg(idPareja);
 	}
-
 
 }

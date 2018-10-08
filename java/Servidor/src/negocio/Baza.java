@@ -80,16 +80,14 @@ public class Baza {
 
 	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		Jugador jugador = jugadores.get(idJugador);
-		
-		//solo para debug
-		if(jugadores.size()>(idJugador+1)){
-			Jugador nextj = jugadores.get(idJugador+1);
 
-			System.out.println("*JUGO " + jugador.getNombre() + " SIGUIENTE "  + nextj.getNombre());
+		// solo para debug
+		if (jugadores.size() > (idJugador + 1)) {
+			Jugador nextj = jugadores.get(idJugador + 1);
+
 		}
-		//solo para debug
+		// solo para debug
 
-		
 		Carta c = jugador.getCarta(numero, palo);
 
 		Jugada jugada = new Jugada();
@@ -103,17 +101,10 @@ public class Baza {
 		else {
 			if (this.jugadaMayor.esMayor(jugada))
 				this.jugadaMayor = jugada;
-			System.out.println("jugada mayor " + this.jugadaMayor.getJugador().getNombre() + " ,  "
+			System.out.println("jugada mayor " + jugadores.get(this.jugadaMayor.getJugador()).getNombre() + " ,  "
 					+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
 		}
 		numero++;
 	}
 
-	private Jugador buscaJugador(int idJugador) throws JugadorException {
-		for (Jugador j : this.jugadores) {
-			if (j.esJugador(idJugador))
-				return j;
-		}
-		throw new JugadorException("No se encontró al jugador " + idJugador);
-	}
 }
