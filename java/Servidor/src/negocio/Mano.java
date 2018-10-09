@@ -98,17 +98,17 @@ public class Mano {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
-	public void cantarTruco(int idJugador) {
+	public void cantarTruco() {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(idJugador);
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorOrden);
 
 		this.truco = new Truco();
 
 	}
 
-	public void cantarVale4(int idJugador) {
+	public void cantarVale4() {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(idJugador);
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorOrden);
 
 		if (this.truco == null)
 			this.truco = new Truco();
@@ -118,9 +118,9 @@ public class Mano {
 
 	}
 
-	public void cantarReTruco(int idJugador) {
+	public void cantarReTruco() {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(idJugador);
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorOrden);
 		this.truco = new Truco();
 
 		ReTruco rt = new ReTruco();
@@ -132,23 +132,43 @@ public class Mano {
 
 	}
 
-	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
 
-		Puntuacion p = getPuntosPareja(idJugador);
+	public void cantarQuieroTruco(boolean quieroSiNo) {
+
+		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
+		Puntuacion p;
+		// si quiere envido
+		//
 
 		if (quieroSiNo) {
-			p.sumarPuntos(this.envido.getPuntosQuiero());
 
-			System.out.println("puntos quiero Truco " + this.truco.getPuntosQuiero());
+			Pareja parejaactual = getParejaActual();
+			Pareja parejacontraria = getParejaContrariaActual();
+
+			if (parejaactual.getMayorTanto() > parejacontraria.getMayorTanto()) {
+				// gana pareja 1
+				p = getPuntosPareja(jugadorOrden);
+
+			} else {
+				// gana pareja 2
+
+				p = getPuntosParejaContraria(jugadorOrden);
+
+			}
+
+			p.sumarPuntos(this.truco.getPuntosQuiero());
+
+			System.out.println("puntos quiero Envido " + this.truco.getPuntosQuiero());
+
 		} else {
-			p.sumarPuntos(this.envido.getPuntosNoQuiero());
+			p = getPuntosPareja(jugadorOrden);
+			p.sumarPuntos(this.truco.getPuntosNoQuiero());
 
-			System.out.println("puntos no Quiero Truco  " + this.truco.getPuntosNoQuiero());
+			System.out.println("puntos no quiero Envido  " + this.truco.getPuntosNoQuiero());
+
 		}
-		// TODO Auto-generated method stub
 
 	}
-
 	public void cantarEnvido() {
 		// TODO Auto-generated method stub
 		this.bazas.get(this.bazas.size() - 1).cantarEnvido(jugadorOrden);

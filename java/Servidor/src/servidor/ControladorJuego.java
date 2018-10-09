@@ -30,9 +30,9 @@ public class ControladorJuego {
 		}
 	}
 
-	public void cantarTruco(int idJuego, int idJugador) throws JuegoException {
+	public void cantarTruco(int idJuego) throws JuegoException {
 		Juego j = this.buscarJuego(idJuego);
-		j.cantarTruco(idJugador);
+		j.cantarTruco();
 
 	}
 
@@ -48,10 +48,10 @@ public class ControladorJuego {
 		j.cantarVale4(idJugador);
 	}
 
-	public void cantarQuieroTruco(boolean quieroSiNo, int idJuego, int idJugador) throws JuegoException {
+	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo) throws JuegoException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
-		j.cantarQuieroTruco(quieroSiNo, idJugador);
+		j.cantarQuieroTruco(quieroSiNo);
 	}
 
 	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo) throws JuegoException {
@@ -99,6 +99,10 @@ public class ControladorJuego {
 		Juego j = this.buscarJuego(idJuego);
 		j.sinCantar();
 
+	}
+
+	public boolean sePuedeTruco(int idJuego) throws JuegoException {
+		return true;
 	}
 
 	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException {

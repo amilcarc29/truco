@@ -114,5 +114,11 @@ public abstract class Jugador {
 
 		return 0;
 	}
+	public int getTantoTruco() {
+		// TODO Auto-generated method stub
 
+		
+
+		return 0;
+	}
 }

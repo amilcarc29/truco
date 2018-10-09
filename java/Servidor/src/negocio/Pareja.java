@@ -54,7 +54,14 @@ public class Pareja {
 	public boolean esPareja(int idPareja) {
 		return getIdPareja() == idPareja;
 	}
-
+	public int getMayorTruco() {
+		int mayor = 0;
+		for (Jugador jug : jugadores) {
+			if (mayor<jug.getTanto())
+				mayor = jug.getTanto();
+		}
+		return mayor;
+	}
 	public int getMayorTanto() {
 		int mayor = 0;
 		for (Jugador jug : jugadores) {

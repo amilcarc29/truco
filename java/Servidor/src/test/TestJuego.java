@@ -72,6 +72,24 @@ public class TestJuego {
 								ju.cantarQuieroEnvido(0, false);
 
 						}
+						if (ju.sePuedeTruco(0)) {
+
+							String truco = null;
+							System.out.println("cantar truco  ?: ");
+							truco = br.readLine();
+							if ((truco != null) && (truco.equals("S"))) {
+								ju.cantarTruco(0);
+								
+								
+								System.out.println("quiere truco ?: ");
+								env = br.readLine();
+								if ((env != null) && (env.equals("S")))
+									ju.cantarQuieroTruco(0, true);
+								else
+									ju.cantarQuieroTruco(0, false);
+								
+							}
+						}
 					}
 
 					ju.jugarCarta(0, cn, cp);

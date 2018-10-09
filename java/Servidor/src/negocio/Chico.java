@@ -156,24 +156,24 @@ public class Chico {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
-	public void cantarTruco(int idJugador) {
+	public void cantarTruco() {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarTruco(idJugador);
+		this.manos.get(this.manos.size() - 1).cantarTruco();
 	}
 
 	public void cantarVale4(int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarVale4(idJugador);
+		this.manos.get(this.manos.size() - 1).cantarVale4();
 	}
 
 	public void cantarReTruco(int idJugador) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarReTruco(idJugador);
+		this.manos.get(this.manos.size() - 1).cantarReTruco();
 	}
 
-	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
+	public void cantarQuieroTruco(boolean quieroSiNo) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(quieroSiNo, idJugador);
+		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(quieroSiNo);
 	}
 
 	public void cantarQuieroEnvido(boolean quieroSiNo) {

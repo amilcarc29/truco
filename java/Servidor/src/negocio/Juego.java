@@ -114,9 +114,9 @@ public abstract class Juego {
 
 	// TODO Agregar a Diagrama.
 
-	public void cantarTruco(int idJugador) {
+	public void cantarTruco() {
 
-		chicos.get(chicos.size() - 1).cantarTruco(idJugador);
+		chicos.get(chicos.size() - 1).cantarTruco();
 
 	}
 
@@ -137,9 +137,9 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).cantarQuieroEnvido(quieroSiNo);
 	}
 
-	public void cantarQuieroTruco(boolean quieroSiNo, int idJugador) {
+	public void cantarQuieroTruco(boolean quieroSiNo) {
 		// TODO Auto-generated method stub
-		chicos.get(chicos.size() - 1).cantarQuieroTruco(quieroSiNo, idJugador);
+		chicos.get(chicos.size() - 1).cantarQuieroTruco(quieroSiNo);
 	}
 
 	public void cantarEnvido() {
