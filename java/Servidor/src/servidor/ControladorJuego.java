@@ -121,7 +121,7 @@ public class ControladorJuego {
 
 				if (this.sePuedeCantarEnvido(juego.getId())) {
 
-					System.out.println("Tanto envido " + p.getMayorTanto());
+					System.out.println("Tanto para envido " + p.getMayorTanto());
 
 				}
 				juego.puntosDbg(p.getIdPareja());

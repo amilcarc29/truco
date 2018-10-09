@@ -38,13 +38,11 @@ public class TestJuego {
 		g.agregarJugador(j3, j4);
 
 		g.setTipoJuego("LIBRE");
+
 		ju = new ControladorJuego();
 		ju.iniciarJuego(g);
 
-
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-		
 
 		while (true) {
 			try {
@@ -58,7 +56,7 @@ public class TestJuego {
 
 				try {
 					if (ju.sePuedeCantarEnvido(0)) {
-						
+
 						String env = null;
 						System.out.println("cantar envido  ?: ");
 						env = br.readLine();
@@ -77,15 +75,11 @@ public class TestJuego {
 					}
 
 					ju.jugarCarta(0, cn, cp);
-					
-					
-					
+
 				} catch (CartaException e) {
 
 					System.out.println(e.getMessage());
 				}
-
-			
 
 				if (ju.verificarFinJuego(0)) {
 					ju.sinCantar(0);
@@ -101,5 +95,4 @@ public class TestJuego {
 		}
 	}
 
-	
 }

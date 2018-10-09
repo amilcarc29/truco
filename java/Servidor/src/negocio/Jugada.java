@@ -16,9 +16,10 @@ public class Jugada {
 	public Jugada() {
 	}
 
-	public int getJugador() {
-		return jugador.getId();
+	public Jugador getJugador() {
+		return jugador;
 	}
+	
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;

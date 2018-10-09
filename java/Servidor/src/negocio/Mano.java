@@ -24,6 +24,7 @@ public class Mano {
 
 	private List<Pareja> historicoPuntos = null;
 	private Pareja ganadorBaza1 = null;
+	private Jugada jugadaMayor = null;
 
 	private int jugadorOrden = 0;
 
@@ -59,13 +60,6 @@ public class Mano {
 	}
 
 	public List<Puntuacion> getPuntos() {
-
-		for (Puntuacion p : this.puntos) {
-			if (p.getPareja().esPareja(ganadorBaza1.getIdPareja())) {
-				p.sumarPuntos(1);
-			}
-		}
-
 		return this.puntos;
 	}
 
@@ -238,7 +232,7 @@ public class Mano {
 		// TODO Auto-generated method stub
 
 		Jugada j = this.bazas.get(this.bazas.size() - 1).jugadaMayor();
-		Puntuacion p = getPuntosPareja(j.getJugador());
+		Puntuacion p = getPuntosPareja(j.getJugador().getId());
 
 		// sin truco ni envido 1 PUNTO
 		p.sumarPuntos(1);
@@ -272,35 +266,32 @@ public class Mano {
 	}
 
 	public boolean finalizoMano() {
-		if (this.bazas.get(this.bazas.size() - 1).finalizoBaza()) {
-			
-			Pareja g = getPareja(this.bazas.get(this.bazas.size() - 1).jugadaMayor().getJugador());
 
-			
-			
+		jugadaMayor = this.bazas.get(this.bazas.size() - 1).jugadaMayor();
+
+		if (this.bazas.get(this.bazas.size() - 1).finalizoBaza()) {
+
+			Pareja g = getPareja(jugadaMayor.getJugador().getId());
+
 			if (this.bazas.size() < 3) {
 
-				Puntuacion pmano = getPuntosPareja(this.bazas.get(this.bazas.size() - 1).jugadaMayor().getJugador());
-				pmano.sumarPuntos(1);
-
-
-				if (historicoPuntos.indexOf(g) > 0){
+				if (historicoPuntos.indexOf(g) > 0) {
 					ganadorBaza1 = g;
-				
+
 					return true;
-				
-				}else
+
+				} else
 					historicoPuntos.add(g);
 
 				cambiarOrden();
 				altaBaza();
 
 			} else {
-				
+
+				Puntuacion pmano = getPuntosPareja(jugadaMayor.getJugador().getId());
+				pmano.sumarPuntos(1);
+
 				ganadorBaza1 = g;
-				
-				
-				
 
 				return true;
 			}
@@ -310,13 +301,28 @@ public class Mano {
 	}
 
 	private void cambiarOrden() {
-		jugadores.add(jugadores.get(0));
-		jugadores.remove(0);
+		// preguntar quien gano , ponerlo adelante
+		Jugador jugador = jugadaMayor.getJugador();
 
-		for (Jugador jugador : jugadores) {
-			jugador.mostrarCartas();
+		int i = 0;
+		int j = jugadores.indexOf(jugador);
+
+		List<Jugador> jugadoresNuevo = new ArrayList<Jugador>();
+
+		jugadoresNuevo.add(jugador);
+
+		while (i < 3) {
+			j++;
+
+			if (j > 3)
+				j = 0;
+
+			jugadoresNuevo.add(jugadores.get(j));
+
+			i++;
+
 		}
-
+		jugadores = jugadoresNuevo;
 	}
 
 	public boolean sePuedeCantarEnvido() {

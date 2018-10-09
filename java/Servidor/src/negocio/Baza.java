@@ -101,7 +101,7 @@ public class Baza {
 		else {
 			if (this.jugadaMayor.esMayor(jugada))
 				this.jugadaMayor = jugada;
-			System.out.println("jugada mayor " + jugadores.get(this.jugadaMayor.getJugador()).getNombre() + " ,  "
+			System.out.println("jugada mayor " + jugadores.get(this.jugadaMayor.getJugador().getId()).getNombre() + " ,  "
 					+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
 		}
 		numero++;

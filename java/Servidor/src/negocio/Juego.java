@@ -166,7 +166,7 @@ public abstract class Juego {
 	}
 
 	public boolean verificarFinJuego() {
-
+		/* FIJARSE QUE UNA PAREJA GANE DOS CHCICOS PARA TERMINAR*/
 		if (chicos.size() >= 2) {
 			System.out.println("FIN CHICOS");
 

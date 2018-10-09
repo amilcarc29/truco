@@ -107,7 +107,7 @@ public class Chico {
 
 			}
 
-		
+			cambiarOrden();
 			Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
 			manos.add(mano);
 			return false;
@@ -119,7 +119,10 @@ public class Chico {
 		return false;
 
 	}
-
+	private void cambiarOrden() {
+		jugadores.add(jugadores.get(0));
+		jugadores.remove(0);
+	}	
 	public void finalizarChico() {
 
 	}
