@@ -1,5 +1,7 @@
 package negocio;
 
+import dto.UsuarioDTO;
+
 public class Usuario {
 	private int idUsuario;
 	private int partidasGanadas;
@@ -21,6 +23,20 @@ public class Usuario {
 		setApodo(apodo);
 		setEmail(email);
 		setPass(password);
+	}
+
+	public Usuario(int idUsuario, int partidasGanadas, int partidasPerdidas, int puntaje, String apodo, String pass,
+			String email, boolean activo) {
+		super();
+		this.idUsuario = idUsuario;
+		this.partidasGanadas = partidasGanadas;
+		this.partidasPerdidas = partidasPerdidas;
+		this.puntaje = puntaje;
+		this.apodo = apodo;
+		this.pass = pass;
+		this.email = email;
+		this.categoria = categoria;
+		this.activo = activo;
 	}
 
 	public int getIdUsuario() {
@@ -98,5 +114,10 @@ public class Usuario {
 	// TODO Agregar al Diagrama.
 	public boolean esUsuario(String apodo) {
 		return getApodo().equals(apodo);
+	}
+
+	public UsuarioDTO toDTO() {
+		return new UsuarioDTO(idUsuario, partidasGanadas, partidasPerdidas, puntaje, apodo, pass,
+				email, categoria, activo);
 	}
 }
