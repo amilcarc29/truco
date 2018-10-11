@@ -3,6 +3,8 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.GrupoDTO;
+
 public class Grupo {
 
 	private int idGrupo;
@@ -11,12 +13,22 @@ public class Grupo {
 	private int puntoPorPartida;
 	private List<ModalidadCerrada> partidas;
 
+	public Grupo(int idGrupo, String nombre) {
+		setIdGrupo(idGrupo);
+		setNombre(nombre);
+		partidas = new ArrayList<>();
+	}
+
 	public Grupo() {
 		partidas = new ArrayList<>();
 	}
 
 	public int getIdGrupo() {
 		return idGrupo;
+	}
+
+	public void setIdGrupo(int idGrupo) {
+		this.idGrupo = idGrupo;
 	}
 
 	public Usuario getAdministrador() {
@@ -71,4 +83,7 @@ public class Grupo {
 		return false;
 	}
 
+	public GrupoDTO toDTO() {
+		return new GrupoDTO(idGrupo, administrador, nombre, puntoPorPartida, partidas);
+	}
 }
