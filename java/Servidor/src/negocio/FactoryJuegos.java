@@ -3,6 +3,7 @@ package negocio;
 import excepciones.JuegoException;
 
 public class FactoryJuegos {
+
 	public Juego getJuego(String tipo) throws JuegoException {
 
 		if (tipo.equals("LIBRE"))
