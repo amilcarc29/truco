@@ -108,7 +108,7 @@ public abstract class Juego {
 		}
 
 		Chico chico = new Chico(parejas);
-		chico.altaMano(30);
+		chico.altaMano(15);
 		chicos.add(chico);
 	}
 
@@ -120,9 +120,9 @@ public abstract class Juego {
 
 	}
 
-	public void cantarReTruco(int idJugador) {
+	public void cantarReTruco() {
 
-		chicos.get(chicos.size() - 1).cantarReTruco(idJugador);
+		chicos.get(chicos.size() - 1).cantarReTruco();
 
 	}
 

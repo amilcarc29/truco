@@ -25,7 +25,7 @@ public class Mano {
 	private List<Pareja> historicoPuntos = null;
 	private Pareja ganadorBaza1 = null;
 	private Jugada jugadaMayor = null;
-
+	private boolean trucoCantado = false;
 	private int jugadorOrden = 0;
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico) {
@@ -132,12 +132,11 @@ public class Mano {
 
 	}
 
-
 	public void cantarQuieroTruco(boolean quieroSiNo) {
 
 		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
 		Puntuacion p;
-		// si quiere envido
+		// si quiere Truco
 		//
 
 		if (quieroSiNo) {
@@ -145,7 +144,7 @@ public class Mano {
 			Pareja parejaactual = getParejaActual();
 			Pareja parejacontraria = getParejaContrariaActual();
 
-			if (parejaactual.getMayorTanto() > parejacontraria.getMayorTanto()) {
+			if (parejaactual.getMayorTantoTruco() > parejacontraria.getMayorTantoTruco()) {
 				// gana pareja 1
 				p = getPuntosPareja(jugadorOrden);
 
@@ -158,17 +157,19 @@ public class Mano {
 
 			p.sumarPuntos(this.truco.getPuntosQuiero());
 
-			System.out.println("puntos quiero Envido " + this.truco.getPuntosQuiero());
+			System.out.println("puntos quiero Truco " + this.truco.getPuntosQuiero());
 
 		} else {
 			p = getPuntosPareja(jugadorOrden);
 			p.sumarPuntos(this.truco.getPuntosNoQuiero());
 
-			System.out.println("puntos no quiero Envido  " + this.truco.getPuntosNoQuiero());
+			System.out.println("puntos no quiero Truco  " + this.truco.getPuntosNoQuiero());
 
 		}
+		trucoCantado = true;
 
 	}
+
 	public void cantarEnvido() {
 		// TODO Auto-generated method stub
 		this.bazas.get(this.bazas.size() - 1).cantarEnvido(jugadorOrden);
@@ -222,7 +223,7 @@ public class Mano {
 			Pareja parejaactual = getParejaActual();
 			Pareja parejacontraria = getParejaContrariaActual();
 
-			if (parejaactual.getMayorTanto() > parejacontraria.getMayorTanto()) {
+			if (parejaactual.getMayorTantoEnvido() > parejacontraria.getMayorTantoEnvido()) {
 				// gana pareja 1
 				p = getPuntosPareja(jugadorOrden);
 
@@ -289,34 +290,43 @@ public class Mano {
 
 		jugadaMayor = this.bazas.get(this.bazas.size() - 1).jugadaMayor();
 
-		if (this.bazas.get(this.bazas.size() - 1).finalizoBaza()) {
+		if (trucoCantado) {
+			
+		
+			return true;
+			
+			
+		} else {
+			if ((this.bazas.get(this.bazas.size() - 1).finalizoBaza())) {
 
-			Pareja g = getPareja(jugadaMayor.getJugador().getId());
+				Pareja g = getPareja(jugadaMayor.getJugador().getId());
 
-			if (this.bazas.size() < 3) {
+				if (this.bazas.size() < 3) {
 
-				if (historicoPuntos.indexOf(g) > 0) {
+					if (historicoPuntos.indexOf(g) > 0) {
+						ganadorBaza1 = g;
+
+						return true;
+
+					} else
+						historicoPuntos.add(g);
+
+					cambiarOrden();
+					altaBaza();
+
+				} else {
+
+					Puntuacion pmano = getPuntosPareja(jugadaMayor.getJugador().getId());
+					pmano.sumarPuntos(1);
+
 					ganadorBaza1 = g;
 
 					return true;
+				}
 
-				} else
-					historicoPuntos.add(g);
-
-				cambiarOrden();
-				altaBaza();
-
-			} else {
-
-				Puntuacion pmano = getPuntosPareja(jugadaMayor.getJugador().getId());
-				pmano.sumarPuntos(1);
-
-				ganadorBaza1 = g;
-
-				return true;
 			}
-
 		}
+
 		return false;
 	}
 

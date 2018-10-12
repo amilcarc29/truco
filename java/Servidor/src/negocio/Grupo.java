@@ -83,7 +83,7 @@ public class Grupo {
 		return false;
 	}
 
-	public GrupoDTO toDTO() {
-		return new GrupoDTO(idGrupo, administrador, nombre, puntoPorPartida, partidas);
-	}
+//	public GrupoDTO toDTO() {
+//		return new GrupoDTO(idGrupo, administrador, nombre, puntoPorPartida, partidas);
+//	}
 }

@@ -36,9 +36,9 @@ public class ControladorJuego {
 
 	}
 
-	public void cantarReTruco(int idJuego, int idJugador) throws JuegoException {
+	public void cantarReTruco(int idJuego) throws JuegoException {
 		Juego j = this.buscarJuego(idJuego);
-		j.cantarReTruco(idJugador);
+		j.cantarReTruco();
 
 	}
 
@@ -125,7 +125,8 @@ public class ControladorJuego {
 
 				if (this.sePuedeCantarEnvido(juego.getId())) {
 
-					System.out.println("Tanto para envido " + p.getMayorTanto());
+					System.out.println("Tanto para envido " + p.getMayorTantoEnvido());
+					System.out.println("Tanto para truco " + p.getMayorTantoTruco());
 
 				}
 				juego.puntosDbg(p.getIdPareja());

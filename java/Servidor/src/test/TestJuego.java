@@ -49,11 +49,6 @@ public class TestJuego {
 				System.out.println("");
 				ju.imprimirDbg();
 
-				System.out.println("carta numero: ");
-				int cn = Integer.parseInt(br.readLine());
-				System.out.println("carta palo: ");
-				String cp = br.readLine();
-
 				try {
 					if (ju.sePuedeCantarEnvido(0)) {
 
@@ -72,27 +67,45 @@ public class TestJuego {
 								ju.cantarQuieroEnvido(0, false);
 
 						}
-						if (ju.sePuedeTruco(0)) {
-
-							String truco = null;
-							System.out.println("cantar truco  ?: ");
-							truco = br.readLine();
-							if ((truco != null) && (truco.equals("S"))) {
-								ju.cantarTruco(0);
-								
-								
-								System.out.println("quiere truco ?: ");
-								env = br.readLine();
-								if ((env != null) && (env.equals("S")))
-									ju.cantarQuieroTruco(0, true);
-								else
-									ju.cantarQuieroTruco(0, false);
-								
-							}
-						}
+						
+						
 					}
+					String retruco = null;
+					String truco = null;
+					System.out.println("cantar truco  ?: ");
+					truco = br.readLine();
+					if ((truco != null) && (truco.equals("S"))) {
+						ju.cantarTruco(0);
 
-					ju.jugarCarta(0, cn, cp);
+						System.out.println("quiere truco ?: ");
+						truco = br.readLine();
+						if ((truco != null) && (truco.equals("S")))
+							ju.cantarQuieroTruco(0, true);
+						else if ((truco != null) && (truco.equals("R"))) {
+							ju.cantarReTruco(0);
+
+							System.out.println("quiere retruco ?: ");
+							retruco = br.readLine();
+							if ((retruco != null) && (retruco.equals("S")))
+								ju.cantarQuieroTruco(0, true);
+							else
+								ju.cantarQuieroTruco(0, false);
+
+						}else
+							ju.cantarQuieroTruco(0, false);
+						
+						
+						
+						
+					} else {
+
+						System.out.println("carta numero: ");
+						int cn = Integer.parseInt(br.readLine());
+						System.out.println("carta palo: ");
+						String cp = br.readLine();
+
+						ju.jugarCarta(0, cn, cp);
+					}
 
 				} catch (CartaException e) {
 

@@ -46,7 +46,7 @@ public class Chico {
 		// puntos por manos
 
 		this.ganador = null;
-		this.puntosPorGanar = 30;
+		this.puntosPorGanar = 15;
 	}
 
 	public Pareja getGanador() {
@@ -94,17 +94,23 @@ public class Chico {
 
 			for (Puntuacion puntuacion : puntosMano) {
 				sumarPuntosMano(puntuacion);
-				System.out.println(
-						"getIdPareja	" + puntuacion.getPareja().getIdPareja() + " " + puntuacion.getPuntos());
+//				System.out.println(
+//						"getIdPareja	" + puntuacion.getPareja().getIdPareja() + " " + puntuacion.getPuntos());
 			}
 
 			for (Puntuacion p : this.puntosChico) {
 				// MAYOR PORQUE PUEDE QUE SUME MAS DE 30
+				
+				System.out.println(
+						"getIdPareja	" + p.getPareja().getIdPareja() + " " + p.getPuntos());
+
+				
 				if (p.getPuntos() >= puntosPorGanar) {
 					this.ganador = p.getPareja();
 					return true;
 				}
-
+				
+			
 			}
 
 			cambiarOrden();
@@ -166,7 +172,7 @@ public class Chico {
 		this.manos.get(this.manos.size() - 1).cantarVale4();
 	}
 
-	public void cantarReTruco(int idJugador) {
+	public void cantarReTruco() {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarReTruco();
 	}

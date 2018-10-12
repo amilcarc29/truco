@@ -77,7 +77,7 @@ public abstract class Jugador {
 		this.cartas = cartas;
 	}
 //calcula cuanto tiene de envido un jugador
-	public int getTanto() {
+	public int getTantoEnvido() {
 		// TODO Auto-generated method stub
 
 		String palo = cartas.get(0).getPalo();
@@ -116,9 +116,15 @@ public abstract class Jugador {
 	}
 	public int getTantoTruco() {
 		// TODO Auto-generated method stub
-
 		
+		int truco = cartas.get(0).getPesoTruco();
 
-		return 0;
+		for (int i = 1; i < cartas.size(); i++) {
+			if (truco < cartas.get(i).getPesoTruco())
+				truco = cartas.get(i).getPesoTruco();
+		}
+
+
+		return truco;
 	}
 }
