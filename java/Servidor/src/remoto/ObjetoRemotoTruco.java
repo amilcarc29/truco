@@ -52,4 +52,21 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		
 	}
 
+	@Override
+	public void agregarAListaEspera(UsuarioDTO usuario) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		try {
+
+			new ControladorUsuario().getInstancia().agregarAListaEspera(usuario);
+
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

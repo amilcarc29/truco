@@ -17,10 +17,10 @@ public class ControladorUsuario {
 
 	public ControladorUsuario() {
 		usuarios = new Vector<>();
-//		usuarios.add(new Usuario("Emiliano", "Emiliano", "pepe"));
-//		usuarios.add(new Usuario("Debi", "Debi", "pepe"));
-//		usuarios.add(new Usuario("Lucas", "Lucas", "pepe"));
-//		usuarios.add(new Usuario("Amilcar", "Amilcar", "pepe"));
+		// usuarios.add(new Usuario("Emiliano", "Emiliano", "pepe"));
+		// usuarios.add(new Usuario("Debi", "Debi", "pepe"));
+		// usuarios.add(new Usuario("Lucas", "Lucas", "pepe"));
+		// usuarios.add(new Usuario("Amilcar", "Amilcar", "pepe"));
 
 	}
 
@@ -70,13 +70,9 @@ public class ControladorUsuario {
 		throw new UsuarioException("El usuario: " + email + "no existe.");
 	}
 
-	public Usuario buscarUsuarioPorId(int id) throws UsuarioException {
-		for (Usuario usuario : getUsuarios()) {
-			if (usuario.getIdUsuario() == id) {
-				return usuario;
-			}
-		}
-		throw new UsuarioException("El usuario: " + id + "no existe.");
+	public Usuario buscarUsuarioPorId(int id) throws UsuarioException, CategoriaException {
+		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(id);
+		return us;
 	}
 
 	// TODO Agregar a Diagrama.
@@ -93,11 +89,11 @@ public class ControladorUsuario {
 		if ((usuario != null) && (usuario.validarLogin(password))) {
 
 			System.out.println("Usuario: " + usuario.getApodo() + " se loggeó.");
-			
+
 			return usuario.toDTO();
 		} else {
 			System.out.println("Usuario o Contraseña incorrecta para: " + usuario.getApodo());
-			
+
 		}
 		return null;
 	}
@@ -107,5 +103,12 @@ public class ControladorUsuario {
 			instancia = new ControladorUsuario();
 		}
 		return instancia;
+	}
+
+	public void agregarAListaEspera(UsuarioDTO usuario) throws UsuarioException, CategoriaException {
+		Usuario us = buscarUsuarioPorId(usuario.getIdUsuario());
+		if (us!=null)
+			ControladorArmadoJuegos.getInstancia().agregarJugadorLibreAEspera(us);
+
 	}
 }

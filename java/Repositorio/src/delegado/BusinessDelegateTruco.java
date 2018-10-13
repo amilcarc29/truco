@@ -41,4 +41,14 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
+	
+	public void agregarAListaEspera(UsuarioDTO usuario) throws ComunicacionException {
+		try {
+			ir.agregarAListaEspera(usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
+	
 }

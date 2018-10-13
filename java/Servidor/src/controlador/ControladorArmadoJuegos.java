@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.Vector;
 
+import excepciones.CategoriaException;
 import excepciones.GrupoJuegoException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
@@ -12,6 +13,7 @@ import negocio.GrupoJuego;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
 import negocio.Pareja;
+import negocio.Usuario;
 
 public class ControladorArmadoJuegos {
 
@@ -81,8 +83,8 @@ public class ControladorArmadoJuegos {
 		this.parejasEnEspera = parejasEnEspera;
 	}
 
-	public void agregarJugadorLibreAEspera(int idUsuario) throws UsuarioException {
-		getJugadoresEnEspera().add(new JugadorIndividual(ControladorUsuario.getInstancia().buscarUsuarioPorId(idUsuario)));
+	public void agregarJugadorLibreAEspera(Usuario us) throws UsuarioException, CategoriaException {
+		getJugadoresEnEspera().add(new JugadorIndividual(us));
 	}
 
 	public void agregarParejaLibreAEspera(Pareja pareja) {
