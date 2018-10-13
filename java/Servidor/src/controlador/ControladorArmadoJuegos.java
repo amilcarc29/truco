@@ -3,6 +3,7 @@ package controlador;
 import java.util.Vector;
 
 import excepciones.GrupoJuegoException;
+import excepciones.JuegoException;
 import excepciones.JugadorException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
@@ -89,7 +90,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	// TODO Renombrar en Diagrama
-	public void confirmarGrupo(GrupoJuego grupo) {
+	public void confirmarGrupo(GrupoJuego grupo) throws JuegoException {
 		ControladorJuego.getInstancia().iniciarJuego(grupo);
 	}
 

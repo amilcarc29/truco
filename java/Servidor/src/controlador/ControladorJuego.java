@@ -1,115 +1,149 @@
 package controlador;
 
-import java.util.Vector;
+import java.util.LinkedList;
+import java.util.List;
 
+import excepciones.CartaException;
 import excepciones.JuegoException;
+import excepciones.JugadorException;
 import negocio.FactoryJuegos;
 import negocio.GrupoJuego;
 import negocio.Juego;
+import negocio.Pareja;
 
 public class ControladorJuego {
 
-	private Vector<Juego> juegos;
-	private FactoryJuegos factory;
-
-	private static ControladorJuego instancia;
-
-	public ControladorJuego() {
-		juegos = new Vector<>();
-	}
-
-	public ControladorJuego(Vector<Juego> juegos, FactoryJuegos factory) {
-		super();
-		this.juegos = juegos;
-		this.factory = factory;
-	}
-
-	public Vector<Juego> getJuegos() {
-		return juegos;
-	}
-
-	public void setJuegos(Vector<Juego> juegos) {
-		this.juegos = juegos;
-	}
-
-	public FactoryJuegos getFactory() {
-		return factory;
-	}
-
-	public void setFactory(FactoryJuegos factory) {
-		this.factory = factory;
-	}
-
-	public void iniciarJuego(GrupoJuego grupoJuego) {
-		// TODO
-	}
-
-	public void cantarTruco(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void cantarReTruco(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void cantarVale4(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void cantarEnvido(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void cantarRealEnvido(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void cantarFaltaEnvido(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void quieroTruco(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void quieroEnvido(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void noQuieroTruco(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void noQuieroEnvido(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void jugarCarta(int idJuego, int idJugador, int idCarta) {
-		// TODO
-	}
-
-	public void irseAlMazo(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	public void salir(int idJuego, int idJugador) {
-		// TODO
-	}
-
-	// TODO Agregar al Diagrama.
-	public Juego buscarJuego(int idJuego) throws JuegoException {
-		for (Juego juego : juegos) {
-			if (juego.sosJuego(idJuego)) {
-				return juego;
-			}
-		}
-		throw new JuegoException("El juego: " + idJuego + "no existe.");
-	}
+	private List<Juego> juegos;
+	private static FactoryJuegos fcJuegos;
+	private static ControladorJuego controlador;
 
 	public static ControladorJuego getInstancia() {
-		if (instancia == null) {
-			instancia = new ControladorJuego();
-		}
-		return instancia;
+		if (controlador == null)
+			controlador = new ControladorJuego();
+		return controlador;
 	}
+
+	public ControladorJuego() {
+		juegos = new LinkedList<Juego>();
+		fcJuegos = new FactoryJuegos();
+	}
+
+	public void iniciarJuego(GrupoJuego grupo) throws JuegoException {
+		Juego j = fcJuegos.getJuego(grupo.getTipoJuego());
+		if (j != null) {
+			j.setParejas(grupo.getParejas());
+			j.crearChico();
+			juegos.add(j);
+		}
+	}
+
+	public void cantarTruco(int idJuego) throws JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+		j.cantarTruco();
+
+	}
+
+	public void cantarReTruco(int idJuego) throws JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+		j.cantarReTruco();
+
+	}
+
+	public void cantarVale4(int idJuego, int idJugador) throws JuegoException {
+		// TODO Auto-generated method stub
+		Juego j = this.buscarJuego(idJuego);
+		j.cantarVale4(idJugador);
+	}
+
+	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo) throws JuegoException {
+		// TODO Auto-generated method stub
+		Juego j = this.buscarJuego(idJuego);
+		j.cantarQuieroTruco(quieroSiNo);
+	}
+
+	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo) throws JuegoException {
+		// TODO Auto-generated method stub
+		Juego j = this.buscarJuego(idJuego);
+		j.cantarQuieroEnvido(quieroSiNo);
+	}
+
+	public void cantarEnvido(int idJuego) throws JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+		j.cantarEnvido();
+	}
+
+	// TODO AGREGAR
+	public void aceptarTruco(int idJuego, int idJugador) throws JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+	}
+
+	public Juego buscarJuego(int idJuego) throws JuegoException {
+		for (Juego juego : juegos) {
+			if (juego.sosJuego(idJuego))
+				return juego;
+		}
+		throw new JuegoException("El juego " + idJuego + "no existe.");
+	}
+
+	public void jugarCarta(int idJuego, int numero, String palo)
+			throws JugadorException, CartaException, JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+		j.jugarCarta(numero, palo);
+	}
+
+	public boolean verificarFinJuego(int idJuego) throws JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+		return j.verificarFinJuego();
+	}
+
+	public boolean terminoMano(int idJuego) throws JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+		return j.terminoMano();
+	}
+
+	public void sinCantar(int idJuego) throws JuegoException {
+		// TODO Auto-generated method stub
+		Juego j = this.buscarJuego(idJuego);
+		j.sinCantar();
+
+	}
+
+	public boolean sePuedeTruco(int idJuego) throws JuegoException {
+		return true;
+	}
+
+	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException {
+		Juego j = this.buscarJuego(idJuego);
+		return j.sePuedeCantarEnvido();
+	}
+
+	public void imprimirDbg() throws JuegoException {
+		for (Juego juego : juegos) {
+			List<Pareja> par = juego.getParejas();
+			for (Pareja p : par) {
+
+				System.out.println("Pareja num " + p.getIdPareja());
+				System.out.println("Jugadores " + p.getJugadores().get(0).getNombre() + " y "
+						+ p.getJugadores().get(1).getNombre());
+				System.out.println("Cartas de " + p.getJugadores().get(0).getNombre());
+				p.getJugadores().get(0).mostrarCartas();
+				System.out.println("Cartas de " + p.getJugadores().get(1).getNombre());
+				p.getJugadores().get(1).mostrarCartas();
+
+				if (this.sePuedeCantarEnvido(juego.getId())) {
+
+					System.out.println("Tanto para envido " + p.getMayorTantoEnvido());
+					System.out.println("Tanto para truco " + p.getMayorTantoTruco());
+
+				}
+				juego.puntosDbg(p.getIdPareja());
+
+				System.out.println("");
+
+			}
+			System.out.println("juega " + juego.proximoDbg().getNombre());
+			System.out.println("");
+		}
+	}
+
 }
