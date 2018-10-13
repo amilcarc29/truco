@@ -6,8 +6,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import negocio.Grupo;
-
 @Entity
 @Table(name = "Miembros")
 public class MiembroEntity {
