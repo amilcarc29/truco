@@ -13,6 +13,7 @@ public class ControladorUsuario {
 
 	public ControladorUsuario() {
 		usuarios = new Vector<>();
+		usuarios.add(new Usuario("pepe", "pepe", "pepe"));
 	}
 
 	public ControladorUsuario(Vector<Usuario> usuarios) {
