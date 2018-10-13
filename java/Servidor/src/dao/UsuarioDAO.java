@@ -37,15 +37,21 @@ public class UsuarioDAO {
 		}
 	}
 
+	/* 
 	public Usuario toNegocio(UsuarioEntity usuarioEntity) throws CategoriaException {
+	
 		Usuario usuario = new Usuario(usuarioEntity.getIdUsuario(), usuarioEntity.getPartidasGanadas(),
 				usuarioEntity.getPartidasPerdidas(), usuarioEntity.getPuntaje(), usuarioEntity.getApodo(),
 				usuarioEntity.getPass(), usuarioEntity.getEmail(), usuarioEntity.isActivo());
 		usuario.setCategoria(CategoriaDAO.getInstancia().toNegocio(usuarioEntity.getCategoria()));
 		return usuario;
 	}
+	
+	*/
 
 	public void guardarUsuario(Usuario usuario) throws CategoriaException {
+		UsuarioEntity ue = new UsuarioEntity (usuario.getPartidasGanadas(), usuario.getPartidasJugadas(), usuario.getPuntaje(),
+				usuario.getApodo(), usuario.getPass(), usuario.getEmail(), usuario.getActivo());
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		UsuarioEntity usuarioEntity = toEntity(usuario);
