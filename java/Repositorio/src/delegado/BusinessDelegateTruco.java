@@ -33,4 +33,11 @@ public class BusinessDelegateTruco {
 		}
 	}
 
+	public void alta(String apodo, String email, String password) throws ComunicacionException {
+		try {
+			ir.altaUsuario(apodo, email, password);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
 }

@@ -13,7 +13,11 @@ public class ControladorUsuario {
 
 	public ControladorUsuario() {
 		usuarios = new Vector<>();
-		usuarios.add(new Usuario("pepe", "pepe", "pepe"));
+		usuarios.add(new Usuario("Emiliano", "Emiliano", "pepe"));
+		usuarios.add(new Usuario("Debi", "Debi", "pepe"));
+		usuarios.add(new Usuario("Lucas", "Lucas", "pepe"));
+		usuarios.add(new Usuario("Amilcar", "Amilcar", "pepe"));
+
 	}
 
 	public ControladorUsuario(Vector<Usuario> usuarios) {
@@ -29,9 +33,24 @@ public class ControladorUsuario {
 		this.usuarios = usuarios;
 	}
 
-	public void altaUsuario(String apodo, String email, String password) {
-		Usuario usuario = new Usuario(apodo, email, password);
-		this.usuarios.add(usuario);
+	public void altaUsuario(String apodo, String email, String password) throws UsuarioException {
+		if (buscarUsuarioRegistrado(apodo) == null) {
+
+			Usuario usuario = new Usuario(apodo, email, password);
+			this.usuarios.add(usuario);
+
+		} else {
+			throw new UsuarioException("El usuario: " + apodo + " existe.");
+		}
+	}
+
+	public Usuario buscarUsuarioRegistrado(String apodo) {
+		for (Usuario usuario : getUsuarios()) {
+			if (usuario.esUsuario(apodo)) {
+				return usuario;
+			}
+		}
+		return null;
 	}
 
 	public Usuario buscarUsuarioPorApodo(String apodo) throws UsuarioException {

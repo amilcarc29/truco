@@ -13,12 +13,27 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 
 	private static final long serialVersionUID = 7432516509801597745L;
 
-	public ObjetoRemotoTruco() throws RemoteException {}
+	public ObjetoRemotoTruco() throws RemoteException {
+	}
 
 	@Override
 	public void login(String apodo, String password) throws RemoteException {
-		 try {
+		try {
+
 			new ControladorUsuario().getInstancia().loggearUsuario(apodo, password);
+
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void altaUsuario(String apodo, String email, String password) throws RemoteException {
+		try {
+
+			new ControladorUsuario().getInstancia().altaUsuario(apodo, email, password);
+
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
