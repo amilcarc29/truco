@@ -17,10 +17,10 @@ public class ControladorUsuario {
 
 	public ControladorUsuario() {
 		usuarios = new Vector<>();
-		usuarios.add(new Usuario("Emiliano", "Emiliano", "pepe"));
-		usuarios.add(new Usuario("Debi", "Debi", "pepe"));
-		usuarios.add(new Usuario("Lucas", "Lucas", "pepe"));
-		usuarios.add(new Usuario("Amilcar", "Amilcar", "pepe"));
+//		usuarios.add(new Usuario("Emiliano", "Emiliano", "pepe"));
+//		usuarios.add(new Usuario("Debi", "Debi", "pepe"));
+//		usuarios.add(new Usuario("Lucas", "Lucas", "pepe"));
+//		usuarios.add(new Usuario("Amilcar", "Amilcar", "pepe"));
 
 	}
 
@@ -88,14 +88,18 @@ public class ControladorUsuario {
 	}
 
 	// TODO Agregar a Diagrama. Y Modificar
-	public void loggearUsuario(String apodo, String password) throws UsuarioException, CategoriaException {
+	public UsuarioDTO loggearUsuario(String apodo, String password) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		if ((usuario != null) && (usuario.validarLogin(password))) {
 
 			System.out.println("Usuario: " + usuario.getApodo() + " se loggeó.");
+			
+			return usuario.toDTO();
 		} else {
 			System.out.println("Usuario o Contraseña incorrecta para: " + usuario.getApodo());
+			
 		}
+		return null;
 	}
 
 	public static ControladorUsuario getInstancia() {

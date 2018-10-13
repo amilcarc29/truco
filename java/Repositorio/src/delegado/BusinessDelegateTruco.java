@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 import interfaces.InterfaceRemota;
 import interfaces.InterfaceRemotaTruco;
@@ -25,9 +26,9 @@ public class BusinessDelegateTruco {
 		}
 	}
 
-	public void login(String usuario, String pass) throws ComunicacionException {
+	public UsuarioDTO login(String usuario, String pass) throws ComunicacionException {
 		try {
-			ir.login(usuario, pass);
+			return ir.login(usuario, pass);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}

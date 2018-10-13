@@ -1,8 +1,8 @@
 package dto;
 
+import java.io.Serializable;
 
-
-public class UsuarioDTO {
+public class UsuarioDTO implements Serializable{
 
 	private int idUsuario;
 	private int partidasGanadas;

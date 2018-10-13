@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import controlador.Controlador;
 import controlador.ControladorUsuario;
+import dto.UsuarioDTO;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import interfaces.InterfaceRemota;
@@ -18,11 +19,11 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void login(String apodo, String password) throws RemoteException {
-		
+	public UsuarioDTO login(String apodo, String password) throws RemoteException {
+		UsuarioDTO us = null;
 		try {
 
-			new ControladorUsuario().getInstancia().loggearUsuario(apodo, password);
+			us = new ControladorUsuario().getInstancia().loggearUsuario(apodo, password);
 
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block
@@ -31,7 +32,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return us;
 	}
 
 	@Override
