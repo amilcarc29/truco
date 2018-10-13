@@ -16,7 +16,7 @@ public class BusinessDelegateTruco {
 
 	public BusinessDelegateTruco() throws ComunicacionException {
 		try {
-			ir = (InterfaceRemotaTruco) Naming.lookup("//192.168.131.1/truco");
+			ir = (InterfaceRemotaTruco) Naming.lookup("//127.0.0.1/truco");
 		} catch (MalformedURLException e) {
 			throw new ComunicacionException("La direccion especificada no es correcta");
 		} catch (RemoteException e) {
