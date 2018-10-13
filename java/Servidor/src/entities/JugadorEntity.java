@@ -7,6 +7,7 @@ import javax.persistence.OneToOne;
 
 public class JugadorEntity {
 	
+	
 	@Id
 	private int idJugador;
 	@OneToOne

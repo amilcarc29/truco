@@ -33,6 +33,7 @@ public class ControladorUsuario {
 		this.usuarios = usuarios;
 	}
 
+
 	public void altaUsuario(String apodo, String password, String email) throws UsuarioException {
 		if (buscarUsuarioRegistrado(apodo) == null) {
 			Usuario usuario = new Usuario(apodo, email, password);

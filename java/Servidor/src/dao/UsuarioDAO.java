@@ -37,6 +37,7 @@ public class UsuarioDAO {
 		}
 	}
 
+	
 	/* 
 	public Usuario toNegocio(UsuarioEntity usuarioEntity) throws CategoriaException {
 	

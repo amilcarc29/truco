@@ -19,6 +19,7 @@ public class Usuario {
 	public Usuario() {
 	}
 
+	
 
 	public Usuario(String apodo, String pass, String email) {
 		super();
