@@ -53,6 +53,8 @@ public class GrupoDTO {
 	public void setPuntoPorPartida(int puntoPorPartida) {
 		this.puntoPorPartida = puntoPorPartida;
 	}
+	
+	
 
 	/*public List<ModalidadCerrada> getPartidas() {
 		return partidas;

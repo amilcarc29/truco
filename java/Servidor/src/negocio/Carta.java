@@ -1,5 +1,7 @@
 package negocio;
 
+import dto.CartaDTO;
+
 public class Carta {
 
 	private int idCarta = 0;
@@ -73,5 +75,10 @@ public class Carta {
 
 		return carta.getPesoTruco() > this.pesoTruco;
 
+	}
+	
+	
+	public CartaDTO toDTO(){
+		return new CartaDTO(idCarta, numero, palo, pesoTruco,  pesoEnvido);
 	}
 }

@@ -143,6 +143,7 @@ public class Usuario {
 	}
 
 	
+	
 
 	public UsuarioDTO toDTO() {
 		return new UsuarioDTO(idUsuario, partidasGanadas, partidasJugadas, puntaje, apodo, pass,
