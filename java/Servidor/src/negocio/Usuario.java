@@ -1,46 +1,55 @@
 package negocio;
 
+import dao.CategoriaDAO;
+import dao.UsuarioDAO;
 import dto.UsuarioDTO;
+import excepciones.CategoriaException;
+import utils.HashUtil;
 
 public class Usuario {
 	private int idUsuario;
 	private int partidasGanadas;
-	private int partidasPerdidas;
+	private int partidasJugadas;
 	private int puntaje;
-
 	private String apodo;
 	private String pass;
 	private String email;
-
 	private Categoria categoria;
-	private boolean activo;
+	boolean activo;
 
 	public Usuario() {
 	}
 
-	public Usuario(String apodo, String email, String password) {
+	public Usuario(String apodo, String pass, String email) {
 		super();
-		setApodo(apodo);
-		setEmail(email);
-		setPass(password);
-	}
-
-	public Usuario(int idUsuario, int partidasGanadas, int partidasPerdidas, int puntaje, String apodo, String pass,
-			String email, boolean activo) {
-		super();
-		this.idUsuario = idUsuario;
-		this.partidasGanadas = partidasGanadas;
-		this.partidasPerdidas = partidasPerdidas;
-		this.puntaje = puntaje;
+		this.partidasGanadas = 0;
+		this.partidasJugadas = 0;
+		this.puntaje = 0;
 		this.apodo = apodo;
 		this.pass = pass;
 		this.email = email;
-		this.categoria = categoria;
-		this.activo = activo;
+		this.activo = true;
+		categoria = new Novato(idUsuario, email, idUsuario, idUsuario, idUsuario, idUsuario);
+	}
+
+	public boolean esUsuario(String apodo) {
+		return (this.getApodo().equalsIgnoreCase(apodo));
+	}
+
+	public boolean validarLogin(String password) {
+		return (this.getPass().equals(HashUtil.hashString(password)));
+	}
+
+	public void save() throws CategoriaException {
+		UsuarioDAO.getInstancia().guardarUsuario(this);
 	}
 
 	public int getIdUsuario() {
 		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public int getPartidasGanadas() {
@@ -51,12 +60,12 @@ public class Usuario {
 		this.partidasGanadas = partidasGanadas;
 	}
 
-	public int getPartidasPerdidas() {
-		return partidasPerdidas;
+	public int getPartidasJugadas() {
+		return partidasJugadas;
 	}
 
-	public void setPartidasPerdidas(int partidasPerdidas) {
-		this.partidasPerdidas = partidasPerdidas;
+	public void setPartidasJugadas(int partidasJugadas) {
+		this.partidasJugadas = partidasJugadas;
 	}
 
 	public int getPuntaje() {
@@ -83,12 +92,12 @@ public class Usuario {
 		this.pass = pass;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public String getEmail() {
+		return email;
 	}
 
-	public String getEmail() {
-		return this.email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Categoria getCategoria() {
@@ -99,7 +108,7 @@ public class Usuario {
 		this.categoria = categoria;
 	}
 
-	public boolean isActivo() {
+	public boolean getActivo() {
 		return activo;
 	}
 
@@ -107,17 +116,7 @@ public class Usuario {
 		this.activo = activo;
 	}
 
-	public boolean validarLogin(String pass) {
-		return getPass().equals(pass);
+	public UsuarioDTO toDTO() {
+		return new UsuarioDTO(idUsuario, partidasGanadas, partidasJugadas, puntaje, apodo, pass, email, activo);// categoria.,
 	}
-
-	// TODO Agregar al Diagrama.
-	public boolean esUsuario(String apodo) {
-		return getApodo().equals(apodo);
-	}
-
-//	public UsuarioDTO toDTO() {
-//		return new UsuarioDTO(idUsuario, partidasGanadas, partidasPerdidas, puntaje, apodo, pass,
-//				email, categoria, activo);
-//	}
 }

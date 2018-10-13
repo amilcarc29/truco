@@ -1,28 +1,28 @@
 package entities;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Jugadores")
 public class JugadorEntity {
 
+	@Id
 	private int idJugador;
-	@OneToMany
-	@JoinColumn(name = "idJugador")
+	@OneToOne
+	@JoinColumn(name = "idUsuario")
 	private UsuarioEntity usuario;
-	@OneToMany
-	@JoinColumn(name = "idJugador")
+	@OneToOne
+	@JoinColumn(name = "idPareja")
 	private ParejaEntity pareja;
 	@OneToMany
-	@JoinColumn(name = "idJugador")
+	@JoinColumn(name = "idMiembro")
 	private MiembroEntity miembro;
 	private String tipo;
-
-	public JugadorEntity() {
-	}
 
 	public JugadorEntity(int idJugador, UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro,
 			String tipo) {

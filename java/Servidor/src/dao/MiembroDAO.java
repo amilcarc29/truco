@@ -25,7 +25,7 @@ public class MiembroDAO {
 	public Miembro buscarMiembroById(int idMiembro) throws MiembroException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		MiembroEntity miembroEntity = (MiembroEntity) session.createQuery("from Miembros where idMiembro = ?")
+		MiembroEntity miembroEntity = (MiembroEntity) session.createQuery("from MiembrosEntity where idMiembro = ?")
 				.setParameter(0, idMiembro)
 				.uniqueResult();
 		session.close();
@@ -55,7 +55,8 @@ public class MiembroDAO {
 
 	public MiembroEntity toEntity(Miembro miembro) throws CategoriaException {
 		MiembroEntity miembroEntity = new MiembroEntity(miembro.getIdMiembro(), miembro.getPuntaje(), miembro.isEnGrupo());
-		miembroEntity.setUsuario(UsuarioDAO.getInstancia().toEntity(miembro.getUsuario()));
+		//todo sin new Entity
+//		miembroEntity.setUsuario(UsuarioDAO.getInstancia().toEntity(miembro.getUsuario()));
 		miembroEntity.setGrupo(GrupoDAO.getInstancia().toEntity(miembro.getGrupo()));
 		return miembroEntity;
 	}

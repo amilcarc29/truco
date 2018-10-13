@@ -21,7 +21,9 @@ public abstract class Categoria {
 			setMinimoPuntos(minimoPuntos);
 			setPromedioMinimo(promedioMinimo);
 		}
-
+		public Categoria(){
+			
+		}
 		public abstract void actualizar();
 
 		private void setIdCategoria(int idCategoria) {

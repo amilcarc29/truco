@@ -10,10 +10,7 @@ public class GrupoJuego {
 	private Date fechaCreacion;
 	private String tipoJuego;
 
-	public GrupoJuego() {
-		parejas = new LinkedList<Pareja>();
-		fechaCreacion = new Date();
-	}
+
 
 	public int getId() {
 		return id;
@@ -53,23 +50,21 @@ public class GrupoJuego {
 
 	// TODO addJugadores YA NO ESTA
 
-	public boolean agregarJugador(Jugador jugador1, Jugador jugador2) {
+	public  GrupoJuego(Jugador jugador1, Jugador jugador2, Jugador jugador3, Jugador jugador4) {
+		parejas = new LinkedList<Pareja>();
 
-		Pareja p = new Pareja();
-		p.addJugador(jugador1);
-		p.addJugador(jugador2);
-		return agregarPareja(p);
+		Pareja p1 = new Pareja();
+		p1.addJugador(jugador1);
+		p1.addJugador(jugador2);
 
-	}
+		Pareja p2 = new Pareja();
+		p2.addJugador(jugador3);
+		p2.addJugador(jugador4);
 
-	public boolean agregarPareja(Pareja pareja) {
-
-		if (this.parejas.size() < 2) {
-
-			this.parejas.add(pareja);
-			return true;
-		}
-		return false;
+		this.parejas.add(p1);
+		this.parejas.add(p2);
+		
+		fechaCreacion = new Date();
 
 	}
 

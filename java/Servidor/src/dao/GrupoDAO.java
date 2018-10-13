@@ -25,7 +25,7 @@ public class GrupoDAO {
 	public Grupo buscarGrupoById(int idGrupo) throws GrupoException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		GrupoEntity grupoEntity = (GrupoEntity) session.createQuery("from Grupos where idGrupo = ?")
+		GrupoEntity grupoEntity = (GrupoEntity) session.createQuery("from GruposEntity where idGrupo = ?")
 				.setParameter(0, idGrupo)
 				.uniqueResult();
 		session.close();
@@ -53,6 +53,8 @@ public class GrupoDAO {
 	}
 
 	public GrupoEntity toEntity(Grupo grupo) throws CategoriaException {
-		return new GrupoEntity(grupo.getIdGrupo(), UsuarioDAO.getInstancia().toEntity(grupo.getAdministrador()), grupo.getNombre());
+		
+		//return new GrupoEntity(grupo.getIdGrupo(), UsuarioDAO.getInstancia().toEntity(grupo.getAdministrador()), grupo.getNombre());
+	return null;
 	}
 }

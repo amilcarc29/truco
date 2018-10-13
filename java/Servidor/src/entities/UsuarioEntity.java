@@ -1,51 +1,63 @@
 package entities;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import utils.HashUtil;
+
 @Entity
-@Table(name="Usuarios")
+@Table(name = "Usuario")
 public class UsuarioEntity {
 
 	@Id
-	private int idUsuario;
-	private int partidasGanadas;
-	private int partidasPerdidas;
-	private int puntaje;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer idUsuario;
 
+	private int partidasGanadas;
+	private int partidasJugadas;
+	private int puntaje;
 	private String apodo;
 	private String pass;
 	private String email;
 
-	@OneToMany
-	@JoinColumn(name = "idUsuario")
+	@OneToOne
+	@JoinColumn(name = "idCategoria")
 	private CategoriaEntity categoria;
+
 	private boolean activo;
 
 	public UsuarioEntity() {
 	}
 
-	public UsuarioEntity(int idUsuario, int partidasGanadas, int partidasPerdidas, int puntaje, String apodo,
-			String pass, String email, boolean activo) {
+	public UsuarioEntity(int partidasGanadas, int partidasJugadas, int puntaje, String apodo, String pass, String email,
+			boolean activo) {
 		super();
-		setIdUsuario(idUsuario);
-		setPartidasGanadas(partidasGanadas);
-		setPartidasPerdidas(partidasPerdidas);
-		setPuntaje(puntaje);
-		setApodo(apodo);
-		setPass(pass);
-		setEmail(email);
-		setActivo(activo);
+		this.partidasGanadas = partidasGanadas;
+		this.partidasJugadas = partidasJugadas;
+		this.puntaje = puntaje;
+		this.apodo = apodo;
+		this.pass = HashUtil.hashString(pass);
+		this.email = email;
+		this.activo = activo;
+		this.idUsuario = null;
+
 	}
 
-	public int getIdUsuario() {
+
+	public Integer getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -57,12 +69,12 @@ public class UsuarioEntity {
 		this.partidasGanadas = partidasGanadas;
 	}
 
-	public int getPartidasPerdidas() {
-		return partidasPerdidas;
+	public int getPartidasJugadas() {
+		return partidasJugadas;
 	}
 
-	public void setPartidasPerdidas(int partidasPerdidas) {
-		this.partidasPerdidas = partidasPerdidas;
+	public void setPartidasJugadas(int partidasJugadas) {
+		this.partidasJugadas = partidasJugadas;
 	}
 
 	public int getPuntaje() {
@@ -105,11 +117,12 @@ public class UsuarioEntity {
 		this.categoria = categoria;
 	}
 
-	public boolean isActivo() {
+	public boolean getActivo() {
 		return activo;
 	}
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
 }

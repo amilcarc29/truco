@@ -33,9 +33,7 @@ public class TestJuego {
 
 		j4.setNombre("Amilcar");
 
-		GrupoJuego g = new GrupoJuego();
-		g.agregarJugador(j1, j2);
-		g.agregarJugador(j3, j4);
+		GrupoJuego g = new GrupoJuego(j1, j2, j3, j4);
 
 		g.setTipoJuego("LIBRE");
 
@@ -67,8 +65,7 @@ public class TestJuego {
 								ju.cantarQuieroEnvido(0, false);
 
 						}
-						
-						
+
 					}
 					String retruco = null;
 					String truco = null;
@@ -91,12 +88,9 @@ public class TestJuego {
 							else
 								ju.cantarQuieroTruco(0, false);
 
-						}else
+						} else
 							ju.cantarQuieroTruco(0, false);
-						
-						
-						
-						
+
 					} else {
 
 						System.out.println("carta numero: ");

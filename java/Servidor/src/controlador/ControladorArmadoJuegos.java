@@ -2,6 +2,8 @@ package controlador;
 
 import java.util.Vector;
 
+import dto.UsuarioDTO;
+import excepciones.CategoriaException;
 import excepciones.GrupoJuegoException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
@@ -12,6 +14,7 @@ import negocio.GrupoJuego;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
 import negocio.Pareja;
+import negocio.Usuario;
 
 public class ControladorArmadoJuegos {
 
@@ -81,8 +84,11 @@ public class ControladorArmadoJuegos {
 		this.parejasEnEspera = parejasEnEspera;
 	}
 
-	public void agregarJugadorLibreAEspera(int idUsuario) throws UsuarioException {
-		getJugadoresEnEspera().add(new JugadorIndividual(ControladorUsuario.getInstancia().buscarUsuarioPorId(idUsuario)));
+	public void agregarJugadorLibreAEspera(UsuarioDTO usuario) throws UsuarioException, CategoriaException {
+
+		Usuario us =  ControladorUsuario.getInstancia().buscarUsuarioPorId(usuario.getIdUsuario());
+
+		getJugadoresEnEspera().add(new JugadorIndividual(us));
 	}
 
 	public void agregarParejaLibreAEspera(Pareja pareja) {
@@ -96,16 +102,19 @@ public class ControladorArmadoJuegos {
 
 	public boolean armarGrupoDeIgualCategoria() throws UsuarioException {
 		// TODO
-		Categoria categoria = ControladorUsuario.getInstancia().buscarUsuarioPorApodo(getJugadoresEnEspera().get(0).getNombre()).getCategoria();
-		Vector<Jugador> jugadoresGrupo = new Vector<>();
-		int cantidadJugadoresEnGrupo = 0;
-		for (Jugador jugador : getJugadoresEnEspera()) {
-			if (ControladorUsuario.getInstancia().buscarUsuarioPorApodo(jugador.getNombre()).getCategoria().getIdCategoria() == categoria.getIdCategoria()
-					&& cantidadJugadoresEnGrupo < 4) {
-				jugadoresGrupo.add(jugador);
-				cantidadJugadoresEnGrupo++;
-			}
-		}
+		// Categoria categoria =
+		// ControladorUsuario.getInstancia().buscarUsuarioPorApodo(getJugadoresEnEspera().get(0).getNombre()).getCategoria();
+		// Vector<Jugador> jugadoresGrupo = new Vector<>();
+		// int cantidadJugadoresEnGrupo = 0;
+		// for (Jugador jugador : getJugadoresEnEspera()) {
+		// if
+		// (ControladorUsuario.getInstancia().buscarUsuarioPorApodo(jugador.getNombre()).getCategoria().getIdCategoria()
+		// == categoria.getIdCategoria()
+		// && cantidadJugadoresEnGrupo < 4) {
+		// jugadoresGrupo.add(jugador);
+		// cantidadJugadoresEnGrupo++;
+		// }
+		// }
 		return false;
 	}
 

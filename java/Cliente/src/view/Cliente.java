@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.JOptionPane;
 
-
 import delegado.BusinessDelegate;
 import excepciones.ComunicacionException;
 
@@ -15,13 +14,6 @@ public class Cliente {
 		} catch (ComunicacionException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-
-		
-		
-		
-		
-		
-		
 
 	}
 
