@@ -144,8 +144,8 @@ public class Usuario {
 
 	
 
-//	public UsuarioDTO toDTO() {
-//		return new UsuarioDTO(idUsuario, partidasGanadas, partidasPerdidas, puntaje, apodo, pass,
-//				email, categoria, activo);
-//	}
+	public UsuarioDTO toDTO() {
+		return new UsuarioDTO(idUsuario, partidasGanadas, partidasJugadas, puntaje, apodo, pass,
+				email,  activo);//categoria.,
+	}
 }

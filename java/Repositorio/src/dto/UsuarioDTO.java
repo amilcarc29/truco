@@ -1,6 +1,6 @@
 package dto;
 
-import negocio.Categoria;
+
 
 public class UsuarioDTO {
 
@@ -11,11 +11,11 @@ public class UsuarioDTO {
 	private String apodo;
 	private String pass;
 	private String email;
-	private Categoria categoria;
+	//private CategoriaDTO categoria;
 	private boolean activo;
 
 	public UsuarioDTO(int idUsuario, int partidasGanadas, int partidasPerdidas, int puntaje, String apodo, String pass,
-			String email, Categoria categoria, boolean activo) {
+			String email, boolean activo) {//, CategoriaDTO categoria
 		super();
 		this.idUsuario = idUsuario;
 		this.partidasGanadas = partidasGanadas;
@@ -24,7 +24,7 @@ public class UsuarioDTO {
 		this.apodo = apodo;
 		this.pass = pass;
 		this.email = email;
-		this.categoria = categoria;
+		//this.categoria = categoria;
 		this.activo = activo;
 	}
 
@@ -84,13 +84,13 @@ public class UsuarioDTO {
 		this.email = email;
 	}
 
-	public Categoria getCategoria() {
+	/*public Categoria getCategoria() {
 		return categoria;
 	}
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
-	}
+	}*/
 
 	public boolean isActivo() {
 		return activo;
