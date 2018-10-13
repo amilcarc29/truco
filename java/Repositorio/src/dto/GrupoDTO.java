@@ -2,19 +2,16 @@ package dto;
 
 import java.util.List;
 
-import negocio.ModalidadCerrada;
-import negocio.Usuario;
-
 public class GrupoDTO {
 
 	private int idGrupo;
-	private Usuario administrador;
+	private UsuarioDTO administrador;
 	private String nombre;
 	private int puntoPorPartida;
-	private List<ModalidadCerrada> partidas;
+	private List<ModalidadCerradaDTO> partidas;
 
-	public GrupoDTO(int idGrupo, Usuario administrador, String nombre, int puntoPorPartida,
-			List<ModalidadCerrada> partidas) {
+	public GrupoDTO(int idGrupo, UsuarioDTO administrador, String nombre, int puntoPorPartida,
+			List<ModalidadCerradaDTO> partidas) {
 		super();
 		setIdGrupo(idGrupo);
 		setAdministrador(administrador);
@@ -31,11 +28,11 @@ public class GrupoDTO {
 		this.idGrupo = idGrupo;
 	}
 
-	public Usuario getAdministrador() {
+	public UsuarioDTO getAdministrador() {
 		return administrador;
 	}
 
-	public void setAdministrador(Usuario administrador) {
+	public void setAdministrador(UsuarioDTO administrador) {
 		this.administrador = administrador;
 	}
 
@@ -55,11 +52,11 @@ public class GrupoDTO {
 		this.puntoPorPartida = puntoPorPartida;
 	}
 
-	public List<ModalidadCerrada> getPartidas() {
+	public List<ModalidadCerradaDTO> getPartidas() {
 		return partidas;
 	}
 
-	public void setPartidas(List<ModalidadCerrada> partidas) {
+	public void setPartidas(List<ModalidadCerradaDTO> partidas) {
 		this.partidas = partidas;
 	}
 }
