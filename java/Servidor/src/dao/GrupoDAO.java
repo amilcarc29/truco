@@ -53,6 +53,8 @@ public class GrupoDAO {
 	}
 
 	public GrupoEntity toEntity(Grupo grupo) throws CategoriaException {
-		return new GrupoEntity(grupo.getIdGrupo(), UsuarioDAO.getInstancia().toEntity(grupo.getAdministrador()), grupo.getNombre());
+		
+		//return new GrupoEntity(grupo.getIdGrupo(), UsuarioDAO.getInstancia().toEntity(grupo.getAdministrador()), grupo.getNombre());
+	return null;
 	}
 }

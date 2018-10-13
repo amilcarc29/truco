@@ -27,8 +27,7 @@ public class UsuarioDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		UsuarioEntity usuarioEntity = (UsuarioEntity) session.createQuery("from Usuarios where idUsuario = ?")
-				.setParameter(0, idUsuario)
-				.uniqueResult();
+				.setParameter(0, idUsuario).uniqueResult();
 		session.close();
 		if (usuarioEntity != null) {
 			return toNegocio(usuarioEntity);
@@ -37,37 +36,54 @@ public class UsuarioDAO {
 		}
 	}
 
-	
-	/* 
 	public Usuario toNegocio(UsuarioEntity usuarioEntity) throws CategoriaException {
-	
-		Usuario usuario = new Usuario(usuarioEntity.getIdUsuario(), usuarioEntity.getPartidasGanadas(),
-				usuarioEntity.getPartidasPerdidas(), usuarioEntity.getPuntaje(), usuarioEntity.getApodo(),
-				usuarioEntity.getPass(), usuarioEntity.getEmail(), usuarioEntity.isActivo());
-		usuario.setCategoria(CategoriaDAO.getInstancia().toNegocio(usuarioEntity.getCategoria()));
-		return usuario;
+
+		// Usuario usuario = new Usuario(usuarioEntity.getIdUsuario(),
+		// usuarioEntity.getPartidasGanadas(),
+		// usuarioEntity.getPartidasPerdidas(), usuarioEntity.getPuntaje(),
+		// usuarioEntity.getApodo(),
+		// usuarioEntity.getPass(), usuarioEntity.getEmail(),
+		// usuarioEntity.isActivo());
+		// usuario.setCategoria(CategoriaDAO.getInstancia().toNegocio(usuarioEntity.getCategoria()));
+		// return usuario;
+		return null;
 	}
-	
-	*/
 
 	public void guardarUsuario(Usuario usuario) throws CategoriaException {
-		UsuarioEntity ue = new UsuarioEntity (usuario.getPartidasGanadas(), usuario.getPartidasJugadas(), usuario.getPuntaje(),
-				usuario.getApodo(), usuario.getPass(), usuario.getEmail(), usuario.getActivo());
+		CategoriaEntity cat = null;
+		UsuarioEntity ue = new UsuarioEntity(usuario.getPartidasGanadas(), usuario.getPartidasJugadas(),
+				usuario.getPuntaje(), usuario.getApodo(), usuario.getPass(), usuario.getEmail(), usuario.getActivo());
+
+		try {
+
+			cat = CategoriaDAO.getInstancia().buscarCategoriaById(1);
+
+		} catch (CategoriaException e) {
+			e.printStackTrace();
+
+		}
+		ue.setCategoria(cat);
+
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		UsuarioEntity usuarioEntity = toEntity(usuario);
 		session.beginTransaction();
-		session.saveOrUpdate(usuarioEntity);
+		session.saveOrUpdate(ue);
 		session.getTransaction().commit();
 		session.close();
 	}
 
-	public UsuarioEntity toEntity(Usuario usuario) throws CategoriaException {
-		UsuarioEntity usuarioEntity = new UsuarioEntity(usuario.getIdUsuario(), usuario.getPartidasGanadas(),
-				usuario.getPartidasPerdidas(), usuario.getPuntaje(), usuario.getApodo(), usuario.getPass(),
-				usuario.getEmail(), usuario.isActivo());
-		CategoriaEntity categoriaEntity = CategoriaDAO.getInstancia().toEntity(usuario.getCategoria());
-		usuarioEntity.setCategoria(categoriaEntity);
-		return usuarioEntity;
-	}
+	//
+	//
+	// public UsuarioEntity toEntity(Usuario usuario) throws CategoriaException
+	// {
+	// UsuarioEntity usuarioEntity = new UsuarioEntity(usuario.getIdUsuario(),
+	// usuario.getPartidasGanadas(),
+	// usuario.getPartidasPerdidas(), usuario.getPuntaje(), usuario.getApodo(),
+	// usuario.getPass(),
+	// usuario.getEmail(), usuario.isActivo());
+	// CategoriaEntity categoriaEntity =
+	// CategoriaDAO.getInstancia().toEntity(usuario.getCategoria());
+	// usuarioEntity.setCategoria(categoriaEntity);
+	// return usuarioEntity;
+	// }
 }

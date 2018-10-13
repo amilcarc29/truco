@@ -96,16 +96,16 @@ public class ControladorArmadoJuegos {
 
 	public boolean armarGrupoDeIgualCategoria() throws UsuarioException {
 		// TODO
-		Categoria categoria = ControladorUsuario.getInstancia().buscarUsuarioPorApodo(getJugadoresEnEspera().get(0).getNombre()).getCategoria();
-		Vector<Jugador> jugadoresGrupo = new Vector<>();
-		int cantidadJugadoresEnGrupo = 0;
-		for (Jugador jugador : getJugadoresEnEspera()) {
-			if (ControladorUsuario.getInstancia().buscarUsuarioPorApodo(jugador.getNombre()).getCategoria().getIdCategoria() == categoria.getIdCategoria()
-					&& cantidadJugadoresEnGrupo < 4) {
-				jugadoresGrupo.add(jugador);
-				cantidadJugadoresEnGrupo++;
-			}
-		}
+//		Categoria categoria = ControladorUsuario.getInstancia().buscarUsuarioPorApodo(getJugadoresEnEspera().get(0).getNombre()).getCategoria();
+//		Vector<Jugador> jugadoresGrupo = new Vector<>();
+//		int cantidadJugadoresEnGrupo = 0;
+//		for (Jugador jugador : getJugadoresEnEspera()) {
+//			if (ControladorUsuario.getInstancia().buscarUsuarioPorApodo(jugador.getNombre()).getCategoria().getIdCategoria() == categoria.getIdCategoria()
+//					&& cantidadJugadoresEnGrupo < 4) {
+//				jugadoresGrupo.add(jugador);
+//				cantidadJugadoresEnGrupo++;
+//			}
+//		}
 		return false;
 	}
 

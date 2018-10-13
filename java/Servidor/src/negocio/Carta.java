@@ -1,6 +1,6 @@
 package negocio;
 
-import dto.CartaDTO;
+//import dto.CartaDTO;
 
 public class Carta {
 
@@ -78,7 +78,7 @@ public class Carta {
 	}
 	
 	
-	public CartaDTO toDTO(){
-		return new CartaDTO(idCarta, numero, palo, pesoTruco,  pesoEnvido);
-	}
+//	public CartaDTO toDTO(){
+//		return new CartaDTO(idCarta, numero, palo, pesoTruco,  pesoEnvido);
+//	}
 }

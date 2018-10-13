@@ -55,7 +55,8 @@ public class MiembroDAO {
 
 	public MiembroEntity toEntity(Miembro miembro) throws CategoriaException {
 		MiembroEntity miembroEntity = new MiembroEntity(miembro.getIdMiembro(), miembro.getPuntaje(), miembro.isEnGrupo());
-		miembroEntity.setUsuario(UsuarioDAO.getInstancia().toEntity(miembro.getUsuario()));
+		//todo sin new Entity
+//		miembroEntity.setUsuario(UsuarioDAO.getInstancia().toEntity(miembro.getUsuario()));
 		miembroEntity.setGrupo(GrupoDAO.getInstancia().toEntity(miembro.getGrupo()));
 		return miembroEntity;
 	}

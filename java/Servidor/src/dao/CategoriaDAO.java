@@ -23,14 +23,14 @@ public class CategoriaDAO {
 		return instancia;
 	}
 
-	public Categoria buscarCategoriaById(int idCategoria) throws CategoriaException {
+	public CategoriaEntity buscarCategoriaById(int idCategoria) throws CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		CategoriaEntity categoriaEntity = (CategoriaEntity) session.createQuery("from Categorias where idCategoria = ?")
+		CategoriaEntity categoriaEntity = (CategoriaEntity) session.createQuery("from CategoriaEntity where idCategoria = ?")
 				.setParameter(0, idCategoria).uniqueResult();
 		session.close();
 		if (categoriaEntity != null) {
-			return toNegocio(categoriaEntity);
+			return categoriaEntity;
 		} else {
 			throw new CategoriaException("La categoria con id: " + idCategoria + "no existe en la base de datos.");
 		}

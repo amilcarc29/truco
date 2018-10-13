@@ -2,6 +2,9 @@ package controlador;
 
 import java.util.Vector;
 
+import dao.CategoriaDAO;
+import dao.UsuarioDAO;
+import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import negocio.Usuario;
 
@@ -37,6 +40,13 @@ public class ControladorUsuario {
 	public void altaUsuario(String apodo, String password, String email) throws UsuarioException {
 		if (buscarUsuarioRegistrado(apodo) == null) {
 			Usuario usuario = new Usuario(apodo, email, password);
+
+			try {
+				usuario.save();
+			} catch (CategoriaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			this.usuarios.add(usuario);
 

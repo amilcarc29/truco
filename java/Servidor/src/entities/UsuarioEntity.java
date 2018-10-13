@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name="Usuarios")
+@Table(name="Usuario")
 public class UsuarioEntity {
 
 	@Id
@@ -20,9 +21,11 @@ public class UsuarioEntity {
 	private String pass;
 	private String email;
 	
-	@OneToMany
-	@JoinColumn(name = "idUsuario")
+	@OneToOne
+	@JoinColumn(name = "idCategoria")
 	private CategoriaEntity categoria;
+	
+	
 	private boolean activo;
 
 	public UsuarioEntity() {
