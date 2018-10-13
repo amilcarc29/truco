@@ -4,6 +4,7 @@ import dao.CategoriaDAO;
 import dao.UsuarioDAO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
+import utils.HashUtil;
 
 public class Usuario {
 	private int idUsuario;
@@ -36,7 +37,7 @@ public class Usuario {
 	}
 
 	public boolean validarLogin(String password) {
-		return (this.getPass().equalsIgnoreCase(password));
+		return (this.getPass().equals(HashUtil.hashString(password)));
 	}
 
 	public void save() throws CategoriaException {

@@ -1,5 +1,9 @@
 package dao;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -47,14 +51,11 @@ public class UsuarioDAO {
 		usuario.setPuntaje(usuarioEntity.getPuntaje());
 		usuario.setEmail(usuarioEntity.getEmail());
 		usuario.setCategoria(usuarioEntity.getCategoria().toNegocio());
-		
-		
-		
-		
-		
+		usuario.setPass(usuarioEntity.getPass());
 		return usuario;
 	}
 
+	
 	public void guardarUsuario(Usuario usuario) throws CategoriaException {
 		CategoriaEntity cat = null;
 		UsuarioEntity ue = new UsuarioEntity(usuario.getPartidasGanadas(), usuario.getPartidasJugadas(),
@@ -87,7 +88,7 @@ public class UsuarioDAO {
 		if (usuarioEntity != null) {
 			return toNegocio(usuarioEntity);
 		} else {
-			throw new UsuarioException("El usuario con id: " + apodo + "no existe en la base de datos.");
+		return null;
 		}
 
 	}

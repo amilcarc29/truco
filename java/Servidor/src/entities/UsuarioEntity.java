@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import utils.HashUtil;
+
 @Entity
 @Table(name = "Usuario")
 public class UsuarioEntity {
@@ -43,31 +45,13 @@ public class UsuarioEntity {
 		this.partidasJugadas = partidasJugadas;
 		this.puntaje = puntaje;
 		this.apodo = apodo;
-		this.pass = this.hashString(pass);
+		this.pass = HashUtil.hashString(pass);
 		this.email = email;
 		this.activo = activo;
 		this.idUsuario = null;
 
 	}
 
-	private String hashString(String str) {
-
-		byte[] bytesOfMessage;
-		try {
-			bytesOfMessage = str.getBytes("UTF-8");
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] thedigest = md.digest(bytesOfMessage);
-			return new String(thedigest);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
-	}
 
 	public Integer getIdUsuario() {
 		return idUsuario;

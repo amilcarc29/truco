@@ -37,11 +37,9 @@ public class ControladorUsuario {
 		this.usuarios = usuarios;
 	}
 
-
 	public void altaUsuario(String apodo, String password, String email) throws UsuarioException, CategoriaException {
 		if (buscarUsuarioPorApodo(apodo) == null) {
-			
-			
+
 			Usuario usuario = new Usuario(apodo, email, password);
 
 			try {
@@ -50,15 +48,13 @@ public class ControladorUsuario {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			this.usuarios.add(usuario);
 
 		} else {
 			throw new UsuarioException("El usuario: " + apodo + " existe.");
 		}
 	}
-
-
 
 	public Usuario buscarUsuarioPorApodo(String apodo) throws UsuarioException, CategoriaException {
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioByApodo(apodo);
@@ -84,7 +80,8 @@ public class ControladorUsuario {
 	}
 
 	// TODO Agregar a Diagrama.
-	public void modificarUsuario(String apodo, String email, String password) throws UsuarioException, CategoriaException {
+	public void modificarUsuario(String apodo, String email, String password)
+			throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		usuario.setEmail(email);
 		usuario.setPass(password);
@@ -93,10 +90,11 @@ public class ControladorUsuario {
 	// TODO Agregar a Diagrama. Y Modificar
 	public void loggearUsuario(String apodo, String password) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
-		if (usuario.validarLogin(password)) {
-			System.out.println("Usuario: " + usuario.getApodo() + "se loggeó.");
+		if ((usuario != null) && (usuario.validarLogin(password))) {
+
+			System.out.println("Usuario: " + usuario.getApodo() + " se loggeó.");
 		} else {
-			System.out.println("Contraseña incorrecta para: " + usuario.getApodo());
+			System.out.println("Usuario o Contraseña incorrecta para: " + usuario.getApodo());
 		}
 	}
 
