@@ -11,23 +11,11 @@ import negocio.Usuario;
 
 public class ControladorUsuario {
 
-	private Vector<Usuario> usuarios;
+	private Vector<Usuario> usuarios = new Vector<>();
 
 	private static ControladorUsuario instancia;
 
-	public ControladorUsuario() {
-		usuarios = new Vector<>();
-		// usuarios.add(new Usuario("Emiliano", "Emiliano", "pepe"));
-		// usuarios.add(new Usuario("Debi", "Debi", "pepe"));
-		// usuarios.add(new Usuario("Lucas", "Lucas", "pepe"));
-		// usuarios.add(new Usuario("Amilcar", "Amilcar", "pepe"));
 
-	}
-
-	public ControladorUsuario(Vector<Usuario> usuarios) {
-		super();
-		setUsuarios(usuarios);
-	}
 
 	public Vector<Usuario> getUsuarios() {
 		return usuarios;
@@ -105,10 +93,5 @@ public class ControladorUsuario {
 		return instancia;
 	}
 
-	public void agregarAListaEspera(UsuarioDTO usuario) throws UsuarioException, CategoriaException {
-		Usuario us = buscarUsuarioPorId(usuario.getIdUsuario());
-		if (us!=null)
-			ControladorArmadoJuegos.getInstancia().agregarJugadorLibreAEspera(us);
 
-	}
 }

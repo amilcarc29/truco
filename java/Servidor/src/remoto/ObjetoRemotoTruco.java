@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import controlador.Controlador;
+import controlador.ControladorArmadoJuegos;
+import controlador.ControladorJuego;
 import controlador.ControladorUsuario;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
@@ -58,7 +60,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		
 		try {
 
-			new ControladorUsuario().getInstancia().agregarAListaEspera(usuario);
+			 ControladorArmadoJuegos.getInstancia().agregarJugadorLibreAEspera(usuario);
 
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block

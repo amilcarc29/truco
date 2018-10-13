@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.Vector;
 
+import dto.UsuarioDTO;
 import excepciones.CategoriaException;
 import excepciones.GrupoJuegoException;
 import excepciones.JuegoException;
@@ -83,7 +84,10 @@ public class ControladorArmadoJuegos {
 		this.parejasEnEspera = parejasEnEspera;
 	}
 
-	public void agregarJugadorLibreAEspera(Usuario us) throws UsuarioException, CategoriaException {
+	public void agregarJugadorLibreAEspera(UsuarioDTO usuario) throws UsuarioException, CategoriaException {
+
+		Usuario us =  ControladorUsuario.getInstancia().buscarUsuarioPorId(usuario.getIdUsuario());
+
 		getJugadoresEnEspera().add(new JugadorIndividual(us));
 	}
 
@@ -98,16 +102,19 @@ public class ControladorArmadoJuegos {
 
 	public boolean armarGrupoDeIgualCategoria() throws UsuarioException {
 		// TODO
-//		Categoria categoria = ControladorUsuario.getInstancia().buscarUsuarioPorApodo(getJugadoresEnEspera().get(0).getNombre()).getCategoria();
-//		Vector<Jugador> jugadoresGrupo = new Vector<>();
-//		int cantidadJugadoresEnGrupo = 0;
-//		for (Jugador jugador : getJugadoresEnEspera()) {
-//			if (ControladorUsuario.getInstancia().buscarUsuarioPorApodo(jugador.getNombre()).getCategoria().getIdCategoria() == categoria.getIdCategoria()
-//					&& cantidadJugadoresEnGrupo < 4) {
-//				jugadoresGrupo.add(jugador);
-//				cantidadJugadoresEnGrupo++;
-//			}
-//		}
+		// Categoria categoria =
+		// ControladorUsuario.getInstancia().buscarUsuarioPorApodo(getJugadoresEnEspera().get(0).getNombre()).getCategoria();
+		// Vector<Jugador> jugadoresGrupo = new Vector<>();
+		// int cantidadJugadoresEnGrupo = 0;
+		// for (Jugador jugador : getJugadoresEnEspera()) {
+		// if
+		// (ControladorUsuario.getInstancia().buscarUsuarioPorApodo(jugador.getNombre()).getCategoria().getIdCategoria()
+		// == categoria.getIdCategoria()
+		// && cantidadJugadoresEnGrupo < 4) {
+		// jugadoresGrupo.add(jugador);
+		// cantidadJugadoresEnGrupo++;
+		// }
+		// }
 		return false;
 	}
 
