@@ -4,6 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import negocio.Calificado;
+import negocio.Categoria;
+import negocio.Experto;
+import negocio.Master;
+import negocio.Novato;
+
 @Entity
 @Table(name = "Categoria")
 public class CategoriaEntity {
@@ -76,5 +82,18 @@ public class CategoriaEntity {
 
 	public void setPromedioMinimo(int promedioMinimo) {
 		this.promedioMinimo = promedioMinimo;
+	}
+
+	public Categoria toNegocio() {
+		if (this.getNombre().equalsIgnoreCase("NOVATO"))
+			return new Novato(idCategoria, nombre, score, minimoPartidas, minimoPuntos, promedioMinimo);
+		else if (this.getNombre().equalsIgnoreCase("MASTER"))
+			return new Master(idCategoria, nombre, score, minimoPartidas, minimoPuntos, promedioMinimo);
+		else if (this.getNombre().equalsIgnoreCase("CALIFICADO"))
+			return new Calificado(idCategoria, nombre, score, minimoPartidas, minimoPuntos, promedioMinimo);
+		else if (this.getNombre().equalsIgnoreCase("EXPERTO"))
+			return new Experto(idCategoria, nombre, score, minimoPartidas, minimoPuntos, promedioMinimo);
+
+		return null;
 	}
 }

@@ -25,7 +25,7 @@ public class MiembroDAO {
 	public Miembro buscarMiembroById(int idMiembro) throws MiembroException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		MiembroEntity miembroEntity = (MiembroEntity) session.createQuery("from Miembros where idMiembro = ?")
+		MiembroEntity miembroEntity = (MiembroEntity) session.createQuery("from MiembrosEntity where idMiembro = ?")
 				.setParameter(0, idMiembro)
 				.uniqueResult();
 		session.close();

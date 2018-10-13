@@ -1,5 +1,9 @@
 package entities;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,10 +43,30 @@ public class UsuarioEntity {
 		this.partidasJugadas = partidasJugadas;
 		this.puntaje = puntaje;
 		this.apodo = apodo;
-		this.pass = pass;
+		this.pass = this.hashString(pass);
 		this.email = email;
 		this.activo = activo;
 		this.idUsuario = null;
+
+	}
+
+	private String hashString(String str) {
+
+		byte[] bytesOfMessage;
+		try {
+			bytesOfMessage = str.getBytes("UTF-8");
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] thedigest = md.digest(bytesOfMessage);
+			return new String(thedigest);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	public Integer getIdUsuario() {

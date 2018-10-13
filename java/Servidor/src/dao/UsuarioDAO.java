@@ -26,8 +26,9 @@ public class UsuarioDAO {
 	public Usuario buscarUsuarioById(int idUsuario) throws UsuarioException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		UsuarioEntity usuarioEntity = (UsuarioEntity) session.createQuery("from Usuarios where idUsuario = ?")
-				.setParameter(0, idUsuario).uniqueResult();
+		UsuarioEntity usuarioEntity = (UsuarioEntity) session
+				.createQuery("from UsuarioEntity where idUsuario = ? and activo  = 1").setParameter(0, idUsuario)
+				.uniqueResult();
 		session.close();
 		if (usuarioEntity != null) {
 			return toNegocio(usuarioEntity);
@@ -38,15 +39,20 @@ public class UsuarioDAO {
 
 	public Usuario toNegocio(UsuarioEntity usuarioEntity) throws CategoriaException {
 
-		// Usuario usuario = new Usuario(usuarioEntity.getIdUsuario(),
-		// usuarioEntity.getPartidasGanadas(),
-		// usuarioEntity.getPartidasPerdidas(), usuarioEntity.getPuntaje(),
-		// usuarioEntity.getApodo(),
-		// usuarioEntity.getPass(), usuarioEntity.getEmail(),
-		// usuarioEntity.isActivo());
-		// usuario.setCategoria(CategoriaDAO.getInstancia().toNegocio(usuarioEntity.getCategoria()));
-		// return usuario;
-		return null;
+		Usuario usuario = new Usuario();
+		usuario.setIdUsuario(usuarioEntity.getIdUsuario());
+		usuario.setApodo(usuarioEntity.getApodo());
+		usuario.setPartidasGanadas(usuarioEntity.getPartidasGanadas());
+		usuario.setPartidasJugadas(usuarioEntity.getPartidasJugadas());
+		usuario.setPuntaje(usuarioEntity.getPuntaje());
+		usuario.setEmail(usuarioEntity.getEmail());
+		usuario.setCategoria(usuarioEntity.getCategoria().toNegocio());
+		
+		
+		
+		
+		
+		return usuario;
 	}
 
 	public void guardarUsuario(Usuario usuario) throws CategoriaException {
@@ -70,6 +76,20 @@ public class UsuarioDAO {
 		session.saveOrUpdate(ue);
 		session.getTransaction().commit();
 		session.close();
+	}
+
+	public Usuario buscarUsuarioByApodo(String apodo) throws CategoriaException, UsuarioException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		UsuarioEntity usuarioEntity = (UsuarioEntity) session.createQuery("from UsuarioEntity where apodo = ?")
+				.setParameter(0, apodo).uniqueResult();
+		session.close();
+		if (usuarioEntity != null) {
+			return toNegocio(usuarioEntity);
+		} else {
+			throw new UsuarioException("El usuario con id: " + apodo + "no existe en la base de datos.");
+		}
+
 	}
 
 	//

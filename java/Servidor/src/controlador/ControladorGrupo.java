@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.Vector;
 
+import excepciones.CategoriaException;
 import excepciones.GrupoException;
 import excepciones.UsuarioException;
 import negocio.Grupo;
@@ -47,7 +48,7 @@ public class ControladorGrupo {
 		}
 	}
 
-	public void altaGrupo(String nombre, String apodoAdministrador, int puntoPorPartida) throws UsuarioException, GrupoException {
+	public void altaGrupo(String nombre, String apodoAdministrador, int puntoPorPartida) throws UsuarioException, GrupoException, CategoriaException {
 		Grupo grupo = new Grupo();
 		// FIXME Se puede mejorar.
 		esNombreGrupoRepetido(nombre);
@@ -61,7 +62,7 @@ public class ControladorGrupo {
 		this.grupos.remove(buscarGrupo(nombre));
 	}
 
-	public void modificarGrupo(String nombreActual, String nombre, String apodoAdministrador, int puntoPorPartida) throws GrupoException, UsuarioException {
+	public void modificarGrupo(String nombreActual, String nombre, String apodoAdministrador, int puntoPorPartida) throws GrupoException, UsuarioException, CategoriaException {
 		Grupo grupo = buscarGrupo(nombreActual);
 		grupo.setAdministrador(ControladorUsuario.getInstancia().buscarUsuarioPorApodo(apodoAdministrador));
 		grupo.setPuntoPorPartida(puntoPorPartida);

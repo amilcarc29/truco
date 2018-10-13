@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import dao.CategoriaDAO;
 import dao.UsuarioDAO;
+import dto.UsuarioDTO;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import negocio.Usuario;
@@ -37,8 +38,10 @@ public class ControladorUsuario {
 	}
 
 
-	public void altaUsuario(String apodo, String password, String email) throws UsuarioException {
-		if (buscarUsuarioRegistrado(apodo) == null) {
+	public void altaUsuario(String apodo, String password, String email) throws UsuarioException, CategoriaException {
+		if (buscarUsuarioPorApodo(apodo) == null) {
+			
+			
 			Usuario usuario = new Usuario(apodo, email, password);
 
 			try {
@@ -55,22 +58,11 @@ public class ControladorUsuario {
 		}
 	}
 
-	public Usuario buscarUsuarioRegistrado(String apodo) {
-		for (Usuario usuario : getUsuarios()) {
-			if (usuario.esUsuario(apodo)) {
-				return usuario;
-			}
-		}
-		return null;
-	}
 
-	public Usuario buscarUsuarioPorApodo(String apodo) throws UsuarioException {
-		for (Usuario usuario : getUsuarios()) {
-			if (usuario.esUsuario(apodo)) {
-				return usuario;
-			}
-		}
-		throw new UsuarioException("El usuario: " + apodo + "no existe.");
+
+	public Usuario buscarUsuarioPorApodo(String apodo) throws UsuarioException, CategoriaException {
+		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioByApodo(apodo);
+		return us;
 	}
 
 	public Usuario buscarUsuarioPorEmail(String email) throws UsuarioException {
@@ -92,14 +84,14 @@ public class ControladorUsuario {
 	}
 
 	// TODO Agregar a Diagrama.
-	public void modificarUsuario(String apodo, String email, String password) throws UsuarioException {
+	public void modificarUsuario(String apodo, String email, String password) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		usuario.setEmail(email);
 		usuario.setPass(password);
 	}
 
 	// TODO Agregar a Diagrama. Y Modificar
-	public void loggearUsuario(String apodo, String password) throws UsuarioException {
+	public void loggearUsuario(String apodo, String password) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		if (usuario.validarLogin(password)) {
 			System.out.println("Usuario: " + usuario.getApodo() + "se loggeó.");
