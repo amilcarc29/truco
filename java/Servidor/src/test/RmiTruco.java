@@ -9,7 +9,7 @@ import excepciones.JuegoException;
 import excepciones.JugadorException;
 import servidor.Server;
 import servidor.ServidorTruco;
-
+//SERVIDOR
 public class RmiTruco {
 	public static void main(String[] args) {
 		try {

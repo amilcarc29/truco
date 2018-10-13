@@ -1,38 +1,39 @@
 package entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="Usuario")
+@Table(name = "Usuario")
 public class UsuarioEntity {
 
 	@Id
-	private int idUsuario;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer idUsuario;
+
 	private int partidasGanadas;
 	private int partidasJugadas;
 	private int puntaje;
 	private String apodo;
 	private String pass;
 	private String email;
-	
+
 	@OneToOne
 	@JoinColumn(name = "idCategoria")
 	private CategoriaEntity categoria;
-	
-	
+
 	private boolean activo;
 
 	public UsuarioEntity() {
 	}
 
-	public UsuarioEntity(int partidasGanadas, int partidasJugadas, int puntaje, String apodo,
-			String pass, String email, boolean activo) {
+	public UsuarioEntity(int partidasGanadas, int partidasJugadas, int puntaje, String apodo, String pass, String email,
+			boolean activo) {
 		super();
 		this.partidasGanadas = partidasGanadas;
 		this.partidasJugadas = partidasJugadas;
@@ -41,13 +42,14 @@ public class UsuarioEntity {
 		this.pass = pass;
 		this.email = email;
 		this.activo = activo;
+		this.idUsuario = null;
 	}
 
-	public int getIdUsuario() {
+	public Integer getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -115,5 +117,4 @@ public class UsuarioEntity {
 		this.activo = activo;
 	}
 
-	
 }
