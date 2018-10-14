@@ -16,7 +16,7 @@ public class BusinessDelegateTruco {
 
 	public BusinessDelegateTruco() throws ComunicacionException {
 		try {
-			ir = (InterfaceRemotaTruco) Naming.lookup("//192.168.0.18/truco");
+			ir = (InterfaceRemotaTruco) Naming.lookup("//127.0.0.1/truco");
 		} catch (MalformedURLException e) {
 			throw new ComunicacionException("La direccion especificada no es correcta");
 		} catch (RemoteException e) {
@@ -25,6 +25,7 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("El servidor no esta disponible");
 		}
 	}
+	
 
 	public UsuarioDTO login(String usuario, String pass) throws ComunicacionException {
 		try {
@@ -45,6 +46,14 @@ public class BusinessDelegateTruco {
 	public void agregarAListaEspera(UsuarioDTO usuario) throws ComunicacionException {
 		try {
 			ir.agregarAListaEspera(usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
+	public void armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws ComunicacionException {
+		try {
+			ir.armarPareja(u1, u2);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}

@@ -40,6 +40,20 @@ public class UsuarioDAO {
 			throw new UsuarioException("El usuario con id: " + idUsuario + "no existe en la base de datos.");
 		}
 	}
+	
+	public UsuarioEntity buscarUsuarioByIdEntity(int idUsuario) throws UsuarioException, CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		UsuarioEntity usuarioEntity = (UsuarioEntity) session
+				.createQuery("from UsuarioEntity where idUsuario = ? and activo  = 1").setParameter(0, idUsuario)
+				.uniqueResult();
+		session.close();
+		if (usuarioEntity != null) {
+			return usuarioEntity;
+		} else {
+			throw new UsuarioException("El usuario con id: " + idUsuario + "no existe en la base de datos.");
+		}
+	}
 
 	public Usuario toNegocio(UsuarioEntity usuarioEntity) throws CategoriaException {
 
