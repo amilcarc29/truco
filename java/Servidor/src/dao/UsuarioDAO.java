@@ -63,7 +63,7 @@ public class UsuarioDAO {
 
 		try {
 
-			cat = CategoriaDAO.getInstancia().buscarCategoriaById(1);
+			cat = CategoriaDAO.getInstancia().buscarCategoriaByNombre("NOVATO");
 
 		} catch (CategoriaException e) {
 			e.printStackTrace();
