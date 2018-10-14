@@ -64,17 +64,21 @@ public class Baza {
 	}
 
 	public void cantarTruco(int idJugador) {
-		// TODO qué hace esta función
-		jugadores.stream().filter(jugador -> jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
-			System.out.println("Jugador " + jugador.getNombre() + "cantó Truco.");
-		});
+		// Conflicto con el nombre del jugador
+		
+		// jugadores.stream().filter(jugador ->
+		// jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
+		// System.out.println("Jugador " + jugador.getNombre() + "cantó Truco.");
+		// });
 	}
 
 	public void cantarEnvido(int idJugador) {
-		// TODO qué hace esta función
-		jugadores.stream().filter(jugador -> jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
-			System.out.println("Jugador " + jugador.getNombre() + "cantó Envido.");
-		});
+		// Conflicto con el nombre del jugador
+		
+		// jugadores.stream().filter(jugador ->
+		// jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
+		// System.out.println("Jugador " + jugador.getNombre() + "cantó Envido.");
+		// });
 
 	}
 
@@ -101,8 +105,12 @@ public class Baza {
 		else {
 			if (this.jugadaMayor.esMayor(jugada))
 				this.jugadaMayor = jugada;
-			System.out.println("jugada mayor " + jugadores.get(this.jugadaMayor.getJugador().getId()).getNombre() + " ,  "
-					+ this.jugadaMayor.getCarta().getNumero() + " " + this.jugadaMayor.getCarta().getPalo());
+			// Conflicto con nombre de Jugador
+
+			// System.out.println("jugada mayor " +
+			// jugadores.get(this.jugadaMayor.getJugador().getId()).getNombre() + " , "
+			// + this.jugadaMayor.getCarta().getNumero() + " " +
+			// this.jugadaMayor.getCarta().getPalo());
 		}
 		numero++;
 	}

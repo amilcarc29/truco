@@ -25,20 +25,22 @@ public class TestJuego {
 
 	public static void main(String[] args) throws JugadorException, CartaException, JuegoException {
 
-		j1.setNombre("Emiliano");
+		// CONFLICTO CON NOMBRE JUGADOR
+		// j1.setNombre("Emiliano");
+		//
+		// j2.setNombre("Lucas");
+		//
+		// j3.setNombre("Debi");
+		//
+		// j4.setNombre("Amilcar");
 
-		j2.setNombre("Lucas");
-
-		j3.setNombre("Debi");
-
-		j4.setNombre("Amilcar");
-
-		GrupoJuego g = new GrupoJuego(j1, j2, j3, j4);
-
-		g.setTipoJuego("LIBRE");
-
-		ju = new ControladorJuego();
-		ju.iniciarJuego(g);
+		// CONFLICTO CON CONSTRUCTOR GRUPOJUEGO
+		// // GrupoJuego g = new GrupoJuego(j1, j2, j3, j4);
+		//
+		// g.setTipoJuego("LIBRE");
+		//
+		// ju = new ControladorJuego();
+		// ju.iniciarJuego(g);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 

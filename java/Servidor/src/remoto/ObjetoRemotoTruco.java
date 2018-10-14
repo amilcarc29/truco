@@ -70,5 +70,15 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			e.printStackTrace();
 		}
 	}
+	
+	public void armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws RemoteException {
+		try {
+			ControladorArmadoJuegos.getInstancia().armarPareja(u1.getIdUsuario(), u2.getIdUsuario());
+		} catch (UsuarioException e) {
+			e.printStackTrace();
+		} catch (CategoriaException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

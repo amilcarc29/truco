@@ -101,6 +101,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public boolean armarGrupoDeIgualCategoria() throws UsuarioException {
+		
 		// TODO
 		// Categoria categoria =
 		// ControladorUsuario.getInstancia().buscarUsuarioPorApodo(getJugadoresEnEspera().get(0).getNombre()).getCategoria();
@@ -128,9 +129,14 @@ public class ControladorArmadoJuegos {
 		return false;
 	}
 
-	public boolean armarGrupoDeParejas() {
-		// TODO
-		return false;
+	public void armarPareja(int idUsuario1, int idUsuario2) throws UsuarioException, CategoriaException {
+		Usuario u1 = ControladorUsuario.getInstancia().buscarUsuarioPorId(idUsuario1);
+		Usuario u2 = ControladorUsuario.getInstancia().buscarUsuarioPorId(idUsuario2);
+		JugadorIndividual j1 = new JugadorIndividual(u1);
+		JugadorIndividual j2 = new JugadorIndividual(u2);
+		Pareja p = new Pareja(j1, j2);
+		p.saveIndividual();
+		parejas.add(p);
 	}
 
 	public void cancelarEsperaJugador(int idJugador) throws JugadorException {
