@@ -23,6 +23,7 @@ public class ClienteRmi {
 			 new BusinessDelegateTruco().alta("Lucas", "Lucas", "pepe");
 			 new BusinessDelegateTruco().alta("Amilcar", "Amilcar", "pepe");
 
+			 
 			//
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano", "pepe");
 			UsuarioDTO us2 = new BusinessDelegateTruco().login("Debi", "pepe");

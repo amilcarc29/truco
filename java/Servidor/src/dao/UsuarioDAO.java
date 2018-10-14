@@ -71,6 +71,7 @@ public class UsuarioDAO {
 		}
 		ue.setCategoria(cat);
 
+		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();

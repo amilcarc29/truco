@@ -41,6 +41,7 @@ public class CategoriaDAO {
 		CategoriaEntity categoriaEntity = (CategoriaEntity) session.createQuery("from CategoriaEntity where nombre = ?")
 				.setParameter(0, nombre).uniqueResult();
 		session.close();
+		
 		if (categoriaEntity != null) {
 			return categoriaEntity;
 		} else {
