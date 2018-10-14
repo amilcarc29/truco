@@ -23,7 +23,7 @@ public class ServidorTruco {
 		
 		try {
 			LocateRegistry.createRegistry(1099);
-			Naming.rebind("//127.0.0.1/truco", or);
+			Naming.rebind("//192.168.0.18/truco", or);
 			System.out.println("SERVIDOR TRUCO OK");
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
