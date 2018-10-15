@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class UsuarioDTO implements Serializable{
 
+	private static final long serialVersionUID = 913850522288957303L;
+
 	private int idUsuario;
 	private int partidasGanadas;
 	private int partidasPerdidas;
