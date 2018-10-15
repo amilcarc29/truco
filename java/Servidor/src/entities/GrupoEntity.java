@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Grupos")
+@Table(name = "Grupo")
 public class GrupoEntity {
 
 	@Id
