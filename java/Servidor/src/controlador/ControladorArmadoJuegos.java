@@ -118,6 +118,28 @@ public class ControladorArmadoJuegos {
 		// }
 		return false;
 	}
+	
+	public void iniciarPartidaLibre (UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4) throws UsuarioException, CategoriaException, JuegoException {
+		try {
+			
+			Pareja p1 = this.armarPareja(u1, u2);
+			Pareja p2 = this.armarPareja(u3, u4);
+			GrupoJuego gj = new GrupoJuego(p1, p2);
+			gj.setTipoJuego("LIBRE");
+			ControladorJuego.getInstancia().iniciarJuego(gj);
+			
+		} catch(UsuarioException e) {
+			
+			e.printStackTrace();
+		} catch(CategoriaException e1) {
+			
+			e1.printStackTrace();
+		} catch(JuegoException e2) {
+			
+			e2.printStackTrace();
+		}
+		
+	}
 
 	public boolean armarGrupoDeMayorCategoria() {
 		// TODO
@@ -129,14 +151,14 @@ public class ControladorArmadoJuegos {
 		return false;
 	}
 
-	public void armarPareja(int idUsuario1, int idUsuario2) throws UsuarioException, CategoriaException {
-		Usuario u1 = ControladorUsuario.getInstancia().buscarUsuarioPorId(idUsuario1);
-		Usuario u2 = ControladorUsuario.getInstancia().buscarUsuarioPorId(idUsuario2);
-		JugadorIndividual j1 = new JugadorIndividual(u1);
-		JugadorIndividual j2 = new JugadorIndividual(u2);
+	public Pareja armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws UsuarioException, CategoriaException {
+		Usuario usuario1 = ControladorUsuario.getInstancia().buscarUsuarioPorId(u1.getIdUsuario());
+		Usuario usuario2 = ControladorUsuario.getInstancia().buscarUsuarioPorId(u2.getIdUsuario());
+		JugadorIndividual j1 = new JugadorIndividual(usuario1);
+		JugadorIndividual j2 = new JugadorIndividual(usuario2);
 		Pareja p = new Pareja(j1, j2);
 		p.saveIndividual();
-		parejas.add(p);
+		return p;
 	}
 
 	public void cancelarEsperaJugador(int idJugador) throws JugadorException {
