@@ -35,7 +35,11 @@ public class ClienteRmi {
 			new BusinessDelegateTruco().agregarAListaEspera(us3);
 			new BusinessDelegateTruco().agregarAListaEspera(us4);
 			
-			new BusinessDelegateTruco().armarPareja(us1, us2);
+			
+			
+			
+			
+		//	new BusinessDelegateTruco().armarPareja(us1, us2);
 
 			// new BusinessDelegateTruco().alta("pepe", "pepe", "pepe");
 			// new BusinessDelegateTruco().login("pepe", "pepe");

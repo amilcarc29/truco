@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.Vector;
 
+
 import dao.GrupoDAO;
 import dto.GrupoDTO;
 import dto.UsuarioDTO;
@@ -32,13 +33,15 @@ public class ControladorArmadoJuegos {
 	private Vector<Pareja> parejasEnEspera;
 
 	private static ControladorArmadoJuegos instancia;
+	
 
+	
 	public ControladorArmadoJuegos() {
 		grupos = new Vector<>();
 		jugadores = new Vector<>();
 		parejas = new Vector<>();
 		jugadoresEnEspera = new Vector<>();
-		parejasEnEspera = new Vector<>();
+		parejasEnEspera =  new Vector<>();
 	}
 
 	public ControladorArmadoJuegos(Vector<GrupoJuego> grupos, Vector<Jugador> jugadores, Vector<Pareja> parejas,
@@ -86,6 +89,11 @@ public class ControladorArmadoJuegos {
 	public Vector<Pareja> getParejasEnEspera() {
 		return parejasEnEspera;
 	}
+	
+	
+	
+	
+	
 
 	public void setParejasEnEspera(Vector<Pareja> parejasEnEspera) {
 		this.parejasEnEspera = parejasEnEspera;

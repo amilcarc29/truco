@@ -50,7 +50,6 @@ public class GrupoJuego {
 
 	// TODO addJugadores YA NO ESTA
 
-	// Modificado. El GrupoJuego no debería armar las Parejas.
 	public  GrupoJuego(Pareja p1, Pareja p2) {
 		parejas = new LinkedList<Pareja>();
 
