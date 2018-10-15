@@ -4,7 +4,10 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.List;
 
+import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 import interfaces.InterfaceRemotaTruco;
@@ -49,9 +52,9 @@ public class BusinessDelegateTruco {
 		}
 	}
 
-	public void armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws ComunicacionException {
+	public List<JuegoDTO> getJuegosActivo(UsuarioDTO usuario) throws ComunicacionException {
 		try {
-			ir.armarPareja(u1, u2);
+			return ir.getJuegosActivo(usuario);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}

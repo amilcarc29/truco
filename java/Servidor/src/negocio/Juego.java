@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import dao.JuegoDAO;
+import dto.JuegoDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
@@ -12,7 +13,6 @@ import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
 public abstract class Juego {
-	private static int cnt = 0;
 	private int idJuego;
 	private List<Pareja> parejas;
 	private List<Chico> chicos;
@@ -21,10 +21,6 @@ public abstract class Juego {
 	private Date fecha;
 	private boolean activo;
 
-	private static int getID() {
-		return cnt++;
-	}
-
 	public Juego() {
 		super();
 		this.parejas = new ArrayList<>();
@@ -32,11 +28,14 @@ public abstract class Juego {
 		setPuntoBase(0);
 		this.fecha = new Date();
 		setActivo(true);
-		this.idJuego = getID();
 	}
 
 	public int getId() {
 		return this.idJuego;
+	}
+
+	public void setId(int id) {
+		this.idJuego = id;
 	}
 
 	public abstract void calcularPuntos();
@@ -194,6 +193,13 @@ public abstract class Juego {
 
 	public void save(String tipo) throws UsuarioException, CategoriaException, ParejaException {
 		// TODO Auto-generated method stub
-		JuegoDAO.getInstancia().guardarJuegoLibreIndividual(this , tipo);
+		JuegoDAO.getInstancia().guardarJuegoLibreIndividual(this, tipo);
+	}
+
+	public JuegoDTO toDTO() {
+		JuegoDTO j = new JuegoDTO();
+		j.setIdJuego(this.idJuego);
+
+		return j;
 	}
 }

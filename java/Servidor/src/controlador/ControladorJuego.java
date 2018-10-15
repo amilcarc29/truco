@@ -1,8 +1,12 @@
 package controlador;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import dao.JuegoDAO;
+import dto.JuegoDTO;
+import dto.UsuarioDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
@@ -33,7 +37,8 @@ public class ControladorJuego {
 		fcJuegos = new FactoryJuegos();
 	}
 
-	public void iniciarJuego(GrupoJuego grupo) throws JuegoException, UsuarioException, CategoriaException, ParejaException {
+	public void iniciarJuego(GrupoJuego grupo)
+			throws JuegoException, UsuarioException, CategoriaException, ParejaException {
 		Juego j = fcJuegos.getJuego(grupo.getTipoJuego());
 		if (j != null) {
 			j.setParejas(grupo.getParejas());
@@ -153,6 +158,16 @@ public class ControladorJuego {
 			// System.out.println("juega " + juego.proximoDbg().getNombre());
 			System.out.println("");
 		}
+	}
+
+	public List<JuegoDTO> getJuegosActivos(UsuarioDTO usuario) throws CategoriaException {
+		List<Juego> juegos = JuegoDAO.getInstancia().buscarJuegosActivos(usuario);
+		List<JuegoDTO> juegosDto = new ArrayList<>();
+		for (Juego j : juegos) {
+			juegosDto.add(j.toDTO());
+		}
+		
+		return juegosDto;
 	}
 
 }

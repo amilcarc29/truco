@@ -2,9 +2,12 @@ package remoto;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 import controlador.ControladorArmadoJuegos;
 import controlador.ControladorUsuario;
+import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
@@ -67,5 +70,18 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (CategoriaException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<JuegoDTO> getJuegosActivo(UsuarioDTO usuario) throws RemoteException {
+
+		try {
+			return ControladorArmadoJuegos.getInstancia().getJuegosActivo(usuario);
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 }

@@ -1,8 +1,11 @@
 package view;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import delegado.BusinessDelegateTruco;
+import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 
@@ -12,6 +15,7 @@ public class ClienteRmi {
 		// TODO Auto-generated method stub
 
 		try {
+
 			// usuarios.add(new Usuario("Emiliano", "Emiliano", "pepe"));
 			// usuarios.add(new Usuario("Debi", "Debi", "pepe"));
 			// usuarios.add(new Usuario("Lucas", "Lucas", "pepe"));
@@ -32,6 +36,20 @@ public class ClienteRmi {
 			new BusinessDelegateTruco().agregarAListaEspera(us2);
 			new BusinessDelegateTruco().agregarAListaEspera(us3);
 			new BusinessDelegateTruco().agregarAListaEspera(us4);
+
+			List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
+
+//			while (true) {
+				for (JuegoDTO juegoDTO : juegos) {
+					System.out.println(juegoDTO.getIdJuego());
+				}
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}				
+//			}
 
 			// new BusinessDelegateTruco().armarPareja(us1, us2);
 

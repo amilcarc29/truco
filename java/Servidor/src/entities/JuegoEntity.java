@@ -42,14 +42,42 @@ public class JuegoEntity {
 
 	}
 
+	public int getId() {
+
+		return this.idJuego;
+	}
+
 	public JuegoEntity(ParejaEntity pareja1, ParejaEntity pareja2, String tipoDeJuego) {
 		super();
 		this.pareja1 = pareja1;
 		this.pareja2 = pareja2;
+		this.setTipoDeJuego(tipoDeJuego);
+		this.setActivo(true);
+		this.setFecha(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+
+	}
+
+	public String getTipoDeJuego() {
+		return tipoDeJuego;
+	}
+
+	public void setTipoDeJuego(String tipoDeJuego) {
 		this.tipoDeJuego = tipoDeJuego;
-		this.activo = true;
-		this.fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+	}
 
+	public Date getFecha() {
+		return fecha;
+	}
 
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 }

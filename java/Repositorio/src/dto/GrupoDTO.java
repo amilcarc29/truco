@@ -1,8 +1,9 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GrupoDTO {
+public class GrupoDTO implements Serializable {
 
 	private int idGrupo;
 	private UsuarioDTO administrador;

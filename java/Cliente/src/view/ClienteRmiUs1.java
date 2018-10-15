@@ -13,6 +13,10 @@ public class ClienteRmiUs1 {
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano", "pepe");
 			new BusinessDelegateTruco().agregarAListaEspera(us1);
+			new BusinessDelegateTruco().getJuegosActivo(us1)	;		
+			
+			
+			
 		} catch (ComunicacionException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}

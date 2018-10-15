@@ -1,8 +1,12 @@
 package dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import dto.JuegoDTO;
+import dto.JugadorDTO;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
 import entities.ParejaEntity;
@@ -52,4 +56,6 @@ public class JugadorDAO {
 		return j;
 
 	}
+
+
 }

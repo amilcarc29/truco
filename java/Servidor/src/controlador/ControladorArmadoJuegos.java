@@ -1,10 +1,14 @@
 package controlador;
 
+import java.util.List;
 import java.util.Vector;
 
 import dao.GrupoDAO;
 import dao.GrupoJuegoDAO;
+import dao.JugadorDAO;
 import dto.GrupoDTO;
+import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
 import excepciones.GrupoJuegoException;
@@ -275,5 +279,10 @@ public class ControladorArmadoJuegos {
 			instancia = new ControladorArmadoJuegos();
 		}
 		return instancia;
+	}
+
+	public List<JuegoDTO>  getJuegosActivo(UsuarioDTO usuario) throws CategoriaException {
+		return ControladorJuego.getInstancia().getJuegosActivos(usuario);
+	
 	}
 }
