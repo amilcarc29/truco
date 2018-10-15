@@ -94,7 +94,8 @@ public class UsuarioDAO {
 		if (usuarioEntity != null) {
 			return toNegocio(usuarioEntity);
 		} else {
-			throw new UsuarioException("El usuario con apodo: " + apodo + "no existe en la base de datos.");
+			// pasarla ! a un metodo de busqueda nuevo throw new UsuarioException("El usuario con apodo: " + apodo + "no existe en la base de datos.");
+			return null;
 		}
 	}
 
