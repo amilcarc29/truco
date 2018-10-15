@@ -35,6 +35,33 @@ public class MiembroDAO {
 			throw new MiembroException("El miembro con id: " + idMiembro + "no existe en la base de datos.");
 		}
 	}
+	
+	public MiembroEntity buscarMiembroByIdEntity(int idMiembro) throws MiembroException, CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		MiembroEntity miembroEntity = (MiembroEntity) session.createQuery("from MiembrosEntity where idMiembro = ?")
+				.setParameter(0, idMiembro)
+				.uniqueResult();
+		session.close();
+		if (miembroEntity != null) {
+			return miembroEntity;
+		} else {
+			throw new MiembroException("El miembro con id: " + idMiembro + "no existe en la base de datos.");
+		}
+	}
+	
+	public Miembro buscarMiembro(int idUsuario, int idGrupo) throws CategoriaException, MiembroException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		MiembroEntity miembroEntity = (MiembroEntity) session.createQuery("from MiembrosEntity where idUsuario = ? and idGrupo = ?")
+				.setParameter(0, idUsuario).setParameter(1, idGrupo);
+		session.close();
+		if (miembroEntity != null) {
+			return toNegocio(miembroEntity);
+		} else {
+			throw new MiembroException("El miembro no existe en la base de datos.");
+		}
+	}
 
 	public Miembro toNegocio(MiembroEntity miembroEntity) throws CategoriaException {
 		Miembro miembro = new Miembro(miembroEntity.getIdMiembro(), miembroEntity.getPuntaje(), miembroEntity.isEnGrupo());

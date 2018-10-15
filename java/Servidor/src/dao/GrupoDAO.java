@@ -25,7 +25,7 @@ public class GrupoDAO {
 	public Grupo buscarGrupoById(int idGrupo) throws GrupoException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		GrupoEntity grupoEntity = (GrupoEntity) session.createQuery("from GruposEntity where idGrupo = ?")
+		GrupoEntity grupoEntity = (GrupoEntity) session.createQuery("from GrupoEntity where idGrupo = ?")
 				.setParameter(0, idGrupo)
 				.uniqueResult();
 		session.close();

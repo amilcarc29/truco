@@ -6,6 +6,7 @@ import java.util.List;
 import dao.ParejaDAO;
 import dao.UsuarioDAO;
 import excepciones.CategoriaException;
+import excepciones.MiembroException;
 
 public class Pareja {
 	private int idPareja = 0;
@@ -90,7 +91,13 @@ public class Pareja {
 		ParejaDAO.getInstancia().guardarParejaIndividual(this);
 	}
 	
-	public void saveGrupal() {
-		
+	public void saveGrupal() throws CategoriaException, MiembroException {
+		try {
+			ParejaDAO.getInstancia().guardarParejaGrupal(this);
+		} catch (MiembroException e) {
+			e.printStackTrace();
+		} catch (CategoriaException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

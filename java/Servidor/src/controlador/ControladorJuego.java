@@ -37,6 +37,7 @@ public class ControladorJuego {
 		if (j != null) {
 			j.setParejas(grupo.getParejas());
 			j.crearChico();
+			// j.save();   ACA SE DEBE PERSISTIR EL JUEGO NUEVO EN LA BD
 			juegos.add(j);
 		}
 	}

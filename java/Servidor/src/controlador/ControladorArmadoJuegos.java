@@ -2,17 +2,24 @@ package controlador;
 
 import java.util.Vector;
 
+import dao.GrupoDAO;
+import dto.GrupoDTO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
+import excepciones.GrupoException;
 import excepciones.GrupoJuegoException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
+import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import negocio.Categoria;
+import negocio.Grupo;
 import negocio.GrupoJuego;
 import negocio.Jugador;
+import negocio.JugadorGrupal;
 import negocio.JugadorIndividual;
+import negocio.Miembro;
 import negocio.Pareja;
 import negocio.Usuario;
 
@@ -119,28 +126,80 @@ public class ControladorArmadoJuegos {
 		return false;
 	}
 	
-	public void iniciarPartidaLibre (UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4) throws UsuarioException, CategoriaException, JuegoException {
+	public void iniciarPartidaLibre(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4)
+			throws UsuarioException, CategoriaException, JuegoException {
 		try {
-			
+
 			Pareja p1 = this.armarPareja(u1, u2);
 			Pareja p2 = this.armarPareja(u3, u4);
 			GrupoJuego gj = new GrupoJuego(p1, p2);
 			gj.setTipoJuego("LIBRE");
 			ControladorJuego.getInstancia().iniciarJuego(gj);
-			
-		} catch(UsuarioException e) {
-			
+
+		} catch (UsuarioException e) {
+
 			e.printStackTrace();
-		} catch(CategoriaException e1) {
-			
+		} catch (CategoriaException e1) {
+
 			e1.printStackTrace();
-		} catch(JuegoException e2) {
-			
+		} catch (JuegoException e2) {
+
 			e2.printStackTrace();
 		}
-		
-	}
 
+	}
+	
+	public void iniciarPartidaEnPareja(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4)
+			throws UsuarioException, CategoriaException, JuegoException {
+		try {
+
+			Pareja p1 = this.armarPareja(u1, u2);
+			Pareja p2 = this.armarPareja(u3, u4);
+			GrupoJuego gj = new GrupoJuego(p1, p2);
+			gj.setTipoJuego("ENPAREJA");
+			ControladorJuego.getInstancia().iniciarJuego(gj);
+
+		} catch (UsuarioException e) {
+
+			e.printStackTrace();
+		} catch (CategoriaException e1) {
+
+			e1.printStackTrace();
+		} catch (JuegoException e2) {
+
+			e2.printStackTrace();
+		}
+
+	}
+	
+	public void iniciarPartidaCerrada(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4, GrupoDTO g)
+			throws UsuarioException, CategoriaException, JuegoException, MiembroException {
+		{
+			try {
+
+				Pareja p1 = this.armarParejaCerrada(u1, u2, g);
+				Pareja p2 = this.armarParejaCerrada(u3, u4, g);
+				GrupoJuego gj = new GrupoJuego(p1, p2);
+				gj.setTipoJuego("CERRADA");
+				ControladorJuego.getInstancia().iniciarJuego(gj);
+
+			} catch (UsuarioException e) {
+
+				e.printStackTrace();
+			} catch (CategoriaException e1) {
+
+				e1.printStackTrace();
+			} catch (JuegoException e2) {
+
+				e2.printStackTrace();
+			} catch (MiembroException e3) {
+				
+				e3.printStackTrace();
+			}
+		}
+
+	}
+	
 	public boolean armarGrupoDeMayorCategoria() {
 		// TODO
 		return false;
@@ -149,6 +208,16 @@ public class ControladorArmadoJuegos {
 	public boolean armarGrupoDeMenorCategoria() {
 		// TODO
 		return false;
+	}
+	
+	public Pareja armarParejaCerrada(UsuarioDTO u1, UsuarioDTO u2, GrupoDTO g) throws UsuarioException, CategoriaException, MiembroException{
+		Miembro m1 = ControladorGrupo.getInstancia().buscarMiembro(u1, g);
+		Miembro m2 = ControladorGrupo.getInstancia().buscarMiembro(u2, g);
+		JugadorGrupal j1 = new JugadorGrupal(m1);
+		JugadorGrupal j2 = new JugadorGrupal(m2);
+		Pareja p = new Pareja(j1, j2);
+		p.saveGrupal();
+		return p;		
 	}
 
 	public Pareja armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws UsuarioException, CategoriaException {
@@ -169,7 +238,7 @@ public class ControladorArmadoJuegos {
 		getParejasEnEspera().remove(buscarPareja(idPareja));
 	}
 
-	public GrupoJuego buscarGrupo(int idGrupo) throws GrupoJuegoException {
+	public GrupoJuego buscarGrupoJuego(int idGrupo) throws GrupoJuegoException {
 		for (GrupoJuego grupoJuego : grupos) {
 			if (grupoJuego.esGrupoJuego(idGrupo)) {
 				return grupoJuego;
