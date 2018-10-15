@@ -36,38 +36,34 @@ public class ParejaDAO {
 		} catch (UsuarioException e) {
 			e.printStackTrace();
 		}
-		ParejaEntity pe = new ParejaEntity(null, null);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-		session.beginTransaction();
-		session.saveOrUpdate(pe);
-		session.getTransaction().commit();
-		session.close();
+		Session ss = sf.openSession();
+		ss.beginTransaction();
 
-		JugadorEntity je1 = new JugadorEntity(ue1, pe, null, "individual");
-		SessionFactory sf2 = HibernateUtil.getSessionFactory();
-		Session session2 = sf2.openSession();
-		session2.beginTransaction();
-		session2.saveOrUpdate(je1);
-		session2.getTransaction().commit();
-		session2.close();
+		// alta de jugadores
 
-		JugadorEntity je2 = new JugadorEntity(ue2, pe, null, "individual");
-		SessionFactory sf3 = HibernateUtil.getSessionFactory();
-		Session session3 = sf3.openSession();
-		session3.beginTransaction();
-		session3.saveOrUpdate(je2);
-		session3.getTransaction().commit();
-		session3.close();
+		JugadorEntity je1 = new JugadorEntity(ue1, null, null, "individual");
+		ss.saveOrUpdate(je1);
 
-		pe.setJugador1(je1);
-		pe.setJugador2(je2);
-		SessionFactory sf4 = HibernateUtil.getSessionFactory();
-		Session session4 = sf4.openSession();
-		session4.beginTransaction();
-		session4.saveOrUpdate(pe);
-		session4.getTransaction().commit();
-		session4.close();
+		JugadorEntity je2 = new JugadorEntity(ue2, null, null, "individual");
+
+		ss.saveOrUpdate(je2);
+
+		// alta de pareja
+
+		ParejaEntity pe = new ParejaEntity(je1, je2);
+		ss.saveOrUpdate(pe);
+
+		// udate de id de pareja en jugador
+		je1.setPareja(pe);
+		ss.saveOrUpdate(pe);
+
+		je2.setPareja(pe);
+
+		ss.saveOrUpdate(je1);
+
+		ss.getTransaction().commit();
+		ss.close();
 
 	}
 
