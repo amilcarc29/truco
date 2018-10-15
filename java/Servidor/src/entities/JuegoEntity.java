@@ -1,6 +1,7 @@
 package entities;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,9 +45,11 @@ public class JuegoEntity {
 	public JuegoEntity(ParejaEntity pareja1, ParejaEntity pareja2, String tipoDeJuego) {
 		super();
 		this.pareja1 = pareja1;
-		this.pareja1 = pareja1;
+		this.pareja2 = pareja2;
 		this.tipoDeJuego = tipoDeJuego;
 		this.activo = true;
+		this.fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
 
 	}
 }

@@ -10,6 +10,7 @@ import java.util.Vector;
 import controlador.ControladorArmadoJuegos;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
@@ -66,6 +67,9 @@ public class ThreadParejas implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParejaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

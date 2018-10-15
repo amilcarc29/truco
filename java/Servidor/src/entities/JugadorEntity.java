@@ -21,6 +21,7 @@ public class JugadorEntity {
 	@OneToOne
 	@JoinColumn(name = "idPareja")
 	private ParejaEntity pareja;
+	
 	@OneToOne
 	@JoinColumn(name = "idMiembro")
 	private MiembroEntity miembro;

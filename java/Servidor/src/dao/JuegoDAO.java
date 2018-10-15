@@ -7,6 +7,7 @@ import entities.JuegoEntity;
 import entities.JugadorEntity;
 import entities.ParejaEntity;
 import excepciones.CategoriaException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Juego;
@@ -29,17 +30,12 @@ public class JuegoDAO {
 	
 	
 	
-	public void guardarJuegoLibreIndividual(Juego juego, String tipo) throws UsuarioException, CategoriaException {
-		
-		JugadorEntity je1 = JugadorDAO.getInstancia().buscarJugadorById(juego.getParejas().get(0).getJugador1().getId());
-		JugadorEntity je2 = JugadorDAO.getInstancia().buscarJugadorById(juego.getParejas().get(1).getJugador1().getId());
-		JugadorEntity je3 = JugadorDAO.getInstancia().buscarJugadorById(juego.getParejas().get(2).getJugador1().getId());
-		JugadorEntity je4 = JugadorDAO.getInstancia().buscarJugadorById(juego.getParejas().get(3).getJugador1().getId());
+	public void guardarJuegoLibreIndividual(Juego juego, String tipo) throws UsuarioException, CategoriaException, ParejaException {
 
 		
+		ParejaEntity par1 =  ParejaDAO.getInstancia().buscarParejaPorId(juego.getParejas().get(0).getIdPareja());
+		ParejaEntity par2 =  ParejaDAO.getInstancia().buscarParejaPorId(juego.getParejas().get(0).getIdPareja());
 		
-		ParejaEntity par1 = new ParejaEntity(je1, je2);
-		ParejaEntity par2 = new ParejaEntity(je3, je4);
 		JuegoEntity ent = new JuegoEntity(par1, par2, tipo);
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -50,9 +46,6 @@ public class JuegoDAO {
 		session.close();
 	}
 
-	public void guardarJuego(JugadorIndividual jugadorIndividual, String string) {
-		// TODO Auto-generated method stub
 
-	}
 
 }

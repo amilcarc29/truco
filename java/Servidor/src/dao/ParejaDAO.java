@@ -9,6 +9,7 @@ import entities.ParejaEntity;
 import entities.UsuarioEntity;
 import excepciones.CategoriaException;
 import excepciones.MiembroException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.JugadorGrupal;
@@ -66,9 +67,8 @@ public class ParejaDAO {
 
 		ss.getTransaction().commit();
 		ss.close();
-		
+
 		return toNegocio(pe);
-		
 
 	}
 
@@ -113,11 +113,7 @@ public class ParejaDAO {
 		ss.getTransaction().commit();
 		ss.close();
 
-		if (pe != null) {
-			return toNegocio(pe);
-		} else {
-			throw new MiembroException("Error al guardar la pareja");
-		}
+		return toNegocio(pe);
 
 	}
 
@@ -128,6 +124,22 @@ public class ParejaDAO {
 				JugadorDAO.getInstancia().toNegocio(pe.getJugador2()));
 		p.setIdPareja(pe.getIdPareja());
 		return p;
+	}
+
+	public ParejaEntity buscarParejaPorId(int idPareja) throws ParejaException {
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		ParejaEntity parejaEnt = (ParejaEntity) session
+				.createQuery("from ParejaEntity where idPareja = ? ").setParameter(0, idPareja)
+				.uniqueResult();
+		session.close();
+		if (parejaEnt != null) {
+			return parejaEnt;
+		} else {
+			throw new ParejaException("La pareja con id: " + idPareja + "no existe en la base de datos.");
+		} // TODO Auto-generated method stub
+
 	}
 
 }

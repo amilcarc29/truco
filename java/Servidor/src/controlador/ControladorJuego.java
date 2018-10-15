@@ -7,6 +7,7 @@ import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import negocio.FactoryJuegos;
 import negocio.GrupoJuego;
@@ -32,7 +33,7 @@ public class ControladorJuego {
 		fcJuegos = new FactoryJuegos();
 	}
 
-	public void iniciarJuego(GrupoJuego grupo) throws JuegoException, UsuarioException, CategoriaException {
+	public void iniciarJuego(GrupoJuego grupo) throws JuegoException, UsuarioException, CategoriaException, ParejaException {
 		Juego j = fcJuegos.getJuego(grupo.getTipoJuego());
 		if (j != null) {
 			j.setParejas(grupo.getParejas());

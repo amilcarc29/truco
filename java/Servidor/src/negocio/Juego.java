@@ -8,6 +8,7 @@ import dao.JuegoDAO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
 public abstract class Juego {
@@ -191,7 +192,7 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).puntosDbg(idPareja);
 	}
 
-	public void save(String tipo) throws UsuarioException, CategoriaException {
+	public void save(String tipo) throws UsuarioException, CategoriaException, ParejaException {
 		// TODO Auto-generated method stub
 		JuegoDAO.getInstancia().guardarJuegoLibreIndividual(this , tipo);
 	}
