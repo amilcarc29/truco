@@ -1,6 +1,10 @@
 package dto;
 
-public class CategoriaDTO {
+import java.io.Serializable;
+
+public class CategoriaDTO implements Serializable {
+
+	private static final long serialVersionUID = -3374447334738410724L;
 
 	private int idCategoria;
 	private String nombre;

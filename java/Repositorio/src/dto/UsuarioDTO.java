@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class UsuarioDTO implements Serializable{
 
+	private static final long serialVersionUID = 913850522288957303L;
+
 	private int idUsuario;
 	private int partidasGanadas;
 	private int partidasPerdidas;
@@ -11,11 +13,11 @@ public class UsuarioDTO implements Serializable{
 	private String apodo;
 	private String pass;
 	private String email;
-	//private CategoriaDTO categoria;
+	private CategoriaDTO categoria;
 	private boolean activo;
 
 	public UsuarioDTO(int idUsuario, int partidasGanadas, int partidasPerdidas, int puntaje, String apodo, String pass,
-			String email, boolean activo) {//, CategoriaDTO categoria
+			String email, CategoriaDTO categoria, boolean activo) {
 		super();
 		this.idUsuario = idUsuario;
 		this.partidasGanadas = partidasGanadas;
@@ -24,7 +26,7 @@ public class UsuarioDTO implements Serializable{
 		this.apodo = apodo;
 		this.pass = pass;
 		this.email = email;
-		//this.categoria = categoria;
+		this.categoria = categoria;
 		this.activo = activo;
 	}
 
@@ -83,16 +85,14 @@ public class UsuarioDTO implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
 
-	/*public Categoria getCategoria() {
+	public CategoriaDTO getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(CategoriaDTO categoria) {
 		this.categoria = categoria;
-	}*/
+	}
 
 	public boolean isActivo() {
 		return activo;

@@ -3,7 +3,6 @@ package controlador;
 import java.util.LinkedList;
 import java.util.List;
 
-import dto.UsuarioDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
@@ -15,7 +14,6 @@ import negocio.Juego;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
 import negocio.Pareja;
-import negocio.Usuario;
 
 public class ControladorJuego {
 

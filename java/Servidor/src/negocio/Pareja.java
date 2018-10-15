@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.ParejaDAO;
-import dao.UsuarioDAO;
 import excepciones.CategoriaException;
 import excepciones.MiembroException;
 

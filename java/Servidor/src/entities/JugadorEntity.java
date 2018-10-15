@@ -5,16 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "Jugador")
 public class JugadorEntity {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idJugador;
@@ -28,7 +25,7 @@ public class JugadorEntity {
 	@JoinColumn(name = "idMiembro")
 	private MiembroEntity miembro;
 	private String tipo;
-	
+
 	public JugadorEntity(UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro, String tipo) {
 		super();
 		this.usuario = usuario;
@@ -36,37 +33,44 @@ public class JugadorEntity {
 		this.miembro = miembro;
 		this.tipo = tipo;
 	}
+
 	public int getIdJugador() {
 		return idJugador;
 	}
+
 	public void setIdJugador(int idJugador) {
 		this.idJugador = idJugador;
 	}
+
 	public UsuarioEntity getUsuario() {
 		return usuario;
 	}
+
 	public void setUsuario(UsuarioEntity usuario) {
 		this.usuario = usuario;
 	}
+
 	public ParejaEntity getPareja() {
 		return pareja;
 	}
+
 	public void setPareja(ParejaEntity pareja) {
 		this.pareja = pareja;
 	}
+
 	public MiembroEntity getMiembro() {
 		return miembro;
 	}
+
 	public void setMiembro(MiembroEntity miembro) {
 		this.miembro = miembro;
 	}
+
 	public String getTipo() {
 		return tipo;
 	}
+
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	
-
 }

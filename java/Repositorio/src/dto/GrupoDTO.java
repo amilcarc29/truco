@@ -2,24 +2,22 @@ package dto;
 
 import java.util.List;
 
-
-
 public class GrupoDTO {
 
 	private int idGrupo;
 	private UsuarioDTO administrador;
 	private String nombre;
 	private int puntoPorPartida;
-	//private List<ModalidadCerrada> partidas;
+	private List<ModalidadCerradaDTO> partidas;
 
-	public GrupoDTO(int idGrupo, UsuarioDTO administrador, String nombre, int puntoPorPartida)//,List<ModalidadCerrada> partidas
-	{
+	public GrupoDTO(int idGrupo, UsuarioDTO administrador, String nombre, int puntoPorPartida,
+			List<ModalidadCerradaDTO> partidas) {
 		super();
 		setIdGrupo(idGrupo);
 		setAdministrador(administrador);
 		setNombre(nombre);
 		setPuntoPorPartida(puntoPorPartida);
-		//setPartidas(partidas);
+		setPartidas(partidas);
 	}
 
 	public int getIdGrupo() {
@@ -53,14 +51,12 @@ public class GrupoDTO {
 	public void setPuntoPorPartida(int puntoPorPartida) {
 		this.puntoPorPartida = puntoPorPartida;
 	}
-	
-	
 
-	/*public List<ModalidadCerrada> getPartidas() {
+	public List<ModalidadCerradaDTO> getPartidas() {
 		return partidas;
 	}
 
-	public void setPartidas(List<ModalidadCerrada> partidas) {
+	public void setPartidas(List<ModalidadCerradaDTO> partidas) {
 		this.partidas = partidas;
-	}*/
+	}
 }

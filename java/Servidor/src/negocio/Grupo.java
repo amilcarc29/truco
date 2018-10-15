@@ -3,8 +3,6 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.GrupoDTO;
-
 public class Grupo {
 
 	private int idGrupo;
