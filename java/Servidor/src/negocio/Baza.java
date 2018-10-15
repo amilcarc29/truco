@@ -16,7 +16,6 @@ public class Baza {
 
 	public Baza() {
 		this.jugadas = new LinkedList<Jugada>();
-
 	}
 
 	public Jugada jugadaMayor() {
@@ -56,16 +55,13 @@ public class Baza {
 		if (parda)
 			return (this.jugadas.size() >= 3);
 		return (this.jugadas.size() == 4);
-
 	}
 
 	public void finalizarBaza() {
-
 	}
 
 	public void cantarTruco(int idJugador) {
 		// Conflicto con el nombre del jugador
-		
 		// jugadores.stream().filter(jugador ->
 		// jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
 		// System.out.println("Jugador " + jugador.getNombre() + "cantó Truco.");
@@ -74,39 +70,30 @@ public class Baza {
 
 	public void cantarEnvido(int idJugador) {
 		// Conflicto con el nombre del jugador
-		
 		// jugadores.stream().filter(jugador ->
 		// jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
 		// System.out.println("Jugador " + jugador.getNombre() + "cantó Envido.");
 		// });
-
 	}
 
 	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
 		Jugador jugador = jugadores.get(idJugador);
-
 		// solo para debug
 		if (jugadores.size() > (idJugador + 1)) {
 			Jugador nextj = jugadores.get(idJugador + 1);
-
 		}
 		// solo para debug
-
 		Carta c = jugador.getCarta(numero, palo);
-
 		Jugada jugada = new Jugada();
 		jugada.setJugador(jugador);
-
 		jugada.setCarta(c);
 		this.jugadas.add(jugada);
-
 		if (jugadaMayor == null)
 			jugadaMayor = jugada;
 		else {
 			if (this.jugadaMayor.esMayor(jugada))
 				this.jugadaMayor = jugada;
 			// Conflicto con nombre de Jugador
-
 			// System.out.println("jugada mayor " +
 			// jugadores.get(this.jugadaMayor.getJugador().getId()).getNombre() + " , "
 			// + this.jugadaMayor.getCarta().getNumero() + " " +
@@ -114,5 +101,4 @@ public class Baza {
 		}
 		numero++;
 	}
-
 }

@@ -2,7 +2,6 @@ package controlador;
 
 import java.util.Vector;
 
-import dao.CategoriaDAO;
 import dao.UsuarioDAO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;

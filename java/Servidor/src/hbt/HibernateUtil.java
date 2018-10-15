@@ -9,7 +9,6 @@ import entities.JugadorEntity;
 import entities.MiembroEntity;
 import entities.ParejaEntity;
 import entities.UsuarioEntity;
-import negocio.Usuario;
 
 public class HibernateUtil
 {

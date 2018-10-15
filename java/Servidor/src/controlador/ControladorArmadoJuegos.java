@@ -2,20 +2,15 @@ package controlador;
 
 import java.util.Vector;
 
-
-import dao.GrupoDAO;
 import dto.GrupoDTO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
-import excepciones.GrupoException;
 import excepciones.GrupoJuegoException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
-import negocio.Categoria;
-import negocio.Grupo;
 import negocio.GrupoJuego;
 import negocio.Jugador;
 import negocio.JugadorGrupal;
