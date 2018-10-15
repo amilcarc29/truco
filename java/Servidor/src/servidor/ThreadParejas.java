@@ -76,22 +76,29 @@ public class ThreadParejas implements Runnable {
 	}
 
 	public void armarParejasIndividuales() {
+		
+		Vector<JugadorIndividual> jugadoresLibres = new Vector<>();
+		
 		while (!stop) {
 			try {
 				System.out.println("buscando jugadores individuales");
 				Vector<Jugador> jugadores = ControladorArmadoJuegos.getInstancia().getJugadoresEnEspera();
-				Vector<JugadorIndividual> jugadoresLibres = new Vector<>();
+				
 				if (!jugadores.isEmpty()) {
 					for (Iterator<Jugador> iterator = jugadores.iterator(); iterator.hasNext();) {
 						Jugador j = iterator.next();
 						JugadorIndividual jugadorIndividual = ((JugadorIndividual) j);
-						if (jugadoresLibres.size() < 4)
+						if (jugadoresLibres.size() < 4) {
+							
 							jugadoresLibres.add(jugadorIndividual);
-						else {
+							iterator.remove();
+						} else {
+
 							juntarParejas(jugadoresLibres);
 							jugadoresLibres = new Vector<>();
+
 						}
-						iterator.remove();
+
 					}
 					// sobrante
 					if (jugadoresLibres.size() == 4)
