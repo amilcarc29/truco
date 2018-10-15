@@ -56,7 +56,7 @@ public abstract class Jugador {
 		throw new CartaException("No se encontró a la carta: " + numero + " de " + palo);
 	}
 
-	public void mostrarCartas() {
+	public void dbgCartas() {
 		for (Carta carta : cartas) {
 			System.out.println("Carta " + carta.getNumero() + " " + carta.getPalo());
 		}

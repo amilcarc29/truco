@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dao.JuegoDAO;
 import excepciones.CartaException;
+import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.UsuarioException;
 
 public abstract class Juego {
 	private static int cnt = 0;
@@ -166,7 +169,7 @@ public abstract class Juego {
 	}
 
 	public boolean verificarFinJuego() {
-		/* FIJARSE QUE UNA PAREJA GANE DOS CHCICOS PARA TERMINAR*/
+		/* FIJARSE QUE UNA PAREJA GANE DOS CHCICOS PARA TERMINAR */
 		if (chicos.size() >= 2) {
 			System.out.println("FIN CHICOS");
 
@@ -188,4 +191,8 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).puntosDbg(idPareja);
 	}
 
+	public void save(String tipo) throws UsuarioException, CategoriaException {
+		// TODO Auto-generated method stub
+		JuegoDAO.getInstancia().guardarJuegoLibreIndividual(this , tipo);
+	}
 }

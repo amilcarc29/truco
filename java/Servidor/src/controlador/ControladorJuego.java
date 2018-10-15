@@ -12,6 +12,8 @@ import excepciones.UsuarioException;
 import negocio.FactoryJuegos;
 import negocio.GrupoJuego;
 import negocio.Juego;
+import negocio.Jugador;
+import negocio.JugadorIndividual;
 import negocio.Pareja;
 import negocio.Usuario;
 
@@ -32,13 +34,14 @@ public class ControladorJuego {
 		fcJuegos = new FactoryJuegos();
 	}
 
-	public void iniciarJuego(GrupoJuego grupo) throws JuegoException {
+	public void iniciarJuego(GrupoJuego grupo) throws JuegoException, UsuarioException, CategoriaException {
 		Juego j = fcJuegos.getJuego(grupo.getTipoJuego());
 		if (j != null) {
 			j.setParejas(grupo.getParejas());
 			j.crearChico();
-			// j.save();   ACA SE DEBE PERSISTIR EL JUEGO NUEVO EN LA BD
+			j.save("LIBRE");
 			juegos.add(j);
+			imprimirDbg();
 		}
 	}
 
@@ -126,15 +129,16 @@ public class ControladorJuego {
 		for (Juego juego : juegos) {
 			List<Pareja> par = juego.getParejas();
 			for (Pareja p : par) {
-				
-				//CONFLICTOS CON NOMBRE JUGADOR
-				// System.out.println("Pareja num " + p.getIdPareja());
-				// System.out.println("Jugadores " + p.getJugadores().get(0).getNombre() + " y "
-				// + p.getJugadores().get(1).getNombre());
-				// System.out.println("Cartas de " + p.getJugadores().get(0).getNombre());
-				// p.getJugadores().get(0).mostrarCartas();
-				// System.out.println("Cartas de " + p.getJugadores().get(1).getNombre());
-				// p.getJugadores().get(1).mostrarCartas();
+
+				// CONFLICTOS CON NOMBRE JUGADOR
+
+				System.out.println("Pareja num " + p.getIdPareja());
+
+				for (Jugador j : p.getJugadores()) {
+
+					System.out.println(((JugadorIndividual) j).getUsuario().getApodo());
+					j.dbgCartas();
+				}
 
 				if (this.sePuedeCantarEnvido(juego.getId())) {
 
