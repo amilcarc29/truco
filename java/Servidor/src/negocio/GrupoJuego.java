@@ -8,7 +8,7 @@ public class GrupoJuego {
 	private int id;
 	private List<Pareja> parejas;
 	private Date fechaCreacion;
-	private String tipoJuego;
+	private String tipoJuego;  // ver para que esta
 
 
 
@@ -50,16 +50,8 @@ public class GrupoJuego {
 
 	// TODO addJugadores YA NO ESTA
 
-	public  GrupoJuego(Jugador jugador1, Jugador jugador2, Jugador jugador3, Jugador jugador4) {
+	public  GrupoJuego(Pareja p1, Pareja p2) {
 		parejas = new LinkedList<Pareja>();
-
-		Pareja p1 = new Pareja();
-		p1.addJugador(jugador1);
-		p1.addJugador(jugador2);
-
-		Pareja p2 = new Pareja();
-		p2.addJugador(jugador3);
-		p2.addJugador(jugador4);
 
 		this.parejas.add(p1);
 		this.parejas.add(p2);

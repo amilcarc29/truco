@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -9,7 +11,8 @@ import javax.persistence.OneToOne;
 public class ParejaEntity {
 
 	@Id
-	private int idPareja;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer idPareja;
 	@OneToOne
 	@JoinColumn(name = "idJugador1", referencedColumnName = "idJugador")
 	private JugadorEntity jugador1;
@@ -19,7 +22,6 @@ public class ParejaEntity {
 
 	public ParejaEntity(int idPareja, JugadorEntity jugador1, JugadorEntity jugador2) {
 		super();
-		this.idPareja = idPareja;
 		this.jugador1 = jugador1;
 		this.jugador2 = jugador2;
 	}

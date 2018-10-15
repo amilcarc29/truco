@@ -1,20 +1,23 @@
 package entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class MiembroEntity {
 
 	@Id
-	private int idMiembro;
-	@OneToMany
-	@JoinColumn(name = "idMiembro")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer idMiembro;
+	@OneToOne
+	@JoinColumn(name = "idUsuario")
 	private UsuarioEntity usuario;
-	@OneToMany
-	@JoinColumn(name = "idMiembro")
+	@OneToOne
+	@JoinColumn(name = "idGrupo")
 	private GrupoEntity grupo;
 	private int puntaje;
 	private boolean enGrupo;

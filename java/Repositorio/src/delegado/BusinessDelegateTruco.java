@@ -7,7 +7,6 @@ import java.rmi.RemoteException;
 
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
-import interfaces.InterfaceRemota;
 import interfaces.InterfaceRemotaTruco;
 
 public class BusinessDelegateTruco {
@@ -41,10 +40,18 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
-	
+
 	public void agregarAListaEspera(UsuarioDTO usuario) throws ComunicacionException {
 		try {
 			ir.agregarAListaEspera(usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+
+	public void armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws ComunicacionException {
+		try {
+			ir.armarPareja(u1, u2);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}

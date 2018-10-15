@@ -3,6 +3,11 @@ package negocio;
 import java.util.LinkedList;
 import java.util.List;
 
+import dao.ParejaDAO;
+import dao.UsuarioDAO;
+import excepciones.CategoriaException;
+import excepciones.MiembroException;
+
 public class Pareja {
 	private int idPareja = 0;
 	private List<Jugador> jugadores;
@@ -13,9 +18,12 @@ public class Pareja {
 		return cnt++;
 	}
 	
-	public Pareja() {
+	public Pareja(Jugador j1, Jugador j2) {
 		idPareja = getID();
 		jugadores = new LinkedList<Jugador>();
+		jugadores.add(j1);
+		jugadores.add(j2);
+		
 	}
 
 	public Categoria obtenerMayorCategoria() {
@@ -69,5 +77,27 @@ public class Pareja {
 				mayor = jug.getTantoEnvido();
 		}
 		return mayor;
+	}
+	
+	public Jugador getJugador1() {
+		return jugadores.get(0);
+	}
+	
+	public Jugador getJugador2() {
+		return jugadores.get(1);
+	}
+	
+	public void saveIndividual() throws CategoriaException {
+		ParejaDAO.getInstancia().guardarParejaIndividual(this);
+	}
+	
+	public void saveGrupal() throws CategoriaException, MiembroException {
+		try {
+			ParejaDAO.getInstancia().guardarParejaGrupal(this);
+		} catch (MiembroException e) {
+			e.printStackTrace();
+		} catch (CategoriaException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

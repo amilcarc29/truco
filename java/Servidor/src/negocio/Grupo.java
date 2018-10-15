@@ -11,12 +11,14 @@ public class Grupo {
 	private Usuario administrador;
 	private String nombre;
 	private int puntoPorPartida;
+	private List<Miembro> integrantes;
 	private List<ModalidadCerrada> partidas;
 
 	public Grupo(int idGrupo, String nombre) {
 		setIdGrupo(idGrupo);
 		setNombre(nombre);
 		partidas = new ArrayList<>();
+		integrantes = new ArrayList<>();
 	}
 
 	public Grupo() {
@@ -82,6 +84,16 @@ public class Grupo {
 	public boolean sePuedeJugar() {
 		return false;
 	}
+
+	public List<Miembro> getIntegrantes() {
+		return integrantes;
+	}
+
+	public void setIntegrantes(List<Miembro> integrantes) {
+		this.integrantes = integrantes;
+	}
+	
+	
 
 //	public GrupoDTO toDTO() {
 //		return new GrupoDTO(idGrupo, administrador, nombre, puntoPorPartida, partidas);

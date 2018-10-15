@@ -37,6 +37,7 @@ public class ControladorJuego {
 		if (j != null) {
 			j.setParejas(grupo.getParejas());
 			j.crearChico();
+			// j.save();   ACA SE DEBE PERSISTIR EL JUEGO NUEVO EN LA BD
 			juegos.add(j);
 		}
 	}
@@ -125,14 +126,15 @@ public class ControladorJuego {
 		for (Juego juego : juegos) {
 			List<Pareja> par = juego.getParejas();
 			for (Pareja p : par) {
-
-				System.out.println("Pareja num " + p.getIdPareja());
-				System.out.println("Jugadores " + p.getJugadores().get(0).getNombre() + " y "
-						+ p.getJugadores().get(1).getNombre());
-				System.out.println("Cartas de " + p.getJugadores().get(0).getNombre());
-				p.getJugadores().get(0).mostrarCartas();
-				System.out.println("Cartas de " + p.getJugadores().get(1).getNombre());
-				p.getJugadores().get(1).mostrarCartas();
+				
+				//CONFLICTOS CON NOMBRE JUGADOR
+				// System.out.println("Pareja num " + p.getIdPareja());
+				// System.out.println("Jugadores " + p.getJugadores().get(0).getNombre() + " y "
+				// + p.getJugadores().get(1).getNombre());
+				// System.out.println("Cartas de " + p.getJugadores().get(0).getNombre());
+				// p.getJugadores().get(0).mostrarCartas();
+				// System.out.println("Cartas de " + p.getJugadores().get(1).getNombre());
+				// p.getJugadores().get(1).mostrarCartas();
 
 				if (this.sePuedeCantarEnvido(juego.getId())) {
 
@@ -145,7 +147,7 @@ public class ControladorJuego {
 				System.out.println("");
 
 			}
-			System.out.println("juega " + juego.proximoDbg().getNombre());
+			// System.out.println("juega " + juego.proximoDbg().getNombre());
 			System.out.println("");
 		}
 	}

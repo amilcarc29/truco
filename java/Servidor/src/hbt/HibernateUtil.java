@@ -4,6 +4,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import entities.CategoriaEntity;
+import entities.GrupoEntity;
+import entities.JugadorEntity;
+import entities.MiembroEntity;
+import entities.ParejaEntity;
 import entities.UsuarioEntity;
 
 public class HibernateUtil
@@ -17,6 +21,10 @@ public class HibernateUtil
         	 AnnotationConfiguration config = new AnnotationConfiguration();
              config.addAnnotatedClass(UsuarioEntity.class);
              config.addAnnotatedClass(CategoriaEntity.class);
+             config.addAnnotatedClass(ParejaEntity.class);
+             config.addAnnotatedClass(JugadorEntity.class);
+             config.addAnnotatedClass(MiembroEntity.class);
+             config.addAnnotatedClass(GrupoEntity.class);
 
              sessionFactory = config.buildSessionFactory();
         }

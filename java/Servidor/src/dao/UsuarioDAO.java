@@ -24,6 +24,7 @@ public class UsuarioDAO {
 		return instancia;
 	}
 
+	// CHEQUEAR = TE TRAE EL USUARIO CON LA CATEGORIA CARGADA?
 	public Usuario buscarUsuarioById(int idUsuario) throws UsuarioException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -33,6 +34,20 @@ public class UsuarioDAO {
 		session.close();
 		if (usuarioEntity != null) {
 			return toNegocio(usuarioEntity);
+		} else {
+			throw new UsuarioException("El usuario con id: " + idUsuario + "no existe en la base de datos.");
+		}
+	}
+
+	public UsuarioEntity buscarUsuarioByIdEntity(int idUsuario) throws UsuarioException, CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		UsuarioEntity usuarioEntity = (UsuarioEntity) session
+				.createQuery("from UsuarioEntity where idUsuario = ? and activo  = 1").setParameter(0, idUsuario)
+				.uniqueResult();
+		session.close();
+		if (usuarioEntity != null) {
+			return usuarioEntity;
 		} else {
 			throw new UsuarioException("El usuario con id: " + idUsuario + "no existe en la base de datos.");
 		}
@@ -53,6 +68,15 @@ public class UsuarioDAO {
 
 	public void guardarUsuario(Usuario usuario) throws CategoriaException {
 		UsuarioEntity usuarioEntity = toEntity(usuario);
+		CategoriaEntity cat = null;
+		UsuarioEntity ue = new UsuarioEntity(usuario.getPartidasGanadas(), usuario.getPartidasJugadas(),
+				usuario.getPuntaje(), usuario.getApodo(), usuario.getPass(), usuario.getEmail(), usuario.getActivo());
+		try {
+			cat = CategoriaDAO.getInstancia().buscarCategoriaByNombre("NOVATO");
+		} catch (CategoriaException e) {
+			e.printStackTrace();
+		}
+		ue.setCategoria(cat);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();

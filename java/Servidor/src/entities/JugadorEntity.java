@@ -1,23 +1,27 @@
 package entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Jugador")
 public class JugadorEntity {
 
 	@Id
-	private int idJugador;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer idJugador;
 	@OneToOne
 	@JoinColumn(name = "idUsuario")
 	private UsuarioEntity usuario;
 	@OneToOne
 	@JoinColumn(name = "idPareja")
 	private ParejaEntity pareja;
-	@OneToMany
+	@OneToOne
 	@JoinColumn(name = "idMiembro")
 	private MiembroEntity miembro;
 	private String tipo;
@@ -25,7 +29,6 @@ public class JugadorEntity {
 	public JugadorEntity(int idJugador, UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro,
 			String tipo) {
 		super();
-		this.idJugador = idJugador;
 		this.usuario = usuario;
 		this.pareja = pareja;
 		this.miembro = miembro;
