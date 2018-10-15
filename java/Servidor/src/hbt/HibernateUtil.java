@@ -5,7 +5,6 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 import entities.CategoriaEntity;
 import entities.UsuarioEntity;
-import negocio.Usuario;
 
 public class HibernateUtil
 {

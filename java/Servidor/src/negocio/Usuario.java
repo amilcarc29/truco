@@ -1,6 +1,5 @@
 package negocio;
 
-import dao.CategoriaDAO;
 import dao.UsuarioDAO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
@@ -117,6 +116,6 @@ public class Usuario {
 	}
 
 	public UsuarioDTO toDTO() {
-		return new UsuarioDTO(idUsuario, partidasGanadas, partidasJugadas, puntaje, apodo, pass, email, activo);// categoria.,
+		return new UsuarioDTO(idUsuario, partidasGanadas, partidasJugadas, puntaje, apodo, pass, email, getCategoria().toDTO(), activo);
 	}
 }

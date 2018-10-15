@@ -37,6 +37,20 @@ public class CategoriaDAO {
 	}
 
 	public Categoria toNegocio(CategoriaEntity categoriaEntity) throws CategoriaException {
+		/*
+		 switch (getNombre()) {
+		case "NOVATO":
+			return new Novato(idCategoria, nombre, score, minimoPartidas, minimoPuntos, promedioMinimo);
+		case "MASTER":
+			return new Master(idCategoria, nombre, score, minimoPartidas, minimoPuntos, promedioMinimo);
+		case "CALIFICADO":
+			return new Calificado(idCategoria, nombre, score, minimoPartidas, minimoPuntos, promedioMinimo);
+		case "EXPERTO":
+			return new Experto(idCategoria, nombre, score, minimoPartidas, minimoPuntos, promedioMinimo);
+		default:
+			return null;
+		}
+		 */
 		return FactoryCategoria.getCategoria(categoriaEntity.getIdCategoria(), categoriaEntity.getNombre(), categoriaEntity.getScore(),
 				categoriaEntity.getMinimoPartida(), categoriaEntity.getMinimoPuntos(),
 				categoriaEntity.getPromedioMinimo());

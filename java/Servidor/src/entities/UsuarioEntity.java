@@ -1,38 +1,29 @@
 package entities;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import utils.HashUtil;
 
 @Entity
-@Table(name = "Usuario")
 public class UsuarioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idUsuario;
-
 	private int partidasGanadas;
 	private int partidasJugadas;
 	private int puntaje;
 	private String apodo;
 	private String pass;
 	private String email;
-
 	@OneToOne
 	@JoinColumn(name = "idCategoria")
 	private CategoriaEntity categoria;
-
 	private boolean activo;
 
 	public UsuarioEntity() {
@@ -51,7 +42,6 @@ public class UsuarioEntity {
 		this.idUsuario = null;
 
 	}
-
 
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -124,5 +114,4 @@ public class UsuarioEntity {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-
 }

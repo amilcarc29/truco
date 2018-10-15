@@ -2,6 +2,10 @@ package view;
 
 import javax.swing.JOptionPane;
 
+import delegado.BusinessDelegateTruco;
+import dto.UsuarioDTO;
+import excepciones.ComunicacionException;
+
 public class ClienteRmi {
 
 	public static void main(String[] args) {
