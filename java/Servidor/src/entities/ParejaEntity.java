@@ -6,8 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Pareja")
 public class ParejaEntity {
 
 	@Id
@@ -20,7 +22,7 @@ public class ParejaEntity {
 	@JoinColumn(name = "idJugador2", referencedColumnName = "idJugador")
 	private JugadorEntity jugador2;
 
-	public ParejaEntity(int idPareja, JugadorEntity jugador1, JugadorEntity jugador2) {
+	public ParejaEntity(JugadorEntity jugador1, JugadorEntity jugador2) {
 		super();
 		this.jugador1 = jugador1;
 		this.jugador2 = jugador2;

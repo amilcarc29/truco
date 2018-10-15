@@ -8,7 +8,6 @@ import controlador.ControladorJuego;
 import excepciones.CartaException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
-import negocio.GrupoJuego;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
 import negocio.Usuario;

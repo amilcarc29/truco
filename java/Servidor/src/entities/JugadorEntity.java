@@ -26,8 +26,7 @@ public class JugadorEntity {
 	private MiembroEntity miembro;
 	private String tipo;
 
-	public JugadorEntity(int idJugador, UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro,
-			String tipo) {
+	public JugadorEntity(UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro, String tipo) {
 		super();
 		this.usuario = usuario;
 		this.pareja = pareja;

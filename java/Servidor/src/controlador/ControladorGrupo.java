@@ -11,7 +11,6 @@ import excepciones.MiembroException;
 import excepciones.UsuarioException;
 import negocio.Grupo;
 import negocio.Miembro;
-import negocio.Usuario;
 
 // TODO Hay nuevos metodos. Agregar a Diagrama.
 public class ControladorGrupo {
