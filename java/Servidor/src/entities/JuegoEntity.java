@@ -37,6 +37,10 @@ public class JuegoEntity {
 
 	private boolean activo;
 
+	public JuegoEntity() {
+
+	}
+
 	public JuegoEntity(ParejaEntity pareja1, ParejaEntity pareja2, String tipoDeJuego) {
 		super();
 		this.pareja1 = pareja1;

@@ -25,7 +25,9 @@ public class JugadorEntity {
 	@JoinColumn(name = "idMiembro")
 	private MiembroEntity miembro;
 	private String tipo;
-
+	
+	public JugadorEntity() {}
+	
 	public JugadorEntity(UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro, String tipo) {
 		super();
 		this.usuario = usuario;

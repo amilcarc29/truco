@@ -1,5 +1,7 @@
 package hbt;
 
+import javax.swing.JOptionPane;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
@@ -16,6 +18,7 @@ public class HibernateUtil {
 
 	static {
 		try {
+			
 			AnnotationConfiguration config = new AnnotationConfiguration();
 			config.addAnnotatedClass(UsuarioEntity.class);
 			config.addAnnotatedClass(CategoriaEntity.class);
@@ -26,11 +29,14 @@ public class HibernateUtil {
 			config.addAnnotatedClass(JuegoEntity.class);
 
 			sessionFactory = config.buildSessionFactory();
+			
+			
 		} catch (Throwable ex) {
-			System.err.println("Initial SessionFactory creation failed." + ex);
+			JOptionPane.showMessageDialog(null, ("Initial SessionFactory creation failed." + ex));
 			throw new ExceptionInInitializerError(ex);
 		}
 	}
+	
 
 	public static SessionFactory getSessionFactory() {
 		return sessionFactory;

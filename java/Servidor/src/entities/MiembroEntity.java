@@ -21,7 +21,10 @@ public class MiembroEntity {
 	private GrupoEntity grupo;
 	private int puntaje;
 	private boolean enGrupo;
-
+	
+	
+	public MiembroEntity() {}
+	
 	public MiembroEntity(int idMiembro, int puntaje, boolean enGrupo) {
 		super();
 		this.idMiembro = idMiembro;

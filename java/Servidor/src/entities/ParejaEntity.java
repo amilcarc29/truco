@@ -21,7 +21,9 @@ public class ParejaEntity {
 	@OneToOne
 	@JoinColumn(name = "idJugador2", referencedColumnName = "idJugador")
 	private JugadorEntity jugador2;
-
+	
+	public ParejaEntity() {}
+	
 	public ParejaEntity(JugadorEntity jugador1, JugadorEntity jugador2) {
 		super();
 		this.jugador1 = jugador1;

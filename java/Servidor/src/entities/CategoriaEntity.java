@@ -2,8 +2,10 @@ package entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Categoria")
 public class CategoriaEntity {
 
 	@Id
