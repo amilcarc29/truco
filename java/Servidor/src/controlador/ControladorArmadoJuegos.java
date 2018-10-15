@@ -135,8 +135,14 @@ public class ControladorArmadoJuegos {
 
 			Pareja p1 = this.armarPareja(u1, u2);
 			Pareja p2 = this.armarPareja(u3, u4);
+			
+			
+			
 			GrupoJuego gj = new GrupoJuego(p1, p2);
 			gj.setTipoJuego("LIBRE");
+			
+
+			
 			ControladorJuego.getInstancia().iniciarJuego(gj);
 
 		} catch (UsuarioException e) {
@@ -219,18 +225,21 @@ public class ControladorArmadoJuegos {
 		JugadorGrupal j1 = new JugadorGrupal(m1);
 		JugadorGrupal j2 = new JugadorGrupal(m2);
 		Pareja p = new Pareja(j1, j2);
-		p.saveGrupal();
-		return p;		
+		return p.saveGrupal();
+			
 	}
 
 	public Pareja armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws UsuarioException, CategoriaException {
+		
 		Usuario usuario1 = ControladorUsuario.getInstancia().buscarUsuarioPorId(u1.getIdUsuario());
 		Usuario usuario2 = ControladorUsuario.getInstancia().buscarUsuarioPorId(u2.getIdUsuario());
+		
 		JugadorIndividual j1 = new JugadorIndividual(usuario1);
 		JugadorIndividual j2 = new JugadorIndividual(usuario2);
+		
 		Pareja p = new Pareja(j1, j2);
-		p.saveIndividual();
-		return p;
+		return p.saveIndividual();
+		
 	}
 
 	public void cancelarEsperaJugador(int idJugador) throws JugadorException {

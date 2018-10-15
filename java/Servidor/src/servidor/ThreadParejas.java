@@ -13,6 +13,7 @@ import excepciones.JuegoException;
 import excepciones.UsuarioException;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
+import negocio.Pareja;
 
 public class ThreadParejas implements Runnable {
 	public Integer loop = 1000;
@@ -49,14 +50,14 @@ public class ThreadParejas implements Runnable {
 	public void juntarParejas(Vector<JugadorIndividual> jugadoresLibres) {
 		System.out.println("Se encontraron 4 jugadores libres");
 		try {
-			ControladorArmadoJuegos.getInstancia().armarPareja(jugadoresLibres.get(0).getUsuario().toDTO(),
-					jugadoresLibres.get(1).getUsuario().toDTO());
-			ControladorArmadoJuegos.getInstancia().armarPareja(jugadoresLibres.get(2).getUsuario().toDTO(),
-					jugadoresLibres.get(3).getUsuario().toDTO());
+
+			
 			ControladorArmadoJuegos.getInstancia().iniciarPartidaLibre(
 					jugadoresLibres.get(0).getUsuario().toDTO(), jugadoresLibres.get(1).getUsuario().toDTO(),
 					jugadoresLibres.get(2).getUsuario().toDTO(), jugadoresLibres.get(3).getUsuario().toDTO()
 			);
+			
+			
 			System.out.println("Parejas creadas");
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block

@@ -13,6 +13,7 @@ import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.JugadorGrupal;
 import negocio.JugadorIndividual;
+import negocio.Miembro;
 import negocio.Pareja;
 
 public class ParejaDAO {
@@ -28,7 +29,7 @@ public class ParejaDAO {
 		return instancia;
 	}
 
-	public void guardarParejaIndividual(Pareja pareja) throws CategoriaException {
+	public Pareja guardarParejaIndividual(Pareja pareja) throws CategoriaException {
 		UsuarioEntity ue1 = null;
 		UsuarioEntity ue2 = null;
 		JugadorIndividual ju1 = (JugadorIndividual) pareja.getJugador1();
@@ -49,7 +50,6 @@ public class ParejaDAO {
 		ss.saveOrUpdate(je1);
 
 		JugadorEntity je2 = new JugadorEntity(ue2, null, null, "individual");
-
 		ss.saveOrUpdate(je2);
 
 		// alta de pareja
@@ -62,15 +62,17 @@ public class ParejaDAO {
 		ss.saveOrUpdate(pe);
 
 		je2.setPareja(pe);
-
 		ss.saveOrUpdate(je1);
 
 		ss.getTransaction().commit();
 		ss.close();
+		
+		return toNegocio(pe);
+		
 
 	}
-	
-	public void guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException {
+
+	public Pareja guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException {
 		MiembroEntity mi1 = null;
 		MiembroEntity mi2 = null;
 		JugadorGrupal ju1 = (JugadorGrupal) pareja.getJugador1();
@@ -81,7 +83,7 @@ public class ParejaDAO {
 		} catch (MiembroException e) {
 			e.printStackTrace();
 		}
-		
+
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session ss = sf.openSession();
 		ss.beginTransaction();
@@ -109,8 +111,23 @@ public class ParejaDAO {
 		ss.saveOrUpdate(je1);
 
 		ss.getTransaction().commit();
-		ss.close();		
+		ss.close();
 
+		if (pe != null) {
+			return toNegocio(pe);
+		} else {
+			throw new MiembroException("Error al guardar la pareja");
+		}
+
+	}
+
+	private Pareja toNegocio(ParejaEntity pe) throws CategoriaException {
+		// TODO Auto-generated method stub
+
+		Pareja p = new Pareja(JugadorDAO.getInstancia().toNegocio(pe.getJugador1()),
+				JugadorDAO.getInstancia().toNegocio(pe.getJugador2()));
+		p.setIdPareja(pe.getIdPareja());
+		return p;
 	}
 
 }

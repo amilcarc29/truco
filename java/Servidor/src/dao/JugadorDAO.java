@@ -5,11 +5,15 @@ import org.hibernate.SessionFactory;
 
 import entities.JuegoEntity;
 import entities.JugadorEntity;
+import entities.ParejaEntity;
 import entities.UsuarioEntity;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Jugador;
+import negocio.JugadorIndividual;
+import negocio.ModalidadLibreIndividual;
+import negocio.Pareja;
 import negocio.Usuario;
 
 public class JugadorDAO {
@@ -37,5 +41,15 @@ public class JugadorDAO {
 		}
 	}
 
+	public Jugador toNegocio(JugadorEntity pe) throws CategoriaException {
+		Jugador j = null;
 
+		if (pe.getTipo().equals("individual")) {
+			j = new JugadorIndividual(UsuarioDAO.getInstancia().toNegocio(pe.getUsuario()));
+			j.setId(pe.getIdJugador());
+		}
+
+		return j;
+
+	}
 }

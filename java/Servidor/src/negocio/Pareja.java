@@ -11,14 +11,10 @@ public class Pareja {
 	private int idPareja = 0;
 	private List<Jugador> jugadores;
 	
-	private static int cnt = 0;
 
-	private static int getID() {
-		return cnt++;
-	}
+
 	
 	public Pareja(Jugador j1, Jugador j2) {
-		idPareja = getID();
 		jugadores = new LinkedList<Jugador>();
 		jugadores.add(j1);
 		jugadores.add(j2);
@@ -32,7 +28,9 @@ public class Pareja {
 	public int getIdPareja() {
 		return idPareja;
 	}
-
+	public void setIdPareja(int idPareja)  {
+		this.idPareja = idPareja;
+	}
 	public List<Jugador> getJugadores() {
 		return jugadores;
 	}
@@ -86,17 +84,18 @@ public class Pareja {
 		return jugadores.get(1);
 	}
 	
-	public void saveIndividual() throws CategoriaException {
-		ParejaDAO.getInstancia().guardarParejaIndividual(this);
+	public Pareja  saveIndividual() throws CategoriaException {
+		return ParejaDAO.getInstancia().guardarParejaIndividual(this);
 	}
 	
-	public void saveGrupal() throws CategoriaException, MiembroException {
+	public Pareja saveGrupal() throws CategoriaException, MiembroException {
 		try {
-			ParejaDAO.getInstancia().guardarParejaGrupal(this);
+			return ParejaDAO.getInstancia().guardarParejaGrupal(this);
 		} catch (MiembroException e) {
 			e.printStackTrace();
 		} catch (CategoriaException e1) {
 			e1.printStackTrace();
 		}
+		return null;
 	}
 }

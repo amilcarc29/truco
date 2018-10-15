@@ -10,11 +10,11 @@ public abstract class Jugador {
 	private int idJugador = 0;
 	private List<Carta> cartas;
 
-//	private static int cnt = 0;
-//
-//	private static int getID() {
-//		return cnt++;
-//	}
+	// private static int cnt = 0;
+	//
+	// private static int getID() {
+	// return cnt++;
+	// }
 
 	public Jugador() {
 		super();
@@ -23,13 +23,16 @@ public abstract class Jugador {
 		// this.idJugador = 0;
 		cartas = new LinkedList<>();
 	}
-	
+
 	// public Jugador() {
 	// super();
 	// idJugador = getID();
 	// cartas = new LinkedList<Carta>();
 	// }
-	
+	public void setId(int idjugador) {
+		this.idJugador = idjugador;
+	}
+
 	public int getId() {
 		return this.idJugador;
 	}
@@ -61,13 +64,13 @@ public abstract class Jugador {
 			System.out.println("Carta " + carta.getNumero() + " " + carta.getPalo());
 		}
 	}
-	
 
 	public void setCartas(List<Carta> cartas) {
 
 		this.cartas = cartas;
 	}
-//calcula cuanto tiene de envido un jugador
+
+	// calcula cuanto tiene de envido un jugador
 	public int getTantoEnvido() {
 		// TODO Auto-generated method stub
 
@@ -99,22 +102,22 @@ public abstract class Jugador {
 		if (rep == 0) {
 			return mayotenvido;
 		} else if (rep == 1) {
-			return envido+20;
+			return envido + 20;
 		} else if (rep == 2)
-			return envido+20;
+			return envido + 20;
 
 		return 0;
 	}
+
 	public int getTantoTruco() {
 		// TODO Auto-generated method stub
-		
+
 		int truco = cartas.get(0).getPesoTruco();
 
 		for (int i = 1; i < cartas.size(); i++) {
 			if (truco < cartas.get(i).getPesoTruco())
 				truco = cartas.get(i).getPesoTruco();
 		}
-
 
 		return truco;
 	}
