@@ -20,11 +20,7 @@ public class ClienteRmi {
 			// usuarios.add(new Usuario("Debi", "Debi", "pepe"));
 			// usuarios.add(new Usuario("Lucas", "Lucas", "pepe"));
 			// usuarios.add(new Usuario("Amilcar", "Amilcar", "pepe"));
-			//
-			// new BusinessDelegateTruco().alta("Emiliano2", "Emiliano", "pepe");
-//			 new BusinessDelegateTruco().alta("Debi", "Debi", "pepe");
-//			 new BusinessDelegateTruco().alta("Lucas", "Lucas", "pepe");
-//			 new BusinessDelegateTruco().alta("Amilcar", "Amilcar", "pepe");
+
 
 			//
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano", "pepe");
@@ -39,17 +35,17 @@ public class ClienteRmi {
 //
 			List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
 //
-////			while (true) {
-//				for (JuegoDTO juegoDTO : juegos) {
-//					System.out.println(juegoDTO.getIdJuego());
+//			while (true) {
+				for (JuegoDTO juegoDTO : juegos) {
+					System.out.println(juegoDTO.getIdJuego());
+				}
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
 //				}
-////				try {
-////					Thread.sleep(1000);
-////				} catch (InterruptedException e) {
-////					// TODO Auto-generated catch block
-////					e.printStackTrace();
-////				}				
-////			}
+//			}
 
 			// new BusinessDelegateTruco().armarPareja(us1, us2);
 
