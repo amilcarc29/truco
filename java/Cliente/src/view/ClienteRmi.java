@@ -38,6 +38,7 @@ public class ClienteRmi {
 //			while (true) {
 				for (JuegoDTO juegoDTO : juegos) {
 					System.out.println(juegoDTO.getIdJuego());
+					System.out.println(new BusinessDelegateTruco().esMiTurno(juegoDTO, us1));
 				}
 //				try {
 //					Thread.sleep(1000);
@@ -46,7 +47,7 @@ public class ClienteRmi {
 //					e.printStackTrace();
 //				}
 //			}
-
+			
 
 			// new BusinessDelegateTruco().armarPareja(us1, us2);
 

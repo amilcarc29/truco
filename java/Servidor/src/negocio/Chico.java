@@ -224,5 +224,9 @@ public class Chico {
 
 	}
 
+	public boolean esTurno(Usuario us) {
+		return  this.manos.get(this.manos.size() - 1).esTurno(us);		
+	}
+
 
 }

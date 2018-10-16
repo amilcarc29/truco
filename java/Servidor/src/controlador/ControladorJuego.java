@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.JuegoDAO;
+import dao.UsuarioDAO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.CartaException;
@@ -19,6 +20,7 @@ import negocio.Juego;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
 import negocio.Pareja;
+import negocio.Usuario;
 
 public class ControladorJuego {
 
@@ -45,75 +47,71 @@ public class ControladorJuego {
 			j.crearChico();
 			j.save("LIBRE");
 			juegos.add(j);
-			//imprimirDbg();
+			// imprimirDbg();
 		}
 	}
 
-	public void cantarTruco(int idJuego) throws JuegoException {
+	public void cantarTruco(int idJuego) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarTruco();
 
 	}
 
-	public void cantarReTruco(int idJuego) throws JuegoException {
+	public void cantarReTruco(int idJuego) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarReTruco();
 
 	}
 
-	public void cantarVale4(int idJuego, int idJugador) throws JuegoException {
+	public void cantarVale4(int idJuego, int idJugador) throws JuegoException, CategoriaException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarVale4(idJugador);
 	}
 
-	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo) throws JuegoException {
+	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo) throws JuegoException, CategoriaException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarQuieroTruco(quieroSiNo);
 	}
 
-	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo) throws JuegoException {
+	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo) throws JuegoException, CategoriaException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarQuieroEnvido(quieroSiNo);
 	}
 
-	public void cantarEnvido(int idJuego) throws JuegoException {
+	public void cantarEnvido(int idJuego) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarEnvido();
 	}
 
 	// TODO AGREGAR
-	public void aceptarTruco(int idJuego, int idJugador) throws JuegoException {
+	public void aceptarTruco(int idJuego, int idJugador) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 	}
 
-	public Juego buscarJuego(int idJuego) throws JuegoException {
-		for (Juego juego : juegos) {
-			if (juego.sosJuego(idJuego))
-				return juego;
-		}
-		throw new JuegoException("El juego " + idJuego + "no existe.");
+	public Juego buscarJuego(int idJuego) throws JuegoException, CategoriaException {
+		return JuegoDAO.getInstancia().buscarJuego(idJuego);
 	}
 
 	public void jugarCarta(int idJuego, int numero, String palo)
-			throws JugadorException, CartaException, JuegoException {
+			throws JugadorException, CartaException, JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 		j.jugarCarta(numero, palo);
 	}
 
-	public boolean verificarFinJuego(int idJuego) throws JuegoException {
+	public boolean verificarFinJuego(int idJuego) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.verificarFinJuego();
 	}
 
-	public boolean terminoMano(int idJuego) throws JuegoException {
+	public boolean terminoMano(int idJuego) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.terminoMano();
 	}
 
-	public void sinCantar(int idJuego) throws JuegoException {
+	public void sinCantar(int idJuego) throws JuegoException, CategoriaException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.sinCantar();
@@ -124,12 +122,12 @@ public class ControladorJuego {
 		return true;
 	}
 
-	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException {
+	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.sePuedeCantarEnvido();
 	}
 
-	public void imprimirDbg() throws JuegoException {
+	public void imprimirDbg() throws JuegoException, CategoriaException {
 		for (Juego juego : juegos) {
 			List<Pareja> par = juego.getParejas();
 			for (Pareja p : par) {
@@ -166,8 +164,22 @@ public class ControladorJuego {
 		for (Juego j : juegos) {
 			juegosDto.add(j.toDTO());
 		}
-		
+
 		return juegosDto;
+	}
+
+	public boolean turnoJugador(JuegoDTO Juego, UsuarioDTO usuario) throws CategoriaException, UsuarioException {
+		Juego ju = JuegoDAO.getInstancia().buscarJuego(Juego.getIdJuego());
+		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
+		for (Juego j : juegos) {
+			// falta un esJuego
+			if (j.sosJuego(ju) && j.esTurno(us)) {
+
+				return true;
+			}
+
+		}
+		return false;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import controlador.ControladorArmadoJuegos;
+import controlador.ControladorJuego;
 import controlador.ControladorUsuario;
 import dto.JuegoDTO;
 import dto.JugadorDTO;
@@ -83,5 +84,20 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 		return null;
 
+	}
+
+	@Override
+	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
+		try {
+			ControladorJuego.getInstancia().turnoJugador(juego, usuario);
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 }
