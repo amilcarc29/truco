@@ -67,7 +67,7 @@ public class UsuarioDAO {
 	}
 
 	public void guardarUsuario(Usuario usuario) throws CategoriaException {
-		UsuarioEntity usuarioEntity = toEntity(usuario);
+		// UsuarioEntity usuarioEntity = toEntity(usuario);
 		CategoriaEntity cat = null;
 		UsuarioEntity ue = new UsuarioEntity(usuario.getPartidasGanadas(), usuario.getPartidasJugadas(),
 				usuario.getPuntaje(), usuario.getApodo(), usuario.getPass(), usuario.getEmail(), usuario.getActivo());
@@ -80,7 +80,7 @@ public class UsuarioDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
-		session.saveOrUpdate(usuarioEntity);
+		session.saveOrUpdate(ue);
 		session.getTransaction().commit();
 		session.close();
 	}

@@ -41,8 +41,8 @@ public class JuegoDAO {
 	public void guardarJuegoLibreIndividual(Juego juego, String tipo)
 			throws UsuarioException, CategoriaException, ParejaException {
 
-		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getParejas().get(0).getIdPareja());
-		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getParejas().get(0).getIdPareja());
+		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja1().getIdPareja());
+		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja2().getIdPareja());
 
 		JuegoEntity ent = new JuegoEntity(par1, par2, tipo);
 

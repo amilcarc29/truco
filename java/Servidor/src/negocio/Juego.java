@@ -43,6 +43,14 @@ public abstract class Juego {
 	public boolean sosJuego(int id) {
 		return (this.idJuego == id);
 	}
+	
+	public Pareja getPareja1() {
+		return this.parejas.get(0);
+	}
+	
+	public Pareja getPareja2() {
+		return this.parejas.get(1);
+	}
 
 	public List<Pareja> getParejas() {
 		return parejas;
