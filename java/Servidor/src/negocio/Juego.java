@@ -214,8 +214,8 @@ public abstract class Juego {
 		return j;
 	}
 
-	public boolean esTurno(Usuario us) {
-		return chicos.get(chicos.size() - 1).esTurno(us);
+	public boolean esTurno(Jugador jug) {
+		return chicos.get(chicos.size() - 1).esTurno(jug);
 		 
 	}
 }

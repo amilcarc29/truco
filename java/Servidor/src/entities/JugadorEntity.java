@@ -21,21 +21,19 @@ public class JugadorEntity {
 	@OneToOne
 	@JoinColumn(name = "idPareja")
 	private ParejaEntity pareja;
-	
+
 	@OneToOne
 	@JoinColumn(name = "idMiembro")
 	private MiembroEntity miembro;
 	private String tipo;
-	
-	
+
 	@OneToOne
 	@JoinColumn(name = "idJuego")
 	private JuegoEntity juego;
-	
-	
-	
-	public JugadorEntity() {}
-	
+
+	public JugadorEntity() {
+	}
+
 	public JugadorEntity(UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro, String tipo) {
 		super();
 		this.usuario = usuario;
@@ -50,6 +48,14 @@ public class JugadorEntity {
 
 	public void setIdJugador(int idJugador) {
 		this.idJugador = idJugador;
+	}
+
+	public JuegoEntity getJuego() {
+		return juego;
+	}
+
+	public void setJuego(JuegoEntity juego) {
+		this.juego = juego;
 	}
 
 	public UsuarioEntity getUsuario() {

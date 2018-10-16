@@ -51,7 +51,12 @@ public class JuegoDAO {
 		session.saveOrUpdate(ent);
 		session.getTransaction().commit();
 		session.close();
-
+		
+		//guarda el id de juego para los jugadores de la pareja
+		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja1().getIdPareja(),  ent.getId());
+		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja2().getIdPareja(),  ent.getId());
+		
+		
 		return ent.getId();
 	}
 

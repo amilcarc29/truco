@@ -35,18 +35,18 @@ public class ClienteRmi {
 //
 			List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
 //
-//			while (true) {
+			while (true) {
 				for (JuegoDTO juegoDTO : juegos) {
 					System.out.println(juegoDTO.getIdJuego());
 					System.out.println(new BusinessDelegateTruco().esMiTurno(juegoDTO, us1));
 				}
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
+				try {
+					Thread.sleep(6000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 
 			// new BusinessDelegateTruco().armarPareja(us1, us2);
 
