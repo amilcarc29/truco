@@ -41,11 +41,11 @@ public class ControladorJuego {
 
 	public void iniciarJuego(GrupoJuego grupo)
 			throws JuegoException, UsuarioException, CategoriaException, ParejaException {
-		Juego j = fcJuegos.getJuego(grupo.getTipoJuego());
-		if (j != null) {
-			j.setParejas(grupo.getParejas());
+		Juego j = fcJuegos.getJuego(grupo.getParejas(), grupo.getTipoJuego());
+		if (j != null) {					
+			// Creo que se debería crear el chico en el constructor de Juego y no aca (VER)
 			j.crearChico();
-			j.save("LIBRE");
+			j.save();
 			juegos.add(j);
 			// imprimirDbg();
 		}
@@ -102,7 +102,7 @@ public class ControladorJuego {
 	}
 
 
-	public boolean verificarFinJuego(int idJuego) throws JuegoException, CategoriaException {
+	public boolean verificarFinJuego(int idJuego) throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.verificarFinJuego();
 	}

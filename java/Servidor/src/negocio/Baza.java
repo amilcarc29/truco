@@ -7,12 +7,21 @@ import excepciones.CartaException;
 import excepciones.JugadorException;
 
 public class Baza {
+	
+	private int idBaza;
 	private List<Jugador> jugadores;
 	private List<Jugada> jugadas;
 	private Jugada jugadaMayor = null;
 
 	private boolean parda = false;
 	private int numero;
+	
+	
+
+	public Baza(List<Jugador> jugadores) {
+		super();
+		this.jugadores = jugadores;
+	}
 
 	public Baza() {
 		this.jugadas = new LinkedList<Jugada>();
@@ -101,4 +110,26 @@ public class Baza {
 		}
 		numero++;
 	}
+
+	public int getIdBaza() {
+		return idBaza;
+	}
+
+	public void setIdBaza(int idBaza) {
+		this.idBaza = idBaza;
+	}
+
+	public Jugada getJugadaMayor() {
+		return jugadaMayor;
+	}
+
+	public void setJugadaMayor(Jugada jugadaMayor) {
+		this.jugadaMayor = jugadaMayor;
+	}
+
+	public List<Jugador> getJugadores() {
+		return jugadores;
+	}
+	
+	
 }
