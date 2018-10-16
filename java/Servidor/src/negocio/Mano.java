@@ -9,6 +9,7 @@ import excepciones.JugadorException;
 
 public class Mano {
 
+	private int idMano;
 	private List<Pareja> parejas;
 	private List<Baza> bazas;
 	private List<Jugador> jugadores;
@@ -40,8 +41,7 @@ public class Mano {
 		this.historicoPuntos = new ArrayList<>();
 		// puntos pareja mano
 		for (Pareja p : parejas) {
-			Puntuacion punt = new Puntuacion();
-			punt.setPareja(p);
+			Puntuacion punt = new Puntuacion(p);
 			puntos.add(punt);
 		}
 
@@ -375,5 +375,92 @@ public class Mano {
 		
 		return false;
 	}
+
+	public List<Baza> getBazas() {
+		return bazas;
+	}
+
+	public void setBazas(List<Baza> bazas) {
+		this.bazas = bazas;
+	}
+
+	public Envido getEnvido() {
+		return envido;
+	}
+
+	public void setEnvido(Envido envido) {
+		this.envido = envido;
+	}
+
+	public Truco getTruco() {
+		return truco;
+	}
+
+	public void setTruco(Truco truco) {
+		this.truco = truco;
+	}
+
+	public Mazo getMazo() {
+		return mazo;
+	}
+
+	public void setMazo(Mazo mazo) {
+		this.mazo = mazo;
+	}
+
+	public List<Pareja> getHistoricoPuntos() {
+		return historicoPuntos;
+	}
+
+	public void setHistoricoPuntos(List<Pareja> historicoPuntos) {
+		this.historicoPuntos = historicoPuntos;
+	}
+
+	public Pareja getGanadorBaza1() {
+		return ganadorBaza1;
+	}
+
+	public void setGanadorBaza1(Pareja ganadorBaza1) {
+		this.ganadorBaza1 = ganadorBaza1;
+	}
+
+	public Jugada getJugadaMayor() {
+		return jugadaMayor;
+	}
+
+	public void setJugadaMayor(Jugada jugadaMayor) {
+		this.jugadaMayor = jugadaMayor;
+	}
+
+	public boolean isTrucoCantado() {
+		return trucoCantado;
+	}
+
+	public void setTrucoCantado(boolean trucoCantado) {
+		this.trucoCantado = trucoCantado;
+	}
+
+	public int getJugadorIndice() {
+		return jugadorIndice;
+	}
+
+	public void setJugadorIndice(int jugadorIndice) {
+		this.jugadorIndice = jugadorIndice;
+	}
+
+	public void setPuntos(List<Puntuacion> puntos) {
+		this.puntos = puntos;
+	}
+
+	public int getIdMano() {
+		return idMano;
+	}
+
+	public void setIdMano(int idMano) {
+		this.idMano = idMano;
+	}
+	
+	
+	
 
 }

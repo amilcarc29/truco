@@ -21,13 +21,18 @@ public abstract class Juego {
 	private Date fecha;
 	private boolean activo;
 
-	public Juego() {
+	
+
+	public Juego(List<Pareja> parejas) {
 		super();
-		this.parejas = new ArrayList<>();
+		this.parejas = parejas;
 		this.chicos = new ArrayList<>();
 		setPuntoBase(0);
 		this.fecha = new Date();
 		setActivo(true);
+	}
+	
+	public Juego() {
 	}
 
 	public int getId() {
@@ -110,7 +115,7 @@ public abstract class Juego {
 	}
 
 	// TODO tener en cuenta el orden para cada mano
-	public void crearChico() {
+	public void crearChico() throws UsuarioException, CategoriaException, ParejaException {
 		List<Jugador> jugadores = new ArrayList<Jugador>();
 
 		for (int i = 0; i < this.parejas.size(); i++) {
@@ -119,7 +124,8 @@ public abstract class Juego {
 		}
 
 		Chico chico = new Chico(parejas);
-		chico.altaMano(15);
+		// IMPEMENTAR GUARDADO DE JUEGO EN BD
+		// chico.save(this);
 		chicos.add(chico);
 	}
 
@@ -176,7 +182,7 @@ public abstract class Juego {
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
 	}
 
-	public boolean verificarFinJuego() {
+	public boolean verificarFinJuego() throws UsuarioException, CategoriaException, ParejaException {
 		/* FIJARSE QUE UNA PAREJA GANE DOS CHCICOS PARA TERMINAR */
 		if (chicos.size() >= 2) {
 			System.out.println("FIN CHICOS");
@@ -199,10 +205,7 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).puntosDbg(idPareja);
 	}
 
-	public void save(String tipo) throws UsuarioException, CategoriaException, ParejaException {
-		// TODO Auto-generated method stub
-		JuegoDAO.getInstancia().guardarJuegoLibreIndividual(this, tipo);
-	}
+	public abstract void save() throws ParejaException;
 
 	public JuegoDTO toDTO() {
 		JuegoDTO j = new JuegoDTO();

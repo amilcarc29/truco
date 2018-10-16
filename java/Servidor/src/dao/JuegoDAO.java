@@ -38,13 +38,12 @@ public class JuegoDAO {
 	public JuegoDAO() {
 	}
 
-	public void guardarJuegoLibreIndividual(Juego juego, String tipo)
-			throws UsuarioException, CategoriaException, ParejaException {
+	public void guardarJuegoLibreIndividual(Juego juego) throws ParejaException {
 
 		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja1().getIdPareja());
 		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja2().getIdPareja());
 
-		JuegoEntity ent = new JuegoEntity(par1, par2, tipo);
+		JuegoEntity ent = new JuegoEntity(par1, par2, "LIBRE");
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -52,6 +51,52 @@ public class JuegoDAO {
 		session.saveOrUpdate(ent);
 		session.getTransaction().commit();
 		session.close();
+	}
+	
+	public void guardarJuegoLibreEnPareja(Juego juego) throws ParejaException {
+		
+		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja1().getIdPareja());
+		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja2().getIdPareja());
+
+		JuegoEntity ent = new JuegoEntity(par1, par2, "ENPAREJA");
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(ent);
+		session.getTransaction().commit();
+		session.close();		
+	}
+	
+	
+	public void guardarJuegoCerrado (Juego juego) throws ParejaException {
+		
+		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja1().getIdPareja());
+		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja2().getIdPareja());
+
+		JuegoEntity ent = new JuegoEntity(par1, par2, "CERRADA");
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(ent);
+		session.getTransaction().commit();
+		session.close();	
+		
+	}
+	
+	public JuegoEntity buscarJuegoPorID(int idJuego) throws ParejaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JuegoEntity juego = (JuegoEntity) session
+				.createQuery("from JuegoEntity where idJuego = ? ").setParameter(0, idJuego)
+				.uniqueResult();
+		session.close();
+		if (juego != null) {
+			return juego;
+		} else {
+			throw new ParejaException("El juego con id: " + idJuego + "no existe en la base de datos.");
+		} // TODO Auto-generated method stub
 	}
 
 	public List<Juego> buscarJuegosActivos(UsuarioDTO usuario) throws CategoriaException {

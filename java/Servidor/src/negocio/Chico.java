@@ -3,10 +3,16 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.ChicoDAO;
 import excepciones.CartaException;
+import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.ParejaException;
+import excepciones.UsuarioException;
 
 public class Chico {
+	
+	private int idChico;
 	private List<Mano> manos;
 	private List<Pareja> parejas;
 	private List<Puntuacion> puntosChico;
@@ -38,16 +44,23 @@ public class Chico {
 		for (Pareja pareja : this.parejas) {
 
 			/// puntos en 0
-			Puntuacion p = new Puntuacion();
-			p.setPareja(pareja);
+			Puntuacion p = new Puntuacion(pareja);
+			// ACA GUARDAR LAS PUNTUACIONES EN LA BD
+			// p.save()
 			this.puntosChico.add(p);
 		}
 
 		// puntos por manos
 
 		this.ganador = null;
-		this.puntosPorGanar = 15;
+		
+		// puntos totales para terminar el chico (30). Es un chico, no dos de 15
+		this.puntosPorGanar = 30;
+
 	}
+	
+	
+	
 
 	public Pareja getGanador() {
 		return ganador;
@@ -64,7 +77,8 @@ public class Chico {
 	public void setPuntosPorGanar(int puntosPorGanar) {
 		this.puntosPorGanar = puntosPorGanar;
 	}
-
+	
+	// ESTO NO SE PARA QUE SE PUEDE USAR
 	private void sumarPuntosMano(Puntuacion puntuacion) {
 		for (Puntuacion p : puntosChico) {
 
@@ -223,10 +237,72 @@ public class Chico {
 		 this.manos.get(this.manos.size() - 1).puntosDbg(idPareja);
 
 	}
+	
+	public void save (Juego juego) throws UsuarioException, CategoriaException, ParejaException {
+		ChicoDAO.getInstancia().guardarChico(juego, this);
+	}
 
 	public boolean esTurno(Usuario us) {
 		return  this.manos.get(this.manos.size() - 1).esTurno(us);		
 	}
+	
+	public void crearMano () {
+		
+	}
+
+	public int getIdChico() {
+		return idChico;
+	}
+
+	public void setIdCico(int idJuego) {
+		this.idChico = idJuego;
+	}
+
+	public List<Mano> getManos() {
+		return manos;
+	}
+
+	public void setManos(List<Mano> manos) {
+		this.manos = manos;
+	}
+
+	public List<Pareja> getParejas() {
+		return parejas;
+	}
+
+	public void setParejas(List<Pareja> parejas) {
+		this.parejas = parejas;
+	}
+
+	public List<Puntuacion> getPuntosChico() {
+		return puntosChico;
+	}
+
+	public void setPuntosChico(List<Puntuacion> puntosChico) {
+		this.puntosChico = puntosChico;
+	}
+
+	public List<Jugador> getJugadores() {
+		return jugadores;
+	}
+
+	public void setJugadores(List<Jugador> jugadores) {
+		this.jugadores = jugadores;
+	}
+
+	public boolean isSePuedeCantarEnvido() {
+		return sePuedeCantarEnvido;
+	}
+
+	public void setSePuedeCantarEnvido(boolean sePuedeCantarEnvido) {
+		this.sePuedeCantarEnvido = sePuedeCantarEnvido;
+	}
+
+	public void setPuntosParaTerminar(int puntosParaTerminar) {
+		this.puntosParaTerminar = puntosParaTerminar;
+	}
+	
+	
 
 
 }

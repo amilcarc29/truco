@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.JuegoDAO;
+import dao.JugadorDAO;
 import dao.UsuarioDAO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
@@ -41,11 +42,11 @@ public class ControladorJuego {
 
 	public void iniciarJuego(GrupoJuego grupo)
 			throws JuegoException, UsuarioException, CategoriaException, ParejaException {
-		Juego j = fcJuegos.getJuego(grupo.getTipoJuego());
-		if (j != null) {
-			j.setParejas(grupo.getParejas());
+		Juego j = fcJuegos.getJuego(grupo.getParejas(), grupo.getTipoJuego());
+		if (j != null) {					
+			// Creo que se debería crear el chico en el constructor de Juego y no aca (VER)
 			j.crearChico();
-			j.save("LIBRE");
+			j.save();
 			juegos.add(j);
 			// imprimirDbg();
 		}
@@ -171,9 +172,11 @@ public class ControladorJuego {
 	public boolean turnoJugador(JuegoDTO Juego, UsuarioDTO usuario) throws CategoriaException, UsuarioException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(Juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
+		
 		for (Juego j : juegos) {
 			// falta un esJuego
-			if (j.sosJuego(ju) && j.esTurno(us)) {
+			if (j.sosJuego(ju) && j.esTurno(jug)) {
 
 				return true;
 			}
