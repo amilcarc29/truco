@@ -55,7 +55,7 @@ public class Mano {
 		Baza b = new Baza();
 		b.setJugadores(jugadores);
 		this.bazas.add(b);
-		System.out.println("BAZA NUMERO " + this.bazas.size());
+	//	System.out.println("BAZA NUMERO " + this.bazas.size());
 		jugadorOrden = 0;
 	}
 

@@ -45,7 +45,7 @@ public class ControladorJuego {
 			j.crearChico();
 			j.save("LIBRE");
 			juegos.add(j);
-			imprimirDbg();
+			//imprimirDbg();
 		}
 	}
 

@@ -157,7 +157,7 @@ public class Chico {
 
 		manos.add(mano);
 
-		System.out.println("MANO NUMERO " + manos.size());
+//		System.out.println("MANO NUMERO " + manos.size());
 	}
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
