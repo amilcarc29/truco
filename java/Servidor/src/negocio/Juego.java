@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dao.JuegoDAO;
 import dto.JuegoDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -13,6 +12,7 @@ import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
 public abstract class Juego {
+
 	private int idJuego;
 	private List<Pareja> parejas;
 	private List<Chico> chicos;
@@ -20,8 +20,6 @@ public abstract class Juego {
 	private int puntoBase;
 	private Date fecha;
 	private boolean activo;
-
-	
 
 	public Juego(List<Pareja> parejas) {
 		super();
@@ -31,7 +29,7 @@ public abstract class Juego {
 		this.fecha = new Date();
 		setActivo(true);
 	}
-	
+
 	public Juego() {
 	}
 
@@ -48,11 +46,11 @@ public abstract class Juego {
 	public boolean sosJuego(Juego juego) {
 		return (this.idJuego == juego.getId());
 	}
-	
+
 	public Pareja getPareja1() {
 		return this.parejas.get(0);
 	}
-	
+
 	public Pareja getPareja2() {
 		return this.parejas.get(1);
 	}
@@ -99,7 +97,6 @@ public abstract class Juego {
 
 	public Pareja obtenerGanador() {
 		return null;
-
 	}
 
 	public boolean termino() {
@@ -117,12 +114,9 @@ public abstract class Juego {
 	// TODO tener en cuenta el orden para cada mano
 	public void crearChico() throws UsuarioException, CategoriaException, ParejaException {
 		List<Jugador> jugadores = new ArrayList<Jugador>();
-
 		for (int i = 0; i < this.parejas.size(); i++) {
-
 			jugadores.addAll(this.parejas.get(i).getJugadores());
 		}
-
 		Chico chico = new Chico(parejas);
 		// IMPEMENTAR GUARDADO DE JUEGO EN BD
 		// chico.save(this);
@@ -132,21 +126,15 @@ public abstract class Juego {
 	// TODO Agregar a Diagrama.
 
 	public void cantarTruco() {
-
 		chicos.get(chicos.size() - 1).cantarTruco();
-
 	}
 
 	public void cantarReTruco() {
-
 		chicos.get(chicos.size() - 1).cantarReTruco();
-
 	}
 
 	public void cantarVale4(int idJugador) {
-
 		chicos.get(chicos.size() - 1).cantarVale4(idJugador);
-
 	}
 
 	public void cantarQuieroEnvido(boolean quieroSiNo) {
@@ -186,13 +174,11 @@ public abstract class Juego {
 		/* FIJARSE QUE UNA PAREJA GANE DOS CHCICOS PARA TERMINAR */
 		if (chicos.size() >= 2) {
 			System.out.println("FIN CHICOS");
-
 			return true;
 		} else {
 			if (chicos.get(chicos.size() - 1).finalizoChico())
 				crearChico();
 		}
-
 		return false;
 	}
 
@@ -216,6 +202,5 @@ public abstract class Juego {
 
 	public boolean esTurno(Usuario us) {
 		return chicos.get(chicos.size() - 1).esTurno(us);
-		 
 	}
 }

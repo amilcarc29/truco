@@ -14,9 +14,9 @@ import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
-import negocio.Pareja;
 
 public class ThreadParejas implements Runnable {
+
 	public Integer loop = 1000;
 	public boolean stop = false;
 
@@ -51,14 +51,10 @@ public class ThreadParejas implements Runnable {
 	public void juntarParejas(Vector<JugadorIndividual> jugadoresLibres) {
 		System.out.println("Se encontraron 4 jugadores libres");
 		try {
-
-			
 			ControladorArmadoJuegos.getInstancia().iniciarPartidaLibre(
 					jugadoresLibres.get(0).getUsuario().toDTO(), jugadoresLibres.get(1).getUsuario().toDTO(),
 					jugadoresLibres.get(2).getUsuario().toDTO(), jugadoresLibres.get(3).getUsuario().toDTO()
 			);
-			
-			
 			System.out.println("Parejas creadas");
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block
@@ -76,29 +72,22 @@ public class ThreadParejas implements Runnable {
 	}
 
 	public void armarParejasIndividuales() {
-		
 		Vector<JugadorIndividual> jugadoresLibres = new Vector<>();
-		
 		while (!stop) {
 			try {
 				System.out.println("buscando jugadores individuales");
 				Vector<Jugador> jugadores = ControladorArmadoJuegos.getInstancia().getJugadoresEnEspera();
-				
 				if (!jugadores.isEmpty()) {
 					for (Iterator<Jugador> iterator = jugadores.iterator(); iterator.hasNext();) {
 						Jugador j = iterator.next();
 						JugadorIndividual jugadorIndividual = ((JugadorIndividual) j);
 						if (jugadoresLibres.size() < 4) {
-							
 							jugadoresLibres.add(jugadorIndividual);
 							iterator.remove();
 						} else {
-
 							juntarParejas(jugadoresLibres);
 							jugadoresLibres = new Vector<>();
-
 						}
-
 					}
 					// sobrante
 					if (jugadoresLibres.size() == 4)

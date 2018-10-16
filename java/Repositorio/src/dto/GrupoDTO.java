@@ -5,6 +5,8 @@ import java.util.List;
 
 public class GrupoDTO implements Serializable {
 
+	private static final long serialVersionUID = -3914554002626879933L;
+
 	private int idGrupo;
 	private UsuarioDTO administrador;
 	private String nombre;

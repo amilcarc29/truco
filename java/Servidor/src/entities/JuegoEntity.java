@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import negocio.Pareja;
-
 @Entity
 @Table(name = "Juego")
 public class JuegoEntity {
