@@ -102,4 +102,22 @@ public class JuegoDAO {
 		
 		return j;
 	}
+
+	public Juego buscarJuego(int idJuego) throws CategoriaException {
+		// TODO Auto-generated method stub
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JuegoEntity juegoEntity = (JuegoEntity) session.createQuery("from JuegoEntity where idJuego = ?")
+				.setParameter(0, idJuego).uniqueResult();
+		session.close();
+		if (juegoEntity != null) {
+			return toNegocio(juegoEntity);
+		} else {
+			// pasarla ! a un metodo de busqueda nuevo throw new UsuarioException("El usuario con apodo: " + apodo + "no existe en la base de datos.");
+			return null;
+		}
+	}
+
+	
+	
 }

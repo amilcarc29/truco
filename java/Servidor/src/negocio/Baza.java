@@ -76,11 +76,11 @@ public class Baza {
 		// });
 	}
 
-	public void jugarCarta(int idJugador, int numero, String palo) throws JugadorException, CartaException {
-		Jugador jugador = jugadores.get(idJugador);
+	public void jugarCarta(int indiceJugador, int numero, String palo) throws JugadorException, CartaException {
+		Jugador jugador = jugadores.get(indiceJugador);
 		// solo para debug
-		if (jugadores.size() > (idJugador + 1)) {
-			Jugador nextj = jugadores.get(idJugador + 1);
+		if (jugadores.size() > (indiceJugador + 1)) {
+			Jugador nextj = jugadores.get(indiceJugador + 1);
 		}
 		// solo para debug
 		Carta c = jugador.getCarta(numero, palo);

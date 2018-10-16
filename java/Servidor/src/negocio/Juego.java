@@ -40,8 +40,8 @@ public abstract class Juego {
 
 	public abstract void calcularPuntos();
 
-	public boolean sosJuego(int id) {
-		return (this.idJuego == id);
+	public boolean sosJuego(Juego juego) {
+		return (this.idJuego == juego.getId());
 	}
 	
 	public Pareja getPareja1() {
@@ -209,5 +209,10 @@ public abstract class Juego {
 		j.setIdJuego(this.idJuego);
 
 		return j;
+	}
+
+	public boolean esTurno(Usuario us) {
+		return chicos.get(chicos.size() - 1).esTurno(us);
+		 
 	}
 }

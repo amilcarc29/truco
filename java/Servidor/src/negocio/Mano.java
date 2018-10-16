@@ -26,7 +26,7 @@ public class Mano {
 	private Pareja ganadorBaza1 = null;
 	private Jugada jugadaMayor = null;
 	private boolean trucoCantado = false;
-	private int jugadorOrden = 0;
+	private int jugadorIndice = 0;
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico) {
 		super();
@@ -56,7 +56,7 @@ public class Mano {
 		b.setJugadores(jugadores);
 		this.bazas.add(b);
 	//	System.out.println("BAZA NUMERO " + this.bazas.size());
-		jugadorOrden = 0;
+		jugadorIndice = 0;
 	}
 
 	public List<Puntuacion> getPuntos() {
@@ -100,7 +100,7 @@ public class Mano {
 
 	public void cantarTruco() {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorOrden);
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorIndice);
 
 		this.truco = new Truco();
 
@@ -108,7 +108,7 @@ public class Mano {
 
 	public void cantarVale4() {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorOrden);
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorIndice);
 
 		if (this.truco == null)
 			this.truco = new Truco();
@@ -120,7 +120,7 @@ public class Mano {
 
 	public void cantarReTruco() {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorOrden);
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorIndice);
 		this.truco = new Truco();
 
 		ReTruco rt = new ReTruco();
@@ -146,12 +146,12 @@ public class Mano {
 
 			if (parejaactual.getMayorTantoTruco() > parejacontraria.getMayorTantoTruco()) {
 				// gana pareja 1
-				p = getPuntosPareja(jugadorOrden);
+				p = getPuntosPareja(jugadorIndice);
 
 			} else {
 				// gana pareja 2
 
-				p = getPuntosParejaContraria(jugadorOrden);
+				p = getPuntosParejaContraria(jugadorIndice);
 
 			}
 
@@ -160,7 +160,7 @@ public class Mano {
 			System.out.println("puntos quiero Truco " + this.truco.getPuntosQuiero());
 
 		} else {
-			p = getPuntosPareja(jugadorOrden);
+			p = getPuntosPareja(jugadorIndice);
 			p.sumarPuntos(this.truco.getPuntosNoQuiero());
 
 			System.out.println("puntos no quiero Truco  " + this.truco.getPuntosNoQuiero());
@@ -172,7 +172,7 @@ public class Mano {
 
 	public void cantarEnvido() {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarEnvido(jugadorOrden);
+		this.bazas.get(this.bazas.size() - 1).cantarEnvido(jugadorIndice);
 		if (this.envido == null)
 			this.envido = new Envido();
 		else {
@@ -184,7 +184,7 @@ public class Mano {
 	}
 
 	public Jugador proximoDbg() {
-		return jugadores.get(jugadorOrden);
+		return jugadores.get(jugadorIndice);
 	}
 
 	public Pareja getPareja(int idJugador) {
@@ -197,7 +197,7 @@ public class Mano {
 
 	public Pareja getParejaActual() {
 		for (Pareja p : parejas) {
-			if (p.tieneJugador(jugadorOrden))
+			if (p.tieneJugador(jugadorIndice))
 				return p;
 		}
 		return null;
@@ -205,7 +205,7 @@ public class Mano {
 
 	public Pareja getParejaContrariaActual() {
 		for (Pareja p : parejas) {
-			if (!p.tieneJugador(jugadorOrden))
+			if (!p.tieneJugador(jugadorIndice))
 				return p;
 		}
 		return null;
@@ -225,12 +225,12 @@ public class Mano {
 
 			if (parejaactual.getMayorTantoEnvido() > parejacontraria.getMayorTantoEnvido()) {
 				// gana pareja 1
-				p = getPuntosPareja(jugadorOrden);
+				p = getPuntosPareja(jugadorIndice);
 
 			} else {
 				// gana pareja 2
 
-				p = getPuntosParejaContraria(jugadorOrden);
+				p = getPuntosParejaContraria(jugadorIndice);
 
 			}
 
@@ -239,7 +239,7 @@ public class Mano {
 			System.out.println("puntos quiero Envido " + this.envido.getPuntosQuiero());
 
 		} else {
-			p = getPuntosPareja(jugadorOrden);
+			p = getPuntosPareja(jugadorIndice);
 			p.sumarPuntos(this.envido.getPuntosNoQuiero());
 
 			System.out.println("puntos no quiero Envido  " + this.envido.getPuntosNoQuiero());
@@ -282,8 +282,8 @@ public class Mano {
 
 	public void jugarCarta(int numero, String palo) throws JugadorException, CartaException {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).jugarCarta(jugadorOrden, numero, palo);
-		jugadorOrden++;
+		this.bazas.get(this.bazas.size() - 1).jugarCarta(jugadorIndice, numero, palo);
+		jugadorIndice++;
 	}
 
 	public boolean finalizoMano() {
@@ -368,6 +368,12 @@ public class Mano {
 			}
 
 		}
+	}
+
+	public boolean esTurno(Usuario us) {
+		Jugador ju =  jugadores.get(jugadorIndice);
+		
+		return false;
 	}
 
 }

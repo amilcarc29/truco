@@ -234,5 +234,9 @@ public class Chico {
 		ChicoDAO.getInstancia().guardarChico(juego, this);
 	}
 
+	public boolean esTurno(Usuario us) {
+		return  this.manos.get(this.manos.size() - 1).esTurno(us);		
+	}
+
 
 }

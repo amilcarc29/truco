@@ -19,4 +19,6 @@ public interface InterfaceRemotaTruco extends Remote {
 	public void armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws RemoteException;
 
 	public List<JuegoDTO> getJuegosActivo(UsuarioDTO usuario) throws RemoteException;
+
+	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 }
