@@ -57,5 +57,20 @@ public class JugadorDAO {
 
 	}
 
+	public JugadorEntity buscarJugadorByUsario(int id, int idUsuario) {
+		// TODO Auto-generated method stub
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JugadorEntity jugadorEntity = (JugadorEntity) session.createQuery("from JugadorEntity where idJugador = ?")
+				.setParameter(0, idUsuario).uniqueResult();
+		session.close();
+		if (jugadorEntity != null) {
+			return jugadorEntity;
+		} else {
+//			throw new UsuarioException("El jugador con id: " + idJugador + "no existe en la base de datos.");
+		}
+		return null;
+	}
+
 
 }

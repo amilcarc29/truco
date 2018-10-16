@@ -139,7 +139,7 @@ public class ControladorArmadoJuegos {
 			GrupoJuego grupo = new GrupoJuego(p1, p2);
 			grupo.setTipoJuego("LIBRE");
 			ControladorJuego.getInstancia().iniciarJuego(grupo);
-
+			
 		} catch (UsuarioException e) {
 
 			e.printStackTrace();
