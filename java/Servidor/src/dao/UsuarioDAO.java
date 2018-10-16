@@ -67,11 +67,7 @@ public class UsuarioDAO {
 	}
 
 	public void guardarUsuario(Usuario usuario) throws CategoriaException {
-<<<<<<< HEAD
-		// UsuarioEntity usuarioEntity = toEntity(usuario);
-=======
 	
->>>>>>> 5ff544f8614e46b768d59356378068beaa2c1581
 		CategoriaEntity cat = null;
 		UsuarioEntity ue = new UsuarioEntity(usuario.getPartidasGanadas(), usuario.getPartidasJugadas(),
 				usuario.getPuntaje(), usuario.getApodo(), usuario.getPass(), usuario.getEmail(), usuario.getActivo());
