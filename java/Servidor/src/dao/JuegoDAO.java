@@ -81,7 +81,7 @@ public class JuegoDAO {
 		session.beginTransaction();
 		session.saveOrUpdate(ent);
 		session.getTransaction().commit();
-		session.close();	
+		session.close();
 		
 	}
 	
