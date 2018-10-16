@@ -110,7 +110,7 @@ public abstract class Juego {
 	}
 
 	// TODO tener en cuenta el orden para cada mano
-	public void crearChico() {
+	public void crearChico() throws UsuarioException, CategoriaException, ParejaException {
 		List<Jugador> jugadores = new ArrayList<Jugador>();
 
 		for (int i = 0; i < this.parejas.size(); i++) {
@@ -119,7 +119,7 @@ public abstract class Juego {
 		}
 
 		Chico chico = new Chico(parejas);
-		chico.altaMano(15);
+		chico.save(this);
 		chicos.add(chico);
 	}
 
@@ -176,7 +176,7 @@ public abstract class Juego {
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
 	}
 
-	public boolean verificarFinJuego() {
+	public boolean verificarFinJuego() throws UsuarioException, CategoriaException, ParejaException {
 		/* FIJARSE QUE UNA PAREJA GANE DOS CHCICOS PARA TERMINAR */
 		if (chicos.size() >= 2) {
 			System.out.println("FIN CHICOS");

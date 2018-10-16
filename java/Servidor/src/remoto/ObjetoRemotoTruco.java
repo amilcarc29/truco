@@ -10,6 +10,7 @@ import dto.JuegoDTO;
 import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import interfaces.InterfaceRemotaTruco;
 

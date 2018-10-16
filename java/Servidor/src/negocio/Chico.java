@@ -3,8 +3,12 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.ChicoDAO;
 import excepciones.CartaException;
+import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.ParejaException;
+import excepciones.UsuarioException;
 
 public class Chico {
 	private List<Mano> manos;
@@ -46,7 +50,9 @@ public class Chico {
 		// puntos por manos
 
 		this.ganador = null;
-		this.puntosPorGanar = 15;
+		
+		// puntos totales para terminar el chico (30). Es un chico, no dos de 15
+		this.puntosPorGanar = 30;
 	}
 
 	public Pareja getGanador() {
@@ -222,6 +228,10 @@ public class Chico {
 		// TODO Auto-generated method stub
 		 this.manos.get(this.manos.size() - 1).puntosDbg(idPareja);
 
+	}
+	
+	public void save (Juego juego) throws UsuarioException, CategoriaException, ParejaException {
+		ChicoDAO.getInstancia().guardarChico(juego, this);
 	}
 
 

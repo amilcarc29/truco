@@ -53,6 +53,20 @@ public class JuegoDAO {
 		session.getTransaction().commit();
 		session.close();
 	}
+	
+	public JuegoEntity buscarJuegoPorID(int idJuego) throws ParejaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JuegoEntity juego = (JuegoEntity) session
+				.createQuery("from JuegoEntity where idJuego = ? ").setParameter(0, idJuego)
+				.uniqueResult();
+		session.close();
+		if (juego != null) {
+			return juego;
+		} else {
+			throw new ParejaException("El juego con id: " + idJuego + "no existe en la base de datos.");
+		} // TODO Auto-generated method stub
+	}
 
 	public List<Juego> buscarJuegosActivos(UsuarioDTO usuario) throws CategoriaException {
 

@@ -6,8 +6,11 @@ import java.io.InputStreamReader;
 
 import controlador.ControladorJuego;
 import excepciones.CartaException;
+import excepciones.CategoriaException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
+import excepciones.ParejaException;
+import excepciones.UsuarioException;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
 import negocio.Usuario;
@@ -22,7 +25,7 @@ public class TestJuego {
 	static Jugador j3 = new JugadorIndividual(us1);
 	static Jugador j4 = new JugadorIndividual(us1);
 
-	public static void main(String[] args) throws JugadorException, CartaException, JuegoException {
+	public static void main(String[] args) throws JugadorException, CartaException, JuegoException, UsuarioException, CategoriaException, ParejaException {
 
 		// CONFLICTO CON NOMBRE JUGADOR
 		// j1.setNombre("Emiliano");
