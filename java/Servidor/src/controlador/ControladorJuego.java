@@ -173,14 +173,14 @@ public class ControladorJuego {
 	public boolean turnoJugador(JuegoDTO Juego, UsuarioDTO usuario) throws CategoriaException, UsuarioException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(Juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
-		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
+//		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
 		
 		for (Juego j : juegos) {
 			// falta un esJuego
-			if (j.sosJuego(ju) && j.esTurno(jug)) {
-
-				return true;
-			}
+//			if (j.sosJuego(ju) && j.esTurno(jug)) {
+//
+//				return true;
+//			}
 
 		}
 		return false;

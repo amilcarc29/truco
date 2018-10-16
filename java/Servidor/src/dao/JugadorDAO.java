@@ -67,8 +67,9 @@ public class JugadorDAO {
 		if (jugadorEntity != null) {
 			return jugadorEntity;
 		} else {
-			throw new UsuarioException("El jugador con id: " + idJugador + "no existe en la base de datos.");
+//			throw new UsuarioException("El jugador con id: " + idJugador + "no existe en la base de datos.");
 		}
+		return null;
 	}
 
 
