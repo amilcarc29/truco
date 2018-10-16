@@ -42,7 +42,7 @@ public class JuegoDAO {
 			throws UsuarioException, CategoriaException, ParejaException {
 
 		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getParejas().get(0).getIdPareja());
-		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getParejas().get(0).getIdPareja());
+		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getParejas().get(1).getIdPareja());
 
 		JuegoEntity ent = new JuegoEntity(par1, par2, tipo);
 
