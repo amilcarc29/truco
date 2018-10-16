@@ -16,6 +16,7 @@ import negocio.Pareja;
 @Entity
 @Table(name = "Juego")
 public class JuegoEntity {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idJuego;

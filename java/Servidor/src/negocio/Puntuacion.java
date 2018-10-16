@@ -2,7 +2,15 @@ package negocio;
 
 public class Puntuacion {
 	private Pareja pareja;
-	private int puntos = 0;
+	private int puntos;
+	
+	
+
+	public Puntuacion(Pareja pareja) {
+		super();
+		this.pareja = pareja;
+		this.puntos = 0;
+	}
 
 	public Pareja getPareja() {
 		return pareja;

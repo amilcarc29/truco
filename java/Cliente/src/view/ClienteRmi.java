@@ -47,7 +47,6 @@ public class ClienteRmi {
 //					e.printStackTrace();
 //				}
 //			}
-			
 
 			// new BusinessDelegateTruco().armarPareja(us1, us2);
 

@@ -102,7 +102,8 @@ public class ControladorJuego {
 		j.jugarCarta(numero, palo);
 	}
 
-	public boolean verificarFinJuego(int idJuego) throws JuegoException, CategoriaException {
+
+	public boolean verificarFinJuego(int idJuego) throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.verificarFinJuego();
 	}
