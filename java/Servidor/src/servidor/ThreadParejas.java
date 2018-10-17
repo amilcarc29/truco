@@ -32,7 +32,7 @@ public class ThreadParejas implements Runnable {
 			input = new FileInputStream(classLoader.getResource("parejas.properties").getFile());
 			// load a properties file
 			prop.load(input);
-			// get the property value and print it ou
+			// get the property value and print it out
 			loop = Integer.valueOf(prop.getProperty("timeRunthread"));
 			System.out.println("Hilo de parejas ,hilo cada " + loop + "ms");
 			armarParejasIndividuales();
