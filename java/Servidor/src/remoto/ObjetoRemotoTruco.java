@@ -89,7 +89,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	@Override
 	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
-			ControladorJuego.getInstancia().turnoJugador(juego, usuario);
+			return ControladorJuego.getInstancia().turnoJugador(juego, usuario);
 		} catch (CategoriaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

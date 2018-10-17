@@ -56,6 +56,7 @@ public class Chico {
 		
 		// puntos totales para terminar el chico (30). Es un chico, no dos de 15
 		this.puntosPorGanar = 30;
+		altaMano(this.puntosPorGanar);
 
 	}
 	
@@ -254,7 +255,7 @@ public class Chico {
 		return idChico;
 	}
 
-	public void setIdCico(int idJuego) {
+	public void setIdChico(int idJuego) {
 		this.idChico = idJuego;
 	}
 

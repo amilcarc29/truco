@@ -120,7 +120,7 @@ public class ParejaDAO {
 
 	}
 
-	private Pareja toNegocio(ParejaEntity pe) throws CategoriaException {
+	public Pareja toNegocio(ParejaEntity pe) throws CategoriaException {
 		// TODO Auto-generated method stub
 
 		Pareja p = new Pareja(JugadorDAO.getInstancia().toNegocio(pe.getJugador1()),
