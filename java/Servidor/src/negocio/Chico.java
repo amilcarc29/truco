@@ -52,7 +52,7 @@ public class Chico {
 		
 		// puntos totales para terminar el chico (30). Es un chico, no dos de 15
 		this.puntosPorGanar = 30;
-		altaMano(this.puntosPorGanar);
+//		altaMano(this.puntosPorGanar);
 
 	}
 	

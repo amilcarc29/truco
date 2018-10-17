@@ -82,11 +82,9 @@ public class ControladorArmadoJuegos {
 		return jugadoresEnEspera;
 	}
 
-
 	public Vector<Pareja> getParejasEnEspera() {
 		return parejasEnEspera;
 	}
-
 
 	public void agregarJugadorLibreAEspera(UsuarioDTO usuario) throws UsuarioException, CategoriaException {
 
@@ -101,7 +99,7 @@ public class ControladorArmadoJuegos {
 
 	// TODO Renombrar en Diagrama
 	public void confirmarGrupo(GrupoJuego grupo)
-			throws JuegoException, UsuarioException, CategoriaException, ParejaException {
+			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException {
 		ControladorJuego.getInstancia().iniciarJuego(grupo);
 	}
 
@@ -144,6 +142,9 @@ public class ControladorArmadoJuegos {
 		} catch (JuegoException e2) {
 
 			e2.printStackTrace();
+		} catch (MiembroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -167,6 +168,9 @@ public class ControladorArmadoJuegos {
 		} catch (JuegoException e2) {
 
 			e2.printStackTrace();
+		} catch (MiembroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
