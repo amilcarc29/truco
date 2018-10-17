@@ -220,4 +220,9 @@ public abstract class Juego {
 		return chicos.get(chicos.size() - 1).esTurno(jug);
 		 
 	}
+
+	public 	List<Carta> getCartas(Jugador jug) {
+		// TODO Auto-generated method stub
+		return chicos.get(chicos.size() - 1).getCartas(jug);
+	}
 }

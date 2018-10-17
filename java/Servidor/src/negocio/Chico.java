@@ -302,6 +302,19 @@ public class Chico {
 	public void setPuntosParaTerminar(int puntosParaTerminar) {
 		this.puntosParaTerminar = puntosParaTerminar;
 	}
+
+
+
+
+	public List<Carta> getCartas(Jugador jug) {
+		// TODO Auto-generated method stub
+		
+		for (Jugador jugador : jugadores) {
+					if(jugador.esJugador(jug.getId()))
+						return jugador.getCartas();
+		}
+		return null;
+	}
 	
 	
 

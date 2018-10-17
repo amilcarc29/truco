@@ -7,6 +7,7 @@ import java.util.List;
 import dao.JuegoDAO;
 import dao.JugadorDAO;
 import dao.UsuarioDAO;
+import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.CartaException;
@@ -15,6 +16,7 @@ import excepciones.JuegoException;
 import excepciones.JugadorException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
+import negocio.Carta;
 import negocio.FactoryJuegos;
 import negocio.GrupoJuego;
 import negocio.Juego;
@@ -179,9 +181,9 @@ public class ControladorJuego {
 		return juegosDto;
 	}
 
-	public boolean turnoJugador(JuegoDTO Juego, UsuarioDTO usuario) throws CategoriaException, UsuarioException {
+	public boolean turnoJugador(JuegoDTO juego, UsuarioDTO usuario) throws CategoriaException, UsuarioException {
 
-		Juego ju = JuegoDAO.getInstancia().buscarJuego(Juego.getIdJuego());
+		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
 
@@ -194,6 +196,30 @@ public class ControladorJuego {
 
 		}
 		return false;
+	}
+
+	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario) throws CategoriaException, UsuarioException {
+
+		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
+		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
+		List<Carta> cartas = new ArrayList<>();
+		List<CartaDTO> cartasDto = new ArrayList<>();
+		for (Juego j : juegos) {
+			// falta un esJuego
+			if (j.sosJuego(ju) && j.esTurno(jug)) {
+
+				cartas = j.getCartas(jug);
+				break;
+			}
+
+		}
+
+		for (Carta carta : cartas) {
+			cartasDto.add(carta.toDTO());
+		}
+
+		return cartasDto;
 	}
 
 }
