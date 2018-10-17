@@ -41,12 +41,11 @@ public class Chico {
 		jugadores.add(this.parejas.get(0).getJugadores().get(1));
 		jugadores.add(this.parejas.get(1).getJugadores().get(1));
 
+		// CREAR LAS PUNTUACIONES ACA PUEDE GENERAR PROBLEMAS. HAY QUE PERSISTIR PUNTUACIONES Y CHICO A LA VEZ
 		for (Pareja pareja : this.parejas) {
 
 			/// puntos en 0
 			Puntuacion p = new Puntuacion(pareja);
-			// ACA GUARDAR LAS PUNTUACIONES EN LA BD
-			// p.save()
 			this.puntosChico.add(p);
 		}
 
@@ -240,7 +239,7 @@ public class Chico {
 	}
 	
 	public void save (Juego juego) throws UsuarioException, CategoriaException, ParejaException {
-		ChicoDAO.getInstancia().guardarChico(juego, this);
+		this.setIdChico(ChicoDAO.getInstancia().guardarChico(juego, this));
 	}
 
 	public boolean esTurno(Jugador jugador) {

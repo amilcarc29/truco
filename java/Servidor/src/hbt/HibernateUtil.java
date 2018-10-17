@@ -10,8 +10,10 @@ import entities.ChicoEntity;
 import entities.GrupoEntity;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
+import entities.ManoEntity;
 import entities.MiembroEntity;
 import entities.ParejaEntity;
+import entities.PuntuacionEntity;
 import entities.UsuarioEntity;
 
 public class HibernateUtil {
@@ -29,6 +31,8 @@ public class HibernateUtil {
 			config.addAnnotatedClass(GrupoEntity.class);
 			config.addAnnotatedClass(JuegoEntity.class);
 			config.addAnnotatedClass(ChicoEntity.class);
+			config.addAnnotatedClass(ManoEntity.class);
+			config.addAnnotatedClass(PuntuacionEntity.class);
 			sessionFactory = config.buildSessionFactory();
 			
 			

@@ -125,9 +125,11 @@ public abstract class Juego {
 
 		Chico chico = new Chico(parejas);
 		
+		chico.save(this);
+		
 		chico.altaMano(chico.getPuntosParaTerminar());
 		// IMPEMENTAR GUARDADO DE JUEGO EN BD
-		chico.save(this);
+		
 		chicos.add(chico);
 		
 	}

@@ -70,6 +70,8 @@ public class ParejaDAO {
 
 		ss.getTransaction().commit();
 		ss.close();
+		
+		pareja.setIdPareja(pe.getIdPareja());
 
 		return toNegocio(pe);
 

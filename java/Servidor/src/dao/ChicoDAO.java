@@ -10,6 +10,7 @@ import entities.ChicoEntity;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
 import entities.ParejaEntity;
+import entities.PuntuacionEntity;
 import excepciones.CategoriaException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
@@ -31,29 +32,62 @@ public class ChicoDAO {
 	public ChicoDAO() {
 	}
 
-	public void guardarChico(Juego juego, Chico chico) throws ParejaException {
+	public int guardarChico(Juego juego, Chico chico) throws ParejaException {
 
 		JuegoEntity jue = null;
+		ParejaEntity pa1 = null;
+		ParejaEntity pa2 = null;
 
 		try {
 			jue = JuegoDAO.getInstancia().buscarJuegoPorID(juego.getId());
 		} catch (ParejaException e) {
 			e.printStackTrace();
 		}
-
-		ChicoEntity ch = new ChicoEntity(jue, null, chico.getPuntosPorGanar());
+		
+		try {
+			pa1 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(0).getIdPareja());
+			pa2 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(1).getIdPareja());
+		} catch (ParejaException e1){
+			e1.printStackTrace();
+		}
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
+		
+		// alta de Chico
+		
+		ChicoEntity ch = new ChicoEntity(jue, null, chico.getPuntosPorGanar());
 		session.saveOrUpdate(ch);
+
+		// alta de puntuaciones
+
+		PuntuacionEntity pe1 = new PuntuacionEntity(ch, pa1 , chico.getPuntosChico().get(0).getPuntos());
+		session.saveOrUpdate(pe1);
+
+		PuntuacionEntity pe2 = new PuntuacionEntity(ch, pa2, chico.getPuntosChico().get(1).getPuntos());
+		session.saveOrUpdate(pe2);
+
 		session.getTransaction().commit();
 		session.close();
 		
-		
-		
-		
-		
+		return ch.getIdChico();
+	}
+	
+	public ChicoEntity buscarChicoPorID(int idChico) {
+		// TODO Auto-generated method stub
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		ChicoEntity chico = (ChicoEntity) session.createQuery("from ChicoEntity where idChico = ?")
+				.setParameter(0, idChico).uniqueResult();
+		session.close();
+		if (chico != null) {
+			return chico;
+		} else {
+			// pasarla ! a un metodo de busqueda nuevo throw new UsuarioException("El
+			// usuario con apodo: " + apodo + "no existe en la base de datos.");
+			return null;
+		}
 	}
 
 	public List<Chico> getChicos(int idJuego) throws CategoriaException {
