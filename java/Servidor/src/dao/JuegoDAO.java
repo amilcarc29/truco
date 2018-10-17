@@ -16,6 +16,7 @@ import entities.ParejaEntity;
 import entities.UsuarioEntity;
 import excepciones.CategoriaException;
 import excepciones.GrupoException;
+import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
@@ -39,7 +40,7 @@ public class JuegoDAO {
 	public JuegoDAO() {
 	}
 
-	public int guardarJuegoLibreIndividual(Juego juego) throws ParejaException {
+	public int guardarJuegoLibreIndividual(Juego juego) throws ParejaException, CategoriaException, MiembroException {
 
 		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja1().getIdPareja());
 		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja2().getIdPareja());
@@ -57,6 +58,7 @@ public class JuegoDAO {
 		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja1().getIdPareja(), ent.getId());
 		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja2().getIdPareja(), ent.getId());
 		
+	
 		return ent.getId();
 	}
 

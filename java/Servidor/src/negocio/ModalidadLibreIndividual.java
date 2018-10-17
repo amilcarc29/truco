@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.JuegoDAO;
 import excepciones.CategoriaException;
+import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
@@ -25,8 +26,9 @@ public class ModalidadLibreIndividual extends Juego{
 		// TODO Auto-generated method stub
 		
 	}
-	public void save() throws ParejaException {
+	public void save() throws ParejaException, CategoriaException, MiembroException {
 		this.setId(JuegoDAO.getInstancia().guardarJuegoLibreIndividual(this));
+		
 	}
 
 }

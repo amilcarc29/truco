@@ -9,6 +9,7 @@ import dto.JuegoDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
@@ -208,7 +209,7 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).puntosDbg(idPareja);
 	}
 
-	public abstract void save() throws ParejaException;
+	public abstract void save() throws ParejaException, CategoriaException, MiembroException ;
 
 	public JuegoDTO toDTO() {
 		JuegoDTO j = new JuegoDTO();

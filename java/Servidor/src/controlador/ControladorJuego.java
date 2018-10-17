@@ -14,6 +14,7 @@ import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
+import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import negocio.Carta;
@@ -51,7 +52,7 @@ public class ControladorJuego {
 	}
 
 	public void iniciarJuego(GrupoJuego grupo)
-			throws JuegoException, UsuarioException, CategoriaException, ParejaException {
+			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException {
 		Juego j = fcJuegos.getJuego(grupo.getParejas(), grupo.getTipoJuego());
 		if (j != null) {
 			// Creo que se debería crear el chico en el constructor de Juego y no aca (VER)
