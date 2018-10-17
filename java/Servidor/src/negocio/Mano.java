@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import dao.ManoDAO;
 import excepciones.CartaException;
 import excepciones.JugadorException;
 
@@ -13,43 +14,39 @@ public class Mano {
 	private List<Pareja> parejas;
 	private List<Baza> bazas;
 	private List<Jugador> jugadores;
-
-	/// TODO VER!!
 	private List<Puntuacion> puntos;
-
+	
 	private Envido envido;
 	private Truco truco;
 
 	private int puntoParaTerminarChico;
 	private Mazo mazo;
 
+	// ESTO NO SE PARA QUE ESTA
 	private List<Pareja> historicoPuntos = null;
 	private Pareja ganadorBaza1 = null;
 	private Jugada jugadaMayor = null;
 	private boolean trucoCantado = false;
 	private int jugadorIndice = 0;
+	//
+	
+	
 
-	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico) {
+public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> puntos, int puntoParaTerminarChico) {
 		super();
 		this.parejas = parejas;
 		this.jugadores = jugadores;
+		this.puntos = puntos;
 		setPuntoParaTerminarChico(puntoParaTerminarChico);
-		this.mazo = new Mazo();
-		this.bazas = new ArrayList<>();
-
-		this.puntos = new ArrayList<>();
-		this.historicoPuntos = new ArrayList<>();
-		// puntos pareja mano
-		for (Pareja p : parejas) {
-			Puntuacion punt = new Puntuacion(p);
-			puntos.add(punt);
-		}
-
-		repartir();
-		// TODO primera baza
-		altaBaza();
-
+		// FALTA SACAR CARTAS DE LA BD Y ARMAR EL MAZO
+		// this.mazo = obtenerMazo();
+		this.bazas = new ArrayList<Baza>();
+		//FALTA VER SI SE CREA ENVIDO Y/O TRUCO
+		
+		
 	}
+
+	
 
 	private void altaBaza() {
 		Baza b = new Baza();
@@ -71,6 +68,10 @@ public class Mano {
 
 		}
 	}
+	
+//	public Mazo obtenerMazo() {
+//		
+//	}
 
 	public List<Pareja> getParejas() {
 		return parejas;
@@ -460,6 +461,9 @@ public class Mano {
 		this.idMano = idMano;
 	}
 	
+	public void save (Chico chico) {
+		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico));
+	}
 	
 	
 

@@ -33,6 +33,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(ChicoEntity.class);
 			config.addAnnotatedClass(ManoEntity.class);
 			config.addAnnotatedClass(PuntuacionEntity.class);
+			config.addAnnotatedClass(ChicoEntity.class);
 			sessionFactory = config.buildSessionFactory();
 			
 			

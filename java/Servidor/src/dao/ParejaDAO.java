@@ -76,6 +76,22 @@ public class ParejaDAO {
 		return toNegocio(pe);
 
 	}
+	
+	public void aumentarPuntos(Pareja pareja) throws ParejaException {
+		ParejaEntity pa = null;
+		try {
+			pa = this.buscarParejaPorId(pareja.getIdPareja());
+		} catch (ParejaException e) {
+			e.printStackTrace();
+		}
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(pa);
+		session.getTransaction().commit();
+		session.close();
+
+	}
 
 	public Pareja guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException {
 		MiembroEntity mi1 = null;

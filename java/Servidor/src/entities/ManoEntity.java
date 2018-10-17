@@ -19,10 +19,11 @@ public class ManoEntity {
 	@OneToOne
 	@JoinColumn(name = "idChico")
 	private ChicoEntity chico;
+	
 	public ManoEntity() {}
-	public ManoEntity(Integer idMano, ChicoEntity chico) {
+	
+	public ManoEntity(ChicoEntity chico) {
 		super();
-		this.idMano = idMano;
 		this.chico = chico;
 	}
 

@@ -127,9 +127,7 @@ public abstract class Juego {
 		
 		chico.save(this);
 		
-		chico.altaMano(chico.getPuntosParaTerminar());
-		// IMPEMENTAR GUARDADO DE JUEGO EN BD
-		
+		chico.altaMano(chico.getPuntosParaTerminar());		
 		chicos.add(chico);
 		
 	}

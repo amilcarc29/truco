@@ -23,7 +23,7 @@ public class ClienteRmi {
 			// usuarios.add(new Usuario("Amilcar", "Amilcar", "pepe"));
 
 
-			//
+			
 //			new BusinessDelegateTruco().alta("Emiliano", "pepe", "pepe");
 //			new BusinessDelegateTruco().alta("Debi", "pepe", "pepe");
 //			new BusinessDelegateTruco().alta("Lucas", "pepe", "pepe");
@@ -39,7 +39,7 @@ public class ClienteRmi {
 			new BusinessDelegateTruco().agregarAListaEspera(us2);
 			new BusinessDelegateTruco().agregarAListaEspera(us3);
 			new BusinessDelegateTruco().agregarAListaEspera(us4);
-////
+//////
 //			
 ////
 //			while (true) {

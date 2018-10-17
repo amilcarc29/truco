@@ -24,10 +24,15 @@ public class ParejaEntity {
 	
 	public ParejaEntity() {}
 	
+	
 	public ParejaEntity(JugadorEntity jugador1, JugadorEntity jugador2) {
 		super();
 		this.jugador1 = jugador1;
 		this.jugador2 = jugador2;
+	}
+	
+	public void setIdPareja(Integer idPareja) {
+		this.idPareja = idPareja;
 	}
 
 	public int getIdPareja() {

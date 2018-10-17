@@ -23,9 +23,6 @@ public class Chico {
 
 	private List<Jugador> jugadores;
 
-	// PARA FALTA ENVIDO
-	private int puntosParaTerminar;
-
 	
 	private boolean sePuedeCantarEnvido = true;
 	
@@ -128,7 +125,7 @@ public class Chico {
 			}
 
 			cambiarOrden();
-			Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
+			Mano mano = new Mano(parejas, jugadores, puntosChico, puntosPorGanar);
 			manos.add(mano);
 			return false;
 
@@ -163,12 +160,12 @@ public class Chico {
 	// TODO Agregar parámetro parejas a Diagrama.
 	public void altaMano(int puntosParaTerminar) {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
-		// puntosPorTerminar del Chico?
+		// puntosPorTerminar del Chico?   
+		// ---> Porque en el chico ya tenemos las parejas, los puntos y los jugadores.
 
-		this.puntosParaTerminar = puntosParaTerminar;
-
-		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
-
+		Mano mano = new Mano(parejas, jugadores, puntosChico, puntosParaTerminar);
+		
+		mano.save(this);
 		manos.add(mano);
 
 //		System.out.println("MANO NUMERO " + manos.size());
@@ -297,11 +294,6 @@ public class Chico {
 	public void setSePuedeCantarEnvido(boolean sePuedeCantarEnvido) {
 		this.sePuedeCantarEnvido = sePuedeCantarEnvido;
 	}
-
-	public void setPuntosParaTerminar(int puntosParaTerminar) {
-		this.puntosParaTerminar = puntosParaTerminar;
-	}
-
 
 
 
