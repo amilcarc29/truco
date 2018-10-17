@@ -207,7 +207,7 @@ public class ControladorJuego {
 		List<CartaDTO> cartasDto = new ArrayList<>();
 		for (Juego j : juegos) {
 			// falta un esJuego
-			if (j.sosJuego(ju) && j.esTurno(jug)) {
+			if (j.sosJuego(ju)) {
 
 				cartas = j.getCartas(jug);
 				break;

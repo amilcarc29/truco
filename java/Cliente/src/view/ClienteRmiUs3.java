@@ -15,24 +15,25 @@ public class ClienteRmiUs3 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			UsuarioDTO us = new BusinessDelegateTruco().login("Lucas", "pepe");
-			new BusinessDelegateTruco().agregarAListaEspera(us);
+			UsuarioDTO us1 = new BusinessDelegateTruco().login("Lucas", "pepe");
+			new BusinessDelegateTruco().agregarAListaEspera(us1);
 			
-			while (us!=null) {
+			while (us1!=null) {
 				System.out.println("UsuarioLogeado");
 
-				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us);
+				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
 				for (JuegoDTO juegoDTO : juegos) {
 					System.out.println(juegoDTO.getIdJuego());
-					if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us)) {
-						System.out.println("turno de " + us.getApodo());
-
-						List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us);
-						for (CartaDTO cartaDTO : c) {
-							System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
-						}
-
+					if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
+						System.out.println("turno de " + us1.getApodo());
+					}else {
+						System.out.println("No es mi turno");
+					}	
+					List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
+					for (CartaDTO cartaDTO : c) {
+						System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
 					}
+					
 				}
 				try {
 					Thread.sleep(6000);

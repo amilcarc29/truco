@@ -25,13 +25,14 @@ public class ClienteRmiUs1 {
 					System.out.println(juegoDTO.getIdJuego());
 					if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
 						System.out.println("turno de " + us1.getApodo());
-						
-						List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
-						for (CartaDTO cartaDTO : c) {
-							System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
-						}
-						
+					}else {
+						System.out.println("No es mi turno");
+					}	
+					List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
+					for (CartaDTO cartaDTO : c) {
+						System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
 					}
+					
 				}
 				try {
 					Thread.sleep(6000);
