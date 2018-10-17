@@ -125,7 +125,7 @@ public abstract class Juego {
 
 		Chico chico = new Chico(parejas);
 		// IMPEMENTAR GUARDADO DE JUEGO EN BD
-		// chico.save(this);
+		chico.save(this);
 		chicos.add(chico);
 	}
 
@@ -213,7 +213,9 @@ public abstract class Juego {
 
 		return j;
 	}
-
+	public void setChico( List<Chico> chicos) {
+		this.chicos = chicos;
+	}
 	public boolean esTurno(Jugador jug) {
 		return chicos.get(chicos.size() - 1).esTurno(jug);
 		 

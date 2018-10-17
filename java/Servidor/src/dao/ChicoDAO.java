@@ -1,10 +1,13 @@
 package dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import entities.ChicoEntity;
 import entities.JuegoEntity;
+import entities.JugadorEntity;
 import entities.ParejaEntity;
 import excepciones.CategoriaException;
 import excepciones.ParejaException;
@@ -44,6 +47,20 @@ public class ChicoDAO {
 		session.saveOrUpdate(ch);
 		session.getTransaction().commit();
 		session.close();			
+	}
+	
+	public List<Chico> getChicos(int idJuego){
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		List<ChicoEntity> jugadorEntity = (List<ChicoEntity>) session.createQuery("from ChicoEntity where idJuego = ?")
+				.setParameter(0, idJuego).list();
+	
+		
+		session.close();
+		
+		return null;
 	}
 	
 	

@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import entities.CategoriaEntity;
+import entities.ChicoEntity;
 import entities.GrupoEntity;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
@@ -27,7 +28,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(MiembroEntity.class);
 			config.addAnnotatedClass(GrupoEntity.class);
 			config.addAnnotatedClass(JuegoEntity.class);
-
+			config.addAnnotatedClass(ChicoEntity.class);
 			sessionFactory = config.buildSessionFactory();
 			
 			
