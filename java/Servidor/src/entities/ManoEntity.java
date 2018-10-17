@@ -19,7 +19,7 @@ public class ManoEntity {
 	@OneToOne
 	@JoinColumn(name = "idChico")
 	private ChicoEntity chico;
-
+	public ManoEntity() {}
 	public ManoEntity(Integer idMano, ChicoEntity chico) {
 		super();
 		this.idMano = idMano;

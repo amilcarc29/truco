@@ -42,10 +42,19 @@ public class JuegoEntity {
 	public JuegoEntity() {
 
 	}
-
 	public int getId() {
 
 		return this.idJuego;
+	}
+
+	public ParejaEntity getPareja1() {
+
+		return this.pareja1;
+	}
+	
+	public ParejaEntity getPareja2() {
+
+		return this.pareja2;
 	}
 
 	public JuegoEntity(ParejaEntity pareja1, ParejaEntity pareja2, String tipoDeJuego) {

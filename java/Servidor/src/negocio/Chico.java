@@ -56,6 +56,7 @@ public class Chico {
 		
 		// puntos totales para terminar el chico (30). Es un chico, no dos de 15
 		this.puntosPorGanar = 30;
+		altaMano(this.puntosPorGanar);
 
 	}
 	
@@ -242,8 +243,8 @@ public class Chico {
 		ChicoDAO.getInstancia().guardarChico(juego, this);
 	}
 
-	public boolean esTurno(Usuario us) {
-		return  this.manos.get(this.manos.size() - 1).esTurno(us);		
+	public boolean esTurno(Jugador jugador) {
+		return  this.manos.get(this.manos.size() - 1).esTurno(jugador);		
 	}
 	
 	public void crearMano () {
@@ -254,7 +255,7 @@ public class Chico {
 		return idChico;
 	}
 
-	public void setIdCico(int idJuego) {
+	public void setIdChico(int idJuego) {
 		this.idChico = idJuego;
 	}
 
@@ -300,6 +301,19 @@ public class Chico {
 
 	public void setPuntosParaTerminar(int puntosParaTerminar) {
 		this.puntosParaTerminar = puntosParaTerminar;
+	}
+
+
+
+
+	public List<Carta> getCartas(Jugador jug) {
+		// TODO Auto-generated method stub
+		
+		for (Jugador jugador : jugadores) {
+					if(jugador.esJugador(jug.getId()))
+						return jugador.getCartas();
+		}
+		return null;
 	}
 	
 	

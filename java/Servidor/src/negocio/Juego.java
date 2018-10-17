@@ -216,9 +216,16 @@ public abstract class Juego {
 
 		return j;
 	}
-
-	public boolean esTurno(Usuario us) {
-		return chicos.get(chicos.size() - 1).esTurno(us);
+	public void setChico( List<Chico> chicos) {
+		this.chicos = chicos;
+	}
+	public boolean esTurno(Jugador jug) {
+		return chicos.get(chicos.size() - 1).esTurno(jug);
 		 
+	}
+
+	public 	List<Carta> getCartas(Jugador jug) {
+		// TODO Auto-generated method stub
+		return chicos.get(chicos.size() - 1).getCartas(jug);
 	}
 }

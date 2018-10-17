@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.JugadorDTO;
 import dto.UsuarioDTO;
@@ -21,4 +22,6 @@ public interface InterfaceRemotaTruco extends Remote {
 	public List<JuegoDTO> getJuegosActivo(UsuarioDTO usuario) throws RemoteException;
 
 	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
+	
+	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 }

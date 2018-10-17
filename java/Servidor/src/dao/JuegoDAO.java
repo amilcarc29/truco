@@ -19,6 +19,7 @@ import excepciones.GrupoException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
+import negocio.Chico;
 import negocio.Juego;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
@@ -52,6 +53,10 @@ public class JuegoDAO {
 		session.getTransaction().commit();
 		session.close();
 
+		// guarda el id de juego para los jugadores de la pareja
+		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja1().getIdPareja(), ent.getId());
+		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja2().getIdPareja(), ent.getId());
+		
 		return ent.getId();
 	}
 
@@ -83,8 +88,7 @@ public class JuegoDAO {
 		session.saveOrUpdate(ent);
 		session.getTransaction().commit();
 		session.close();
-		
-		
+
 	}
 
 	public JuegoEntity buscarJuegoPorID(int idJuego) throws ParejaException {
@@ -128,6 +132,12 @@ public class JuegoDAO {
 
 		if (juegoEntity.getTipoDeJuego().equals("LIBRE")) {
 			j = new ModalidadLibreIndividual();
+			
+			
+			
+			List<Chico> chicos = ChicoDAO.getInstancia().getChicos(juegoEntity.getId());
+			j.setChico(chicos);
+			
 			j.setId(juegoEntity.getId());
 		}
 
@@ -150,4 +160,21 @@ public class JuegoDAO {
 		}
 	}
 
+	public List<Juego> getJuegosActivos() throws CategoriaException {
+
+		List<Juego> juegNeg = new ArrayList<>();
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		List<JuegoEntity> juegos = (List<JuegoEntity>) session.createQuery("from JuegoEntity where activo = 1 ").list();
+		session.close();
+
+		for (JuegoEntity juegoEntity : juegos) {
+
+			juegNeg.add(toNegocio(juegoEntity));
+
+		}
+
+		return juegNeg;
+	}
 }

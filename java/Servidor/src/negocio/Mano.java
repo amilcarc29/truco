@@ -370,10 +370,10 @@ public class Mano {
 		}
 	}
 
-	public boolean esTurno(Usuario us) {
+	public boolean esTurno(Jugador jugador) {
 		Jugador ju =  jugadores.get(jugadorIndice);
 		
-		return false;
+		return ju.esJugador(jugador.getId());
 	}
 
 	public List<Baza> getBazas() {
