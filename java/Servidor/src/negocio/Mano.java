@@ -62,10 +62,8 @@ public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> punt
 
 	private void repartir() {
 		for (Jugador jug : jugadores) {
-
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
 			jug.setCartas(cartas);
-
 		}
 	}
 	

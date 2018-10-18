@@ -40,14 +40,12 @@ public class ControladorJuego {
 
 	public ControladorJuego() {
 		juegos = new LinkedList<Juego>();
-
 		try {
 			juegos = JuegoDAO.getInstancia().getJuegosActivos();
 		} catch (CategoriaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		fcJuegos = new FactoryJuegos();
 	}
 
@@ -55,7 +53,7 @@ public class ControladorJuego {
 			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException {
 		Juego j = fcJuegos.getJuego(grupo.getParejas(), grupo.getTipoJuego());
 		if (j != null) {
-			// Creo que se debería crear el chico en el constructor de Juego y no aca (VER)
+			// Creo que se deberÃ­a crear el chico en el constructor de Juego y no aca (VER)
 			j.save();
 			// para tener el id el crear va despues del save
 			j.crearChico();
@@ -67,13 +65,11 @@ public class ControladorJuego {
 	public void cantarTruco(int idJuego) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarTruco();
-
 	}
 
 	public void cantarReTruco(int idJuego) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarReTruco();
-
 	}
 
 	public void cantarVale4(int idJuego, int idJugador) throws JuegoException, CategoriaException {
@@ -129,7 +125,6 @@ public class ControladorJuego {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.sinCantar();
-
 	}
 
 	public boolean sePuedeTruco(int idJuego) throws JuegoException {
@@ -145,27 +140,18 @@ public class ControladorJuego {
 		for (Juego juego : juegos) {
 			List<Pareja> par = juego.getParejas();
 			for (Pareja p : par) {
-
 				// CONFLICTOS CON NOMBRE JUGADOR
-
 				System.out.println("Pareja num " + p.getIdPareja());
-
 				for (Jugador j : p.getJugadores()) {
-
 					System.out.println(((JugadorIndividual) j).getUsuario().getApodo());
 					j.dbgCartas();
 				}
-
 				if (this.sePuedeCantarEnvido(juego.getId())) {
-
 					System.out.println("Tanto para envido " + p.getMayorTantoEnvido());
 					System.out.println("Tanto para truco " + p.getMayorTantoTruco());
-
 				}
 				juego.puntosDbg(p.getIdPareja());
-
 				System.out.println("");
-
 			}
 			// System.out.println("juega " + juego.proximoDbg().getNombre());
 			System.out.println("");
@@ -178,29 +164,25 @@ public class ControladorJuego {
 		for (Juego j : juegos) {
 			juegosDto.add(j.toDTO());
 		}
-
 		return juegosDto;
 	}
 
-	public boolean turnoJugador(JuegoDTO juego, UsuarioDTO usuario) throws CategoriaException, UsuarioException {
-
+	public boolean turnoJugador(JuegoDTO juego, UsuarioDTO usuario)
+			throws CategoriaException, UsuarioException, JuegoException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
-
 		for (Juego j : juegos) {
 			// falta un esJuego
 			if (j.sosJuego(ju) && j.esTurno(jug)) {
-
 				return true;
 			}
-
 		}
 		return false;
 	}
 
-	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario) throws CategoriaException, UsuarioException {
-
+	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario)
+			throws CategoriaException, UsuarioException, JuegoException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
@@ -209,18 +191,13 @@ public class ControladorJuego {
 		for (Juego j : juegos) {
 			// falta un esJuego
 			if (j.sosJuego(ju)) {
-
 				cartas = j.getCartas(jug);
 				break;
 			}
-
 		}
-
 		for (Carta carta : cartas) {
 			cartasDto.add(carta.toDTO());
 		}
-
 		return cartasDto;
 	}
-
 }

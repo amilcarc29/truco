@@ -9,7 +9,6 @@ import controlador.ControladorJuego;
 import controlador.ControladorUsuario;
 import dto.CartaDTO;
 import dto.JuegoDTO;
-import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
@@ -77,7 +76,6 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 
 	@Override
 	public List<JuegoDTO> getJuegosActivo(UsuarioDTO usuario) throws RemoteException {
-
 		try {
 			return ControladorArmadoJuegos.getInstancia().getJuegosActivo(usuario);
 		} catch (CategoriaException e) {
@@ -85,7 +83,6 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			e.printStackTrace();
 		}
 		return null;
-
 	}
 
 	@Override
@@ -98,8 +95,10 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 		return false;
 	}
 
@@ -113,11 +112,10 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	
-	
-	
 }

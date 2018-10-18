@@ -3,16 +3,13 @@ package dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import entities.CategoriaEntity;
 import entities.ChicoEntity;
 import entities.ParejaEntity;
 import entities.PuntuacionEntity;
 import excepciones.ParejaException;
-import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Chico;
 import negocio.Pareja;
-import negocio.Puntuacion;
 
 public class PuntuacionDAO {
 	

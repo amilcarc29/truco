@@ -33,5 +33,4 @@ public class GrupoJuegoDAO {
 	private GrupoEntity toEntity(GrupoJuego grupo) {
 		return null;
 	}
-
 }

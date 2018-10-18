@@ -1,25 +1,14 @@
 package dao;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import dto.JuegoDTO;
-import dto.JugadorDTO;
-import entities.JuegoEntity;
 import entities.JugadorEntity;
-import entities.ParejaEntity;
-import entities.UsuarioEntity;
 import excepciones.CategoriaException;
-import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
-import negocio.ModalidadLibreIndividual;
-import negocio.Pareja;
-import negocio.Usuario;
 
 public class JugadorDAO {
 	private static JugadorDAO instancia;
@@ -48,14 +37,11 @@ public class JugadorDAO {
 
 	public Jugador toNegocio(JugadorEntity pe) throws CategoriaException {
 		Jugador j = null;
-
 		if (pe.getTipo().equals("individual")) {
 			j = new JugadorIndividual(UsuarioDAO.getInstancia().toNegocio(pe.getUsuario()));
 			j.setId(pe.getIdJugador());
 		}
-
 		return j;
-
 	}
 
 	public Jugador buscarJugadorByUsario(int idJuego, int idUsuario) throws CategoriaException {
@@ -72,8 +58,4 @@ public class JugadorDAO {
 		}
 		return null;
 	}
-
-
-
-
 }

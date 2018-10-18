@@ -7,7 +7,6 @@ import entities.ChicoEntity;
 import entities.ManoEntity;
 import hbt.HibernateUtil;
 import negocio.Chico;
-import negocio.Mano;
 
 public class ManoDAO {
 	
