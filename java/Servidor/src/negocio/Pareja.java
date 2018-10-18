@@ -93,7 +93,7 @@ public class Pareja {
 	public Jugador getJugador2() {
 		return jugadores.get(1);
 	}
-	
+
 	public Pareja saveIndividual() throws CategoriaException {
 		return ParejaDAO.getInstancia().guardarParejaIndividual(this);
 	}

@@ -3,6 +3,7 @@ package negocio;
 import java.util.LinkedList;
 import java.util.List;
 
+import dao.BazaDAO;
 import excepciones.CartaException;
 import excepciones.JugadorException;
 
@@ -84,7 +85,13 @@ public class Baza {
 		// System.out.println("Jugador " + jugador.getNombre() + "cantó Envido.");
 		// });
 	}
-
+	
+	
+	public int save(Mano mano) {
+		return BazaDAO.getInstancia().guardarBaza(mano , this);
+	}
+	
+	
 	public void jugarCarta(int indiceJugador, int numero, String palo) throws JugadorException, CartaException {
 		Jugador jugador = jugadores.get(indiceJugador);
 		// solo para debug
