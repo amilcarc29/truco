@@ -1,7 +1,5 @@
 package negocio;
 
-import dao.JuegoDAO;
-
 public class JugadorIndividual extends Jugador {
 
 	private Usuario usuario;
@@ -17,6 +15,4 @@ public class JugadorIndividual extends Jugador {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
 }

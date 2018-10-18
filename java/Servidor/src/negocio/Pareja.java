@@ -6,30 +6,20 @@ import java.util.List;
 import dao.ParejaDAO;
 import excepciones.CategoriaException;
 import excepciones.MiembroException;
-import excepciones.ParejaException;
 
 public class Pareja {
 	private int idPareja = 0;
 	private List<Jugador> jugadores;
-	
 
-
-	
 	public Pareja(Jugador j1, Jugador j2) {
 		jugadores = new LinkedList<Jugador>();
 		jugadores.add(j1);
 		jugadores.add(j2);
-		
 	}
-
-
 
 	public void setJugadores(List<Jugador> jugadores) {
 		this.jugadores = jugadores;
 	}
-
-
-
 
 	public Categoria obtenerMayorCategoria() {
 		return null;
@@ -38,9 +28,11 @@ public class Pareja {
 	public int getIdPareja() {
 		return idPareja;
 	}
+
 	public void setIdPareja(int idPareja)  {
 		this.idPareja = idPareja;
 	}
+
 	public List<Jugador> getJugadores() {
 		return jugadores;
 	}
@@ -56,7 +48,6 @@ public class Pareja {
 	}
 
 	// TODO tiene jugador
-	
 	public boolean tieneJugador(int idJugador) {
 		for (Jugador jug : jugadores) {
 			if (jug.esJugador(idJugador))
@@ -69,6 +60,7 @@ public class Pareja {
 	public boolean esPareja(int idPareja) {
 		return getIdPareja() == idPareja;
 	}
+
 	public int getMayorTantoTruco() {
 		int mayor = 0;
 		for (Jugador jug : jugadores) {
@@ -77,6 +69,7 @@ public class Pareja {
 		}
 		return mayor;
 	}
+
 	public int getMayorTantoEnvido() {
 		int mayor = 0;
 		for (Jugador jug : jugadores) {
@@ -85,19 +78,19 @@ public class Pareja {
 		}
 		return mayor;
 	}
-	
+
 	public Jugador getJugador1() {
 		return jugadores.get(0);
 	}
-	
+
 	public Jugador getJugador2() {
 		return jugadores.get(1);
 	}
-	
+
 	public Pareja saveIndividual() throws CategoriaException {
 		return ParejaDAO.getInstancia().guardarParejaIndividual(this);
 	}
-	
+
 	public Pareja saveGrupal() throws CategoriaException, MiembroException {
 		try {
 			return ParejaDAO.getInstancia().guardarParejaGrupal(this);

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import dao.BazaDAO;
 import dao.ManoDAO;
+import entities.BazaEntity;
 import excepciones.CartaException;
 import excepciones.JugadorException;
 
@@ -15,7 +17,7 @@ public class Mano {
 	private List<Baza> bazas;
 	private List<Jugador> jugadores;
 	private List<Puntuacion> puntos;
-	
+
 	private Envido envido;
 	private Truco truco;
 
@@ -29,10 +31,8 @@ public class Mano {
 	private boolean trucoCantado = false;
 	private int jugadorIndice = 0;
 	//
-	
-	
 
-public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> puntos, int puntoParaTerminarChico) {
+	public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> puntos, int puntoParaTerminarChico) {
 		super();
 		this.parejas = parejas;
 		this.jugadores = jugadores;
@@ -41,18 +41,16 @@ public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> punt
 		// FALTA SACAR CARTAS DE LA BD Y ARMAR EL MAZO
 		// this.mazo = obtenerMazo();
 		this.bazas = new ArrayList<Baza>();
-		//FALTA VER SI SE CREA ENVIDO Y/O TRUCO
-		
-		
-	}
+		// FALTA VER SI SE CREA ENVIDO Y/O TRUCO
 
-	
+	}
 
 	private void altaBaza() {
 		Baza b = new Baza();
 		b.setJugadores(jugadores);
+		b.save(this);
 		this.bazas.add(b);
-	//	System.out.println("BAZA NUMERO " + this.bazas.size());
+		// System.out.println("BAZA NUMERO " + this.bazas.size());
 		jugadorIndice = 0;
 	}
 
@@ -62,16 +60,14 @@ public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> punt
 
 	private void repartir() {
 		for (Jugador jug : jugadores) {
-
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
 			jug.setCartas(cartas);
-
 		}
 	}
-	
-//	public Mazo obtenerMazo() {
-//		
-//	}
+
+	// public Mazo obtenerMazo() {
+	//
+	// }
 
 	public List<Pareja> getParejas() {
 		return parejas;
@@ -292,11 +288,9 @@ public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> punt
 		jugadaMayor = this.bazas.get(this.bazas.size() - 1).jugadaMayor();
 
 		if (trucoCantado) {
-			
-		
+
 			return true;
-			
-			
+
 		} else {
 			if ((this.bazas.get(this.bazas.size() - 1).finalizoBaza())) {
 
@@ -372,8 +366,8 @@ public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> punt
 	}
 
 	public boolean esTurno(Jugador jugador) {
-		Jugador ju =  jugadores.get(jugadorIndice);
-		
+		Jugador ju = jugadores.get(jugadorIndice);
+
 		return ju.esJugador(jugador.getId());
 	}
 
@@ -460,11 +454,12 @@ public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> punt
 	public void setIdMano(int idMano) {
 		this.idMano = idMano;
 	}
+
+	public void save(Chico chico) {
+		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
 	
-	public void save (Chico chico) {
-		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico));
+		
+		
 	}
-	
-	
 
 }

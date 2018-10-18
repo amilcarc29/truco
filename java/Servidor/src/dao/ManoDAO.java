@@ -3,15 +3,16 @@ package dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.BazaEntity;
 import entities.ChicoEntity;
 import entities.ManoEntity;
 import hbt.HibernateUtil;
+import negocio.Baza;
 import negocio.Chico;
 import negocio.Mano;
 
 public class ManoDAO {
-	
-	
+
 	private static ManoDAO instancia;
 
 	public static ManoDAO getInstancia() {
@@ -22,13 +23,13 @@ public class ManoDAO {
 
 	public ManoDAO() {
 	}
-	
-	public int guardarMano(Chico chico) {
+
+	public int guardarMano(Chico chico, Mano mano) {
 		ChicoEntity ch = null;
 		// VER EXCEPCIONES
 		ch = ChicoDAO.getInstancia().buscarChicoPorID(chico.getIdChico());
-		
-		ManoEntity me = new ManoEntity (ch);
+
+		ManoEntity me = new ManoEntity(ch);
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -36,9 +37,12 @@ public class ManoDAO {
 		session.saveOrUpdate(me);
 		session.getTransaction().commit();
 		session.close();
-		
+		mano.setIdMano(me.getIdMano());
+		Baza baza = new Baza();
+		BazaDAO.getInstancia().guardarBaza(mano, baza);
+
 		return me.getIdMano();
-		
+
 	}
 
 }

@@ -5,10 +5,13 @@ import javax.swing.JOptionPane;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+import entities.BazaEntity;
+import entities.CartaEntity;
 import entities.CategoriaEntity;
 import entities.ChicoEntity;
 import entities.GrupoEntity;
 import entities.JuegoEntity;
+import entities.JugadaEntity;
 import entities.JugadorEntity;
 import entities.ManoEntity;
 import entities.MiembroEntity;
@@ -34,6 +37,10 @@ public class HibernateUtil {
 			config.addAnnotatedClass(ManoEntity.class);
 			config.addAnnotatedClass(PuntuacionEntity.class);
 			config.addAnnotatedClass(ChicoEntity.class);
+			config.addAnnotatedClass(BazaEntity.class);
+			config.addAnnotatedClass(CartaEntity.class);
+			config.addAnnotatedClass(JugadaEntity.class);
+			
 			sessionFactory = config.buildSessionFactory();
 			
 			
