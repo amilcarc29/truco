@@ -3,8 +3,6 @@ package dto;
 import java.io.Serializable;
 
 public class BazaDTO implements Serializable{
-	
-	// NO SE POR QUE ESTA CLASE NO SE HACE DTO (?)
 
 	private static final long serialVersionUID = 7697472000145577384L;
 	/**

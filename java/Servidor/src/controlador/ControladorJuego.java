@@ -108,11 +108,11 @@ public class ControladorJuego {
 		return JuegoDAO.getInstancia().buscarJuego(idJuego);
 	}
 
-	public void jugarCarta(JuegoDTO juego, CartaDTO carta, JugadorDTO jugador)
+	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario)
 			throws JugadorException, CartaException, JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Carta car = CartaDAO.getInstancia().buscarCartaPorID(carta.getIdCarta());
-		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByIdClase(jugador.getIdJugador());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
 		jue.jugarCarta(car, jug);
 	}
 

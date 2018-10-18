@@ -202,8 +202,7 @@ public abstract class Juego {
 	public abstract void save() throws ParejaException, CategoriaException, MiembroException ;
 
 	public JuegoDTO toDTO() {
-		JuegoDTO j = new JuegoDTO();
-		j.setIdJuego(this.idJuego);
+		JuegoDTO j = new JuegoDTO(this.idJuego);
 
 		return j;
 	}
