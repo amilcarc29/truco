@@ -4,8 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.BazaDAO;
+import dao.JugadaDAO;
 import excepciones.CartaException;
+import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.UsuarioException;
 
 public class Baza {
 	
@@ -16,7 +19,7 @@ public class Baza {
 
 	private boolean parda;
 	
-	// esto era para historial (puede que sea static), ver cuando veamos el historial
+	// NO SE PARA QUE ESTA
 	private int numero;
 	
 	
@@ -27,6 +30,8 @@ public class Baza {
 		jugadas = new LinkedList<Jugada>();
 		jugadaMayor = null;
 		parda = false;
+		
+		// VER
 		numero = 1;
 	}
 
@@ -99,31 +104,65 @@ public class Baza {
 	}
 	
 	
-	public void jugarCarta(int indiceJugador, int numero, String palo) throws JugadorException, CartaException {
-		Jugador jugador = jugadores.get(indiceJugador);
-		// solo para debug
-		if (jugadores.size() > (indiceJugador + 1)) {
-			Jugador nextj = jugadores.get(indiceJugador + 1);
+	public void jugarCarta(Carta carta, Jugador jugador) throws UsuarioException, CategoriaException {
+		try { 
+			Jugada jugada = new Jugada(jugador, carta);		
+			jugada.save(this);
+			this.jugadas.add(jugada);
+			if (jugadaMayor == null) {
+				this.actualizarJugadaMayor(jugada);
+			}
+			else {
+				if (this.jugadaMayor.esMayor(jugada))
+					this.actualizarJugadaMayor(jugada);
+			}
+			numero++;
+		} catch (UsuarioException e) {
+			e.printStackTrace();
+		} catch (CategoriaException e1) {
+			e1.printStackTrace();
 		}
-		// solo para debug
-		Carta c = jugador.getCarta(numero, palo);
-		Jugada jugada = new Jugada();
-		jugada.setJugador(jugador);
-		jugada.setCarta(c);
-		this.jugadas.add(jugada);
-		if (jugadaMayor == null)
-			jugadaMayor = jugada;
-		else {
-			if (this.jugadaMayor.esMayor(jugada))
-				this.jugadaMayor = jugada;
+	}
+	
+	public void actualizarJugadaMayor (Jugada jugada) {
+		jugadaMayor = jugada;
+		BazaDAO.getInstancia().actualizarJugadaMayor(this, jugada);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// FUNCION VIEJA DE JUGAR CARTA
+//	public void jugarCarta(int indiceJugador, int numero, String palo) throws JugadorException, CartaException {
+//		Jugador jugador = jugadores.get(indiceJugador);
+//		// solo para debug
+//		if (jugadores.size() > (indiceJugador + 1)) {
+//			Jugador nextj = jugadores.get(indiceJugador + 1);
+//		}
+//		// solo para debug
+//		Carta c = jugador.getCarta(numero, palo);
+//		Jugada jugada = new Jugada();
+//		jugada.setJugador(jugador);
+//		jugada.setCarta(c);
+//		this.jugadas.add(jugada);
+//		if (jugadaMayor == null)
+//			jugadaMayor = jugada;
+//		else {
+//			if (this.jugadaMayor.esMayor(jugada))
+//				this.jugadaMayor = jugada;
 			// Conflicto con nombre de Jugador
 			// System.out.println("jugada mayor " +
 			// jugadores.get(this.jugadaMayor.getJugador().getId()).getNombre() + " , "
 			// + this.jugadaMayor.getCarta().getNumero() + " " +
 			// this.jugadaMayor.getCarta().getPalo());
-		}
-		numero++;
-	}
+//		}
+//		numero++;
+//	}
 
 	public int getIdBaza() {
 		return idBaza;

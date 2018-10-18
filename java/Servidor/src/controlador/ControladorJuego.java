@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import dao.BazaDAO;
+import dao.CartaDAO;
 import dao.JuegoDAO;
 import dao.JugadorDAO;
 import dao.UsuarioDAO;
+import dto.BazaDTO;
 import dto.CartaDTO;
 import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -104,10 +108,12 @@ public class ControladorJuego {
 		return JuegoDAO.getInstancia().buscarJuego(idJuego);
 	}
 
-	public void jugarCarta(int idJuego, int numero, String palo)
-			throws JugadorException, CartaException, JuegoException, CategoriaException {
-		Juego j = this.buscarJuego(idJuego);
-		j.jugarCarta(numero, palo);
+	public void jugarCarta(JuegoDTO juego, CartaDTO carta, JugadorDTO jugador)
+			throws JugadorException, CartaException, JuegoException, CategoriaException, UsuarioException {
+		Juego jue = this.buscarJuego(juego.getIdJuego());
+		Carta car = CartaDAO.getInstancia().buscarCartaPorID(carta.getIdCarta());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByIdClase(jugador.getIdJugador());
+		jue.jugarCarta(car, jug);
 	}
 
 	public boolean verificarFinJuego(int idJuego)

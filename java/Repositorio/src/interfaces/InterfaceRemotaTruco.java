@@ -6,6 +6,7 @@ import java.util.List;
 
 import dto.CartaDTO;
 import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.UsuarioDTO;
 
 public interface InterfaceRemotaTruco extends Remote {
@@ -16,6 +17,7 @@ public interface InterfaceRemotaTruco extends Remote {
 	public void armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws RemoteException;
 	public List<JuegoDTO> getJuegosActivo(UsuarioDTO usuario) throws RemoteException;
 	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
+	public void jugarCarta(JuegoDTO juego, CartaDTO carta, JugadorDTO jugador) throws RemoteException;
 	
 	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 }

@@ -7,7 +7,7 @@ import excepciones.CartaException;
 
 public abstract class Jugador {
 	// sacado nombre. Nombre es atributo de Usuario no de Jugador.
-	private int idJugador = 0;
+	private int idJugador;
 	private List<Carta> cartas;
 
 	// private static int cnt = 0;

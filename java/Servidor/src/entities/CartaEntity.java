@@ -62,4 +62,14 @@ public class CartaEntity {
 	public void setPesoEnvido(int pesoEnvido) {
 		this.pesoEnvido = pesoEnvido;
 	}
+
+	public int getIdCarta() {
+		return idCarta;
+	}
+
+	public void setIdCarta(int idCarta) {
+		this.idCarta = idCarta;
+	}
+	
+	
 }

@@ -9,9 +9,12 @@ import controlador.ControladorJuego;
 import controlador.ControladorUsuario;
 import dto.CartaDTO;
 import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.UsuarioDTO;
+import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
+import excepciones.JugadorException;
 import excepciones.UsuarioException;
 import interfaces.InterfaceRemotaTruco;
 
@@ -117,5 +120,27 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public void jugarCarta(JuegoDTO juego, CartaDTO carta, JugadorDTO jugador) throws RemoteException{
+		try {
+			ControladorJuego.getInstancia().jugarCarta(juego, carta, jugador);
+		} catch (JugadorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CartaException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JuegoException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (CategoriaException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (UsuarioException e4) {
+			// TODO Auto-generated catch block
+			e4.printStackTrace();
+		}
 	}
 }

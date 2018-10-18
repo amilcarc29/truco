@@ -6,7 +6,7 @@ import dto.CartaDTO;
 
 public class Carta {
 
-	private int idCarta = 0;
+	private int idCarta;
 	private int numero;
 	private String palo;
 	private int pesoTruco;
@@ -20,7 +20,6 @@ public class Carta {
 	public Carta(int numero, String palo, int pesoTruco, int pesoEnvido) {
 		super();
 		// TODO Levantar el idCarta de la base de datos.
-		this.idCarta = idCarta;
 		setNumero(numero);
 		setPalo(palo);
 		setPesoTruco(pesoTruco);
@@ -81,8 +80,25 @@ public class Carta {
 
 	public CartaDTO toDTO() {
 		// TODO Auto-generated method stub
-		return new CartaDTO(this.numero, this.palo);
+		return new CartaDTO(this.idCarta, this.numero, this.palo);
 	}
+
+	public int getIdCarta() {
+		return idCarta;
+	}
+
+	public void setIdCarta(int idCarta) {
+		this.idCarta = idCarta;
+	}
+
+	public static int getCnt() {
+		return cnt;
+	}
+
+	public static void setCnt(int cnt) {
+		Carta.cnt = cnt;
+	}
+	
 	
 
 }

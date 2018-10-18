@@ -1,16 +1,22 @@
 package negocio;
 
+import dao.JugadaDAO;
+import excepciones.CategoriaException;
+import excepciones.UsuarioException;
+
 public class Jugada {
 
+	private int idJugada;
 	private Jugador jugador;
 	private Carta carta;
+	
+	// NO SE PARA QUE SE USA ORDEN
 	private int orden;
 
-	public Jugada(Jugador jugador, Carta carta, int orden) {
+	public Jugada(Jugador jugador, Carta carta) {
 		super();
 		setJugador(jugador);
 		setCarta(carta);
-		setOrden(orden);
 	}
 
 	public Jugada() {
@@ -43,5 +49,21 @@ public class Jugada {
 	public boolean esMayor(Jugada jugada) {
 		return carta.esMayor(jugada.getCarta());
 
+	}
+	
+	public int getIdJugada() {
+		return idJugada;
+	}
+
+	public void setIdJugada(int idJugada) {
+		this.idJugada = idJugada;
+	}
+
+	public void save(Baza baza) throws UsuarioException, CategoriaException {
+		try {
+			this.setIdJugada(JugadaDAO.getInstancia().guardarJugada(this, baza));
+		} catch (UsuarioException e) {
+			e.printStackTrace();
+		}
 	}
 }

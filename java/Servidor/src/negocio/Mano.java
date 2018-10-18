@@ -8,7 +8,9 @@ import dao.BazaDAO;
 import dao.ManoDAO;
 import entities.BazaEntity;
 import excepciones.CartaException;
+import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.UsuarioException;
 
 public class Mano {
 
@@ -279,10 +281,18 @@ public class Mano {
 		return null;
 	}
 
-	public void jugarCarta(int numero, String palo) throws JugadorException, CartaException {
+	public void jugarCarta(Carta carta, Jugador jugador) throws JugadorException, CartaException, UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).jugarCarta(jugadorIndice, numero, palo);
-		jugadorIndice++;
+		try {
+			this.bazas.get(this.bazas.size() - 1).jugarCarta(carta, jugador);
+			jugadorIndice++;
+			
+		// VER BIEN LAS EXCEPCIONES
+		} catch (UsuarioException e) {
+			e.printStackTrace();
+		} catch (CategoriaException e1) {
+			e1.printStackTrace();
+		} 
 	}
 
 	public boolean finalizoMano() {

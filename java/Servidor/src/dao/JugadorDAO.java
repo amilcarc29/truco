@@ -34,6 +34,19 @@ public class JugadorDAO {
 			throw new UsuarioException("El jugador con id: " + idJugador + "no existe en la base de datos.");
 		}
 	}
+	
+	public Jugador buscarJugadorByIdClase(int idJugador) throws UsuarioException, CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JugadorEntity jugadorEntity = (JugadorEntity) session.createQuery("from JugadorEntity where idJugador = ?")
+				.setParameter(0, idJugador).uniqueResult();
+		session.close();
+		if (jugadorEntity != null) {
+			return toNegocio(jugadorEntity);
+		} else {
+			throw new UsuarioException("El jugador con id: " + idJugador + "no existe en la base de datos.");
+		}
+	}
 
 	public Jugador toNegocio(JugadorEntity pe) throws CategoriaException {
 		Jugador j = null;
