@@ -1,6 +1,11 @@
 package dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import entities.BazaEntity;
+import entities.ManoEntity;
+import hbt.HibernateUtil;
 import negocio.Baza;
 import negocio.Mano;
 
@@ -16,8 +21,19 @@ public class BazaDAO {
 	public BazaDAO() {
 	}
 
-	public int guardarBaza(Mano mano,Baza baza) {
+	public int guardarBaza(Mano mano) {
+		ManoEntity m = null;
+		//ver excepciones
+		m = ManoDAO.getInstancia().buscarManoPorID(mano.getIdMano());
+		BazaEntity bz = new BazaEntity(m, null);
 		
-		return 0;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(bz);
+		session.getTransaction().commit();
+		session.close();
+		
+		return bz.getIdBaza();
 	}
 }

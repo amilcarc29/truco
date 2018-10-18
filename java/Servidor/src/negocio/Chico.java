@@ -163,9 +163,10 @@ public class Chico {
 		// puntosPorTerminar del Chico?   
 		// ---> Porque en el chico ya tenemos las parejas, los puntos y los jugadores.
 
-		Mano mano = new Mano(parejas, jugadores, puntosChico, puntosParaTerminar);
-		
+		Mano mano = new Mano(parejas, jugadores, puntosChico, puntosParaTerminar);		
 		mano.save(this);
+		mano.altaBaza();		
+		
 		manos.add(mano);
 
 //		System.out.println("MANO NUMERO " + manos.size());

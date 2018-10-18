@@ -29,6 +29,9 @@ public class Mano {
 	private Pareja ganadorBaza1 = null;
 	private Jugada jugadaMayor = null;
 	private boolean trucoCantado = false;
+	
+	// que es esto? Por que se crea en altaBaza y no en el constructor? 
+	// POR QUE SE INICIALIZA ACA? (MAL)
 	private int jugadorIndice = 0;
 	//
 
@@ -45,9 +48,8 @@ public class Mano {
 
 	}
 
-	private void altaBaza() {
-		Baza b = new Baza();
-		b.setJugadores(jugadores);
+	public void altaBaza() {
+		Baza b = new Baza(this.getJugadores());
 		b.save(this);
 		this.bazas.add(b);
 		// System.out.println("BAZA NUMERO " + this.bazas.size());

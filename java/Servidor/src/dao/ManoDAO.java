@@ -38,11 +38,22 @@ public class ManoDAO {
 		session.getTransaction().commit();
 		session.close();
 		mano.setIdMano(me.getIdMano());
-		Baza baza = new Baza();
-		BazaDAO.getInstancia().guardarBaza(mano, baza);
 
 		return me.getIdMano();
-
+	}
+	
+	public ManoEntity buscarManoPorID(int idMano) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		ManoEntity mano = (ManoEntity) session.createQuery("from ManoEntity where idMano = ?")
+				.setParameter(0, idMano).uniqueResult();
+		session.close();
+		if (mano != null) {
+			return mano;
+		} else {
+			// ver excepciones
+			return null;
+		}
 	}
 
 }

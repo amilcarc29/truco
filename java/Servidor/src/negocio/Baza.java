@@ -12,9 +12,11 @@ public class Baza {
 	private int idBaza;
 	private List<Jugador> jugadores;
 	private List<Jugada> jugadas;
-	private Jugada jugadaMayor = null;
+	private Jugada jugadaMayor;
 
-	private boolean parda = false;
+	private boolean parda;
+	
+	// esto era para historial (puede que sea static), ver cuando veamos el historial
 	private int numero;
 	
 	
@@ -22,6 +24,10 @@ public class Baza {
 	public Baza(List<Jugador> jugadores) {
 		super();
 		this.jugadores = jugadores;
+		jugadas = new LinkedList<Jugada>();
+		jugadaMayor = null;
+		parda = false;
+		numero = 1;
 	}
 
 	public Baza() {
@@ -87,8 +93,9 @@ public class Baza {
 	}
 	
 	
-	public int save(Mano mano) {
-		return BazaDAO.getInstancia().guardarBaza(mano , this);
+	// sacado el return. PARA QUE QUEREMOS QUE RETORNE EL ID? (Puede que lo usaban para algo y no se)
+	public void save(Mano mano) {
+		this.setIdBaza(BazaDAO.getInstancia().guardarBaza(mano));
 	}
 	
 	

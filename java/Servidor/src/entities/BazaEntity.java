@@ -25,4 +25,36 @@ public class BazaEntity {
 
 	public BazaEntity() {
 	}
+
+	public BazaEntity(ManoEntity mano, JugadaEntity jugadaMayor) {
+		super();
+		this.mano = mano;
+		this.jugadaMayor = jugadaMayor;
+	}
+
+	public int getIdBaza() {
+		return idBaza;
+	}
+
+	public void setIdBaza(int idBaza) {
+		this.idBaza = idBaza;
+	}
+
+	public ManoEntity getMano() {
+		return mano;
+	}
+
+	public void setMano(ManoEntity mano) {
+		this.mano = mano;
+	}
+
+	public JugadaEntity getJugadaMayor() {
+		return jugadaMayor;
+	}
+
+	public void setJugadaMayor(JugadaEntity jugadaMayor) {
+		this.jugadaMayor = jugadaMayor;
+	}
+	
+	
 }
