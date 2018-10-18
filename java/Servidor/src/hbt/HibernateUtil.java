@@ -37,7 +37,6 @@ public class HibernateUtil {
 			config.addAnnotatedClass(ManoEntity.class);
 			config.addAnnotatedClass(PuntuacionEntity.class);
 			config.addAnnotatedClass(ChicoEntity.class);
-			
 			config.addAnnotatedClass(BazaEntity.class);
 			config.addAnnotatedClass(CartaEntity.class);
 			config.addAnnotatedClass(JugadaEntity.class);

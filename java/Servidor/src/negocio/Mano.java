@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import dao.BazaDAO;
 import dao.ManoDAO;
+import entities.BazaEntity;
 import excepciones.CartaException;
 import excepciones.JugadorException;
 
@@ -456,7 +458,10 @@ public class Mano {
 	}
 
 	public void save(Chico chico) {
-		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico));
+		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
+	
+		
+		
 	}
 
 }

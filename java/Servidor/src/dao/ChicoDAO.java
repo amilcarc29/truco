@@ -6,9 +6,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.BazaEntity;
 import entities.ChicoEntity;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
+import entities.ManoEntity;
 import entities.ParejaEntity;
 import entities.PuntuacionEntity;
 import excepciones.CategoriaException;
@@ -70,6 +72,9 @@ public class ChicoDAO {
 
 		session.getTransaction().commit();
 		session.close();
+		
+		
+
 		
 		return ch.getIdChico();
 	}
