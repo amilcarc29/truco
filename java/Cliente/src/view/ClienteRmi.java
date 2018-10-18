@@ -1,12 +1,8 @@
 package view;
 
-import java.util.List;
-
 import javax.swing.JOptionPane;
 
 import delegado.BusinessDelegateTruco;
-import dto.CartaDTO;
-import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 
