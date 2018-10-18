@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
@@ -58,6 +59,7 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
+
 	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
 		try {
 			return ir.esMiTurno(juego, usuario);
@@ -65,7 +67,13 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
-	
-	
+
+	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
+		try {
+			return ir.getCartas(juego, usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
 
 }

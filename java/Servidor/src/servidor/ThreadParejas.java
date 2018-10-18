@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.Vector;
 
 import controlador.ControladorArmadoJuegos;
+import controlador.ControladorJuego;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
 import excepciones.ParejaException;
@@ -73,6 +74,7 @@ public class ThreadParejas implements Runnable {
 
 	public void armarParejasIndividuales() {
 		Vector<JugadorIndividual> jugadoresLibres = new Vector<>();
+		ControladorJuego.getInstancia();
 		while (!stop) {
 			try {
 				System.out.println("buscando jugadores individuales");

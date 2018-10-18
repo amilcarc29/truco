@@ -6,11 +6,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import entities.CategoriaEntity;
+import entities.ChicoEntity;
 import entities.GrupoEntity;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
+import entities.ManoEntity;
 import entities.MiembroEntity;
 import entities.ParejaEntity;
+import entities.PuntuacionEntity;
 import entities.UsuarioEntity;
 
 public class HibernateUtil {
@@ -27,7 +30,10 @@ public class HibernateUtil {
 			config.addAnnotatedClass(MiembroEntity.class);
 			config.addAnnotatedClass(GrupoEntity.class);
 			config.addAnnotatedClass(JuegoEntity.class);
-
+			config.addAnnotatedClass(ChicoEntity.class);
+			config.addAnnotatedClass(ManoEntity.class);
+			config.addAnnotatedClass(PuntuacionEntity.class);
+			config.addAnnotatedClass(ChicoEntity.class);
 			sessionFactory = config.buildSessionFactory();
 			
 			

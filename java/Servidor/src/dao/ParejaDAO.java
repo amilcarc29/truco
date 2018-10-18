@@ -1,8 +1,11 @@
 package dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.JuegoEntity;
 import entities.JugadorEntity;
 import entities.MiembroEntity;
 import entities.ParejaEntity;
@@ -67,7 +70,25 @@ public class ParejaDAO {
 		ss.getTransaction().commit();
 		ss.close();
 
+		pareja.setIdPareja(pe.getIdPareja());
+
 		return toNegocio(pe);
+	}
+
+	public void aumentarPuntos(Pareja pareja) throws ParejaException {
+		ParejaEntity pa = null;
+		try {
+			pa = this.buscarParejaPorId(pareja.getIdPareja());
+		} catch (ParejaException e) {
+			e.printStackTrace();
+		}
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(pa);
+		session.getTransaction().commit();
+		session.close();
+
 	}
 
 	public Pareja guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException {
@@ -113,7 +134,7 @@ public class ParejaDAO {
 		return toNegocio(pe);
 	}
 
-	private Pareja toNegocio(ParejaEntity pe) throws CategoriaException {
+	public Pareja toNegocio(ParejaEntity pe) throws CategoriaException {
 		// TODO Auto-generated method stub
 		Pareja p = new Pareja(JugadorDAO.getInstancia().toNegocio(pe.getJugador1()),
 				JugadorDAO.getInstancia().toNegocio(pe.getJugador2()));
@@ -133,5 +154,26 @@ public class ParejaDAO {
 		} else {
 			throw new ParejaException("La pareja con id: " + idPareja + "no existe en la base de datos.");
 		} // TODO Auto-generated method stub
+	}
+
+	public void actualizarJuego(int idPareja, int idJuego) throws ParejaException {
+		// TODO Auto-generated method stub
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		List<JugadorEntity> jugadorEntity = (List<JugadorEntity>) session.createQuery("from JugadorEntity where idPareja = ?")
+				.setParameter(0, idPareja).list();
+
+		JuegoEntity je = JuegoDAO.getInstancia().buscarJuegoPorID(idJuego);
+
+		session.beginTransaction();
+
+		for (JugadorEntity jugadorEnt : jugadorEntity) {
+			jugadorEnt.setJuego(je);
+			session.saveOrUpdate(jugadorEnt);
+		}
+
+		session.getTransaction().commit();
+		session.close();
 	}
 }

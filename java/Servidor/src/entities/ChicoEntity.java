@@ -25,7 +25,9 @@ public class ChicoEntity {
 	private ParejaEntity parejaGanadora;
 	
 	private int puntosXGanar;
-
+	
+	public ChicoEntity() {}
+	
 	public ChicoEntity(JuegoEntity juego, ParejaEntity parejaGanadora, int puntosXGanar) {
 		super();
 		this.juego = juego;

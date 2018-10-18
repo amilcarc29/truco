@@ -121,4 +121,9 @@ public abstract class Jugador {
 
 		return truco;
 	}
+
+	public List<Carta> getCartas() {
+		return this.cartas;
+
+	}
 }

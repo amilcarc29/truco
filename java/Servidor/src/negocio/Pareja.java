@@ -6,6 +6,7 @@ import java.util.List;
 import dao.ParejaDAO;
 import excepciones.CategoriaException;
 import excepciones.MiembroException;
+import excepciones.ParejaException;
 
 public class Pareja {
 	private int idPareja = 0;
@@ -20,6 +21,15 @@ public class Pareja {
 		jugadores.add(j2);
 		
 	}
+
+
+
+	public void setJugadores(List<Jugador> jugadores) {
+		this.jugadores = jugadores;
+	}
+
+
+
 
 	public Categoria obtenerMayorCategoria() {
 		return null;
@@ -84,7 +94,7 @@ public class Pareja {
 		return jugadores.get(1);
 	}
 	
-	public Pareja  saveIndividual() throws CategoriaException {
+	public Pareja saveIndividual() throws CategoriaException {
 		return ParejaDAO.getInstancia().guardarParejaIndividual(this);
 	}
 	

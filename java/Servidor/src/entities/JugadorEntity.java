@@ -47,6 +47,14 @@ public class JugadorEntity {
 		this.idJugador = idJugador;
 	}
 
+	public JuegoEntity getJuego() {
+		return juego;
+	}
+
+	public void setJuego(JuegoEntity juego) {
+		this.juego = juego;
+	}
+
 	public UsuarioEntity getUsuario() {
 		return usuario;
 	}

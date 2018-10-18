@@ -13,6 +13,7 @@ import excepciones.CategoriaException;
 import excepciones.JuegoException;
 import excepciones.ParejaException;
 import hbt.HibernateUtil;
+import negocio.Chico;
 import negocio.Juego;
 import negocio.ModalidadLibreIndividual;
 
@@ -31,13 +32,20 @@ public class JuegoDAO {
 	public int guardarJuegoLibreIndividual(Juego juego) throws ParejaException {
 		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja1().getIdPareja());
 		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja2().getIdPareja());
+
 		JuegoEntity ent = new JuegoEntity(par1, par2, "LIBRE");
+
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
 		session.saveOrUpdate(ent);
 		session.getTransaction().commit();
 		session.close();
+
+		// guarda el id de juego para los jugadores de la pareja
+		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja1().getIdPareja(), ent.getId());
+		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja2().getIdPareja(), ent.getId());
+	
 		return ent.getId();
 	}
 
@@ -98,6 +106,8 @@ public class JuegoDAO {
 		Juego j = null;
 		if (juegoEntity.getTipoDeJuego().equals("LIBRE")) {
 			j = new ModalidadLibreIndividual();
+			List<Chico> chicos = ChicoDAO.getInstancia().getChicos(juegoEntity.getId());
+			j.setChico(chicos);
 			j.setId(juegoEntity.getId());
 		}
 		return j;
@@ -114,5 +124,21 @@ public class JuegoDAO {
 		} else {
 			throw new JuegoException("El juego con id: " + idJuego + "no existe en la base de datos.");
 		}
+	}
+
+	public List<Juego> getJuegosActivos() throws CategoriaException {
+
+		List<Juego> juegNeg = new ArrayList<>();
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		List<JuegoEntity> juegos = (List<JuegoEntity>) session.createQuery("from JuegoEntity where activo = 1 ").list();
+		session.close();
+
+		for (JuegoEntity juegoEntity : juegos) {
+			juegNeg.add(toNegocio(juegoEntity));
+		}
+
+		return juegNeg;
 	}
 }

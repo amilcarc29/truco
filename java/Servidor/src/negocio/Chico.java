@@ -23,9 +23,6 @@ public class Chico {
 
 	private List<Jugador> jugadores;
 
-	// PARA FALTA ENVIDO
-	private int puntosParaTerminar;
-
 	
 	private boolean sePuedeCantarEnvido = true;
 	
@@ -41,12 +38,11 @@ public class Chico {
 		jugadores.add(this.parejas.get(0).getJugadores().get(1));
 		jugadores.add(this.parejas.get(1).getJugadores().get(1));
 
+		// CREAR LAS PUNTUACIONES ACA PUEDE GENERAR PROBLEMAS. HAY QUE PERSISTIR PUNTUACIONES Y CHICO A LA VEZ
 		for (Pareja pareja : this.parejas) {
 
 			/// puntos en 0
 			Puntuacion p = new Puntuacion(pareja);
-			// ACA GUARDAR LAS PUNTUACIONES EN LA BD
-			// p.save()
 			this.puntosChico.add(p);
 		}
 
@@ -56,6 +52,7 @@ public class Chico {
 		
 		// puntos totales para terminar el chico (30). Es un chico, no dos de 15
 		this.puntosPorGanar = 30;
+//		altaMano(this.puntosPorGanar);
 
 	}
 	
@@ -128,7 +125,7 @@ public class Chico {
 			}
 
 			cambiarOrden();
-			Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
+			Mano mano = new Mano(parejas, jugadores, puntosChico, puntosPorGanar);
 			manos.add(mano);
 			return false;
 
@@ -163,12 +160,12 @@ public class Chico {
 	// TODO Agregar parámetro parejas a Diagrama.
 	public void altaMano(int puntosParaTerminar) {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
-		// puntosPorTerminar del Chico?
+		// puntosPorTerminar del Chico?   
+		// ---> Porque en el chico ya tenemos las parejas, los puntos y los jugadores.
 
-		this.puntosParaTerminar = puntosParaTerminar;
-
-		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
-
+		Mano mano = new Mano(parejas, jugadores, puntosChico, puntosParaTerminar);
+		
+		mano.save(this);
 		manos.add(mano);
 
 //		System.out.println("MANO NUMERO " + manos.size());
@@ -239,11 +236,11 @@ public class Chico {
 	}
 	
 	public void save (Juego juego) throws UsuarioException, CategoriaException, ParejaException {
-		ChicoDAO.getInstancia().guardarChico(juego, this);
+		this.setIdChico(ChicoDAO.getInstancia().guardarChico(juego, this));
 	}
 
-	public boolean esTurno(Usuario us) {
-		return  this.manos.get(this.manos.size() - 1).esTurno(us);		
+	public boolean esTurno(Jugador jugador) {
+		return  this.manos.get(this.manos.size() - 1).esTurno(jugador);		
 	}
 	
 	public void crearMano () {
@@ -254,7 +251,7 @@ public class Chico {
 		return idChico;
 	}
 
-	public void setIdCico(int idJuego) {
+	public void setIdChico(int idJuego) {
 		this.idChico = idJuego;
 	}
 
@@ -298,8 +295,16 @@ public class Chico {
 		this.sePuedeCantarEnvido = sePuedeCantarEnvido;
 	}
 
-	public void setPuntosParaTerminar(int puntosParaTerminar) {
-		this.puntosParaTerminar = puntosParaTerminar;
+
+
+	public List<Carta> getCartas(Jugador jug) {
+		// TODO Auto-generated method stub
+		
+		for (Jugador jugador : jugadores) {
+					if(jugador.esJugador(jug.getId()))
+						return jugador.getCartas();
+		}
+		return null;
 	}
 	
 	

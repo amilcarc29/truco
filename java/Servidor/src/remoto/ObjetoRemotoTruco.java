@@ -7,6 +7,7 @@ import java.util.List;
 import controlador.ControladorArmadoJuegos;
 import controlador.ControladorJuego;
 import controlador.ControladorUsuario;
+import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
@@ -87,7 +88,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	@Override
 	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
-			ControladorJuego.getInstancia().turnoJugador(juego, usuario);
+			return ControladorJuego.getInstancia().turnoJugador(juego, usuario);
 		} catch (CategoriaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,4 +101,22 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 		return false;
 	}
+
+	@Override
+	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
+		try {
+			return ControladorJuego.getInstancia().getCartas(juego, usuario);
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
 }

@@ -8,6 +8,7 @@ import dto.JuegoDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
@@ -118,8 +119,8 @@ public abstract class Juego {
 			jugadores.addAll(this.parejas.get(i).getJugadores());
 		}
 		Chico chico = new Chico(parejas);
-		// IMPEMENTAR GUARDADO DE JUEGO EN BD
-		// chico.save(this);
+		chico.save(this);
+		chico.altaMano(chico.getPuntosParaTerminar());
 		chicos.add(chico);
 	}
 
@@ -191,7 +192,7 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).puntosDbg(idPareja);
 	}
 
-	public abstract void save() throws ParejaException;
+	public abstract void save() throws ParejaException, CategoriaException, MiembroException ;
 
 	public JuegoDTO toDTO() {
 		JuegoDTO j = new JuegoDTO();
@@ -200,7 +201,16 @@ public abstract class Juego {
 		return j;
 	}
 
-	public boolean esTurno(Usuario us) {
-		return chicos.get(chicos.size() - 1).esTurno(us);
+	public void setChico( List<Chico> chicos) {
+		this.chicos = chicos;
+	}
+
+	public boolean esTurno(Jugador jug) {
+		return chicos.get(chicos.size() - 1).esTurno(jug);
+	}
+
+	public 	List<Carta> getCartas(Jugador jug) {
+		// TODO Auto-generated method stub
+		return chicos.get(chicos.size() - 1).getCartas(jug);
 	}
 }
