@@ -1,8 +1,12 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.ChicoEntity;
 import entities.JugadorEntity;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
@@ -34,7 +38,7 @@ public class JugadorDAO {
 			throw new UsuarioException("El jugador con id: " + idJugador + "no existe en la base de datos.");
 		}
 	}
-	
+
 	public Jugador buscarJugadorByIdClase(int idJugador) throws UsuarioException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -61,15 +65,35 @@ public class JugadorDAO {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		JugadorEntity jugadorEntity = (JugadorEntity) session.createQuery("from JugadorEntity where idJuego = ? and idUsuario = ?")
-				.setParameter(0, idJuego).setParameter(1, idUsuario).uniqueResult();
+		JugadorEntity jugadorEntity = (JugadorEntity) session
+				.createQuery("from JugadorEntity where idJuego = ? and idUsuario = ?").setParameter(0, idJuego)
+				.setParameter(1, idUsuario).uniqueResult();
 		session.close();
 		if (jugadorEntity != null) {
 			return toNegocio(jugadorEntity);
 		} else {
-//			throw new UsuarioException("El jugador con id: " + idJugador + "no existe en la base de datos.");
+			// throw new UsuarioException("El jugador con id: " + idJugador + "no existe en
+			// la base de datos.");
 		}
 		return null;
 	}
-	
+
+	public List<Jugador> buscarJugadoresByJuego(int idJuego) throws CategoriaException {
+		// TODO Auto-generated method stub
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		List<JugadorEntity> jugadoresEntity = (List<JugadorEntity>)session.createQuery("from JugadorEntity where idJuego = ? ")
+				.setParameter(0, idJuego).list();
+		
+		
+		session.close();
+		List<Jugador>  jugadores = new ArrayList<>();
+		
+		for (JugadorEntity je : jugadoresEntity) {
+			jugadores.add(toNegocio(je));
+		}
+		
+		return jugadores;
+	}
 }

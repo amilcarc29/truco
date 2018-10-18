@@ -1,16 +1,22 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import entities.CartaEntity;
 import entities.CategoriaEntity;
+import entities.JuegoEntity;
 import excepciones.CategoriaException;
 import hbt.HibernateUtil;
 import negocio.Carta;
+import negocio.Juego;
 
 public class CartaDAO {
-	
+
 	private static CartaDAO instancia;
 
 	public CartaDAO() {
@@ -22,7 +28,7 @@ public class CartaDAO {
 		}
 		return instancia;
 	}
-	
+
 	public Carta buscarCartaPorID(int idCarta) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -34,10 +40,10 @@ public class CartaDAO {
 		} else {
 			// falta la excepcion Carta
 			return null;
-		}		
+		}
 	}
-	
-	public CartaEntity buscarCartaPorIDEntity (int idCarta) {
+
+	public CartaEntity buscarCartaPorIDEntity(int idCarta) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		CartaEntity cartaEntity = (CartaEntity) session.createQuery("from CartaEntity where idCarta = ?")
@@ -48,13 +54,29 @@ public class CartaDAO {
 		} else {
 			// falta la excepcion Carta
 			return null;
-		}	
+		}
 	}
-	
-	public Carta toNegocio (CartaEntity carta) {
-		Carta c = new Carta (carta.getNumero(), carta.getPalo(), carta.getPesoTruco(), carta.getPesoEnvido());
+
+	public Carta toNegocio(CartaEntity carta) {
+		Carta c = new Carta(carta.getNumero(), carta.getPalo(), carta.getPesoTruco(), carta.getPesoEnvido());
 		c.setIdCarta(carta.getIdCarta());
-		return c;		
+		return c;
+	}
+
+	public Vector<Carta> getCartas() {
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		Vector<Carta> cartas = new Vector<>();
+		
+		List<CartaEntity> cartasEnt = (List<CartaEntity>) session.createQuery("from CartaEntity").list();
+		session.close();
+
+		for (CartaEntity c : cartasEnt) {
+			cartas.add(toNegocio(c));
+		}
+
+		return cartas;
 	}
 
 }

@@ -18,6 +18,8 @@ import excepciones.ParejaException;
 import hbt.HibernateUtil;
 import negocio.Chico;
 import negocio.Juego;
+import negocio.JugadorIndividual;
+import negocio.Mano;
 import negocio.Pareja;
 
 public class ChicoDAO {
@@ -47,7 +49,7 @@ public class ChicoDAO {
 		try {
 			pa1 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(0).getIdPareja());
 			pa2 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(1).getIdPareja());
-		} catch (ParejaException e1){
+		} catch (ParejaException e1) {
 			e1.printStackTrace();
 		}
 
@@ -62,7 +64,7 @@ public class ChicoDAO {
 
 		// alta de puntuaciones
 
-		PuntuacionEntity pe1 = new PuntuacionEntity(ch, pa1 , chico.getPuntosChico().get(0).getPuntos());
+		PuntuacionEntity pe1 = new PuntuacionEntity(ch, pa1, chico.getPuntosChico().get(0).getPuntos());
 		session.saveOrUpdate(pe1);
 
 		PuntuacionEntity pe2 = new PuntuacionEntity(ch, pa2, chico.getPuntosChico().get(1).getPuntos());
@@ -99,7 +101,7 @@ public class ChicoDAO {
 		List<ChicoEntity> chicos = (List<ChicoEntity>) session.createQuery("from ChicoEntity where idJuego = ?")
 				.setParameter(0, idJuego).list();
 		for (ChicoEntity chicoent : chicos) {
-			
+
 			ch.add(toNegocio(chicoent));
 		}
 		session.close();
@@ -108,11 +110,23 @@ public class ChicoDAO {
 
 	private Chico toNegocio(ChicoEntity chicoent) throws CategoriaException {
 		List<Pareja> parejas = new ArrayList<>();
-		
+
 		parejas.add(ParejaDAO.getInstancia().toNegocio(chicoent.getJuego().getPareja1()));
 		parejas.add(ParejaDAO.getInstancia().toNegocio(chicoent.getJuego().getPareja2()));
 		Chico c = new Chico(parejas);
+
 		c.setIdChico(chicoent.getIdChico());
+
+		c.setManos(ManoDAO.getInstancia().buscarManosdeChico(c.getIdChico()));
+		//arreglar el setter de las manos
+		
+		for (Mano m : c.getManos()) {
+			m.setParejas(parejas);
+			m.setJugadores(JugadorDAO.getInstancia().buscarJugadoresByJuego(chicoent.getJuego().getId()));
+			m.setPuntos(PuntuacionDAO.getInstancia().buscarPuntosByChico(chicoent.getIdChico()));
+		}
+		
+		
 		return c;
 	}
 }

@@ -31,11 +31,15 @@ public class Mano {
 	private Pareja ganadorBaza1 = null;
 	private Jugada jugadaMayor = null;
 	private boolean trucoCantado = false;
-	
-	// que es esto? Por que se crea en altaBaza y no en el constructor? 
-	// POR QUE SE INICIALIZA ACA? (MAL)
+
+	// esto mantiene el turno de los jugadores se puede iniciar donde sea pero se
+	// incrementa con cada jugada
 	private int jugadorIndice = 0;
+
 	//
+	public Mano(int idMano) {
+		this.idMano = idMano;
+	}
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> puntos, int puntoParaTerminarChico) {
 		super();
@@ -47,6 +51,8 @@ public class Mano {
 		// this.mazo = obtenerMazo();
 		this.bazas = new ArrayList<Baza>();
 		// FALTA VER SI SE CREA ENVIDO Y/O TRUCO
+
+		mazo = new Mazo();
 
 	}
 
@@ -281,18 +287,19 @@ public class Mano {
 		return null;
 	}
 
-	public void jugarCarta(Carta carta, Jugador jugador) throws JugadorException, CartaException, UsuarioException, CategoriaException {
+	public void jugarCarta(Carta carta, Jugador jugador)
+			throws JugadorException, CartaException, UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
 		try {
 			this.bazas.get(this.bazas.size() - 1).jugarCarta(carta, jugador);
 			jugadorIndice++;
-			
-		// VER BIEN LAS EXCEPCIONES
+
+			// VER BIEN LAS EXCEPCIONES
 		} catch (UsuarioException e) {
 			e.printStackTrace();
 		} catch (CategoriaException e1) {
 			e1.printStackTrace();
-		} 
+		}
 	}
 
 	public boolean finalizoMano() {
@@ -469,9 +476,7 @@ public class Mano {
 
 	public void save(Chico chico) {
 		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
-	
-		
-		
+
 	}
 
 }

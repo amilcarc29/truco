@@ -25,7 +25,8 @@
 //	static Jugador j3 = new JugadorIndividual(us1);
 //	static Jugador j4 = new JugadorIndividual(us1);
 //
-//	public static void main(String[] args) throws JugadorException, CartaException, JuegoException, CategoriaException, UsuarioException, ParejaException {
+//	public static void main(String[] args) throws JugadorException, CartaException, JuegoException, CategoriaException,
+//			UsuarioException, ParejaException {
 //
 //		// CONFLICTO CON NOMBRE JUGADOR
 //		// j1.setNombre("Emiliano");

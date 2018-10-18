@@ -74,7 +74,12 @@ public class ThreadParejas implements Runnable {
 
 	public void armarParejasIndividuales() {
 		Vector<JugadorIndividual> jugadoresLibres = new Vector<>();
+		
+		//carga los juegos que quedaron guardados
 		ControladorJuego.getInstancia();
+		
+		
+		
 		while (!stop) {
 			try {
 				System.out.println("buscando jugadores individuales");
