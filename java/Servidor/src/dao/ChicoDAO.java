@@ -15,7 +15,6 @@ import entities.ParejaEntity;
 import entities.PuntuacionEntity;
 import excepciones.CategoriaException;
 import excepciones.ParejaException;
-import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Chico;
 import negocio.Juego;
@@ -35,7 +34,6 @@ public class ChicoDAO {
 	}
 
 	public int guardarChico(Juego juego, Chico chico) throws ParejaException {
-
 		JuegoEntity jue = null;
 		ParejaEntity pa1 = null;
 		ParejaEntity pa2 = null;
@@ -45,7 +43,7 @@ public class ChicoDAO {
 		} catch (ParejaException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			pa1 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(0).getIdPareja());
 			pa2 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(1).getIdPareja());
@@ -56,9 +54,9 @@ public class ChicoDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
-		
+
 		// alta de Chico
-		
+
 		ChicoEntity ch = new ChicoEntity(jue, null, chico.getPuntosPorGanar());
 		session.saveOrUpdate(ch);
 
@@ -72,13 +70,10 @@ public class ChicoDAO {
 
 		session.getTransaction().commit();
 		session.close();
-		
-		
 
-		
 		return ch.getIdChico();
 	}
-	
+
 	public ChicoEntity buscarChicoPorID(int idChico) {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -103,14 +98,11 @@ public class ChicoDAO {
 
 		List<ChicoEntity> chicos = (List<ChicoEntity>) session.createQuery("from ChicoEntity where idJuego = ?")
 				.setParameter(0, idJuego).list();
-
 		for (ChicoEntity chicoent : chicos) {
 			
 			ch.add(toNegocio(chicoent));
 		}
-
 		session.close();
-
 		return ch;
 	}
 
@@ -123,5 +115,4 @@ public class ChicoDAO {
 		c.setIdChico(chicoent.getIdChico());
 		return c;
 	}
-
 }

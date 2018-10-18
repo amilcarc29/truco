@@ -8,7 +8,6 @@ import java.util.List;
 
 import dto.CartaDTO;
 import dto.JuegoDTO;
-import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 import interfaces.InterfaceRemotaTruco;

@@ -6,10 +6,9 @@ import dao.JuegoDAO;
 import excepciones.CategoriaException;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
-import excepciones.UsuarioException;
 
 public class ModalidadLibreIndividual extends Juego{
-	
+
 	public ModalidadLibreIndividual() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -19,16 +18,13 @@ public class ModalidadLibreIndividual extends Juego{
 		super(parejas);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 	@Override
 	public void calcularPuntos() {
 		// TODO Auto-generated method stub
-		
-	}
-	public void save() throws ParejaException, CategoriaException, MiembroException {
-		this.setId(JuegoDAO.getInstancia().guardarJuegoLibreIndividual(this));
-		
 	}
 
+	public void save() throws ParejaException, CategoriaException, MiembroException {
+		this.setId(JuegoDAO.getInstancia().guardarJuegoLibreIndividual(this));
+	}
 }

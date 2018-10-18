@@ -60,10 +60,8 @@ public class Mano {
 
 	private void repartir() {
 		for (Jugador jug : jugadores) {
-
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
 			jug.setCartas(cartas);
-
 		}
 	}
 
