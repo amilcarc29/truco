@@ -91,7 +91,9 @@ public class BazaDAO {
 
 	private Baza toNegocio(BazaEntity bazaEntity) {
 		// TODO Auto-generated method stub
-		return new Baza();
+		Baza b  = new Baza();
+		b.setIdBaza(bazaEntity.getIdBaza());
+		return b;
 	}
 
 	public void actualizarJugadaMayor(Baza baza, Jugada jugada) {
