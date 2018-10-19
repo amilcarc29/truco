@@ -28,7 +28,7 @@ public class JugadorEntity {
 	@OneToOne
 	@JoinColumn(name = "idJuego")
 	private JuegoEntity juego;
-
+	
 	public JugadorEntity() {}
 
 	public JugadorEntity(UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro, String tipo) {

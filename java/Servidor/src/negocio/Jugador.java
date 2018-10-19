@@ -3,7 +3,10 @@ package negocio;
 import java.util.LinkedList;
 import java.util.List;
 
+import dao.JugadorCartaDAO;
 import excepciones.CartaException;
+import excepciones.CategoriaException;
+import excepciones.UsuarioException;
 
 public abstract class Jugador {
 	// sacado nombre. Nombre es atributo de Usuario no de Jugador.
@@ -65,9 +68,10 @@ public abstract class Jugador {
 		}
 	}
 
-	public void setCartas(List<Carta> cartas) {
-
+	public void setCartas(List<Carta> cartas) throws UsuarioException, CategoriaException {
 		this.cartas = cartas;
+		JugadorCartaDAO.getInstancia().guardarCartas(this.cartas, this);
+
 	}
 
 	// calcula cuanto tiene de envido un jugador

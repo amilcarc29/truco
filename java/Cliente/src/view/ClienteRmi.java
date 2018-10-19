@@ -36,6 +36,8 @@ public class ClienteRmi {
 			new BusinessDelegateTruco().agregarAListaEspera(us3);
 			new BusinessDelegateTruco().agregarAListaEspera(us4);
 
+			
+			
 //////
 //			
 ////

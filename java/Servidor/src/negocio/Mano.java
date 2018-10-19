@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import dao.BazaDAO;
+import dao.JugadorDAO;
 import dao.ManoDAO;
 import entities.BazaEntity;
 import excepciones.CartaException;
@@ -41,7 +42,7 @@ public class Mano {
 		this.idMano = idMano;
 	}
 
-	public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> puntos, int puntoParaTerminarChico) {
+	public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> puntos, int puntoParaTerminarChico) throws UsuarioException, CategoriaException {
 		super();
 		this.parejas = parejas;
 		this.jugadores = jugadores;
@@ -53,6 +54,11 @@ public class Mano {
 		// FALTA VER SI SE CREA ENVIDO Y/O TRUCO
 
 		mazo = new Mazo();
+		repartir();
+		
+		
+		
+		
 
 	}
 
@@ -68,16 +74,15 @@ public class Mano {
 		return this.puntos;
 	}
 
-	private void repartir() {
+	private void repartir() throws UsuarioException, CategoriaException {
 		for (Jugador jug : jugadores) {
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
 			jug.setCartas(cartas);
 		}
+		
 	}
 
-	// public Mazo obtenerMazo() {
-	//
-	// }
+
 
 	public List<Pareja> getParejas() {
 		return parejas;

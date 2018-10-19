@@ -18,7 +18,7 @@ import negocio.JugadorIndividual;
 
 public class ThreadParejas implements Runnable {
 
-	public Integer loop = 1000;
+	public Integer loop = 10000;
 	public boolean stop = false;
 
 	@Override
@@ -102,7 +102,7 @@ public class ThreadParejas implements Runnable {
 				} else {
 					System.out.println("no se encuentran jugadores libres");
 				}
-				Thread.sleep(1000);
+				Thread.sleep(loop);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

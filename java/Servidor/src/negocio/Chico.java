@@ -91,7 +91,7 @@ public class Chico {
 		return this.manos.get(this.manos.size() - 1).finalizoMano();
 	}
 
-	public boolean finalizoChico() {
+	public boolean finalizoChico() throws UsuarioException, CategoriaException {
 		// finalizo ultima mano
 
 		Mano ultimaMano = this.manos.get(this.manos.size() - 1);
@@ -158,7 +158,7 @@ public class Chico {
 	}
 
 	// TODO Agregar parámetro parejas a Diagrama.
-	public void altaMano(int puntosParaTerminar) {
+	public void altaMano(int puntosParaTerminar) throws UsuarioException, CategoriaException {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
 		// puntosPorTerminar del Chico?   
 		// ---> Porque en el chico ya tenemos las parejas, los puntos y los jugadores.

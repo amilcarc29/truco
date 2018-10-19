@@ -7,6 +7,7 @@ import java.util.List;
 import dao.BazaDAO;
 import dao.CartaDAO;
 import dao.JuegoDAO;
+import dao.JugadorCartaDAO;
 import dao.JugadorDAO;
 import dao.UsuarioDAO;
 import dto.BazaDTO;
@@ -192,15 +193,10 @@ public class ControladorJuego {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
-		List<Carta> cartas = new ArrayList<>();
+		
+		List<Carta> cartas =JugadorCartaDAO.getInstancia().getCartasbyJugador(jug);
 		List<CartaDTO> cartasDto = new ArrayList<>();
-		for (Juego j : juegos) {
-			// falta un esJuego
-			if (j.sosJuego(ju)) {
-				cartas = j.getCartas(jug);
-				break;
-			}
-		}
+
 		for (Carta carta : cartas) {
 			cartasDto.add(carta.toDTO());
 		}
