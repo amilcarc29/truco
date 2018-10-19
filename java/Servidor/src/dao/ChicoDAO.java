@@ -16,6 +16,7 @@ import entities.PuntuacionEntity;
 import excepciones.CategoriaException;
 import excepciones.ParejaException;
 import hbt.HibernateUtil;
+import negocio.Baza;
 import negocio.Chico;
 import negocio.Juego;
 import negocio.JugadorIndividual;
@@ -118,15 +119,16 @@ public class ChicoDAO {
 		c.setIdChico(chicoent.getIdChico());
 
 		c.setManos(ManoDAO.getInstancia().buscarManosdeChico(c.getIdChico()));
-		//arreglar el setter de las manos
-		
+		// arreglar el setter de las manos
+
 		for (Mano m : c.getManos()) {
 			m.setParejas(parejas);
 			m.setJugadores(JugadorDAO.getInstancia().buscarJugadoresByJuego(chicoent.getJuego().getId()));
 			m.setPuntos(PuntuacionDAO.getInstancia().buscarPuntosByChico(chicoent.getIdChico()));
+			List<Baza> bazas = BazaDAO.getInstancia().buscarBazaPorIDMano(m);
+			m.setBazas(bazas);
 		}
-		
-		
+
 		return c;
 	}
 }

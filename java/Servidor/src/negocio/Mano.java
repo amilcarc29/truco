@@ -42,7 +42,8 @@ public class Mano {
 		this.idMano = idMano;
 	}
 
-	public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> puntos, int puntoParaTerminarChico) throws UsuarioException, CategoriaException {
+	public Mano(List<Pareja> parejas, List<Jugador> jugadores, List<Puntuacion> puntos, int puntoParaTerminarChico)
+			throws UsuarioException, CategoriaException {
 		super();
 		this.parejas = parejas;
 		this.jugadores = jugadores;
@@ -55,16 +56,14 @@ public class Mano {
 
 		mazo = new Mazo();
 		repartir();
-		
-		
-		
-		
 
 	}
 
 	public void altaBaza() {
 		Baza b = new Baza(this.getJugadores());
 		b.save(this);
+		//FIX arreglar 
+		this.bazas = new ArrayList<Baza>();
 		this.bazas.add(b);
 		// System.out.println("BAZA NUMERO " + this.bazas.size());
 		jugadorIndice = 0;
@@ -79,10 +78,8 @@ public class Mano {
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
 			jug.setCartas(cartas);
 		}
-		
+
 	}
-
-
 
 	public List<Pareja> getParejas() {
 		return parejas;
