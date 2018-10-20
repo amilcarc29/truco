@@ -4,12 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.BazaDAO;
-import dao.JugadaDAO;
 import dao.JugadorCartaDAO;
-import dao.JugadorDAO;
-import excepciones.CartaException;
 import excepciones.CategoriaException;
-import excepciones.JugadorException;
 import excepciones.UsuarioException;
 
 public class Baza {
@@ -20,11 +16,9 @@ public class Baza {
 	private Jugada jugadaMayor;
 
 	private boolean parda;
-	
+
 	// NO SE PARA QUE ESTA
 	private int numero;
-	
-	
 
 	public Baza(List<Jugador> jugadores) {
 		super();
@@ -84,42 +78,17 @@ public class Baza {
 	public void finalizarBaza() {
 	}
 
-	public void cantarTruco(Jugador j) {
-		
-
-		
-		// Conflicto con el nombre del jugador
-		// jugadores.stream().filter(jugador ->
-		// jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
-		// System.out.println("Jugador " + jugador.getNombre() + "cantó Truco.");
-		// });
-	}
-
-	public void cantarEnvido(Jugador j) {
-		
-
-		// Conflicto con el nombre del jugador
-		// jugadores.stream().filter(jugador ->
-		// jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
-		// System.out.println("Jugador " + jugador.getNombre() + "cantó Envido.");
-		// });
-	}
-	
-	
 	// sacado el return. PARA QUE QUEREMOS QUE RETORNE EL ID? (Puede que lo usaban para algo y no se)
 	public void save(Mano mano) {
 		this.setIdBaza(BazaDAO.getInstancia().guardarBaza(mano));
 	}
-	
-	
+
 	public void jugarCarta(Carta carta, Jugador jugador) throws UsuarioException, CategoriaException {
 		try { 
-			
-			
+
 			JugadorCartaDAO.getInstancia().guardarCartaJugada(jugador.getId(), carta.getIdCarta());
 
-			
-			Jugada jugada = new Jugada(jugador, carta);		
+			Jugada jugada = new Jugada(jugador, carta);
 			jugada.save(this);
 			this.jugadas.add(jugada);
 			if (jugadaMayor == null) {
@@ -130,9 +99,7 @@ public class Baza {
 					this.actualizarJugadaMayor(jugada);
 			}
 			numero++;
-			
-			
-			
+
 		} catch (UsuarioException e) {
 			e.printStackTrace();
 		} catch (CategoriaException e1) {
@@ -151,15 +118,7 @@ public class Baza {
 		jugadaMayor = jugada;
 		BazaDAO.getInstancia().actualizarJugadaMayor(this, jugada);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// FUNCION VIEJA DE JUGAR CARTA
 //	public void jugarCarta(int indiceJugador, int numero, String palo) throws JugadorException, CartaException {
 //		Jugador jugador = jugadores.get(indiceJugador);
@@ -206,6 +165,4 @@ public class Baza {
 	public List<Jugador> getJugadores() {
 		return jugadores;
 	}
-	
-	
 }

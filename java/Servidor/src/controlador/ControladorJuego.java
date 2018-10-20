@@ -83,7 +83,6 @@ public class ControladorJuego {
 
 	public void cantarVale4(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego j = this.buscarJuego(idJuego);
-
 		j.cantarVale4();
 	}
 

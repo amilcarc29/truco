@@ -1,10 +1,10 @@
 package negocio;
 
 public class Truco extends ComponenteTruco {
+
 	private ComponenteTruco dec = null;
 
 	public Truco() {
-
 	}
 
 	public void addDec(ComponenteTruco dec) {
@@ -13,7 +13,7 @@ public class Truco extends ComponenteTruco {
 
 	public int getPuntosQuiero() {
 		if (dec != null)
-			return 	this.dec.getPuntosQuiero();
+			return this.dec.getPuntosQuiero();
 		return 2;
 	}
 
@@ -22,5 +22,4 @@ public class Truco extends ComponenteTruco {
 			return this.dec.getPuntosNoQuiero();
 		return 1;
 	}
-
 }

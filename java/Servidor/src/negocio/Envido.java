@@ -27,5 +27,4 @@ public class Envido extends ComponenteEnvido {
 
 		return 1;
 	}
-
 }

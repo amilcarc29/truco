@@ -47,11 +47,12 @@ public class Jugada {
 	public void setOrden(int orden) {
 		this.orden = orden;
 	}
+
 	public boolean esMayor(Jugada jugada) {
 		return carta.esMayor(jugada.getCarta());
 
 	}
-	
+
 	public int getIdJugada() {
 		return idJugada;
 	}
@@ -62,9 +63,6 @@ public class Jugada {
 
 	public void save(Baza baza) throws UsuarioException, CategoriaException {
 		try {
-			
-
-			
 			this.setIdJugada(JugadaDAO.getInstancia().guardarJugada(this, baza));
 		} catch (UsuarioException e) {
 			e.printStackTrace();
