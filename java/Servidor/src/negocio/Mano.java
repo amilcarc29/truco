@@ -35,6 +35,7 @@ public class Mano {
 
 	// esto mantiene el turno de los jugadores se puede iniciar donde sea pero se
 	// incrementa con cada jugada
+	// PASAR A QUE SE INICIE EN CONSTRUCTOR O ALGUNA FUNCION, QUE NO SE INICIE ACA
 	private int jugadorIndice = 0;
 
 	//
