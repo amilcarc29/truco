@@ -35,13 +35,7 @@ public class Mano {
 
 	// esto mantiene el turno de los jugadores se puede iniciar donde sea pero se
 	// incrementa con cada jugada
-<<<<<<< HEAD
-	// PASAR A QUE SE INICIE EN CONSTRUCTOR O ALGUNA FUNCION, QUE NO SE INICIE ACA
-	private int jugadorIndice = 0;
-=======
->>>>>>> 1a5b4a95c8b5d69677584b8d42b15fc68cf51c3b
-
-	//
+	
 	public Mano(int idMano) {
 		this.idMano = idMano;
 	}
