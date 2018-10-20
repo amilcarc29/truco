@@ -37,13 +37,13 @@ public class ControladorJuego {
 	private static FactoryJuegos fcJuegos;
 	private static ControladorJuego controlador;
 
-	public static ControladorJuego getInstancia() {
+	public static ControladorJuego getInstancia() throws UsuarioException {
 		if (controlador == null)
 			controlador = new ControladorJuego();
 		return controlador;
 	}
 
-	public ControladorJuego() {
+	public ControladorJuego() throws UsuarioException {
 		juegos = new LinkedList<Juego>();
 		try {
 			juegos = JuegoDAO.getInstancia().getJuegosActivos();
@@ -61,68 +61,68 @@ public class ControladorJuego {
 			// Creo que se debería crear el chico en el constructor de Juego y no aca (VER)
 			j.save();
 			// para tener el id el crear va despues del save
-			
+
 			j.crearChico();
-			
+
 			JugadorDAO.getInstancia().setTurnoPrimero(j);
 
-			
-			
 			juegos.add(j);
 			// imprimirDbg();
 		}
 	}
 
-	public void cantarTruco(int idJuego) throws JuegoException, CategoriaException {
+	public void cantarTruco(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarTruco();
 	}
 
-	public void cantarReTruco(int idJuego) throws JuegoException, CategoriaException {
+	public void cantarReTruco(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarReTruco();
 	}
 
-	public void cantarVale4(int idJuego) throws JuegoException, CategoriaException {
+	public void cantarVale4(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarVale4();
 	}
 
-	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo) throws JuegoException, CategoriaException {
+	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo)
+			throws JuegoException, CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarQuieroTruco(quieroSiNo);
 	}
 
-	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo) throws JuegoException, CategoriaException {
+	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo)
+			throws JuegoException, CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarQuieroEnvido(quieroSiNo);
 	}
 
-	public void cantarEnvido(int idJuego) throws JuegoException, CategoriaException {
+	public void cantarEnvido(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarEnvido();
 	}
 
 	// TODO AGREGAR
-	public void aceptarTruco(int idJuego, int idJugador) throws JuegoException, CategoriaException {
+	public void aceptarTruco(int idJuego, int idJugador) throws JuegoException, CategoriaException, UsuarioException {
 		Juego j = this.buscarJuego(idJuego);
 	}
 
-	public Juego buscarJuego(int idJuego) throws JuegoException, CategoriaException {
+	public Juego buscarJuego(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		return JuegoDAO.getInstancia().buscarJuego(idJuego);
 	}
 
-	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario)
-			throws JugadorException, CartaException, JuegoException, CategoriaException, UsuarioException, ParejaException {
+	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws JugadorException, CartaException,
+			JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Carta car = CartaDAO.getInstancia().buscarCartaPorID(carta.getIdCarta());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
-		
-		if(jug.isTieneTurno())
+
+		if (jug.isTieneTurno())
 			jue.jugarCarta(car);
-		
+
 		verificarFinJuego(jue.getId());
 	}
 	
@@ -133,8 +133,9 @@ public class ControladorJuego {
 		return j.termino();
 	}
 	
-
-	public void sinCantar(int idJuego) throws JuegoException, CategoriaException {
+	
+	
+	public void sinCantar(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.sinCantar();
@@ -144,12 +145,12 @@ public class ControladorJuego {
 		return true;
 	}
 
-	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException, CategoriaException {
+	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.sePuedeCantarEnvido();
 	}
 
-	public void imprimirDbg() throws JuegoException, CategoriaException {
+	public void imprimirDbg() throws JuegoException, CategoriaException, UsuarioException {
 		for (Juego juego : juegos) {
 			List<Pareja> par = juego.getParejas();
 			for (Pareja p : par) {
@@ -171,7 +172,7 @@ public class ControladorJuego {
 		}
 	}
 
-	public List<JuegoDTO> getJuegosActivos(UsuarioDTO usuario) throws CategoriaException {
+	public List<JuegoDTO> getJuegosActivos(UsuarioDTO usuario) throws CategoriaException, UsuarioException {
 		List<Juego> juegos = JuegoDAO.getInstancia().buscarJuegosActivos(usuario);
 		List<JuegoDTO> juegosDto = new ArrayList<>();
 		for (Juego j : juegos) {

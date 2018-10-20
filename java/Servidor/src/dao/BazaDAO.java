@@ -12,6 +12,8 @@ import entities.ChicoEntity;
 import entities.JuegoEntity;
 import entities.JugadaEntity;
 import entities.ManoEntity;
+import excepciones.CategoriaException;
+import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Baza;
 import negocio.Jugada;
@@ -69,7 +71,7 @@ public class BazaDAO {
 		}
 	}
 
-	public List<Baza> buscarBazaPorIDMano(Mano mano) {
+	public List<Baza> buscarBazaPorIDMano(Mano mano) throws UsuarioException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		List<BazaEntity> bazasEntity = (List<BazaEntity>) session.createQuery("from BazaEntity where idMano = ?")
@@ -89,10 +91,15 @@ public class BazaDAO {
 
 	}
 
-	private Baza toNegocio(BazaEntity bazaEntity) {
+	private Baza toNegocio(BazaEntity bazaEntity) throws UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
 		Baza b  = new Baza();
 		b.setIdBaza(bazaEntity.getIdBaza());
+		
+	//buscar las jugadas de  la baza 
+		List<Jugada>jugadas = JugadaDAO.getInstancia().buscarJugadaPorIDBaza(bazaEntity.getIdBaza());
+		b.setJugadas(jugadas);
+		
 		return b;
 	}
 

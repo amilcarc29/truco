@@ -15,6 +15,7 @@ import entities.ParejaEntity;
 import entities.PuntuacionEntity;
 import excepciones.CategoriaException;
 import excepciones.ParejaException;
+import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Baza;
 import negocio.Chico;
@@ -93,7 +94,7 @@ public class ChicoDAO {
 		}
 	}
 
-	public List<Chico> getChicos(int idJuego) throws CategoriaException {
+	public List<Chico> getChicos(int idJuego) throws CategoriaException, UsuarioException {
 		List<Chico> ch = new ArrayList<>();
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -109,7 +110,7 @@ public class ChicoDAO {
 		return ch;
 	}
 
-	private Chico toNegocio(ChicoEntity chicoent) throws CategoriaException {
+	private Chico toNegocio(ChicoEntity chicoent) throws CategoriaException, UsuarioException {
 		List<Pareja> parejas = new ArrayList<>();
 
 		parejas.add(ParejaDAO.getInstancia().toNegocio(chicoent.getJuego().getPareja1()));
@@ -125,8 +126,13 @@ public class ChicoDAO {
 			m.setParejas(parejas);
 			m.setJugadores(JugadorDAO.getInstancia().buscarJugadoresByJuego(chicoent.getJuego().getId()));
 			m.setPuntos(PuntuacionDAO.getInstancia().buscarPuntosByChico(chicoent.getIdChico()));
+			
+			
 			List<Baza> bazas = BazaDAO.getInstancia().buscarBazaPorIDMano(m);
 			m.setBazas(bazas);
+			
+			
+			
 		}
 
 		return c;

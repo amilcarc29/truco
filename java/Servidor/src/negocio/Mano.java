@@ -322,11 +322,14 @@ public class Mano {
 	}
 	
 	public boolean terminoMano() throws CategoriaException {
-		Pareja pareja = ParejaDAO.getInstancia().buscarParejaDeUnJugador(this.getBazas().get(0).getJugadaMayor().getJugador().getId());
-		for (int i = 1; i < 3; i++){
-			Pareja pareja1 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(this.getBazas().get(i).getJugadaMayor().getJugador().getId());
-			if (pareja.getIdPareja() == pareja1.getIdPareja())
-				return true;
+		// 3 Bazas maximo
+		if (this.getBazas().size() == 3)
+			return true;
+		else {
+			Pareja pareja = ParejaDAO.getInstancia().buscarParejaDeUnJugador(this.getBazas().get(0).getJugadaMayor().getJugador().getId());
+			Pareja pareja1 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(this.getBazas().get(1).getJugadaMayor().getJugador().getId());
+				if (pareja.getIdPareja() == pareja1.getIdPareja())
+					return true;
 		}
 		return false;
 	}

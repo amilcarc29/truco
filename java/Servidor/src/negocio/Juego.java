@@ -189,10 +189,33 @@ public abstract class Juego {
 	}
 
 	public boolean terminoJuego() {
+		// Es al mejor de 3
+		if (this.getChicos().size() >= 3)
+			return true;
+		else {
+			Pareja pareja = this.getChicos().get(0).getGanador();
+			Pareja pareja1 = this.getChicos().get(1).getGanador();
+			if (pareja.getIdPareja() == pareja1.getIdPareja())
+				return true;
+		}
 		return false;
 	}
 
+	public int getIdJuego() {
+		return idJuego;
+	}
 
+	public void setIdJuego(int idJuego) {
+		this.idJuego = idJuego;
+	}
+
+	public List<Chico> getChicos() {
+		return chicos;
+	}
+
+	public void setChicos(List<Chico> chicos) {
+		this.chicos = chicos;
+	}
 
 	public void puntosDbg(int idPareja) {
 		chicos.get(chicos.size() - 1).puntosDbg(idPareja);

@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -75,6 +78,41 @@ public class JugadaDAO {
 			return null;
 		}	
 	}
+
+	public List<Jugada> buscarJugadaPorIDBaza(int idJugada) throws UsuarioException, CategoriaException {
+		// TODO Auto-generated method stub
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		
+		List<JugadaEntity> jugadas = (List<JugadaEntity>) session.createQuery("from JugadaEntity where idBaza = ?")
+				.setParameter(0, idJugada).list();
+
+		session.close();
+		List<Jugada> ju = new ArrayList<>();
+
+		for (JugadaEntity bazaEnt : jugadas) {
+			
+			Jugada j = toNegocio(bazaEnt);
+		
+		}
+		
+		
+		
+		return ju;
+	}
+
+	private Jugada toNegocio(JugadaEntity bazaEnt) throws UsuarioException, CategoriaException {
+		// TODO Auto-generated method stub
+		Jugada j =new Jugada();
+		j.setCarta(CartaDAO.getInstancia().toNegocio(bazaEnt.getCarta()));
+		j.setJugador(JugadorDAO.getInstancia().buscarJugadorByIdClase(bazaEnt.getJugador().getIdJugador()));
+		
+		return new Jugada();
+	}
+
+
 	
 	
 
