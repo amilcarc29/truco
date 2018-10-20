@@ -153,9 +153,7 @@ public abstract class Juego {
 
 	public void cantarQuieroTruco(boolean quieroSiNo) throws CategoriaException {
 		// TODO Auto-generated method stub
-		
 		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-		
 		chicos.get(chicos.size() - 1).cantarQuieroTruco(jugador , quieroSiNo);
 	}
 
