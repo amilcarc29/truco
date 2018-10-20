@@ -48,6 +48,23 @@ public class CategoriaDAO {
 			throw new CategoriaException("La categoria con Nombre: " + nombre + "no existe en la base de datos.");
 		}
 	}
+	
+	public Categoria buscarCategoriaByNombreNegocio(String nombre) throws CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		CategoriaEntity categoriaEntity = (CategoriaEntity) session.createQuery("from CategoriaEntity where nombre = ?")
+				.setParameter(0, nombre).uniqueResult();
+		session.close();
+		
+		if (categoriaEntity != null) {
+			return toNegocio(categoriaEntity);
+		} else {
+			throw new CategoriaException("La categoria con Nombre: " + nombre + "no existe en la base de datos.");
+		}
+	}
+	
+	
+	
 	public Categoria toNegocio(CategoriaEntity categoriaEntity) throws CategoriaException {
 		/*
 		 switch (getNombre()) {

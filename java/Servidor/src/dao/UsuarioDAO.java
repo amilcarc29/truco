@@ -52,6 +52,24 @@ public class UsuarioDAO {
 			throw new UsuarioException("El usuario con id: " + idUsuario + "no existe en la base de datos.");
 		}
 	}
+	
+	public void actualizarCategoria(Usuario usuario) {
+		CategoriaEntity cat = null;
+		UsuarioEntity ue = new UsuarioEntity(usuario.getPartidasGanadas(), usuario.getPartidasJugadas(),
+				usuario.getPuntaje(), usuario.getApodo(), usuario.getPass(), usuario.getEmail(), usuario.getActivo());
+		try {
+			cat = CategoriaDAO.getInstancia().buscarCategoriaByNombre(usuario.getCategoria().getNombre());
+		} catch (CategoriaException e) {
+			e.printStackTrace();
+		}
+		ue.setCategoria(cat);
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(ue);
+		session.getTransaction().commit();
+		session.close();
+	}
 
 	public Usuario toNegocio(UsuarioEntity usuarioEntity) throws CategoriaException {
 		Usuario usuario = new Usuario();

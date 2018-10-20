@@ -35,8 +35,7 @@ public class Mano {
 
 	// esto mantiene el turno de los jugadores se puede iniciar donde sea pero se
 	// incrementa con cada jugada
-
-	//
+	
 	public Mano(int idMano) {
 		this.idMano = idMano;
 	}

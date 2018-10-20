@@ -114,6 +114,16 @@ public class Usuario {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+	
+	public float getPromedio() {
+		return (this.getPuntaje() / this.getPartidasJugadas());
+	}
+	
+	public void actualizarCategoria (Categoria categoria) {
+		this.setCategoria(categoria);
+		UsuarioDAO.getInstancia().actualizarCategoria(this);
+		// ver como actualizar en la parte WEB si sigue logueado
+	}
 
 	public UsuarioDTO toDTO() {
 		return new UsuarioDTO(idUsuario, partidasGanadas, partidasJugadas, puntaje, apodo, pass, email, getCategoria().toDTO(), activo);
