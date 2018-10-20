@@ -17,8 +17,6 @@ public class Baza {
 
 	private boolean parda;
 
-	// NO SE PARA QUE ESTA
-	private int numero;
 
 	public Baza(List<Jugador> jugadores) {
 		super();
@@ -27,8 +25,7 @@ public class Baza {
 		jugadaMayor = null;
 		parda = false;
 		
-		// VER
-		numero = 1;
+	
 	}
 
 
@@ -60,13 +57,7 @@ public class Baza {
 		this.parda = parda;
 	}
 
-	public int getNumero() {
-		return numero;
-	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
 
 	public boolean finalizoBaza() {
 		// TODO cuenta desde 0 las jugadas en la jugada simple son 4 maximo
@@ -98,7 +89,8 @@ public class Baza {
 				if (this.jugadaMayor.esMayor(jugada))
 					this.actualizarJugadaMayor(jugada);
 			}
-			numero++;
+	
+			
 
 		} catch (UsuarioException e) {
 			e.printStackTrace();

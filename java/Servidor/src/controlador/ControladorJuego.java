@@ -22,12 +22,14 @@ import excepciones.JugadorException;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
+import negocio.Baza;
 import negocio.Carta;
 import negocio.FactoryJuegos;
 import negocio.GrupoJuego;
 import negocio.Juego;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
+import negocio.Mano;
 import negocio.Pareja;
 import negocio.Usuario;
 
@@ -120,21 +122,26 @@ public class ControladorJuego {
 		Carta car = CartaDAO.getInstancia().buscarCartaPorID(carta.getIdCarta());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
 
-		if (jug.isTieneTurno())
+		if (jug.isTieneTurno()) {
 			jue.jugarCarta(car);
 
-		verificarFinJuego(jue.getId());
-	}
-	
+			Baza utlimaB = jue.getUltimaBaza();
 
-	public boolean verificarFinJuego(int idJuego)
-			throws JuegoException, CategoriaException, UsuarioException, ParejaException {
-		Juego j = this.buscarJuego(idJuego);
-		return j.termino();
+			if (utlimaB.terminoBaza()) {
+
+				Mano ultimaM = jue.getUltimaMano();
+
+				if (ultimaM.terminoMano()) {
+					Pareja pGanadora = ultimaM.obtenerParejaGanadora();
+					//aumenta los puntos del truco
+					jue.getUltimoChico().aumentarPuntosTruco(ultimaM.getTruco(), pGanadora);
+					
+				}
+			}
+		}
+
 	}
-	
-	
-	
+
 	public void sinCantar(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);

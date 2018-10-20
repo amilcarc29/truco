@@ -11,15 +11,13 @@ public class Truco extends ComponenteTruco {
 		this.dec = dec;
 	}
 
-	public int getPuntosQuiero() {
+	public int getPuntos() {
 		if (dec != null)
-			return this.dec.getPuntosQuiero();
-		return 2;
-	}
-
-	public int getPuntosNoQuiero() {
-		if (dec != null)
-			return this.dec.getPuntosNoQuiero();
+			return 1 + this.dec.getPuntos();
+		
+		
 		return 1;
 	}
+
+
 }

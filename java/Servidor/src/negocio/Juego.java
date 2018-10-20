@@ -144,17 +144,16 @@ public abstract class Juego {
 
 	public void cantarQuieroEnvido(boolean quieroSiNo) throws CategoriaException {
 		// TODO Auto-generated method stub
-		
+
 		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
 
-		
 		chicos.get(chicos.size() - 1).cantarQuieroEnvido(jugador, quieroSiNo);
 	}
 
 	public void cantarQuieroTruco(boolean quieroSiNo) throws CategoriaException {
 		// TODO Auto-generated method stub
 		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-		chicos.get(chicos.size() - 1).cantarQuieroTruco(jugador , quieroSiNo);
+		chicos.get(chicos.size() - 1).cantarQuieroTruco(jugador, quieroSiNo);
 	}
 
 	public void cantarEnvido() throws CategoriaException {
@@ -169,25 +168,25 @@ public abstract class Juego {
 	}
 
 	public void jugarCarta(Carta carta) throws JugadorException, CartaException, UsuarioException, CategoriaException {
-		// TODO Auto-generated method stub
-		
 
-			Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
+		// TODO ver si se pasa a baza
+		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
 
-			chicos.get(chicos.size() - 1).jugarCarta(carta,jugador);
-			
-			
-			JugadorDAO.getInstancia().setTurnoSigJugador(this);
+		chicos.get(chicos.size() - 1).jugarCarta(carta, jugador);
 
-			
-			
+		JugadorDAO.getInstancia().setTurnoSigJugador(this);
+	
 	
 	}
 
 	public boolean sePuedeCantarEnvido() {
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
 	}
+	
+	
 
+
+	
 	public boolean terminoJuego() {
 		// Es al mejor de 3
 		if (this.getChicos().size() >= 3)
@@ -221,7 +220,7 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).puntosDbg(idPareja);
 	}
 
-	public abstract void save() throws ParejaException, CategoriaException, MiembroException ;
+	public abstract void save() throws ParejaException, CategoriaException, MiembroException;
 
 	public JuegoDTO toDTO() {
 		JuegoDTO j = new JuegoDTO(this.idJuego);
@@ -229,14 +228,26 @@ public abstract class Juego {
 		return j;
 	}
 
-	public void setChico( List<Chico> chicos) {
+	public void setChico(List<Chico> chicos) {
 		this.chicos = chicos;
 	}
 
-
-
-	public 	List<Carta> getCartas(Jugador jug) {
+	public List<Carta> getCartas(Jugador jug) {
 		// TODO Auto-generated method stub
 		return chicos.get(chicos.size() - 1).getCartas(jug);
+	}
+
+	public Mano getUltimaMano() {
+	
+		return  this.getUltimoChico().getUltimaMano();
+	}
+	public Baza getUltimaBaza() {
+		
+		return  this.getUltimaMano().getUltimaBaza();
+	}
+	
+	public Chico getUltimoChico() {
+		
+		return chicos.get(chicos.size() - 1);
 	}
 }

@@ -28,7 +28,7 @@ public class Mano {
 
 	// esto mantiene el turno de los jugadores se puede iniciar donde sea pero se
 	// incrementa con cada jugada
-	
+
 	public Mano(int idMano) {
 		this.idMano = idMano;
 	}
@@ -149,15 +149,15 @@ public class Mano {
 
 			}
 
-			p.sumarPuntos(this.truco.getPuntosQuiero());
+			p.sumarPuntos(this.truco.getPuntos());
 
-			System.out.println("puntos quiero Truco " + this.truco.getPuntosQuiero());
+			System.out.println("puntos quiero Truco " + this.truco.getPuntos());
 
 		} else {
-			p = getPuntosPareja(j);
-			p.sumarPuntos(this.truco.getPuntosNoQuiero());
-
-			System.out.println("puntos no quiero Truco  " + this.truco.getPuntosNoQuiero());
+//			p = getPuntosPareja(j);
+//			p.sumarPuntos(this.truco.getPuntosNoQuiero());
+//
+//			System.out.println("puntos no quiero Truco  " + this.truco.getPuntosNoQuiero());
 
 		}
 	}
@@ -265,51 +265,94 @@ public class Mano {
 		return null;
 	}
 
+//	public Pareja compFinalizacionMano() throws CategoriaException {
+//
+//		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
+//
+//		// pregunta si termino la baza
+//		if (ultimaBaza.terminoBaza()) {
+//
+//			// pregunta si termino la mano
+//			if (this.terminoMano()) {
+//
+//				// si entra en esta funcion es porque tiene las bazas 2 o 3
+//				return this.finalizarMano();
+//
+//			} else {
+//				// busco la jugada mayor
+//				Jugada j = ultimaBaza.getJugadaMayor();
+//
+//				// modifica el orden de los jugadores para la prox baza
+//				this.cambiarOrden();
+//
+//				// alta baza con nuevo orden
+//				this.altaBaza();
+//
+//			}
+//
+//		}
+//
+//		return null;
+//	}
+
 	public void jugarCarta(Carta carta, Jugador jugador)
 			throws JugadorException, CartaException, UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
-		try {
 
-			this.bazas.get(this.bazas.size() - 1).jugarCarta(carta, jugador);
+		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
+		ultimaBaza.jugarCarta(carta, jugador);
 
-			// VER BIEN LAS EXCEPCIONES
-		} catch (UsuarioException e) {
-			e.printStackTrace();
-		} catch (CategoriaException e1) {
-			e1.printStackTrace();
+	}
+
+	public Pareja obtenerParejaGanadora() throws CategoriaException {
+		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
+
+		Jugador jMayorUlimaBaza = ultimaBaza.getJugadaMayor().getJugador();
+		Pareja pMayorUlimaBaza = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jMayorUlimaBaza.getId());
+
+		Jugador jMayorPrimeraBaza = this.getBazas().get(0).getJugadaMayor().getJugador();
+		Pareja pMayorPrimeraBaz = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jMayorPrimeraBaza.getId());
+
+		// si gano la primera y la segunda la misma pareja es la primera
+		if (pMayorUlimaBaza.esPareja(pMayorPrimeraBaz.getIdPareja())) {
+
+			return pMayorUlimaBaza;
+
+		} else {
+			// si no es ni la primera pareja ni la tercera entonces gano la pareja del medio
+			Jugador jMayorSegundaBaza = this.getBazas().get(1).getJugadaMayor().getJugador();
+			return ParejaDAO.getInstancia().buscarParejaDeUnJugador(jMayorSegundaBaza.getId());
+
 		}
+
 	}
 
 	private void cambiarOrden() {
-//		// preguntar quien gano , ponerlo adelante
-//		Jugador jugador = jugadaMayor.getJugador();
-//
-//		int i = 0;
-//		int j = jugadores.indexOf(jugador);
-//
-//		List<Jugador> jugadoresNuevo = new ArrayList<Jugador>();
-//
-//		jugadoresNuevo.add(jugador);
-//
-//		while (i < 3) {
-//			j++;
-//
-//			if (j > 3)
-//				j = 0;
-//
-//			jugadoresNuevo.add(jugadores.get(j));
-//
-//			i++;
-//
-//		}
-//		jugadores = jugadoresNuevo;
+		// // preguntar quien gano , ponerlo adelante
+		// Jugador jugador = jugadaMayor.getJugador();
+		//
+		// int i = 0;
+		// int j = jugadores.indexOf(jugador);
+		//
+		// List<Jugador> jugadoresNuevo = new ArrayList<Jugador>();
+		//
+		// jugadoresNuevo.add(jugador);
+		//
+		// while (i < 3) {
+		// j++;
+		//
+		// if (j > 3)
+		// j = 0;
+		//
+		// jugadoresNuevo.add(jugadores.get(j));
+		//
+		// i++;
+		//
+		// }
+		// jugadores = jugadoresNuevo;
 	}
-	
 
-	public boolean sePuedeCantarEnvido() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	public void puntosDbg(int idPareja) {
 		// TODO Auto-generated method stub
@@ -320,16 +363,18 @@ public class Mano {
 
 		}
 	}
-	
+
 	public boolean terminoMano() throws CategoriaException {
 		// 3 Bazas maximo
 		if (this.getBazas().size() == 3)
 			return true;
 		else {
-			Pareja pareja = ParejaDAO.getInstancia().buscarParejaDeUnJugador(this.getBazas().get(0).getJugadaMayor().getJugador().getId());
-			Pareja pareja1 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(this.getBazas().get(1).getJugadaMayor().getJugador().getId());
-				if (pareja.getIdPareja() == pareja1.getIdPareja())
-					return true;
+			Pareja pareja = ParejaDAO.getInstancia()
+					.buscarParejaDeUnJugador(this.getBazas().get(0).getJugadaMayor().getJugador().getId());
+			Pareja pareja1 = ParejaDAO.getInstancia()
+					.buscarParejaDeUnJugador(this.getBazas().get(1).getJugadaMayor().getJugador().getId());
+			if (pareja.getIdPareja() == pareja1.getIdPareja())
+				return true;
 		}
 		return false;
 	}
@@ -381,6 +426,10 @@ public class Mano {
 	public void save(Chico chico) {
 		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
 
+	}
+
+	public Baza getUltimaBaza() {
+		return this.bazas.get(this.bazas.size() - 1);
 	}
 
 }

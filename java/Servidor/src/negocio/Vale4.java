@@ -12,16 +12,12 @@ public class Vale4 extends ComponenteTruco {
 	}
 
 	@Override
-	public int getPuntosQuiero() {
+	public int getPuntos() {
 		if (dec != null)
-			return this.dec.getPuntosQuiero();
-		return 4;
-	}
-
-	@Override
-	public int getPuntosNoQuiero() {
-		if (dec != null)
-			return this.dec.getPuntosNoQuiero();
+			return 1+  this.dec.getPuntos();
+		
 		return 3;
 	}
+
+
 }

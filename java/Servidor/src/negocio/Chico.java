@@ -11,7 +11,7 @@ import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
 public class Chico {
-	
+
 	private int idChico;
 	private List<Mano> manos;
 	private List<Pareja> parejas;
@@ -23,10 +23,8 @@ public class Chico {
 
 	private List<Jugador> jugadores;
 
-	
 	private boolean sePuedeCantarEnvido = true;
-	
-	
+
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
 		this.jugadores = new ArrayList<>();
@@ -39,7 +37,8 @@ public class Chico {
 		jugadores.add(this.parejas.get(0).getJugadores().get(1));
 		jugadores.add(this.parejas.get(1).getJugadores().get(1));
 
-		// CREAR LAS PUNTUACIONES ACA PUEDE GENERAR PROBLEMAS. HAY QUE PERSISTIR PUNTUACIONES Y CHICO A LA VEZ
+		// CREAR LAS PUNTUACIONES ACA PUEDE GENERAR PROBLEMAS. HAY QUE PERSISTIR
+		// PUNTUACIONES Y CHICO A LA VEZ
 		for (Pareja pareja : this.parejas) {
 
 			/// puntos en 0
@@ -50,15 +49,12 @@ public class Chico {
 		// puntos por manos
 
 		this.ganador = null;
-		
+
 		// puntos totales para terminar el chico (30). Es un chico, no dos de 15
 		this.puntosPorGanar = 30;
-//		altaMano(this.puntosPorGanar);
+		// altaMano(this.puntosPorGanar);
 
 	}
-	
-	
-	
 
 	public Pareja getGanador() {
 		return ganador;
@@ -75,7 +71,7 @@ public class Chico {
 	public void setPuntosPorGanar(int puntosPorGanar) {
 		this.puntosPorGanar = puntosPorGanar;
 	}
-	
+
 	// ESTO NO SE PARA QUE SE PUEDE USAR
 	private void sumarPuntosMano(Puntuacion puntuacion) {
 		for (Puntuacion p : puntosChico) {
@@ -89,18 +85,19 @@ public class Chico {
 	}
 
 	public boolean terminoChico() {
-		for (Puntuacion puntacion : this.getPuntosChico()){
+		for (Puntuacion puntacion : this.getPuntosChico()) {
 			if (puntacion.getPuntos() >= 30)
 				return true;
 		}
-		
+
 		return false;
 	}
 
 	private void cambiarOrden() {
 		jugadores.add(jugadores.get(0));
 		jugadores.remove(0);
-	}	
+	}
+
 	public void finalizarChico() {
 
 	}
@@ -115,22 +112,24 @@ public class Chico {
 	}
 
 	public void aumentarPuntosTruco(Truco truco, Pareja pareja) {
-
+		
+		
+		
 	}
 
 	// TODO Agregar parámetro parejas a Diagrama.
 	public void altaMano(int puntosParaTerminar) throws UsuarioException, CategoriaException {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
-		// puntosPorTerminar del Chico?   
+		// puntosPorTerminar del Chico?
 		// ---> Porque en el chico ya tenemos las parejas, los puntos y los jugadores.
 
-		Mano mano = new Mano(parejas, jugadores, puntosChico, puntosParaTerminar);		
+		Mano mano = new Mano(parejas, jugadores, puntosChico, puntosParaTerminar);
 		mano.save(this);
-		mano.altaBaza();		
-		
+		mano.altaBaza();
+
 		manos.add(mano);
 
-//		System.out.println("MANO NUMERO " + manos.size());
+		// System.out.println("MANO NUMERO " + manos.size());
 	}
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
@@ -155,7 +154,7 @@ public class Chico {
 		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(j, quieroSiNo);
 	}
 
-	public void cantarQuieroEnvido(Jugador j , boolean quieroSiNo) {
+	public void cantarQuieroEnvido(Jugador j, boolean quieroSiNo) {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarQuieroEnvido(j, quieroSiNo);
 	}
@@ -173,42 +172,38 @@ public class Chico {
 
 	}
 
-	public void jugarCarta(Carta carta, Jugador jugador) throws JugadorException, CartaException, UsuarioException, CategoriaException {
-		// TODO Auto-generated method stub
-		
-		try {
-			this.manos.get(this.manos.size() - 1).jugarCarta(carta,jugador);
-			
-		// VER BIEN LAS EXCEPCIONES
-		} catch (UsuarioException e) {
-			e.printStackTrace();
-		} catch (CategoriaException e1) {
-			e1.printStackTrace();
-		}
+	public void compFinalizacionChico() throws CategoriaException {
+		Mano mUltima = this.manos.get(this.manos.size() - 1);
+		// si finalizo retorna la pareja que gano si no retorna null
 
 	}
 
+	public void jugarCarta(Carta carta, Jugador jugador)
+			throws JugadorException, CartaException, UsuarioException, CategoriaException {
+		// TODO Auto-generated method stub
+		Mano mUltima = this.manos.get(this.manos.size() - 1);
+
+		mUltima.jugarCarta(carta, jugador);
+
+	}
 
 	public boolean sePuedeCantarEnvido() {
 		// TODO Auto-generated method stub
 		return sePuedeCantarEnvido;
 	}
 
-
-
 	public void puntosDbg(int idPareja) {
 		// TODO Auto-generated method stub
-		 this.manos.get(this.manos.size() - 1).puntosDbg(idPareja);
+		this.manos.get(this.manos.size() - 1).puntosDbg(idPareja);
 
 	}
-	
-	public void save (Juego juego) throws UsuarioException, CategoriaException, ParejaException {
+
+	public void save(Juego juego) throws UsuarioException, CategoriaException, ParejaException {
 		this.setIdChico(ChicoDAO.getInstancia().guardarChico(juego, this));
 	}
 
-	
-	public void crearMano () {
-		
+	public void crearMano() {
+
 	}
 
 	public int getIdChico() {
@@ -259,19 +254,19 @@ public class Chico {
 		this.sePuedeCantarEnvido = sePuedeCantarEnvido;
 	}
 
-
-
 	public List<Carta> getCartas(Jugador jug) {
 		// TODO Auto-generated method stub
-		
+
 		for (Jugador jugador : jugadores) {
-					if(jugador.esJugador(jug.getId()))
-						return jugador.getCartas();
+			if (jugador.esJugador(jug.getId()))
+				return jugador.getCartas();
 		}
 		return null;
 	}
-	
-	
 
+	public Mano getUltimaMano() {
+		// TODO Auto-generated method stub
+		return this.getManos().get(this.getManos().size() - 1);
+	}
 
 }
