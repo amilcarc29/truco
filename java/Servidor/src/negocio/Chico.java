@@ -5,6 +5,11 @@ import java.util.List;
 
 import dao.ChicoDAO;
 import dao.PuntuacionDAO;
+import dto.ChicoDTO;
+import dto.JugadorDTO;
+import dto.ManoDTO;
+import dto.ParejaDTO;
+import dto.PuntuacionDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
@@ -306,6 +311,37 @@ public class Chico {
 
 		manos.add(mano);
 
+	}
+	
+	
+
+	public ChicoDTO toDTO() {
+		// TODO Auto-generated method stub
+
+		
+		List<ManoDTO> manDTO= new ArrayList<>();
+		for(Mano m: manos){
+			manDTO.add(m.toDTO());
+		}
+		
+		List<ParejaDTO> parDTO= new ArrayList<>();
+		for(Pareja p: parejas){
+			parDTO.add(p.toDTO());
+		}
+
+		List<PuntuacionDTO> punDTO= new ArrayList<>();
+		for(Puntuacion punto: puntosChico){
+			punDTO.add(punto.toDTO());
+		}
+
+
+		List<JugadorDTO> jugDTO= new ArrayList<>();
+		for(Jugador j: jugadores){
+			jugDTO.add(j.toDTO());
+		}
+		
+		
+		return new ChicoDTO(idChico,manDTO,parDTO,punDTO,this.ganador.toDTO(),puntosPorGanar,jugDTO,sePuedeCantarEnvido);
 	}
 
 }

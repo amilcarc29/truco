@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class BazaDTO implements Serializable{
 
@@ -9,12 +10,18 @@ public class BazaDTO implements Serializable{
 	 * 
 	 */
 	private int idBaza;
+	private List<JugadorDTO> jugadores;
+	private boolean parda;
+
 	
 	
 	
-	public BazaDTO(int idBaza) {
+	public BazaDTO(int idBaza, List<JugadorDTO> jugDTO, boolean parda) {
 		super();
 		this.idBaza = idBaza;
+		this.jugadores=jugDTO;
+		this.parda=parda;
+		
 	}
 	public int getIdBaza() {
 		return idBaza;
