@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import dao.JugadorDAO;
+import dao.ParejaDAO;
 import dto.JuegoDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -101,9 +102,6 @@ public abstract class Juego {
 		return null;
 	}
 
-	public boolean termino() {
-		return false;
-	}
 
 	public void finalizarJuego() {
 
@@ -115,10 +113,6 @@ public abstract class Juego {
 
 	// TODO tener en cuenta el orden para cada mano
 	public void crearChico() throws UsuarioException, CategoriaException, ParejaException {
-		List<Jugador> jugadores = new ArrayList<Jugador>();
-		for (int i = 0; i < this.parejas.size(); i++) {
-			jugadores.addAll(this.parejas.get(i).getJugadores());
-		}
 		Chico chico = new Chico(parejas);
 		chico.save(this);
 		chico.altaMano(chico.getPuntosParaTerminar());
@@ -216,9 +210,6 @@ public abstract class Juego {
 		this.chicos = chicos;
 	}
 
-	public void puntosDbg(int idPareja) {
-		chicos.get(chicos.size() - 1).puntosDbg(idPareja);
-	}
 
 	public abstract void save() throws ParejaException, CategoriaException, MiembroException;
 
@@ -249,5 +240,27 @@ public abstract class Juego {
 	public Chico getUltimoChico() {
 		
 		return chicos.get(chicos.size() - 1);
+	}
+
+	public void armarNuevoChico() throws UsuarioException, CategoriaException, ParejaException {
+		// TODO Auto-generated method stub
+		
+		this.getUltimoChico().cambiarOrden();
+		
+		
+		List<Jugador> jugadores = this.getUltimoChico().getJugadores();
+		Pareja p1 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jugadores.get(0).getId());
+		Pareja p2 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jugadores.get(1).getId());
+
+		this.parejas  = new ArrayList<>();
+		this.parejas.add(p1);
+		this.parejas.add(p2);
+		
+		Chico chico = new Chico(parejas);
+		chico.save(this);
+		chico.altaMano(chico.getPuntosParaTerminar());
+		chicos.add(chico);
+		
+		
 	}
 }

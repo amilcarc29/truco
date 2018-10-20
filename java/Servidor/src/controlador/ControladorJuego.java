@@ -24,6 +24,7 @@ import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import negocio.Baza;
 import negocio.Carta;
+import negocio.Chico;
 import negocio.FactoryJuegos;
 import negocio.GrupoJuego;
 import negocio.Juego;
@@ -132,10 +133,34 @@ public class ControladorJuego {
 				Mano ultimaM = jue.getUltimaMano();
 
 				if (ultimaM.terminoMano()) {
+
 					Pareja pGanadora = ultimaM.obtenerParejaGanadora();
-					//aumenta los puntos del truco
-					jue.getUltimoChico().aumentarPuntosTruco(ultimaM.getTruco(), pGanadora);
-					
+					Chico ultimoChico = jue.getUltimoChico();
+
+					// aumenta los puntos del truco
+					ultimoChico.aumentarPuntosTruco(ultimaM.getTruco(), pGanadora);
+
+					// pregunta si termino el chico
+					if (ultimoChico.terminoChico()) {
+
+						ultimoChico.finalizarChico();
+
+						if (jue.terminoJuego()) {
+
+						}else {
+							
+							
+							jue.armarNuevoChico();
+							
+						}
+					} else {
+						ultimoChico.armarNuevaMano();
+					}
+
+				} else {
+
+					ultimaM.armarNuevaBaza();
+
 				}
 			}
 		}
@@ -171,7 +196,6 @@ public class ControladorJuego {
 					System.out.println("Tanto para envido " + p.getMayorTantoEnvido());
 					System.out.println("Tanto para truco " + p.getMayorTantoTruco());
 				}
-				juego.puntosDbg(p.getIdPareja());
 				System.out.println("");
 			}
 			// System.out.println("juega " + juego.proximoDbg().getNombre());

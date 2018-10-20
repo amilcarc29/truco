@@ -125,16 +125,29 @@ public class ChicoDAO {
 		for (Mano m : c.getManos()) {
 			m.setParejas(parejas);
 			m.setJugadores(JugadorDAO.getInstancia().buscarJugadoresByJuego(chicoent.getJuego().getId()));
-			m.setPuntos(PuntuacionDAO.getInstancia().buscarPuntosByChico(chicoent.getIdChico()));
-			
-			
+
 			List<Baza> bazas = BazaDAO.getInstancia().buscarBazaPorIDMano(m);
 			m.setBazas(bazas);
-			
-			
-			
+
 		}
 
 		return c;
+	}
+
+	public void actualizarParejaGanadora(Chico chico) throws ParejaException {
+		ParejaEntity pE = null;
+		ChicoEntity cE = null;
+		cE = this.buscarChicoPorID(chico.getIdChico());
+		pE = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejaGanadora().getIdPareja());
+
+		cE.setParejaGanadora(pE);
+		// TODO Auto-generated method stub
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(cE);
+		session.getTransaction().commit();
+		session.close();
+
 	}
 }

@@ -73,11 +73,39 @@ public class PuntuacionDAO {
 		return puntuaciones;
 	}
 
+	public PuntuacionEntity buscarPuntosByIdEntity(Integer idPuntuacion) throws CategoriaException {
+		// TODO Auto-generated method stub
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+
+		PuntuacionEntity puntuacion = (PuntuacionEntity) session
+				.createQuery("from PuntuacionEntity where idPuntuacion = ? ").setParameter(0, idPuntuacion)
+				.uniqueResult();
+
+		session.close();
+
+		return puntuacion;
+	}
+
 	private Puntuacion toNegocio(PuntuacionEntity p) throws CategoriaException {
 		// TODO Auto-generated method stub
 		Puntuacion pareja = new Puntuacion(ParejaDAO.getInstancia().toNegocio(p.getPareja()));
 		pareja.setIdPuntuacion(p.getIdPuntuacion());
 		return pareja;
+	}
+
+	public void actualizarPuntos(Puntuacion p) throws CategoriaException {
+		PuntuacionEntity pEnt = null;
+		pEnt = this.buscarPuntosByIdEntity(p.getIdPuntuacion());
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(pEnt);
+		session.getTransaction().commit();
+		session.close();
+
 	}
 
 }

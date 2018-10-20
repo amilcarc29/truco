@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.ChicoDAO;
+import dao.PuntuacionDAO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
@@ -93,17 +94,37 @@ public class Chico {
 		return false;
 	}
 
-	private void cambiarOrden() {
-		jugadores.add(jugadores.get(0));
-		jugadores.remove(0);
+
+
+	public Pareja getParejaGanadora() {
+
+		for (Puntuacion p : this.puntosChico) {
+			if (p.getPuntos() >= 30)
+				return p.getPareja();
+		}
+
+		return null;
 	}
 
-	public void finalizarChico() {
+	public void finalizarChico() throws ParejaException {
 
+		// buscar ganador
+		this.setGanador(this.getParejaGanadora());
+
+		ChicoDAO.getInstancia().actualizarParejaGanadora(this);
 	}
 
 	public int getPuntosParaTerminar() {
-		return 0;
+
+		int puntos = 0;
+
+		for (Puntuacion p : this.puntosChico) {
+			if (p.getPuntos() > puntos)
+				puntos = p.getPuntos();
+
+		}
+
+		return (this.puntosPorGanar - puntos);
 
 	}
 
@@ -111,10 +132,16 @@ public class Chico {
 
 	}
 
-	public void aumentarPuntosTruco(Truco truco, Pareja pareja) {
-		
-		
-		
+	public void aumentarPuntosTruco(Truco truco, Pareja pareja) throws CategoriaException {
+
+		for (Puntuacion p : this.getPuntosChico()) {
+			if (p.esPuntuacion(pareja)) {
+				p.sumarPuntos(truco.getPuntos());
+				// aumenta los puntos
+				PuntuacionDAO.getInstancia().actualizarPuntos(p);
+
+			}
+		}
 	}
 
 	// TODO Agregar parámetro parejas a Diagrama.
@@ -123,7 +150,7 @@ public class Chico {
 		// puntosPorTerminar del Chico?
 		// ---> Porque en el chico ya tenemos las parejas, los puntos y los jugadores.
 
-		Mano mano = new Mano(parejas, jugadores, puntosChico, puntosParaTerminar);
+		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
 		mano.save(this);
 		mano.altaBaza();
 
@@ -192,11 +219,7 @@ public class Chico {
 		return sePuedeCantarEnvido;
 	}
 
-	public void puntosDbg(int idPareja) {
-		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).puntosDbg(idPareja);
 
-	}
 
 	public void save(Juego juego) throws UsuarioException, CategoriaException, ParejaException {
 		this.setIdChico(ChicoDAO.getInstancia().guardarChico(juego, this));
@@ -267,6 +290,22 @@ public class Chico {
 	public Mano getUltimaMano() {
 		// TODO Auto-generated method stub
 		return this.getManos().get(this.getManos().size() - 1);
+	}
+	public void cambiarOrden() {
+		jugadores.add(jugadores.get(0));
+		jugadores.remove(0);
+	}
+	public void armarNuevaMano() throws UsuarioException, CategoriaException {
+		// TODO Auto-generated method stub
+		//modifico el orden antes de la proxima mano
+		cambiarOrden();
+		
+		Mano mano = new Mano(parejas, jugadores, this.getPuntosParaTerminar());
+		mano.save(this);
+		mano.altaBaza();
+
+		manos.add(mano);
+
 	}
 
 }
