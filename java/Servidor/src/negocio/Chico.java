@@ -26,6 +26,7 @@ public class Chico {
 	
 	private boolean sePuedeCantarEnvido = true;
 	
+	
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
 		this.jugadores = new ArrayList<>();
@@ -87,55 +88,15 @@ public class Chico {
 		}
 	}
 
-	public boolean terminoMano() {
-		return this.manos.get(this.manos.size() - 1).finalizoMano();
-	}
-
-	public boolean finalizoChico() throws UsuarioException, CategoriaException {
-		// finalizo ultima mano
-
-		Mano ultimaMano = this.manos.get(this.manos.size() - 1);
-
-		if (ultimaMano.finalizoMano()) {
-
-			System.out.println("FIN MANO");
-			sePuedeCantarEnvido = true;
-			
-			List<Puntuacion> puntosMano = ultimaMano.getPuntos();
-
-			for (Puntuacion puntuacion : puntosMano) {
-				sumarPuntosMano(puntuacion);
-//				System.out.println(
-//						"getIdPareja	" + puntuacion.getPareja().getIdPareja() + " " + puntuacion.getPuntos());
-			}
-
-			for (Puntuacion p : this.puntosChico) {
-				// MAYOR PORQUE PUEDE QUE SUME MAS DE 30
-				
-				System.out.println(
-						"getIdPareja	" + p.getPareja().getIdPareja() + " " + p.getPuntos());
-
-				
-				if (p.getPuntos() >= puntosPorGanar) {
-					this.ganador = p.getPareja();
-					return true;
-				}
-				
-			
-			}
-
-			cambiarOrden();
-			Mano mano = new Mano(parejas, jugadores, puntosChico, puntosPorGanar);
-			manos.add(mano);
-			return false;
-
-		} else {
-
+	public boolean terminoChico() {
+		for (Puntuacion puntacion : this.getPuntosChico()){
+			if (puntacion.getPuntos() >= 30)
+				return true;
 		}
-
+		
 		return false;
-
 	}
+
 	private void cambiarOrden() {
 		jugadores.add(jugadores.get(0));
 		jugadores.remove(0);

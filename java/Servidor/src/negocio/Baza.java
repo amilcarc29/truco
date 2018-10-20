@@ -37,6 +37,7 @@ public class Baza {
 		numero = 1;
 	}
 
+
 	public Baza() {
 		this.jugadas = new LinkedList<Jugada>();
 	}
@@ -137,6 +138,13 @@ public class Baza {
 		} catch (CategoriaException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public boolean terminoBaza() {
+		if (this.getJugadas().size() == 4)
+			return true;
+		else
+			return false;
 	}
 	
 	public void actualizarJugadaMayor (Jugada jugada) {

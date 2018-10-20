@@ -44,6 +44,7 @@ public class ControladorGrupo {
 		}
 		throw new GrupoException("El grupo con nombre: " + nombre + "no existe.");
 	}
+	
 
 	private void esNombreGrupoRepetido(String nombre) throws GrupoException {
 		for (Grupo grupo : grupos) {

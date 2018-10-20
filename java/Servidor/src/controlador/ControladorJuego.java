@@ -61,13 +61,11 @@ public class ControladorJuego {
 			// Creo que se debería crear el chico en el constructor de Juego y no aca (VER)
 			j.save();
 			// para tener el id el crear va despues del save
-			
+
 			j.crearChico();
-			
+
 			JugadorDAO.getInstancia().setTurnoPrimero(j);
 
-			
-			
 			juegos.add(j);
 			// imprimirDbg();
 		}
@@ -89,13 +87,15 @@ public class ControladorJuego {
 		j.cantarVale4();
 	}
 
-	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo) throws JuegoException, CategoriaException, UsuarioException {
+	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo)
+			throws JuegoException, CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarQuieroTruco(quieroSiNo);
 	}
 
-	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo) throws JuegoException, CategoriaException, UsuarioException {
+	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo)
+			throws JuegoException, CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarQuieroEnvido(quieroSiNo);
@@ -115,29 +115,27 @@ public class ControladorJuego {
 		return JuegoDAO.getInstancia().buscarJuego(idJuego);
 	}
 
-	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario)
-			throws JugadorException, CartaException, JuegoException, CategoriaException, UsuarioException, ParejaException {
+	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws JugadorException, CartaException,
+			JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Carta car = CartaDAO.getInstancia().buscarCartaPorID(carta.getIdCarta());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
-		
-		if(jug.isTieneTurno())
+
+		if (jug.isTieneTurno())
 			jue.jugarCarta(car);
-		
+
 		verificarFinJuego(jue.getId());
 	}
+	
 
 	public boolean verificarFinJuego(int idJuego)
 			throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego j = this.buscarJuego(idJuego);
-		return j.verificarFinJuego();
+		return j.termino();
 	}
-
-	public boolean terminoMano(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
-		Juego j = this.buscarJuego(idJuego);
-		return j.terminoMano();
-	}
-
+	
+	
+	
 	public void sinCantar(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		Juego j = this.buscarJuego(idJuego);
