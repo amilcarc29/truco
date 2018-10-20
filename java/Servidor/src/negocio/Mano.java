@@ -126,14 +126,14 @@ public class Mano {
 
 	}
 
-	public void cantarQuieroTruco(Jugador j, boolean quieroSiNo) {
+	public void cantarQuieroTruco(Jugador j, boolean quiero) {
 
 		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
 		Puntuacion p;
 		// si quiere Truco
 		//
 
-		if (quieroSiNo) {
+		if (quiero) {
 
 			Pareja parejaactual = getParejaActual(j.getId());
 			Pareja parejacontraria = getParejaContrariaActual(j.getId());
@@ -196,14 +196,14 @@ public class Mano {
 		return null;
 	}
 
-	public void cantarQuieroEnvido(Jugador j, boolean quieroSiNo) {
+	public void cantarQuieroEnvido(Jugador j, boolean quiero) {
 
 		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
 		Puntuacion p;
 		// si quiere envido
 		//
 
-		if (quieroSiNo) {
+		if (quiero) {
 
 			Pareja parejaactual = getParejaActual(j.getId());
 			Pareja parejacontraria = getParejaContrariaActual(j.getId());
