@@ -33,12 +33,20 @@ public class JugadorCartaEntity {
 	public JugadorCartaEntity(JugadorEntity jugador, CartaEntity carta) {
 		this.Jugador = jugador;
 		this.Carta = carta;
-		this.cartaJugada = false;
+		this.setCartaJugada(false);
 
 	}
 
 	public CartaEntity getCarta() {
 
 		return this.Carta;
+	}
+
+	public boolean isCartaJugada() {
+		return cartaJugada;
+	}
+
+	public void setCartaJugada(boolean cartaJugada) {
+		this.cartaJugada = cartaJugada;
 	}
 }

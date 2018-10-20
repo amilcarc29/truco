@@ -48,6 +48,8 @@ public class JugadaDAO {
 		// AGREGAR EXCEPCION BAZA
 		ba = BazaDAO.getInstancia().buscarBazaPorID(baza.getIdBaza());
 		
+		//
+		
 		JugadaEntity je = new JugadaEntity (jug, ca, ba);
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();

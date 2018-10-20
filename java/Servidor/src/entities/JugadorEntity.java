@@ -29,6 +29,9 @@ public class JugadorEntity {
 	@JoinColumn(name = "idJuego")
 	private JuegoEntity juego;
 	
+	private boolean tieneTurno;
+	
+	
 	public JugadorEntity() {}
 
 	public JugadorEntity(UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro, String tipo) {
@@ -38,7 +41,12 @@ public class JugadorEntity {
 		this.miembro = miembro;
 		this.tipo = tipo;
 	}
+	
 
+	
+	public boolean tieneTurno() {
+		return tieneTurno;
+	}
 	public int getIdJugador() {
 		return idJugador;
 	}
@@ -85,5 +93,13 @@ public class JugadorEntity {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public boolean isTieneTurno() {
+		return tieneTurno;
+	}
+
+	public void setTieneTurno(boolean tieneTurno) {
+		this.tieneTurno = tieneTurno;
 	}
 }

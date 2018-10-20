@@ -12,6 +12,7 @@ public abstract class Jugador {
 	// sacado nombre. Nombre es atributo de Usuario no de Jugador.
 	private int idJugador;
 	private List<Carta> cartas;
+	private boolean tieneTurno;
 
 	// private static int cnt = 0;
 	//
@@ -129,5 +130,13 @@ public abstract class Jugador {
 	public List<Carta> getCartas() {
 		return this.cartas;
 
+	}
+
+	public boolean isTieneTurno() {
+		return tieneTurno;
+	}
+
+	public void setTieneTurno(boolean tieneTurno) {
+		this.tieneTurno = tieneTurno;
 	}
 }

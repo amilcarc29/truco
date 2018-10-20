@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dao.JugadorDAO;
 import dto.JuegoDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -126,30 +127,41 @@ public abstract class Juego {
 
 	// TODO Agregar a Diagrama.
 
-	public void cantarTruco() {
-		chicos.get(chicos.size() - 1).cantarTruco();
+	public void cantarTruco() throws CategoriaException {
+		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
+		chicos.get(chicos.size() - 1).cantarTruco(jugador);
 	}
 
-	public void cantarReTruco() {
-		chicos.get(chicos.size() - 1).cantarReTruco();
+	public void cantarReTruco() throws CategoriaException {
+		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
+		chicos.get(chicos.size() - 1).cantarReTruco(jugador);
 	}
 
-	public void cantarVale4(int idJugador) {
-		chicos.get(chicos.size() - 1).cantarVale4(idJugador);
+	public void cantarVale4() throws CategoriaException {
+		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
+		chicos.get(chicos.size() - 1).cantarVale4(jugador);
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo) {
+	public void cantarQuieroEnvido(boolean quieroSiNo) throws CategoriaException {
 		// TODO Auto-generated method stub
-		chicos.get(chicos.size() - 1).cantarQuieroEnvido(quieroSiNo);
+		
+		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
+
+		
+		chicos.get(chicos.size() - 1).cantarQuieroEnvido(jugador, quieroSiNo);
 	}
 
-	public void cantarQuieroTruco(boolean quieroSiNo) {
+	public void cantarQuieroTruco(boolean quieroSiNo) throws CategoriaException {
 		// TODO Auto-generated method stub
-		chicos.get(chicos.size() - 1).cantarQuieroTruco(quieroSiNo);
+		
+		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
+		
+		chicos.get(chicos.size() - 1).cantarQuieroTruco(jugador , quieroSiNo);
 	}
 
-	public void cantarEnvido() {
-		chicos.get(chicos.size() - 1).cantarEnvido();
+	public void cantarEnvido() throws CategoriaException {
+		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
+		chicos.get(chicos.size() - 1).cantarEnvido(jugador);
 	}
 
 	public void sinCantar() {
@@ -158,16 +170,20 @@ public abstract class Juego {
 
 	}
 
-	public void jugarCarta(Carta carta, Jugador jugador) throws JugadorException, CartaException, UsuarioException, CategoriaException {
+	public void jugarCarta(Carta carta) throws JugadorException, CartaException, UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
 		
-		try {
-			chicos.get(chicos.size() - 1).jugarCarta(carta, jugador);
-		} catch (UsuarioException e) {
-			e.printStackTrace();
-		} catch (CategoriaException e1) {
-			e1.printStackTrace();
-		}
+
+			Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
+
+			chicos.get(chicos.size() - 1).jugarCarta(carta,jugador);
+			
+			
+			JugadorDAO.getInstancia().setTurnoSigJugador(this);
+
+			
+			
+	
 	}
 
 	public boolean terminoMano() {
@@ -190,10 +206,7 @@ public abstract class Juego {
 		return false;
 	}
 
-	public Jugador proximoDbg() {
-		// TODO Auto-generated method stub
-		return chicos.get(chicos.size() - 1).proximoDbg();
-	}
+
 
 	public void puntosDbg(int idPareja) {
 		chicos.get(chicos.size() - 1).puntosDbg(idPareja);
@@ -211,9 +224,7 @@ public abstract class Juego {
 		this.chicos = chicos;
 	}
 
-	public boolean esTurno(Jugador jug) {
-		return chicos.get(chicos.size() - 1).esTurno(jug);
-	}
+
 
 	public 	List<Carta> getCartas(Jugador jug) {
 		// TODO Auto-generated method stub
