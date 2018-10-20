@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import dao.BazaDAO;
 import dao.JugadorDAO;
 import dao.ManoDAO;
 import dao.ParejaDAO;
-import entities.BazaEntity;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
@@ -104,27 +102,19 @@ public class Mano {
 
 	public void cantarTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(j);
-
 		this.truco = new Truco();
-
 	}
 
 	public void cantarVale4(Jugador j) {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(j);
-
 		if (this.truco == null)
 			this.truco = new Truco();
-
 		Vale4 v4 = new Vale4();
 		this.truco.addDec(v4);
-
 	}
 
 	public void cantarReTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(j);
 		this.truco = new Truco();
 
 		ReTruco rt = new ReTruco();
@@ -174,15 +164,12 @@ public class Mano {
 
 	public void cantarEnvido(Jugador j) {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarEnvido(j);
 		if (this.envido == null)
 			this.envido = new Envido();
 		else {
 			Envido env = new Envido();
 			this.envido.addDec(env);
-
 		}
-
 	}
 
 	public Pareja getPareja(int idJugador) {
