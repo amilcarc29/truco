@@ -40,7 +40,6 @@ GO
 CREATE TABLE [dbo].[Categoria](
 	[idCategoria] [int] IDENTITY(1,1) NOT NULL,
 	[nombre] [nvarchar](50) NOT NULL,
-	[score] [int] NOT NULL,
 	[minimoPartidas] [int] NOT NULL,
 	[minimoPuntos] [int] NOT NULL,
 	[promedioMinimo] [float] NOT NULL,
@@ -489,7 +488,7 @@ ALTER DATABASE [db_seminario] SET  READ_WRITE
 GO
 
 					  
-					  
+SET IDENTITY_INSERT [dbo].[Carta] ON					  
 INSERT [dbo].[Carta] ([idCarta], [numero], [palo], [pesoTruco], [pesoEnvido]) VALUES (1, 1, N'ESPADA', 14, 1)
 INSERT [dbo].[Carta] ([idCarta], [numero], [palo], [pesoTruco], [pesoEnvido]) VALUES (2, 1, N'BASTO', 13, 1)
 INSERT [dbo].[Carta] ([idCarta], [numero], [palo], [pesoTruco], [pesoEnvido]) VALUES (3, 7, N'ESPADA', 12, 7)
@@ -531,9 +530,22 @@ INSERT [dbo].[Carta] ([idCarta], [numero], [palo], [pesoTruco], [pesoEnvido]) VA
 INSERT [dbo].[Carta] ([idCarta], [numero], [palo], [pesoTruco], [pesoEnvido]) VALUES (41, 4, N'ORO', 1, 4)
 INSERT [dbo].[Carta] ([idCarta], [numero], [palo], [pesoTruco], [pesoEnvido]) VALUES (42, 4, N'COPA', 1, 4)
 								 
+SET IDENTITY_INSERT [dbo].[Carta] OFF
+
+SET IDENTITY_INSERT [dbo].[Categoria] ON
+Insert [dbo].[Categoria]([idCategoria],[nombre],[minimoPartidas],[minimoPuntos],[promedioMinimo]) values (1,'NOVATO',0,0,0);
+Insert [dbo].[Categoria]([idCategoria],[nombre],[minimoPartidas],[minimoPuntos],[promedioMinimo]) values (2,'CALIFICADO',100,500,5)
+Insert [dbo].[Categoria]([idCategoria],[nombre],[minimoPartidas],[minimoPuntos],[promedioMinimo]) values (3,'EXPERTO',500,3000,6)
+Insert [dbo].[Categoria]([idCategoria],[nombre],[minimoPartidas],[minimoPuntos],[promedioMinimo]) values (4,'MASTER',1000,8000,8)
+
+SET IDENTITY_INSERT [dbo].[Categoria] OFF
+
+SET IDENTITY_INSERT [dbo].[Usuario] ON								 
+								 
+								 
 INSERT [dbo].[Usuario] ([idUsuario], [partidasGanadas], [partidasJugadas], [puntaje], [apodo], [pass], [email], [idCategoria], [activo]) VALUES (5, 0, 0, 0, N'Emiliano', N'km4n7s28ehiFizeYupm93Q==', N'Emiliano', 3, 1)
 INSERT [dbo].[Usuario] ([idUsuario], [partidasGanadas], [partidasJugadas], [puntaje], [apodo], [pass], [email], [idCategoria], [activo]) VALUES (6, 0, 0, 0, N'Debi', N'km4n7s28ehiFizeYupm93Q==', N'Debi', 3, 1)
 INSERT [dbo].[Usuario] ([idUsuario], [partidasGanadas], [partidasJugadas], [puntaje], [apodo], [pass], [email], [idCategoria], [activo]) VALUES (7, 0, 0, 0, N'Lucas', N'km4n7s28ehiFizeYupm93Q==', N'Lucas', 3, 1)
 INSERT [dbo].[Usuario] ([idUsuario], [partidasGanadas], [partidasJugadas], [puntaje], [apodo], [pass], [email], [idCategoria], [activo]) VALUES (8, 0, 0, 0, N'Amilcar', N'km4n7s28ehiFizeYupm93Q==', N'Amilcar', 3, 1)
 INSERT [dbo].[Usuario] ([idUsuario], [partidasGanadas], [partidasJugadas], [puntaje], [apodo], [pass], [email], [idCategoria], [activo]) VALUES (13, 0, 0, 0, N'Emiliano2', N'km4n7s28ehiFizeYupm93Q==', N'Emiliano', 3, 1)
-								 
+SET IDENTITY_INSERT [dbo].[Usuario] OFF								 
