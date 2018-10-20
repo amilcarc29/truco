@@ -74,13 +74,10 @@ public class ControladorUsuario {
 	public UsuarioDTO loggearUsuario(String apodo, String password) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		if ((usuario != null) && (usuario.validarLogin(password))) {
-
 			System.out.println("Usuario: " + usuario.getApodo() + " se loggeó.");
-
 			return usuario.toDTO();
 		} else {
-			System.out.println("Usuario o Contraseña incorrecta para: " + usuario.getApodo());
-
+			System.out.println("Usuario o Contraseña incorrecta para: " + apodo);
 		}
 		return null;
 	}
