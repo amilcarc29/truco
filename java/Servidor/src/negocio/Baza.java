@@ -5,6 +5,8 @@ import java.util.List;
 
 import dao.BazaDAO;
 import dao.JugadaDAO;
+import dao.JugadorCartaDAO;
+import dao.JugadorDAO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
@@ -81,7 +83,10 @@ public class Baza {
 	public void finalizarBaza() {
 	}
 
-	public void cantarTruco(int idJugador) {
+	public void cantarTruco(Jugador j) {
+		
+
+		
 		// Conflicto con el nombre del jugador
 		// jugadores.stream().filter(jugador ->
 		// jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
@@ -89,7 +94,9 @@ public class Baza {
 		// });
 	}
 
-	public void cantarEnvido(int idJugador) {
+	public void cantarEnvido(Jugador j) {
+		
+
 		// Conflicto con el nombre del jugador
 		// jugadores.stream().filter(jugador ->
 		// jugador.esJugador(idJugador)).findFirst().ifPresent(jugador -> {
@@ -106,6 +113,11 @@ public class Baza {
 	
 	public void jugarCarta(Carta carta, Jugador jugador) throws UsuarioException, CategoriaException {
 		try { 
+			
+			
+			JugadorCartaDAO.getInstancia().guardarCartaJugada(jugador.getId(), carta.getIdCarta());
+
+			
 			Jugada jugada = new Jugada(jugador, carta);		
 			jugada.save(this);
 			this.jugadas.add(jugada);
@@ -117,6 +129,9 @@ public class Baza {
 					this.actualizarJugadaMayor(jugada);
 			}
 			numero++;
+			
+			
+			
 		} catch (UsuarioException e) {
 			e.printStackTrace();
 		} catch (CategoriaException e1) {

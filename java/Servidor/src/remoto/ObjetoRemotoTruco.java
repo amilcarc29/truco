@@ -15,6 +15,7 @@ import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import interfaces.InterfaceRemotaTruco;
 
@@ -141,6 +142,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e4) {
 			// TODO Auto-generated catch block
 			e4.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

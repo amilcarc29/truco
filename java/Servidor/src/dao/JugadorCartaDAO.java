@@ -60,7 +60,7 @@ public class JugadorCartaDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 
-		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session.createQuery("from JugadorCartaEntity where idJugador = ? ").setParameter(0, jug.getId()).list();
+		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=0").setParameter(0, jug.getId()).list();
 		session.close();
 
 		for (JugadorCartaEntity jc : jugadorcartasEnt) {
@@ -69,6 +69,23 @@ public class JugadorCartaDAO {
 		}
 		
 		return cartas;
+	}
+
+	public void guardarCartaJugada(int idJugador, int idCarta) {
+		// TODO Auto-generated method stub
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		JugadorCartaEntity jugadorcartasEnt = (JugadorCartaEntity) session.
+				createQuery("from JugadorCartaEntity where idJugador = ? and idCarta = ?  ").setParameter(0, idJugador).setParameter(1, idCarta).uniqueResult();
+		//session.close();
+		
+		jugadorcartasEnt.setCartaJugada(true);
+		session.beginTransaction();
+		session.saveOrUpdate(jugadorcartasEnt);
+		session.getTransaction().commit();
+		session.close();
+		
 	}
 
 

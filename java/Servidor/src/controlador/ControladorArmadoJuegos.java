@@ -3,6 +3,7 @@ package controlador;
 import java.util.List;
 import java.util.Vector;
 
+import dao.JugadorDAO;
 import dto.GrupoDTO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
@@ -128,6 +129,9 @@ public class ControladorArmadoJuegos {
 			grupo.setTipoJuego("LIBRE");
 			ControladorJuego.getInstancia().iniciarJuego(grupo);
 
+			
+			
+			
 		} catch (UsuarioException e) {
 
 			e.printStackTrace();

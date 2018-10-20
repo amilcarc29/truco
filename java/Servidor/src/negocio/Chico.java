@@ -174,35 +174,35 @@ public class Chico {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
-	public void cantarTruco() {
+	public void cantarTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarTruco();
+		this.manos.get(this.manos.size() - 1).cantarTruco(j);
 	}
 
-	public void cantarVale4(int idJugador) {
+	public void cantarVale4(Jugador j) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarVale4();
+		this.manos.get(this.manos.size() - 1).cantarVale4(j);
 	}
 
-	public void cantarReTruco() {
+	public void cantarReTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarReTruco();
+		this.manos.get(this.manos.size() - 1).cantarReTruco(j);
 	}
 
-	public void cantarQuieroTruco(boolean quieroSiNo) {
+	public void cantarQuieroTruco(Jugador j, boolean quieroSiNo) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(quieroSiNo);
+		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(j, quieroSiNo);
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo) {
+	public void cantarQuieroEnvido(Jugador j , boolean quieroSiNo) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarQuieroEnvido(quieroSiNo);
+		this.manos.get(this.manos.size() - 1).cantarQuieroEnvido(j, quieroSiNo);
 	}
 
-	public void cantarEnvido() {
+	public void cantarEnvido(Jugador j) {
 		sePuedeCantarEnvido = false;
 
-		this.manos.get(this.manos.size() - 1).cantarEnvido();
+		this.manos.get(this.manos.size() - 1).cantarEnvido(j);
 
 	}
 
@@ -216,7 +216,7 @@ public class Chico {
 		// TODO Auto-generated method stub
 		
 		try {
-			this.manos.get(this.manos.size() - 1).jugarCarta(carta, jugador);
+			this.manos.get(this.manos.size() - 1).jugarCarta(carta,jugador);
 			
 		// VER BIEN LAS EXCEPCIONES
 		} catch (UsuarioException e) {
@@ -233,10 +233,7 @@ public class Chico {
 		return sePuedeCantarEnvido;
 	}
 
-	public Jugador proximoDbg() {
-		// TODO Auto-generated method stub
-		return this.manos.get(this.manos.size() - 1).proximoDbg();
-	}
+
 
 	public void puntosDbg(int idPareja) {
 		// TODO Auto-generated method stub
@@ -248,9 +245,6 @@ public class Chico {
 		this.setIdChico(ChicoDAO.getInstancia().guardarChico(juego, this));
 	}
 
-	public boolean esTurno(Jugador jugador) {
-		return  this.manos.get(this.manos.size() - 1).esTurno(jugador);		
-	}
 	
 	public void crearMano () {
 		

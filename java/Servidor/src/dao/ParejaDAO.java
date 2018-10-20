@@ -107,7 +107,7 @@ public class ParejaDAO {
 		Session ss = sf.openSession();
 		ss.beginTransaction();
 
-		// alta de jugadores
+		// alta de jugadores , pasarlo al dao o al save de jugador
 
 		JugadorEntity je1 = new JugadorEntity(null, null, mi1, "grupal");
 		ss.saveOrUpdate(je1);

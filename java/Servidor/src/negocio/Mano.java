@@ -35,7 +35,6 @@ public class Mano {
 
 	// esto mantiene el turno de los jugadores se puede iniciar donde sea pero se
 	// incrementa con cada jugada
-	private int jugadorIndice = 0;
 
 	//
 	public Mano(int idMano) {
@@ -62,11 +61,13 @@ public class Mano {
 	public void altaBaza() {
 		Baza b = new Baza(this.getJugadores());
 		b.save(this);
-		//FIX arreglar 
+		// FIX arreglar
 		this.bazas = new ArrayList<Baza>();
 		this.bazas.add(b);
 		// System.out.println("BAZA NUMERO " + this.bazas.size());
-		jugadorIndice = 0;
+
+		// turno del primer jugador
+		JugadorDAO.getInstancia().setTurno(this.jugadores.get(0));
 	}
 
 	public List<Puntuacion> getPuntos() {
@@ -107,17 +108,17 @@ public class Mano {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
-	public void cantarTruco() {
+	public void cantarTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorIndice);
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(j);
 
 		this.truco = new Truco();
 
 	}
 
-	public void cantarVale4() {
+	public void cantarVale4(Jugador j) {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorIndice);
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(j);
 
 		if (this.truco == null)
 			this.truco = new Truco();
@@ -127,9 +128,9 @@ public class Mano {
 
 	}
 
-	public void cantarReTruco() {
+	public void cantarReTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarTruco(jugadorIndice);
+		this.bazas.get(this.bazas.size() - 1).cantarTruco(j);
 		this.truco = new Truco();
 
 		ReTruco rt = new ReTruco();
@@ -141,7 +142,7 @@ public class Mano {
 
 	}
 
-	public void cantarQuieroTruco(boolean quieroSiNo) {
+	public void cantarQuieroTruco(Jugador j, boolean quieroSiNo) {
 
 		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
 		Puntuacion p;
@@ -150,17 +151,17 @@ public class Mano {
 
 		if (quieroSiNo) {
 
-			Pareja parejaactual = getParejaActual();
-			Pareja parejacontraria = getParejaContrariaActual();
+			Pareja parejaactual = getParejaActual(j.getId());
+			Pareja parejacontraria = getParejaContrariaActual(j.getId());
 
 			if (parejaactual.getMayorTantoTruco() > parejacontraria.getMayorTantoTruco()) {
 				// gana pareja 1
-				p = getPuntosPareja(jugadorIndice);
+				p = getPuntosPareja(j);
 
 			} else {
 				// gana pareja 2
 
-				p = getPuntosParejaContraria(jugadorIndice);
+				p = getPuntosParejaContraria(j);
 
 			}
 
@@ -169,7 +170,7 @@ public class Mano {
 			System.out.println("puntos quiero Truco " + this.truco.getPuntosQuiero());
 
 		} else {
-			p = getPuntosPareja(jugadorIndice);
+			p = getPuntosPareja(j);
 			p.sumarPuntos(this.truco.getPuntosNoQuiero());
 
 			System.out.println("puntos no quiero Truco  " + this.truco.getPuntosNoQuiero());
@@ -179,9 +180,9 @@ public class Mano {
 
 	}
 
-	public void cantarEnvido() {
+	public void cantarEnvido(Jugador j) {
 		// TODO Auto-generated method stub
-		this.bazas.get(this.bazas.size() - 1).cantarEnvido(jugadorIndice);
+		this.bazas.get(this.bazas.size() - 1).cantarEnvido(j);
 		if (this.envido == null)
 			this.envido = new Envido();
 		else {
@@ -192,10 +193,6 @@ public class Mano {
 
 	}
 
-	public Jugador proximoDbg() {
-		return jugadores.get(jugadorIndice);
-	}
-
 	public Pareja getPareja(int idJugador) {
 		for (Pareja p : parejas) {
 			if (p.tieneJugador(idJugador))
@@ -204,23 +201,23 @@ public class Mano {
 		return null;
 	}
 
-	public Pareja getParejaActual() {
+	public Pareja getParejaActual(int idJugador) {
 		for (Pareja p : parejas) {
-			if (p.tieneJugador(jugadorIndice))
+			if (p.tieneJugador(idJugador))
 				return p;
 		}
 		return null;
 	}
 
-	public Pareja getParejaContrariaActual() {
+	public Pareja getParejaContrariaActual(int idJugador) {
 		for (Pareja p : parejas) {
-			if (!p.tieneJugador(jugadorIndice))
+			if (!p.tieneJugador(idJugador))
 				return p;
 		}
 		return null;
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo) {
+	public void cantarQuieroEnvido(Jugador j, boolean quieroSiNo) {
 
 		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
 		Puntuacion p;
@@ -229,17 +226,17 @@ public class Mano {
 
 		if (quieroSiNo) {
 
-			Pareja parejaactual = getParejaActual();
-			Pareja parejacontraria = getParejaContrariaActual();
+			Pareja parejaactual = getParejaActual(j.getId());
+			Pareja parejacontraria = getParejaContrariaActual(j.getId());
 
 			if (parejaactual.getMayorTantoEnvido() > parejacontraria.getMayorTantoEnvido()) {
 				// gana pareja 1
-				p = getPuntosPareja(jugadorIndice);
+				p = getPuntosPareja(j);
 
 			} else {
 				// gana pareja 2
 
-				p = getPuntosParejaContraria(jugadorIndice);
+				p = getPuntosParejaContraria(j);
 
 			}
 
@@ -248,7 +245,7 @@ public class Mano {
 			System.out.println("puntos quiero Envido " + this.envido.getPuntosQuiero());
 
 		} else {
-			p = getPuntosPareja(jugadorIndice);
+			p = getPuntosPareja(j);
 			p.sumarPuntos(this.envido.getPuntosNoQuiero());
 
 			System.out.println("puntos no quiero Envido  " + this.envido.getPuntosNoQuiero());
@@ -262,7 +259,7 @@ public class Mano {
 		// TODO Auto-generated method stub
 
 		Jugada j = this.bazas.get(this.bazas.size() - 1).jugadaMayor();
-		Puntuacion p = getPuntosPareja(j.getJugador().getId());
+		Puntuacion p = getPuntosPareja(j.getJugador());
 
 		// sin truco ni envido 1 PUNTO
 		p.sumarPuntos(1);
@@ -271,19 +268,19 @@ public class Mano {
 
 	// TODO agregar
 
-	private Puntuacion getPuntosParejaContraria(int idJugador) {
+	private Puntuacion getPuntosParejaContraria(Jugador j) {
 		for (Puntuacion pun : puntos)
 			/// TODO VER!!
-			if (!pun.tieneJugador(idJugador))
+			if (!pun.tieneJugador(j.getId()))
 				return pun;
 
 		return null;
 	}
 
-	private Puntuacion getPuntosPareja(int idJugador) {
+	private Puntuacion getPuntosPareja(Jugador j) {
 		for (Puntuacion pun : puntos)
 			/// TODO VER!!
-			if (pun.tieneJugador(idJugador))
+			if (pun.tieneJugador(j.getId()))
 				return pun;
 
 		return null;
@@ -293,8 +290,8 @@ public class Mano {
 			throws JugadorException, CartaException, UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
 		try {
+
 			this.bazas.get(this.bazas.size() - 1).jugarCarta(carta, jugador);
-			jugadorIndice++;
 
 			// VER BIEN LAS EXCEPCIONES
 		} catch (UsuarioException e) {
@@ -332,7 +329,7 @@ public class Mano {
 
 				} else {
 
-					Puntuacion pmano = getPuntosPareja(jugadaMayor.getJugador().getId());
+					Puntuacion pmano = getPuntosPareja(jugadaMayor.getJugador());
 					pmano.sumarPuntos(1);
 
 					ganadorBaza1 = g;
@@ -384,12 +381,6 @@ public class Mano {
 			}
 
 		}
-	}
-
-	public boolean esTurno(Jugador jugador) {
-		Jugador ju = jugadores.get(jugadorIndice);
-
-		return ju.esJugador(jugador.getId());
 	}
 
 	public List<Baza> getBazas() {
@@ -454,14 +445,6 @@ public class Mano {
 
 	public void setTrucoCantado(boolean trucoCantado) {
 		this.trucoCantado = trucoCantado;
-	}
-
-	public int getJugadorIndice() {
-		return jugadorIndice;
-	}
-
-	public void setJugadorIndice(int jugadorIndice) {
-		this.jugadorIndice = jugadorIndice;
 	}
 
 	public void setPuntos(List<Puntuacion> puntos) {

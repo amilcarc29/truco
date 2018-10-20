@@ -61,7 +61,13 @@ public class ControladorJuego {
 			// Creo que se debería crear el chico en el constructor de Juego y no aca (VER)
 			j.save();
 			// para tener el id el crear va despues del save
+			
 			j.crearChico();
+			
+			JugadorDAO.getInstancia().setTurnoPrimero(j);
+
+			
+			
 			juegos.add(j);
 			// imprimirDbg();
 		}
@@ -77,10 +83,10 @@ public class ControladorJuego {
 		j.cantarReTruco();
 	}
 
-	public void cantarVale4(int idJuego, int idJugador) throws JuegoException, CategoriaException {
-		// TODO Auto-generated method stub
+	public void cantarVale4(int idJuego) throws JuegoException, CategoriaException {
 		Juego j = this.buscarJuego(idJuego);
-		j.cantarVale4(idJugador);
+
+		j.cantarVale4();
 	}
 
 	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo) throws JuegoException, CategoriaException {
@@ -110,11 +116,15 @@ public class ControladorJuego {
 	}
 
 	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario)
-			throws JugadorException, CartaException, JuegoException, CategoriaException, UsuarioException {
+			throws JugadorException, CartaException, JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Carta car = CartaDAO.getInstancia().buscarCartaPorID(carta.getIdCarta());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
-		jue.jugarCarta(car, jug);
+		
+		if(jug.isTieneTurno())
+			jue.jugarCarta(car);
+		
+		verificarFinJuego(jue.getId());
 	}
 
 	public boolean verificarFinJuego(int idJuego)
@@ -179,13 +189,8 @@ public class ControladorJuego {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
-		for (Juego j : juegos) {
-			// falta un esJuego
-			if (j.sosJuego(ju) && j.esTurno(jug)) {
-				return true;
-			}
-		}
-		return false;
+
+		return jug.isTieneTurno();
 	}
 
 	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario)
@@ -193,8 +198,8 @@ public class ControladorJuego {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
-		
-		List<Carta> cartas =JugadorCartaDAO.getInstancia().getCartasbyJugador(jug);
+
+		List<Carta> cartas = JugadorCartaDAO.getInstancia().getCartasbyJugador(jug);
 		List<CartaDTO> cartasDto = new ArrayList<>();
 
 		for (Carta carta : cartas) {
