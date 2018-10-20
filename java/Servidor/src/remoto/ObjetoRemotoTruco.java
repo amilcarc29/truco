@@ -85,6 +85,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (CategoriaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 	}

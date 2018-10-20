@@ -278,7 +278,7 @@ public class ControladorArmadoJuegos {
 		return instancia;
 	}
 
-	public List<JuegoDTO> getJuegosActivo(UsuarioDTO usuario) throws CategoriaException {
+	public List<JuegoDTO> getJuegosActivo(UsuarioDTO usuario) throws CategoriaException, UsuarioException {
 		return ControladorJuego.getInstancia().getJuegosActivos(usuario);
 
 	}

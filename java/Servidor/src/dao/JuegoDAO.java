@@ -12,6 +12,7 @@ import entities.ParejaEntity;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
 import excepciones.ParejaException;
+import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Chico;
 import negocio.Juego;
@@ -88,7 +89,7 @@ public class JuegoDAO {
 		}
 	}
 
-	public List<Juego> buscarJuegosActivos(UsuarioDTO usuario) throws CategoriaException {
+	public List<Juego> buscarJuegosActivos(UsuarioDTO usuario) throws CategoriaException, UsuarioException {
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -105,7 +106,7 @@ public class JuegoDAO {
 		return juegNeg;
 	}
 
-	public Juego toNegocio(JuegoEntity juegoEntity) throws CategoriaException {
+	public Juego toNegocio(JuegoEntity juegoEntity) throws CategoriaException, UsuarioException {
 		Juego j = null;
 		if (juegoEntity.getTipoDeJuego().equals("LIBRE")) {
 			j = new ModalidadLibreIndividual();
@@ -116,7 +117,7 @@ public class JuegoDAO {
 		return j;
 	}
 
-	public Juego buscarJuego(int idJuego) throws CategoriaException, JuegoException {
+	public Juego buscarJuego(int idJuego) throws CategoriaException, JuegoException, UsuarioException {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -129,7 +130,7 @@ public class JuegoDAO {
 		}
 	}
 
-	public List<Juego> getJuegosActivos() throws CategoriaException {
+	public List<Juego> getJuegosActivos() throws CategoriaException, UsuarioException {
 
 		List<Juego> juegNeg = new ArrayList<>();
 

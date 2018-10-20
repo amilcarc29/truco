@@ -35,7 +35,12 @@ public class ThreadParejas implements Runnable {
 			// get the property value and print it out
 			loop = Integer.valueOf(prop.getProperty("timeRunthread"));
 			System.out.println("Hilo de parejas ,hilo cada " + loop + "ms");
-			armarParejasIndividuales();
+			try {
+				armarParejasIndividuales();
+			} catch (UsuarioException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
@@ -72,7 +77,7 @@ public class ThreadParejas implements Runnable {
 		}
 	}
 
-	public void armarParejasIndividuales() {
+	public void armarParejasIndividuales() throws UsuarioException {
 		Vector<JugadorIndividual> jugadoresLibres = new Vector<>();
 		
 		//carga los juegos que quedaron guardados
