@@ -155,6 +155,27 @@ public class ParejaDAO {
 			throw new ParejaException("La pareja con id: " + idPareja + "no existe en la base de datos.");
 		} // TODO Auto-generated method stub
 	}
+	
+	public Pareja buscarParejaDeUnJugador (int idJugador) throws CategoriaException{
+		ParejaEntity parejaEnt = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		parejaEnt = (ParejaEntity) session
+				.createQuery("from ParejaEntity where idJugador1 = ? or idJugador2 = ?").setParameter(0, idJugador)
+				.setParameter(1, idJugador).uniqueResult();
+		session.close();
+		if (parejaEnt != null) {
+			return toNegocio(parejaEnt);
+		} else {
+			try {
+				throw new ParejaException("La pareja con el jugador de id: " + idJugador + "no existe en la base de datos.");
+			} catch (ParejaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} // TODO Auto-generated method stub
+		return null;
+	}
 
 	public void actualizarJuego(int idPareja, int idJuego) throws ParejaException {
 		// TODO Auto-generated method stub

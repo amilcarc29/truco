@@ -139,6 +139,13 @@ public class Baza {
 		}
 	}
 	
+	public boolean terminoBaza() {
+		if (this.getJugadas().size() == 4)
+			return true;
+		else
+			return false;
+	}
+	
 	public void actualizarJugadaMayor (Jugada jugada) {
 		jugadaMayor = jugada;
 		BazaDAO.getInstancia().actualizarJugadaMayor(this, jugada);

@@ -186,23 +186,11 @@ public abstract class Juego {
 	
 	}
 
-	public boolean terminoMano() {
-		return chicos.get(chicos.size() - 1).terminoMano();
-	}
-
 	public boolean sePuedeCantarEnvido() {
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
 	}
 
-	public boolean verificarFinJuego() throws UsuarioException, CategoriaException, ParejaException {
-		/* FIJARSE QUE UNA PAREJA GANE DOS CHCICOS PARA TERMINAR */
-		if (chicos.size() >= 2) {
-			System.out.println("FIN CHICOS");
-			return true;
-		} else {
-			if (chicos.get(chicos.size() - 1).finalizoChico())
-				crearChico();
-		}
+	public boolean terminoJuego() {
 		return false;
 	}
 

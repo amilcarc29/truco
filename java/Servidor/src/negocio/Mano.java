@@ -7,6 +7,7 @@ import java.util.Vector;
 import dao.BazaDAO;
 import dao.JugadorDAO;
 import dao.ManoDAO;
+import dao.ParejaDAO;
 import entities.BazaEntity;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -26,12 +27,6 @@ public class Mano {
 
 	private int puntoParaTerminarChico;
 	private Mazo mazo;
-
-	// ESTO NO SE PARA QUE ESTA
-	private List<Pareja> historicoPuntos = null;
-	private Pareja ganadorBaza1 = null;
-	private Jugada jugadaMayor = null;
-	private boolean trucoCantado = false;
 
 	// esto mantiene el turno de los jugadores se puede iniciar donde sea pero se
 	// incrementa con cada jugada
@@ -175,8 +170,6 @@ public class Mano {
 			System.out.println("puntos no quiero Truco  " + this.truco.getPuntosNoQuiero());
 
 		}
-		trucoCantado = true;
-
 	}
 
 	public void cantarEnvido(Jugador j) {
@@ -300,71 +293,29 @@ public class Mano {
 		}
 	}
 
-	public boolean finalizoMano() {
-
-		jugadaMayor = this.bazas.get(this.bazas.size() - 1).jugadaMayor();
-
-		if (trucoCantado) {
-
-			return true;
-
-		} else {
-			if ((this.bazas.get(this.bazas.size() - 1).finalizoBaza())) {
-
-				Pareja g = getPareja(jugadaMayor.getJugador().getId());
-
-				if (this.bazas.size() < 3) {
-
-					if (historicoPuntos.indexOf(g) > 0) {
-						ganadorBaza1 = g;
-
-						return true;
-
-					} else
-						historicoPuntos.add(g);
-
-					cambiarOrden();
-					altaBaza();
-
-				} else {
-
-					Puntuacion pmano = getPuntosPareja(jugadaMayor.getJugador());
-					pmano.sumarPuntos(1);
-
-					ganadorBaza1 = g;
-
-					return true;
-				}
-
-			}
-		}
-
-		return false;
-	}
-
 	private void cambiarOrden() {
-		// preguntar quien gano , ponerlo adelante
-		Jugador jugador = jugadaMayor.getJugador();
-
-		int i = 0;
-		int j = jugadores.indexOf(jugador);
-
-		List<Jugador> jugadoresNuevo = new ArrayList<Jugador>();
-
-		jugadoresNuevo.add(jugador);
-
-		while (i < 3) {
-			j++;
-
-			if (j > 3)
-				j = 0;
-
-			jugadoresNuevo.add(jugadores.get(j));
-
-			i++;
-
-		}
-		jugadores = jugadoresNuevo;
+//		// preguntar quien gano , ponerlo adelante
+//		Jugador jugador = jugadaMayor.getJugador();
+//
+//		int i = 0;
+//		int j = jugadores.indexOf(jugador);
+//
+//		List<Jugador> jugadoresNuevo = new ArrayList<Jugador>();
+//
+//		jugadoresNuevo.add(jugador);
+//
+//		while (i < 3) {
+//			j++;
+//
+//			if (j > 3)
+//				j = 0;
+//
+//			jugadoresNuevo.add(jugadores.get(j));
+//
+//			i++;
+//
+//		}
+//		jugadores = jugadoresNuevo;
 	}
 
 	public boolean sePuedeCantarEnvido() {
@@ -380,6 +331,16 @@ public class Mano {
 			}
 
 		}
+	}
+	
+	public boolean terminoMano() throws CategoriaException {
+		Pareja pareja = ParejaDAO.getInstancia().buscarParejaDeUnJugador(this.getBazas().get(0).getJugadaMayor().getJugador().getId());
+		for (int i = 1; i < 3; i++){
+			Pareja pareja1 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(this.getBazas().get(i).getJugadaMayor().getJugador().getId());
+			if (pareja.getIdPareja() == pareja1.getIdPareja())
+				return true;
+		}
+		return false;
 	}
 
 	public List<Baza> getBazas() {
@@ -412,38 +373,6 @@ public class Mano {
 
 	public void setMazo(Mazo mazo) {
 		this.mazo = mazo;
-	}
-
-	public List<Pareja> getHistoricoPuntos() {
-		return historicoPuntos;
-	}
-
-	public void setHistoricoPuntos(List<Pareja> historicoPuntos) {
-		this.historicoPuntos = historicoPuntos;
-	}
-
-	public Pareja getGanadorBaza1() {
-		return ganadorBaza1;
-	}
-
-	public void setGanadorBaza1(Pareja ganadorBaza1) {
-		this.ganadorBaza1 = ganadorBaza1;
-	}
-
-	public Jugada getJugadaMayor() {
-		return jugadaMayor;
-	}
-
-	public void setJugadaMayor(Jugada jugadaMayor) {
-		this.jugadaMayor = jugadaMayor;
-	}
-
-	public boolean isTrucoCantado() {
-		return trucoCantado;
-	}
-
-	public void setTrucoCantado(boolean trucoCantado) {
-		this.trucoCantado = trucoCantado;
 	}
 
 	public void setPuntos(List<Puntuacion> puntos) {

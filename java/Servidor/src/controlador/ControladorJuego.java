@@ -130,12 +130,7 @@ public class ControladorJuego {
 	public boolean verificarFinJuego(int idJuego)
 			throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego j = this.buscarJuego(idJuego);
-		return j.verificarFinJuego();
-	}
-
-	public boolean terminoMano(int idJuego) throws JuegoException, CategoriaException {
-		Juego j = this.buscarJuego(idJuego);
-		return j.terminoMano();
+		return j.termino();
 	}
 
 	public void sinCantar(int idJuego) throws JuegoException, CategoriaException {
