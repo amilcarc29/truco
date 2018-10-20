@@ -53,7 +53,6 @@ public class Mano {
 
 		mazo = new Mazo();
 		repartir();
-
 	}
 
 	public void altaBaza() {
