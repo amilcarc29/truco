@@ -26,6 +26,9 @@ public class Mano {
 	private int puntoParaTerminarChico;
 	private Mazo mazo;
 
+	private boolean seCantoEnvido;
+	private boolean seCantoTruco;
+
 	// esto mantiene el turno de los jugadores se puede iniciar donde sea pero se
 	// incrementa con cada jugada
 	
@@ -44,6 +47,9 @@ public class Mano {
 		// this.mazo = obtenerMazo();
 		this.bazas = new ArrayList<Baza>();
 		// FALTA VER SI SE CREA ENVIDO Y/O TRUCO
+
+		this.seCantoEnvido = false;
+		this.seCantoTruco = false;
 
 		mazo = new Mazo();
 		repartir();
@@ -304,12 +310,6 @@ public class Mano {
 //		}
 //		jugadores = jugadoresNuevo;
 	}
-	
-
-	public boolean sePuedeCantarEnvido() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	public void puntosDbg(int idPareja) {
 		// TODO Auto-generated method stub
@@ -378,9 +378,23 @@ public class Mano {
 		this.idMano = idMano;
 	}
 
-	public void save(Chico chico) {
-		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
-
+	public boolean seCantoEnvido() {
+		return seCantoEnvido;
 	}
 
+	public void setSeCantoEnvido(boolean seCantoEnvido) {
+		this.seCantoEnvido = seCantoEnvido;
+	}
+
+	public boolean seCantoTruco() {
+		return seCantoTruco;
+	}
+
+	public void setSeCantoTruco(boolean seCantoTruco) {
+		this.seCantoTruco = seCantoTruco;
+	}
+
+	public void save(Chico chico) {
+		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
+	}
 }
