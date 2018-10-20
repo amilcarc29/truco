@@ -90,6 +90,7 @@ public class ParejaDAO {
 		session.close();
 
 	}
+	
 
 	public Pareja guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException {
 		MiembroEntity mi1 = null;

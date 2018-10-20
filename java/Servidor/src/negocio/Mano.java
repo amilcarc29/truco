@@ -317,6 +317,7 @@ public class Mano {
 //		}
 //		jugadores = jugadoresNuevo;
 	}
+	
 
 	public boolean sePuedeCantarEnvido() {
 		// TODO Auto-generated method stub

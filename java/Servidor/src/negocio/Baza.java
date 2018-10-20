@@ -37,6 +37,7 @@ public class Baza {
 		numero = 1;
 	}
 
+
 	public Baza() {
 		this.jugadas = new LinkedList<Jugada>();
 	}

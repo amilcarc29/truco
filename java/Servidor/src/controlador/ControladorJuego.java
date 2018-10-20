@@ -126,12 +126,14 @@ public class ControladorJuego {
 		
 		verificarFinJuego(jue.getId());
 	}
+	
 
 	public boolean verificarFinJuego(int idJuego)
 			throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.termino();
 	}
+	
 
 	public void sinCantar(int idJuego) throws JuegoException, CategoriaException {
 		// TODO Auto-generated method stub

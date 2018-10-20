@@ -26,6 +26,7 @@ public class Chico {
 	
 	private boolean sePuedeCantarEnvido = true;
 	
+	
 	public Chico(List<Pareja> parejas) {
 		this.manos = new ArrayList<>();
 		this.jugadores = new ArrayList<>();
