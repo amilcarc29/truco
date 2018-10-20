@@ -84,7 +84,7 @@ public class UsuarioDAO {
 		return usuario;
 	}
 
-	public void guardarUsuario(Usuario usuario) throws CategoriaException {
+	public int guardarUsuario(Usuario usuario) throws CategoriaException {
 		CategoriaEntity cat = null;
 		UsuarioEntity ue = new UsuarioEntity(usuario.getPartidasGanadas(), usuario.getPartidasJugadas(),
 				usuario.getPuntaje(), usuario.getApodo(), usuario.getPass(), usuario.getEmail(), usuario.getActivo());
@@ -100,6 +100,8 @@ public class UsuarioDAO {
 		session.saveOrUpdate(ue);
 		session.getTransaction().commit();
 		session.close();
+		
+		return ue.getIdUsuario();
 	}
 
 	public Usuario buscarUsuarioByApodo(String apodo) throws CategoriaException, UsuarioException {
