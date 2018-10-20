@@ -1,6 +1,7 @@
 package negocio;
 
 import dto.CategoriaDTO;
+import excepciones.CategoriaException;
 
 public abstract class Categoria {
 
@@ -24,8 +25,10 @@ public abstract class Categoria {
 		public Categoria(){
 			
 		}
-		public abstract void actualizar();
-
+		public abstract void actualizar(Usuario usuario) throws CategoriaException;
+		
+		public abstract boolean debeSer(Usuario usuario);
+		
 		private void setIdCategoria(int idCategoria) {
 			this.idCategoria = idCategoria;
 		}
