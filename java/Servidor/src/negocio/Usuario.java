@@ -28,7 +28,7 @@ public class Usuario {
 		this.pass = pass;
 		this.email = email;
 		this.activo = true;
-		categoria = new Novato(idUsuario, email, idUsuario, idUsuario, idUsuario, idUsuario);
+		//categoria = new Novato(idUsuario, email, idUsuario, idUsuario, idUsuario);
 	}
 
 	public boolean esUsuario(String apodo) {
@@ -40,7 +40,7 @@ public class Usuario {
 	}
 
 	public void save() throws CategoriaException {
-		UsuarioDAO.getInstancia().guardarUsuario(this);
+		this.setIdUsuario(UsuarioDAO.getInstancia().guardarUsuario(this));
 	}
 
 	public int getIdUsuario() {

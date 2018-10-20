@@ -7,17 +7,16 @@ public abstract class Categoria {
 
 		private int idCategoria;
 		private String nombre;
-		private int score;
+		
 		private int minimoPartida;
 		private int minimoPuntos;
 		private int promedioMinimo;
 
-		public Categoria(int idCategoria, String nombre, int score, int minimoPartida, int minimoPuntos,
+		public Categoria(int idCategoria, String nombre, int minimoPartida, int minimoPuntos,
 				int promedioMinimo) {
 			super();
 			setIdCategoria(idCategoria);
 			setNombre(nombre);
-			setScore(score);
 			setMinimoPartida(minimoPartida);
 			setMinimoPuntos(minimoPuntos);
 			setPromedioMinimo(promedioMinimo);
@@ -45,13 +44,7 @@ public abstract class Categoria {
 			this.nombre = nombre;
 		}
 
-		public int getScore() {
-			return score;
-		}
-
-		public void setScore(int score) {
-			this.score = score;
-		}
+		
 
 		public int getMinimoPartida() {
 			return minimoPartida;
@@ -78,6 +71,6 @@ public abstract class Categoria {
 		}
 	
 		public CategoriaDTO toDTO() {
-			return new CategoriaDTO(idCategoria, nombre, score, minimoPartida, minimoPuntos, promedioMinimo);
+			return new CategoriaDTO(idCategoria, nombre, minimoPartida, minimoPuntos, promedioMinimo);
 		}
 }
