@@ -86,7 +86,7 @@ public class JugadaDAO {
 		Session session = sf.openSession();
 		
 		
-		List<JugadaEntity> jugadas = (List<JugadaEntity>) session.createQuery("from JugadaEntity where idJugada = ?")
+		List<JugadaEntity> jugadas = (List<JugadaEntity>) session.createQuery("from JugadaEntity where idBaza = ?")
 				.setParameter(0, idJugada).list();
 
 		session.close();
