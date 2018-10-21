@@ -75,6 +75,8 @@ public class ControladorJuego {
 		}
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------
+	
 	/* FUNCIONES DE TRUCO
 	 * FALTA HACER LA PARTE DE LA BD. TRAER EL TRUCO AL LEVANTAR UN JUEGO Y ACTUALIZAR EL TRUCO EN LA BD
 	*/
@@ -194,7 +196,10 @@ public class ControladorJuego {
 			chicoU.armarNuevaMano();
 		}
 	}
-	
+	/*
+	 * FIN FUNCIONES DE TRUCO
+	*/
+	//--------------------------------------------------------------------------------------------------------------------------------
 	/* 
 	 * FUNCIONES DE ENVIDO
 	*/
