@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.BazaDAO;
 import dao.CartaDAO;
 import dao.JuegoDAO;
 import dao.JugadorCartaDAO;
 import dao.JugadorDAO;
 import dao.UsuarioDAO;
-import dto.BazaDTO;
 import dto.CartaDTO;
 import dto.JuegoDTO;
-import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -72,6 +69,10 @@ public class ControladorJuego {
 			juegos.add(j);
 			// imprimirDbg();
 		}
+	}
+
+	public void finalizarJuego(int idJuego) throws JuegoException, UsuarioException, CategoriaException {
+		buscarJuego(idJuego).finalizarJuego();
 	}
 
 	public void cantarTruco(int idJuego) throws JuegoException, CategoriaException, UsuarioException {

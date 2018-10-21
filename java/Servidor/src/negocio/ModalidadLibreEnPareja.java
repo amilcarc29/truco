@@ -17,8 +17,8 @@ public class ModalidadLibreEnPareja extends Juego{
 	}
 
 	@Override
-	public void calcularPuntos() {
-		// TODO Auto-generated method stub
+	public int calcularPuntos() {
+		return 10;
 	}
 
 	public void save() throws ParejaException {

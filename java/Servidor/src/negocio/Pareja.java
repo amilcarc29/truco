@@ -3,9 +3,12 @@ package negocio;
 import java.util.LinkedList;
 import java.util.List;
 
+import dao.JugadorDAO;
 import dao.ParejaDAO;
+import dao.UsuarioDAO;
 import excepciones.CategoriaException;
 import excepciones.MiembroException;
+import excepciones.UsuarioException;
 
 public class Pareja {
 	private int idPareja = 0;
@@ -21,8 +24,13 @@ public class Pareja {
 		this.jugadores = jugadores;
 	}
 
-	public Categoria obtenerMayorCategoria() {
-		return null;
+	public Categoria obtenerMayorCategoria() throws CategoriaException, UsuarioException {
+		Usuario usuario1 = UsuarioDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador1().getId()).getUsuario());
+		Usuario usuario2 = UsuarioDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador2().getId()).getUsuario());
+		if (usuario1.getCategoria().getNombre().equalsIgnoreCase(usuario2.getCategoria().getNombre())) {
+			return usuario1.getCategoria();
+		}
+		return usuario2.getCategoria();
 	}
 
 	public int getIdPareja() {

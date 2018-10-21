@@ -1,11 +1,14 @@
+
 package controlador;
 
 import java.util.Vector;
 
+import dao.CategoriaDAO;
 import dao.UsuarioDAO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
+import negocio.Categoria;
 import negocio.Usuario;
 
 public class ControladorUsuario {
@@ -13,8 +16,6 @@ public class ControladorUsuario {
 	private Vector<Usuario> usuarios = new Vector<>();
 
 	private static ControladorUsuario instancia;
-
-
 
 	public Vector<Usuario> getUsuarios() {
 		return usuarios;
@@ -44,8 +45,7 @@ public class ControladorUsuario {
 	}
 
 	public Usuario buscarUsuarioPorApodo(String apodo) throws UsuarioException, CategoriaException {
-		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioByApodo(apodo);
-		return us;
+		return UsuarioDAO.getInstancia().buscarUsuarioByApodo(apodo);
 	}
 
 	public Usuario buscarUsuarioPorEmail(String email) throws UsuarioException {
@@ -82,12 +82,31 @@ public class ControladorUsuario {
 		return null;
 	}
 
+	public void verificarCategoriaJugador(String apodo) throws UsuarioException, CategoriaException {
+		Usuario usuario = buscarUsuarioPorApodo(apodo);
+		Categoria siguienteCategoria = CategoriaDAO.getInstancia().buscarCategoriaByNombreNegocio(siguienteCategoria(usuario.getCategoria().getNombre()));
+		if (siguienteCategoria.debeSer(usuario)) {
+			usuario.actualizarCategoria(siguienteCategoria);
+		}
+	}
+
+	private String siguienteCategoria(String nombreActual) {
+		switch (nombreActual) {
+		case "NOVATO":
+			return "CALIFICADO";
+		case "CALIFICADO":
+			return "EXPERTO";
+		case "EXPERTO":
+			return "MASTER";
+		default:
+			return "MASTER";
+		}
+	}
+
 	public static ControladorUsuario getInstancia() {
 		if (instancia == null) {
 			instancia = new ControladorUsuario();
 		}
 		return instancia;
 	}
-
-
 }

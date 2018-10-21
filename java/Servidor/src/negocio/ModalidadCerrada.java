@@ -18,8 +18,8 @@ public class ModalidadCerrada  extends Juego{
 	}
 
 	@Override
-	public void calcularPuntos() {
-		// TODO Auto-generated method stub
+	public int calcularPuntos() {
+		return 5;
 	}
 
 	public void save() throws ParejaException {

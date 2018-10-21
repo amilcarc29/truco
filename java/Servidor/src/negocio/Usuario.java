@@ -59,6 +59,10 @@ public class Usuario {
 		this.partidasGanadas = partidasGanadas;
 	}
 
+	public void actualizarPartidasGanadas(int partidasGanadas) {
+		this.partidasGanadas += partidasGanadas;
+	}
+
 	public int getPartidasJugadas() {
 		return partidasJugadas;
 	}
@@ -67,12 +71,20 @@ public class Usuario {
 		this.partidasJugadas = partidasJugadas;
 	}
 
+	public void actualizarPartidasJugadas(int partidasJugadas) {
+		this.partidasJugadas += partidasJugadas;
+	}
+
 	public int getPuntaje() {
 		return puntaje;
 	}
 
 	public void setPuntaje(int puntaje) {
 		this.puntaje = puntaje;
+	}
+
+	public void actualizarPuntaje(int puntaje) {
+		this.puntaje += puntaje;
 	}
 
 	public String getApodo() {
@@ -114,11 +126,11 @@ public class Usuario {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
+
 	public float getPromedio() {
 		return (this.getPuntaje() / this.getPartidasJugadas());
 	}
-	
+
 	public void actualizarCategoria (Categoria categoria) {
 		this.setCategoria(categoria);
 		UsuarioDAO.getInstancia().actualizarCategoria(this);

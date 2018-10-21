@@ -3,9 +3,13 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import controlador.ControladorUsuario;
+import dao.JuegoDAO;
 import dao.JugadorDAO;
 import dao.ParejaDAO;
+import dao.UsuarioDAO;
 import dto.JuegoDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -44,7 +48,7 @@ public abstract class Juego {
 		this.idJuego = id;
 	}
 
-	public abstract void calcularPuntos();
+	public abstract int calcularPuntos();
 
 	public boolean sosJuego(Juego juego) {
 		return (this.idJuego == juego.getId());
@@ -99,16 +103,75 @@ public abstract class Juego {
 	}
 
 	public Pareja obtenerGanador() {
-		return null;
+		return getUltimoChico().getParejaGanadora();
 	}
 
-
-	public void finalizarJuego() {
-
+	public void finalizarJuego() throws UsuarioException, CategoriaException, ParejaException, MiembroException {
+		getParejas().forEach(pareja -> {
+			// Pareja que no gano.
+			if (!getGanador().esPareja(pareja.getIdPareja())) {
+				pareja.getJugadores().forEach(jugador -> {
+					try {
+						Usuario usuario = UsuarioDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().buscarJugadorById(jugador.getId()).getUsuario());
+						actualizarPuntosUsuario(usuario, -1, 1, calcularPuntosSegunCategoria(usuario, false));
+						ControladorUsuario.getInstancia().verificarCategoriaJugador(usuario.getApodo());
+					} catch (UsuarioException e) {
+						e.printStackTrace();
+					} catch (CategoriaException e) {
+						e.printStackTrace();
+					}
+				});
+			} else {
+				// Pareja que gano.
+				pareja.getJugadores().forEach(jugador -> {
+					try {
+						Usuario usuario = UsuarioDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().buscarJugadorById(jugador.getId()).getUsuario());
+						actualizarPuntosUsuario(usuario, 1, 1, calcularPuntosSegunCategoria(usuario, true));
+						ControladorUsuario.getInstancia().verificarCategoriaJugador(usuario.getApodo());
+					} catch (UsuarioException e) {
+						e.printStackTrace();
+					} catch (CategoriaException e) {
+						e.printStackTrace();
+					}
+				});
+			}
+		});
+		setActivo(false);
+		save();
 	}
 
-	public Categoria obtenerCategoriaMayor() {
-		return null;
+	private void actualizarPuntosUsuario(Usuario usuario, int partidasGanadas, int partidasJugadas, int puntaje) throws CategoriaException, UsuarioException {
+		usuario.actualizarPartidasGanadas(partidasJugadas);
+		usuario.actualizarPartidasJugadas(partidasJugadas);
+		usuario.actualizarPuntaje(puntaje);
+	}
+
+	private int calcularPuntosSegunCategoria(Usuario usuario, boolean ganador) throws CategoriaException, UsuarioException {
+		int puntosAgregados = 0;
+		if (ganador && esCategoriaInferior(usuario.getCategoria().getNombre())) {
+			puntosAgregados = 2;
+		}
+		return calcularPuntos() + puntosAgregados;
+	}
+
+	private boolean esCategoriaInferior(String nombreCategoria) throws CategoriaException, UsuarioException {
+		switch (nombreCategoria) {
+		case "NOVATO":
+			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("CALIFICADO") ? true : false;
+		case "CALIFICADO":
+			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("EXPERTO") ? true : false;
+		case "EXPERTO":
+			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("MASTER") ? true : false;
+		default:
+			return false;
+		}
+	}
+
+	public Categoria obtenerCategoriaMayor() throws CategoriaException, UsuarioException {
+		if (getPareja1().obtenerMayorCategoria().getNombre().equalsIgnoreCase(getPareja2().obtenerMayorCategoria().getNombre())) {
+			return getPareja1().obtenerMayorCategoria();
+		}
+		return getPareja2().obtenerMayorCategoria();
 	}
 
 	// TODO tener en cuenta el orden para cada mano
@@ -169,18 +232,12 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).jugarCarta(carta, jugador);
 
 		JugadorDAO.getInstancia().setTurnoSigJugador(this);
-	
-	
 	}
 
 	public boolean sePuedeCantarEnvido() {
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
 	}
-	
-	
 
-
-	
 	public boolean terminoJuego() {
 		// Es al mejor de 3
 		if (this.getChicos().size() >= 3)
@@ -215,7 +272,6 @@ public abstract class Juego {
 
 	public JuegoDTO toDTO() {
 		JuegoDTO j = new JuegoDTO(this.idJuego);
-
 		return j;
 	}
 
@@ -246,8 +302,7 @@ public abstract class Juego {
 		// TODO Auto-generated method stub
 		
 		this.getUltimoChico().cambiarOrden();
-		
-		
+
 		List<Jugador> jugadores = this.getUltimoChico().getJugadores();
 		Pareja p1 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jugadores.get(0).getId());
 		Pareja p2 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jugadores.get(1).getId());
@@ -255,12 +310,10 @@ public abstract class Juego {
 		this.parejas  = new ArrayList<>();
 		this.parejas.add(p1);
 		this.parejas.add(p2);
-		
+
 		Chico chico = new Chico(parejas);
 		chico.save(this);
 		chico.altaMano(chico.getPuntosParaTerminar());
 		chicos.add(chico);
-		
-		
 	}
 }

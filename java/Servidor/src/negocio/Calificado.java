@@ -28,7 +28,4 @@ public class Calificado  extends Categoria {
 		else
 			return false;
 	}
-	
-	
-
 }
