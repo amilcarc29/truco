@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.JugadorCartaDAO;
+import dto.JugadorDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
@@ -138,5 +139,13 @@ public abstract class Jugador {
 
 	public void setTieneTurno(boolean tieneTurno) {
 		this.tieneTurno = tieneTurno;
+	}
+	
+	
+	public JugadorDTO toDTO() {
+		// TODO Auto-generated method stub
+		
+		
+		return new JugadorDTO(this.idJugador);
 	}
 }

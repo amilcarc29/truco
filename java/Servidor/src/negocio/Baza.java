@@ -1,10 +1,13 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import dao.BazaDAO;
 import dao.JugadorCartaDAO;
+import dto.BazaDTO;
+import dto.JugadorDTO;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 
@@ -153,5 +156,24 @@ public class Baza {
 
 	public List<Jugador> getJugadores() {
 		return jugadores;
+	}
+	
+	public BazaDTO toDTO() {
+		// TODO Auto-generated method stub
+		List<JugadorDTO> jugDTO= new ArrayList<>();
+		for(Jugador j: jugadores){
+			jugDTO.add(j.toDTO());
+		}
+		
+		// NO CREO QUE SEA NECESARIO PASARLE LAS JUGADAS
+		//List<JugadaDTO> jugadaDTO= new ArrayList<>();
+		//for(Jugada jugada: jugadas){
+		//	jugDTO.add(jugada.toDTO());
+		//}
+		//private Jugada jugadaMayor;
+
+		
+		
+		return new BazaDTO(idBaza,jugDTO,parda);
 	}
 }

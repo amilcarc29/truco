@@ -7,6 +7,10 @@ import java.util.Vector;
 import dao.JugadorDAO;
 import dao.ManoDAO;
 import dao.ParejaDAO;
+import dto.BazaDTO;
+import dto.JugadorDTO;
+import dto.ManoDTO;
+import dto.ParejaDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
@@ -334,5 +338,30 @@ public class Mano {
 
 	public void save(Chico chico) {
 		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
+	}
+	
+	public ManoDTO toDTO() {
+		// TODO Auto-generated method stub
+		
+		
+		List<ParejaDTO> parDTO= new ArrayList<>();
+		for(Pareja p: parejas){
+			parDTO.add(p.toDTO());
+		}
+		
+		
+		List<BazaDTO> bazDTO= new ArrayList<>();
+		for(Baza b: bazas){
+			bazDTO.add(b.toDTO());
+		}
+		
+		List<JugadorDTO> jugDTO= new ArrayList<>();
+		for(Jugador j: jugadores){
+			jugDTO.add(j.toDTO());
+		}
+		
+		
+		
+		return new ManoDTO(idMano,parDTO,bazDTO,jugDTO,puntoParaTerminarChico,seCantoEnvido,seCantoTruco);
 	}
 }
