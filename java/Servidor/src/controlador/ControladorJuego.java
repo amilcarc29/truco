@@ -9,6 +9,7 @@ import dao.CartaDAO;
 import dao.JuegoDAO;
 import dao.JugadorCartaDAO;
 import dao.JugadorDAO;
+import dao.ParejaDAO;
 import dao.UsuarioDAO;
 import dto.BazaDTO;
 import dto.CartaDTO;
@@ -73,31 +74,130 @@ public class ControladorJuego {
 			// imprimirDbg();
 		}
 	}
+	
+	/* FUNCIONES DE TRUCO
+	 * FALTA HACER LA PARTE DE LA BD. TRAER EL TRUCO AL LEVANTAR UN JUEGO Y ACTUALIZAR EL TRUCO EN LA BD
+	*/
 
+	// ESTA FUNCION ES PARA CUANDO DICEN QUIERO A UN TRUCO => AUMENTA EL VALOR DEL TRUCO A 2
 	public void cantarTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarTruco();
 	}
-
+	
+	// ESTA FUNCION ES PARA CUANDO DICEN QUIERO A UN RETRUCO => AUMENTA EL VALOR DEL TRUCO A 3
 	public void cantarReTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarTruco();
 		jue.cantarReTruco();
 	}
 
+	// ESTA FUNCION ES PARA CUANDO DICEN QUIERO A UN VALECUATRO => AUMENTA EL VALOR DEL TRUCO A 4
 	public void cantarVale4(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarTruco();
 		jue.cantarReTruco();
 		jue.cantarVale4();
 	}
+	
+	
+	// ESTO CREO QUE NO HACE FALTA. CUANDO DICEN QUIERO SE DISPARAN LAS FUNCIONES cantar...
+//	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo)
+//			throws JuegoException, CategoriaException, UsuarioException {
+//		// TODO Auto-generated method stub
+//		Juego j = this.buscarJuego(idJuego);
+//		j.cantarQuieroTruco(quieroSiNo);
+//	}
+	
+	
+	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN TRUCO (VALE 1 PUNTO)
+	public void noQuieroTruco(UsuarioDTO usuario, JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException, ParejaException {
+		Juego jue = this.buscarJuego(juego.getIdJuego());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
+		Pareja parejaG = jue.obtenerParejaContraria(jug);
+		//ESTA FUNCION NO HACE FALTA. SOLO HAY QUE DAR PUNTOS. EL TRUCO YA VALE 1
+		//jue.noQuieroTruco();
+		Chico chicoU = jue.getUltimoChico();
+		Mano manoU = jue.getUltimaMano();
+		chicoU.aumentarPuntosTruco(manoU.getTruco(), parejaG);
+		if (chicoU.terminoChico()) {
 
-	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo)
-			throws JuegoException, CategoriaException, UsuarioException {
-		// TODO Auto-generated method stub
-		Juego j = this.buscarJuego(idJuego);
-		j.cantarQuieroTruco(quieroSiNo);
+			chicoU.finalizarChico();
+
+			if (jue.terminoJuego()) {
+				
+				// FALTA HACER LA FINALIZACION DEL JUEGO
+				// ACTUALIZACION DE USUARIOS
+
+			} else {				
+				
+				jue.armarNuevoChico();
+				
+			}
+		} else {
+			chicoU.armarNuevaMano();
+		}
 	}
+	
+	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN RETRUCO (VALE 2 PUNTOS)
+	public void noQuieroReTruco(UsuarioDTO usuario, JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException, ParejaException {
+		Juego jue = this.buscarJuego(juego.getIdJuego());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
+		Pareja parejaG = jue.obtenerParejaContraria(jug);
+		jue.noQuieroReTruco();
+		Chico chicoU = jue.getUltimoChico();
+		Mano manoU = jue.getUltimaMano();
+		chicoU.aumentarPuntosTruco(manoU.getTruco(), parejaG);
+		if (chicoU.terminoChico()) {
+
+			chicoU.finalizarChico();
+
+			if (jue.terminoJuego()) {
+				
+				// FALTA HACER LA FINALIZACION DEL JUEGO
+				// ACTUALIZACION DE USUARIOS
+
+			} else {				
+				
+				jue.armarNuevoChico();
+				
+			}
+		} else {
+			chicoU.armarNuevaMano();
+		}
+	}
+	
+	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN VALECUATRO (VALE 3 PUNTOS)
+	public void noQuieroValeCuatro(UsuarioDTO usuario, JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException, ParejaException {
+		Juego jue = this.buscarJuego(juego.getIdJuego());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
+		Pareja parejaG = jue.obtenerParejaContraria(jug);
+		jue.noQuieroValeCuatro();
+		Chico chicoU = jue.getUltimoChico();
+		Mano manoU = jue.getUltimaMano();
+		chicoU.aumentarPuntosTruco(manoU.getTruco(), parejaG);		
+		if (chicoU.terminoChico()) {
+
+			chicoU.finalizarChico();
+
+			if (jue.terminoJuego()) {
+				
+				// FALTA HACER LA FINALIZACION DEL JUEGO
+				// ACTUALIZACION DE USUARIOS
+
+			} else {				
+				
+				jue.armarNuevoChico();
+				
+			}
+		} else {
+			chicoU.armarNuevaMano();
+		}
+	}
+	
+	/* 
+	 * FUNCIONES DE ENVIDO
+	*/
 
 	public void cantarQuieroEnvido(int idJuego, boolean quieroSiNo)
 			throws JuegoException, CategoriaException, UsuarioException {
@@ -109,11 +209,6 @@ public class ControladorJuego {
 	public void cantarEnvido(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego j = this.buscarJuego(idJuego);
 		j.cantarEnvido();
-	}
-
-	// TODO AGREGAR
-	public void aceptarTruco(int idJuego, int idJugador) throws JuegoException, CategoriaException, UsuarioException {
-		Juego j = this.buscarJuego(idJuego);
 	}
 
 	public Juego buscarJuego(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
@@ -149,6 +244,9 @@ public class ControladorJuego {
 						ultimoChico.finalizarChico();
 
 						if (jue.terminoJuego()) {
+							
+							// FALTA HACER LA FINALIZACION DEL JUEGO
+							// ACTUALIZACION DE USUARIOS
 
 						}else {
 							

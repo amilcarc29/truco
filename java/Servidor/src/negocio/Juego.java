@@ -160,6 +160,14 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).sinCantar();
 
 	}
+	
+	public Pareja obtenerParejaContraria(Jugador jugador) {
+		for (Pareja pareja : this.parejas) {
+			if (!pareja.tieneJugador(jugador.getId()))
+				return pareja;
+		}
+		return null;
+	}
 
 	public void jugarCarta(Carta carta) throws JugadorException, CartaException, UsuarioException, CategoriaException {
 
@@ -272,4 +280,23 @@ public abstract class Juego {
 		
 		
 	}
+
+	public void noQuieroTruco() {
+		
+		this.getUltimoChico().noQuieroTruco();	
+		
+	}
+
+	public void noQuieroReTruco() {
+
+		this.getUltimoChico().noQuieroReTruco();	
+		
+	}
+	
+	public void noQuieroValeCuatro() {
+
+		this.getUltimoChico().noQuieroValeCuatro();	
+		
+	}
+
 }
