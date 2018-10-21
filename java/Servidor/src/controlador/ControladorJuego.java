@@ -275,7 +275,7 @@ public class ControladorJuego {
 			jue.jugarCarta(car);
 
 			Mano utlimaB = jue.getUltimaMano();
-			//cada baza tiene una jugada solo una 
+			
 			if (utlimaB.terminoBaza()) {
 
 				Mano ultimaM = jue.getUltimaMano();

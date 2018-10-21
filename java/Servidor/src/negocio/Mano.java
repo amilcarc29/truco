@@ -255,12 +255,14 @@ public class Mano {
 		if (this.getBazas().size() == 4)
 			return true;
 		else {
+			if (this.getBazas().size()>1) {
 			Pareja pareja = ParejaDAO.getInstancia()
 					.buscarParejaDeUnJugador(this.getBazas().get(0).getJugadaMayor().getJugador().getId());
 			Pareja pareja1 = ParejaDAO.getInstancia()
 					.buscarParejaDeUnJugador(this.getBazas().get(1).getJugadaMayor().getJugador().getId());
 			if (pareja.getIdPareja() == pareja1.getIdPareja())
 				return true;
+			}
 		}
 		return false;
 	}
