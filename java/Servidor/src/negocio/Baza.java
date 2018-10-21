@@ -91,7 +91,7 @@ public class Baza {
 			}
 	
 			
-
+			
 		} catch (UsuarioException e) {
 			e.printStackTrace();
 		} catch (CategoriaException e1) {

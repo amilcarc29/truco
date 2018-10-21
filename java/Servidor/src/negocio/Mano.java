@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import dao.BazaDAO;
+import dao.JugadaDAO;
 import dao.JugadorDAO;
 import dao.ManoDAO;
 import dao.ParejaDAO;
@@ -190,6 +192,12 @@ public class Mano {
 
 		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
 		ultimaBaza.jugarCarta(carta, jugador);
+		
+		
+		//despues de jugar una carta se tiene que guardar la baza
+		Baza nuevaBaza = new Baza(ultimaBaza.getJugadores());
+		nuevaBaza.save(this);
+		this.bazas.add(nuevaBaza);
 
 	}
 
@@ -262,6 +270,7 @@ public class Mano {
 
 	public boolean terminoMano() throws CategoriaException {
 		// 3 Bazas maximo
+		
 		if (this.getBazas().size() == 3)
 			return true;
 		else {
