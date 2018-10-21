@@ -153,6 +153,7 @@ public abstract class Juego {
 	}
 
 	private boolean esCategoriaInferior(String nombreCategoria) throws CategoriaException, UsuarioException {
+
 		switch (nombreCategoria) {
 		case "NOVATO":
 			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("CALIFICADO") ? true : false;
