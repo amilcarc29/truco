@@ -345,4 +345,22 @@ public class Chico {
 		return new ChicoDTO(idChico,manDTO,parDTO,punDTO,this.ganador.toDTO(),puntosPorGanar,jugDTO,sePuedeCantarEnvido);
 	}
 
+	public void noQuieroTruco() {
+		
+		this.getUltimaMano().noQuieroTruco();
+		
+	}
+
+	public void noQuieroReTruco() {
+
+		this.getUltimaMano().noQuieroReTruco();
+		
+	}
+	
+	public void noQuieroValeCuatro() {
+
+		this.getUltimaMano().noQuieroValeCuatro();
+		
+	}
+
 }

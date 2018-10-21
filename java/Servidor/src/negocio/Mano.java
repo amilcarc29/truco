@@ -105,7 +105,9 @@ public class Mano {
 	}
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
-
+	
+	
+	// PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
 	public void cantarTruco(Jugador j) {
 		// TODO Auto-generated method stub
 		Truco truco = new Truco();
@@ -368,4 +370,25 @@ public class Mano {
 
 		return new ManoDTO(idMano, parDTO, bazDTO, jugDTO, puntoParaTerminarChico, seCantoEnvido, seCantoTruco);
 	}
+
+	public void noQuieroTruco() {
+		// NO HACE FALTA QUE HAGA NADA. EL TRUCO YA SE INICIALIZA AL CREAR EL JUEGO.
+		// VER EN CONTROLADORJUEGO
+		
+	}
+
+	public void noQuieroReTruco() {
+		
+		// FORZADO NULL POR TENER JUGADOR. VER!!!.
+		this.cantarTruco(null);
+		
+	}
+	
+	public void noQuieroValeCuatro() {
+		
+		// FORZADO NULL POR TENER JUGADOR. VER!!!.
+		this.cantarReTruco(null);
+		
+	}
+
 }
