@@ -49,6 +49,7 @@ public class Chico {
 
 			/// puntos en 0
 			Puntuacion p = new Puntuacion(pareja);
+			p.setChico(this);
 			this.puntosChico.add(p);
 		}
 
@@ -78,17 +79,7 @@ public class Chico {
 		this.puntosPorGanar = puntosPorGanar;
 	}
 
-	// ESTO NO SE PARA QUE SE PUEDE USAR
-	private void sumarPuntosMano(Puntuacion puntuacion) {
-		for (Puntuacion p : puntosChico) {
 
-			if (p.esPuntuacion(puntuacion)) {
-				p.sumarPuntos(puntuacion);
-
-			}
-
-		}
-	}
 
 	public boolean terminoChico() {
 		for (Puntuacion puntacion : this.getPuntosChico()) {

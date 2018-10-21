@@ -110,7 +110,7 @@ public class ChicoDAO {
 		return ch;
 	}
 
-	private Chico toNegocio(ChicoEntity chicoent) throws CategoriaException, UsuarioException {
+	public Chico toNegocio(ChicoEntity chicoent) throws CategoriaException, UsuarioException {
 		List<Pareja> parejas = new ArrayList<>();
 
 		parejas.add(ParejaDAO.getInstancia().toNegocio(chicoent.getJuego().getPareja1()));
