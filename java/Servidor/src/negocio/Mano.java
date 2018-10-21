@@ -183,6 +183,8 @@ public class Mano {
 		// actualizo la jugadamayor en todas las bazas de la mano
 	
 		BazaDAO.getInstancia().actualizarJugadaMayor(this);
+		//carga las ultimas modificaciones de la baza
+		this.bazas  = BazaDAO.getInstancia().buscarBazaPorIDMano(this);
 
 	}
 

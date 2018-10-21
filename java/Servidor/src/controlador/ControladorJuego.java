@@ -263,9 +263,7 @@ public class ControladorJuego {
 		return JuegoDAO.getInstancia().buscarJuego(idJuego);
 	}
 
-	// PARA ESTA FUNCION QUEDA ACTUALIZAR LAS LLAMADAS A LAS VALIDACIONES DE LOS TERMINO PARA QUE RESPETE ENCAPSULAMIENTO.
-	// NO SE PUEDEN INVOCAR FUNCIONES DE CHICO, MANO, BAZA DESDE ACA. SOLO SE PUEDE INVOCAR AL JUEGO.
-	// VER FUNCIONES DE ENVIDO Y TRUCO
+
 	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws JugadorException, CartaException,
 			JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
@@ -296,9 +294,7 @@ public class ControladorJuego {
 
 						if (jue.terminoJuego()) {
 							
-							// FALTA HACER LA FINALIZACION DEL JUEGO
-							// ACTUALIZACION DE USUARIOS
-
+						
 						}else {
 							
 							
