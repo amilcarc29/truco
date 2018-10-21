@@ -29,9 +29,6 @@ public class Baza {
 	}
 
 
-	public Baza() {
-		this.jugadas = new LinkedList<Jugada>();
-	}
 
 	public Jugada jugadaMayor() {
 		return this.jugadaMayor;

@@ -81,26 +81,20 @@ public class BazaDAO {
 		List<Baza> bz = new ArrayList<>();
 
 		for (BazaEntity bazaEntity : bazasEntity) {
-			Baza b = toNegocio(bazaEntity);
+			// TODO VER EL ORDEN
+			Baza b = new Baza(mano.getJugadores());
+			b.setIdBaza(bazaEntity.getIdBaza());
+			
+			if (bazaEntity.getJugadaMayor()!=null)
+			b.setJugadaMayor(JugadaDAO.getInstancia().toNegocio(bazaEntity.getJugadaMayor()));
 
-			b.setJugadores(mano.getJugadores());
-			bz.add(toNegocio(bazaEntity));
+			List<Jugada> jugadas = JugadaDAO.getInstancia().buscarJugadaPorIDBaza(bazaEntity.getIdBaza());
+			b.setJugadas(jugadas);
+			bz.add(b);
 		}
 
 		return bz;
 
-	}
-
-	private Baza toNegocio(BazaEntity bazaEntity) throws UsuarioException, CategoriaException {
-		// TODO Auto-generated method stub
-		Baza b  = new Baza();
-		b.setIdBaza(bazaEntity.getIdBaza());
-		
-	//buscar las jugadas de  la baza 
-		List<Jugada>jugadas = JugadaDAO.getInstancia().buscarJugadaPorIDBaza(bazaEntity.getIdBaza());
-		b.setJugadas(jugadas);
-		
-		return b;
 	}
 
 	public void actualizarJugadaMayor(Baza baza, Jugada jugada) {
@@ -114,7 +108,7 @@ public class BazaDAO {
 		bz.setJugadaMayor(jug);
 
 		session.beginTransaction();
-		session.saveOrUpdate(jug);
+		session.saveOrUpdate(bz);
 		session.getTransaction().commit();
 		session.close();
 	}

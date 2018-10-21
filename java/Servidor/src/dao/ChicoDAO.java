@@ -126,6 +126,7 @@ public class ChicoDAO {
 			m.setParejas(parejas);
 			m.setJugadores(JugadorDAO.getInstancia().buscarJugadoresByJuego(chicoent.getJuego().getId()));
 
+			
 			List<Baza> bazas = BazaDAO.getInstancia().buscarBazaPorIDMano(m);
 			m.setBazas(bazas);
 

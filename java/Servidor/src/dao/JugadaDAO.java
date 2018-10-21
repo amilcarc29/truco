@@ -103,7 +103,7 @@ public class JugadaDAO {
 		return ju;
 	}
 
-	private Jugada toNegocio(JugadaEntity bazaEnt) throws UsuarioException, CategoriaException {
+	public  Jugada toNegocio(JugadaEntity bazaEnt) throws UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
 		Jugada j =new Jugada();
 		j.setCarta(CartaDAO.getInstancia().toNegocio(bazaEnt.getCarta()));
