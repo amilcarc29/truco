@@ -157,7 +157,7 @@ public class Chico {
 
 		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
 		mano.save(this);
-		mano.altaBaza();
+//		mano.altaBaza();
 
 		manos.add(mano);
 

@@ -47,14 +47,16 @@ public class BazaDAO {
 		return bz.getIdBaza();
 	}
 
-	public void actualizarJugadaMayor(int idBaza, int idJugada) {
-		BazaEntity b = null;
-		b = this.buscarBazaPorID(idBaza);
-		if (b != null) {
-			JugadaEntity j = null;
-			j = JugadaDAO.getInstancia().buscarJugadaPorID(idJugada);
-		}
+	public void actualizarJugadaMayor(Mano mano) throws UsuarioException, CategoriaException {
+		
+		Jugada jMayor = null;
+		jMayor = JugadaDAO.getInstancia().buscarJugadaMayorPorID(mano.getIdMano());
+		
+		//actualiza la jugada mayor en todas las bazas de la mano
 
+		 JugadaDAO.getInstancia().actualizarJugadaMayor(mano,jMayor);
+	
+		
 	}
 
 	public BazaEntity buscarBazaPorID(int idBaza) {
@@ -84,9 +86,9 @@ public class BazaDAO {
 			// TODO VER EL ORDEN
 			Baza b = new Baza(mano.getJugadores());
 			b.setIdBaza(bazaEntity.getIdBaza());
-			
-			if (bazaEntity.getJugadaMayor()!=null)
-			b.setJugadaMayor(JugadaDAO.getInstancia().toNegocio(bazaEntity.getJugadaMayor()));
+
+			if (bazaEntity.getJugadaMayor() != null)
+				b.setJugadaMayor(JugadaDAO.getInstancia().toNegocio(bazaEntity.getJugadaMayor()));
 
 			List<Jugada> jugadas = JugadaDAO.getInstancia().buscarJugadaPorIDBaza(bazaEntity.getIdBaza());
 			b.setJugadas(jugadas);
