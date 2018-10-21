@@ -47,18 +47,33 @@ public class BazaDAO {
 		return bz.getIdBaza();
 	}
 
-	public void actualizarJugadaMayor(Mano mano) throws UsuarioException, CategoriaException {
+	public void actualizarJugadaMayor(Baza baza) throws UsuarioException, CategoriaException {
 		
 		Jugada jMayor = null;
-		jMayor = JugadaDAO.getInstancia().buscarJugadaMayorPorID(mano.getIdMano());
-		
+		jMayor = JugadaDAO.getInstancia().buscarJugadaMayorPorID(baza.getIdBaza());
+		JugadaEntity je =  JugadaDAO.getInstancia().buscarJugadaPorID(jMayor.getIdJugada());
+
 		//actualiza la jugada mayor en todas las bazas de la mano
 
-		 JugadaDAO.getInstancia().actualizarJugadaMayor(mano,jMayor);
-	
+		BazaEntity be = this.buscarBazaPorID(baza.getIdBaza());
 		
-	}
+		
 
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+
+		
+		be.setJugadaMayor(je);
+		session.update(be);
+		session.getTransaction().commit();
+
+		session.close();
+	}
+	
+
+	
+	
 	public BazaEntity buscarBazaPorID(int idBaza) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();

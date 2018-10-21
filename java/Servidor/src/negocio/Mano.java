@@ -164,18 +164,14 @@ public class Mano {
 		// TODO Auto-generated method stub
 
 		// despues de jugar una carta se tiene que guardar la baza
-		Baza nuevaBaza = new Baza(this.getJugadores());
-		nuevaBaza.save(this);
-		
-	
 
-		if (this.bazas == null) {
-
+		if (this.bazas.size()==0) {
+			Baza nuevaBaza = new Baza(this.getJugadores());
+			nuevaBaza.save(this);
 			// es la primera baza
-			this.bazas = new ArrayList<>();
-
+			this.bazas.add(nuevaBaza);
 		}
-		this.bazas.add(nuevaBaza);
+	
 		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
 		
 		ultimaBaza.jugarCarta(carta, jugador);
@@ -183,7 +179,7 @@ public class Mano {
 		// la jugada mayor esta en baza y son 4 esta mal, el update es por id mano
 		// actualizo la jugadamayor en todas las bazas de la mano
 	
-		BazaDAO.getInstancia().actualizarJugadaMayor(this);
+		BazaDAO.getInstancia().actualizarJugadaMayor(ultimaBaza);
 		//carga las ultimas modificaciones de la baza
 		this.bazas  = BazaDAO.getInstancia().buscarBazaPorIDMano(this);
 
@@ -372,7 +368,7 @@ public class Mano {
 	// ¿VER POR QUE ESTA ACA Y NO EN BAZA?
 	// LA BAZA TERMINA CUANDO HAY 4 JUGADAS HECHAS, NO CUANDO HAY 3 BAZAS EN MANO
 	public boolean terminoBaza() {
-		if (this.getBazas().size() == 4)
+		if (this.getUltimaBaza().getJugadas().size() == 4)
 			return true;
 		else
 			return false;

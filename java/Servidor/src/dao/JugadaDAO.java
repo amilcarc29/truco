@@ -82,14 +82,14 @@ public class JugadaDAO {
 		}
 	}
 
-	public List<Jugada> buscarJugadaPorIDBaza(int idJugada) throws UsuarioException, CategoriaException {
+	public List<Jugada> buscarJugadaPorIDBaza(int idBaza) throws UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 
 		List<JugadaEntity> jugadas = (List<JugadaEntity>) session.createQuery("from JugadaEntity where idBaza = ?")
-				.setParameter(0, idJugada).list();
+				.setParameter(0, idBaza).list();
 
 		session.close();
 		List<Jugada> ju = new ArrayList<>();
@@ -118,10 +118,8 @@ public class JugadaDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 
-		List<JugadaEntity> jugadas = (List<JugadaEntity>) session
-				.createSQLQuery("select ju.idJugada, ju.idJugador,ju.idCarta ,ju.idBaza "
-						+ " from Jugada ju, Baza ba where " + " ju.idBaza = ba.idBaza and ba.idMano = ? ")
-				.addEntity(JugadaEntity.class).setParameter(0, idMano).list();
+		List<JugadaEntity> jugadas = (List<JugadaEntity>) session.createQuery("from JugadaEntity where idBaza = ?")
+				.setParameter(0, idMano).list();
 
 		session.close();
 
@@ -145,27 +143,5 @@ public class JugadaDAO {
 		return mayor;
 	}
 
-	public void actualizarJugadaMayor(Mano mano, Jugada jugada) throws UsuarioException, CategoriaException {
-		// TODO Auto-generated method stub
-
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-
-		List<Baza> bazas = BazaDAO.getInstancia().buscarBazaPorIDMano(mano);
-
-		JugadaEntity je = this.buscarJugadaPorID(jugada.getIdJugada());
-
-		session.beginTransaction();
-
-		for (Baza baza : bazas) {
-			BazaEntity be = BazaDAO.getInstancia().buscarBazaPorID(baza.getIdBaza());
-			be.setJugadaMayor(je);
-			session.update(be);
-		}
-
-		session.getTransaction().commit();
-
-		session.close();
-	}
-
+	
 }
