@@ -3,10 +3,8 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import controlador.ControladorUsuario;
-import dao.JuegoDAO;
 import dao.JugadorDAO;
 import dao.ParejaDAO;
 import dao.UsuarioDAO;
@@ -199,29 +197,12 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).cantarVale4(jugador);
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo) throws CategoriaException {
-		// TODO Auto-generated method stub
-
-		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-
-		chicos.get(chicos.size() - 1).cantarQuieroEnvido(jugador, quieroSiNo);
-	}
-
-	public void cantarQuieroTruco(boolean quieroSiNo) throws CategoriaException {
-		// TODO Auto-generated method stub
-		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-		chicos.get(chicos.size() - 1).cantarQuieroTruco(jugador, quieroSiNo);
-	}
-
-	public void cantarEnvido() throws CategoriaException {
-		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-		chicos.get(chicos.size() - 1).cantarEnvido(jugador);
-	}
-
-	public void sinCantar() {
-		// TODO Auto-generated method stub
-		chicos.get(chicos.size() - 1).sinCantar();
-
+	public Pareja obtenerParejaContraria(Jugador jugador) {
+		for (Pareja pareja : this.parejas) {
+			if (!pareja.tieneJugador(jugador.getId()))
+				return pareja;
+		}
+		return null;
 	}
 
 	public void jugarCarta(Carta carta) throws JugadorException, CartaException, UsuarioException, CategoriaException {
@@ -232,12 +213,15 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).jugarCarta(carta, jugador);
 
 		JugadorDAO.getInstancia().setTurnoSigJugador(this);
+	
+	
 	}
 
 	public boolean sePuedeCantarEnvido() {
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
 	}
-
+	
+	
 	public boolean terminoJuego() {
 		// Es al mejor de 3
 		if (this.getChicos().size() >= 3)
@@ -271,7 +255,17 @@ public abstract class Juego {
 	public abstract void save() throws ParejaException, CategoriaException, MiembroException;
 
 	public JuegoDTO toDTO() {
-		JuegoDTO j = new JuegoDTO(this.idJuego);
+//		List pdto=new ArrayList<>();
+//		for(Pareja p: parejas){
+//			pdto.add(p.toDTO());
+//		}
+//		List cdto=new ArrayList<>();
+//		for(Chico c: chicos){
+//			cdto.add(c.toDTO());
+//		}
+		
+		JuegoDTO j = new JuegoDTO(this.idJuego,null, null, null, null);
+
 		return j;
 	}
 
@@ -302,7 +296,8 @@ public abstract class Juego {
 		// TODO Auto-generated method stub
 		
 		this.getUltimoChico().cambiarOrden();
-
+		
+		
 		List<Jugador> jugadores = this.getUltimoChico().getJugadores();
 		Pareja p1 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jugadores.get(0).getId());
 		Pareja p2 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jugadores.get(1).getId());
@@ -310,10 +305,93 @@ public abstract class Juego {
 		this.parejas  = new ArrayList<>();
 		this.parejas.add(p1);
 		this.parejas.add(p2);
-
+		
 		Chico chico = new Chico(parejas);
 		chico.save(this);
 		chico.altaMano(chico.getPuntosParaTerminar());
 		chicos.add(chico);
+		
+		
 	}
+	
+	public void noQuieroReTruco() {
+
+		this.getUltimoChico().noQuieroReTruco();	
+		
+	}
+	
+	public void noQuieroValeCuatro() {
+
+		this.getUltimoChico().noQuieroValeCuatro();	
+		
+	}
+
+	public void aumentarPuntosTruco(Pareja parejaG) throws CategoriaException, ParejaException {
+		
+		this.getUltimoChico().aumentarPuntosTruco(parejaG);
+		
+	}
+
+	public boolean terminoUltimoChico() {
+
+		return (this.getUltimoChico().terminoChico());
+		
+	}
+
+	public void finalizarUltimoChico() throws ParejaException {
+
+		this.getUltimoChico().finalizarChico();
+		
+	}
+
+	public void armarNuevaMano() throws UsuarioException, CategoriaException {
+
+		this.getUltimoChico().armarNuevaMano();
+		
+	}
+	
+	
+	// LE FALTA JUGADOR. VER! (DIFERENCIA CON TRUCO)
+	public void cantarEnvido() {
+		
+		this.getUltimoChico().cantarEnvido();
+				
+	}
+
+	public void cantarRealEnvido() {
+
+		this.getUltimoChico().cantarRealEnvido();
+		
+	}
+
+	public void cantarFaltaEnvido() {
+
+		this.getUltimoChico().cantarFaltaEnvido();
+		
+	}
+
+	public void aumentarPuntosEnvidoNoQuerido(Pareja parejaG) throws CategoriaException, ParejaException {
+
+		this.getUltimoChico().aumentarPuntosEnvidoNoQuerido(parejaG);
+		
+	}
+
+	public void aumentarPuntosEnvidoQuerido() throws CategoriaException, ParejaException {
+
+		this.getUltimoChico().aumentarPuntosEnvidoQuerido();
+		
+	}
+	
+//	public boolean terminoUltimaMano() {
+		
+//		return this.getUltimoChico().terminoUlitmaM
+		
+//	}
+
+//	public boolean terminoUltimaBaza() {
+//
+//		return this.getUltimoChico().terminoUltimaBaza();
+//		
+//	}
+
 }

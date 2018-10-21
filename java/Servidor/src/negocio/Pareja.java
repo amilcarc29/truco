@@ -1,11 +1,13 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import dao.JugadorDAO;
 import dao.ParejaDAO;
 import dao.UsuarioDAO;
+import dto.ParejaDTO;
 import excepciones.CategoriaException;
 import excepciones.MiembroException;
 import excepciones.UsuarioException;
@@ -108,5 +110,14 @@ public class Pareja {
 			e1.printStackTrace();
 		}
 		return null;
+	}
+	
+	public ParejaDTO toDTO() {
+		// TODO Auto-generated method stub
+		List jugdto= new ArrayList<>();
+		for(Jugador j: jugadores){
+			jugdto.add(j.toDTO());
+		}
+		return new ParejaDTO(jugdto);
 	}
 }

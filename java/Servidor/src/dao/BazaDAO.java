@@ -47,16 +47,33 @@ public class BazaDAO {
 		return bz.getIdBaza();
 	}
 
-	public void actualizarJugadaMayor(int idBaza, int idJugada) {
-		BazaEntity b = null;
-		b = this.buscarBazaPorID(idBaza);
-		if (b != null) {
-			JugadaEntity j = null;
-			j = JugadaDAO.getInstancia().buscarJugadaPorID(idJugada);
-		}
+	public void actualizarJugadaMayor(Baza baza) throws UsuarioException, CategoriaException {
+		
+		Jugada jMayor = null;
+		jMayor = JugadaDAO.getInstancia().buscarJugadaMayorPorID(baza.getIdBaza());
+		JugadaEntity je =  JugadaDAO.getInstancia().buscarJugadaPorID(jMayor.getIdJugada());
 
+		//actualiza la jugada mayor en todas las bazas de la mano
+
+		BazaEntity be = this.buscarBazaPorID(baza.getIdBaza());
+		
+		
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+
+		
+		be.setJugadaMayor(je);
+		session.update(be);
+		session.getTransaction().commit();
+
+		session.close();
 	}
+	
 
+	
+	
 	public BazaEntity buscarBazaPorID(int idBaza) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -81,26 +98,20 @@ public class BazaDAO {
 		List<Baza> bz = new ArrayList<>();
 
 		for (BazaEntity bazaEntity : bazasEntity) {
-			Baza b = toNegocio(bazaEntity);
+			// TODO VER EL ORDEN
+			Baza b = new Baza(mano.getJugadores());
+			b.setIdBaza(bazaEntity.getIdBaza());
 
-			b.setJugadores(mano.getJugadores());
-			bz.add(toNegocio(bazaEntity));
+			if (bazaEntity.getJugadaMayor() != null)
+				b.setJugadaMayor(JugadaDAO.getInstancia().toNegocio(bazaEntity.getJugadaMayor()));
+
+			List<Jugada> jugadas = JugadaDAO.getInstancia().buscarJugadaPorIDBaza(bazaEntity.getIdBaza());
+			b.setJugadas(jugadas);
+			bz.add(b);
 		}
 
 		return bz;
 
-	}
-
-	private Baza toNegocio(BazaEntity bazaEntity) throws UsuarioException, CategoriaException {
-		// TODO Auto-generated method stub
-		Baza b  = new Baza();
-		b.setIdBaza(bazaEntity.getIdBaza());
-		
-	//buscar las jugadas de  la baza 
-		List<Jugada>jugadas = JugadaDAO.getInstancia().buscarJugadaPorIDBaza(bazaEntity.getIdBaza());
-		b.setJugadas(jugadas);
-		
-		return b;
 	}
 
 	public void actualizarJugadaMayor(Baza baza, Jugada jugada) {
@@ -114,7 +125,7 @@ public class BazaDAO {
 		bz.setJugadaMayor(jug);
 
 		session.beginTransaction();
-		session.saveOrUpdate(jug);
+		session.saveOrUpdate(bz);
 		session.getTransaction().commit();
 		session.close();
 	}

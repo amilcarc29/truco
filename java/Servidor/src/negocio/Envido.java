@@ -23,7 +23,7 @@ public class Envido extends ComponenteEnvido {
 	@Override
 	public int getPuntosNoQuiero() {
 		if (dec != null)
-			return 1 + this.dec.getPuntosQuiero();
+			return this.dec.getPuntosQuiero();
 
 		return 1;
 	}

@@ -12,6 +12,7 @@ import entities.ParejaEntity;
 import entities.PuntuacionEntity;
 import excepciones.CategoriaException;
 import excepciones.ParejaException;
+import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Chico;
 import negocio.Jugador;
@@ -53,7 +54,7 @@ public class PuntuacionDAO {
 		return pu.getIdPuntuacion();
 	}
 
-	public List<Puntuacion> buscarPuntosByChico(Integer idChico) throws CategoriaException {
+	public List<Puntuacion> buscarPuntosByChico(Integer idChico) throws CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -88,16 +89,30 @@ public class PuntuacionDAO {
 		return puntuacion;
 	}
 
-	private Puntuacion toNegocio(PuntuacionEntity p) throws CategoriaException {
+	private Puntuacion toNegocio(PuntuacionEntity p) throws CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
-		Puntuacion pareja = new Puntuacion(ParejaDAO.getInstancia().toNegocio(p.getPareja()));
-		pareja.setIdPuntuacion(p.getIdPuntuacion());
-		return pareja;
+		Puntuacion puntucaion = new Puntuacion(ParejaDAO.getInstancia().toNegocio(p.getPareja()));
+		puntucaion.setIdPuntuacion(p.getIdPuntuacion());
+		
+		
+		puntucaion.setChico(ChicoDAO.getInstancia().toNegocio(p.getChico()));
+		
+		return puntucaion;
 	}
 
-	public void actualizarPuntos(Puntuacion p) throws CategoriaException {
+	public void actualizarPuntos(Puntuacion p) throws CategoriaException, ParejaException {
 		PuntuacionEntity pEnt = null;
-		pEnt = this.buscarPuntosByIdEntity(p.getIdPuntuacion());
+
+		if (p.getIdPuntuacion() == 0) {
+			pEnt = new PuntuacionEntity();
+			pEnt.setPuntuacion(p.getIdPuntuacion());
+			pEnt.setChico(ChicoDAO.getInstancia().buscarChicoPorID(p.getChico().getIdChico()));
+			pEnt.setPareja(ParejaDAO.getInstancia().buscarParejaPorId(p.getPareja().getIdPareja()));
+
+		} else {
+
+			pEnt = this.buscarPuntosByIdEntity(p.getIdPuntuacion());
+		}
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();

@@ -1,11 +1,14 @@
 package negocio;
 
 import dao.PuntuacionDAO;
+import dto.PuntuacionDTO;
 import excepciones.ParejaException;
 
 public class Puntuacion {
 	private int idPuntuacion;
 	private Pareja pareja;
+	private Chico chico;
+	
 	private int puntos;
 
 	public Puntuacion(Pareja pareja) {
@@ -67,5 +70,19 @@ public class Puntuacion {
 	public boolean esPuntuacion(Pareja p) {
 
 		return this.pareja.esPareja(p.getIdPareja());
+	}
+	public PuntuacionDTO toDTO() {
+		// TODO Auto-generated method stub
+
+		
+		return new PuntuacionDTO(idPuntuacion,pareja.toDTO(),puntos);
+	}
+
+	public Chico getChico() {
+		return chico;
+	}
+
+	public void setChico(Chico chico) {
+		this.chico = chico;
 	}
 }

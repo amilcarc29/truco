@@ -110,6 +110,7 @@ public class JuegoDAO {
 		Juego j = null;
 		if (juegoEntity.getTipoDeJuego().equals("LIBRE")) {
 			j = new ModalidadLibreIndividual();
+			
 			List<Chico> chicos = ChicoDAO.getInstancia().getChicos(juegoEntity.getId());
 			j.setChico(chicos);
 			j.setId(juegoEntity.getId());

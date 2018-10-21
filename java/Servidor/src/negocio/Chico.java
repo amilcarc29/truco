@@ -5,6 +5,11 @@ import java.util.List;
 
 import dao.ChicoDAO;
 import dao.PuntuacionDAO;
+import dto.ChicoDTO;
+import dto.JugadorDTO;
+import dto.ManoDTO;
+import dto.ParejaDTO;
+import dto.PuntuacionDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
@@ -44,6 +49,7 @@ public class Chico {
 
 			/// puntos en 0
 			Puntuacion p = new Puntuacion(pareja);
+			p.setChico(this);
 			this.puntosChico.add(p);
 		}
 
@@ -73,17 +79,7 @@ public class Chico {
 		this.puntosPorGanar = puntosPorGanar;
 	}
 
-	// ESTO NO SE PARA QUE SE PUEDE USAR
-	private void sumarPuntosMano(Puntuacion puntuacion) {
-		for (Puntuacion p : puntosChico) {
 
-			if (p.esPuntuacion(puntuacion)) {
-				p.sumarPuntos(puntuacion);
-
-			}
-
-		}
-	}
 
 	public boolean terminoChico() {
 		for (Puntuacion puntacion : this.getPuntosChico()) {
@@ -128,15 +124,11 @@ public class Chico {
 
 	}
 
-	public void aumentarPuntosEnvidos(Envite envite, Pareja pareja) {
-
-	}
-
-	public void aumentarPuntosTruco(Truco truco, Pareja pareja) throws CategoriaException {
-
+	public void aumentarPuntosTruco(Pareja pareja) throws CategoriaException, ParejaException {
+		
 		for (Puntuacion p : this.getPuntosChico()) {
 			if (p.esPuntuacion(pareja)) {
-				p.sumarPuntos(truco.getPuntos());
+				p.sumarPuntos(this.getUltimaMano().getTruco().getPuntos());
 				// aumenta los puntos
 				PuntuacionDAO.getInstancia().actualizarPuntos(p);
 
@@ -152,7 +144,7 @@ public class Chico {
 
 		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
 		mano.save(this);
-		mano.altaBaza();
+//		mano.altaBaza();
 
 		manos.add(mano);
 
@@ -165,40 +157,17 @@ public class Chico {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarTruco(j);
 	}
-
-	public void cantarVale4(Jugador j) {
-		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarVale4(j);
-	}
-
+	
 	public void cantarReTruco(Jugador j) {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarReTruco(j);
 	}
 
-	public void cantarQuieroTruco(Jugador j, boolean quieroSiNo) {
+	public void cantarVale4(Jugador j) {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(j, quieroSiNo);
+		this.manos.get(this.manos.size() - 1).cantarVale4(j);
 	}
-
-	public void cantarQuieroEnvido(Jugador j, boolean quieroSiNo) {
-		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarQuieroEnvido(j, quieroSiNo);
-	}
-
-	public void cantarEnvido(Jugador j) {
-		sePuedeCantarEnvido = false;
-
-		this.manos.get(this.manos.size() - 1).cantarEnvido(j);
-
-	}
-
-	public void sinCantar() {
-		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).sinCantar();
-
-	}
-
+	
 	public void compFinalizacionChico() throws CategoriaException {
 		Mano mUltima = this.manos.get(this.manos.size() - 1);
 		// si finalizo retorna la pareja que gano si no retorna null
@@ -219,14 +188,8 @@ public class Chico {
 		return sePuedeCantarEnvido;
 	}
 
-
-
 	public void save(Juego juego) throws UsuarioException, CategoriaException, ParejaException {
 		this.setIdChico(ChicoDAO.getInstancia().guardarChico(juego, this));
-	}
-
-	public void crearMano() {
-
 	}
 
 	public int getIdChico() {
@@ -306,6 +269,111 @@ public class Chico {
 
 		manos.add(mano);
 
+	}
+	
+	
+
+	public ChicoDTO toDTO() {
+		// TODO Auto-generated method stub
+
+		
+		List<ManoDTO> manDTO= new ArrayList<>();
+		for(Mano m: manos){
+			manDTO.add(m.toDTO());
+		}
+		
+		List<ParejaDTO> parDTO= new ArrayList<>();
+		for(Pareja p: parejas){
+			parDTO.add(p.toDTO());
+		}
+
+		List<PuntuacionDTO> punDTO= new ArrayList<>();
+		for(Puntuacion punto: puntosChico){
+			punDTO.add(punto.toDTO());
+		}
+
+
+		List<JugadorDTO> jugDTO= new ArrayList<>();
+		for(Jugador j: jugadores){
+			jugDTO.add(j.toDTO());
+		}
+		
+		
+		return new ChicoDTO(idChico,manDTO,parDTO,punDTO,this.ganador.toDTO(),puntosPorGanar,jugDTO,sePuedeCantarEnvido);
+	}
+
+	public void noQuieroReTruco() {
+
+		this.getUltimaMano().noQuieroReTruco();
+		
+	}
+	
+	public void noQuieroValeCuatro() {
+
+		this.getUltimaMano().noQuieroValeCuatro();
+		
+	}
+
+//	public boolean terminoUltimaBaza() {
+
+//		return this.getUltimaMano().terminoBaza();
+		
+//	}
+
+	public boolean terminoUltimaMano() throws CategoriaException {
+
+		return this.getUltimaMano().terminoMano();
+		
+	}
+	
+	// LE FALTA JUGADOR. VER! (DIFERENCIA CON TRUCO)
+	public void cantarEnvido() {
+
+		this.getUltimaMano().cantarEnvido();
+		
+	}
+
+	public void cantarRealEnvido() {
+
+		this.getUltimaMano().cantarRealEnvido();
+		
+	}
+	
+	
+	// YA NO NECESITAMOS PASARLE AL CHICO PUNTOS PARA TERMINAR. SACARLO SI HAY TIEMPO
+	public void cantarFaltaEnvido() {
+		
+		
+		this.getUltimaMano().cantarFaltaEnvido(this.getPuntosParaTerminar());
+		
+	}
+
+	public void aumentarPuntosEnvidoNoQuerido(Pareja pareja) throws CategoriaException, ParejaException {
+
+
+		for (Puntuacion p : this.getPuntosChico()) {
+			if (p.esPuntuacion(pareja)) {
+				p.sumarPuntos(this.getUltimaMano().getEnvido().getPuntosNoQuiero());
+				// aumenta los puntos
+				PuntuacionDAO.getInstancia().actualizarPuntos(p);
+
+			}
+		}
+		
+	}
+
+	public void aumentarPuntosEnvidoQuerido() throws CategoriaException, ParejaException {
+		Pareja pareja = this.getUltimaMano().obtenerParejaGanadoraEnvido();
+		
+		for (Puntuacion p : this.getPuntosChico()) {
+			if (p.esPuntuacion(pareja)) {
+				p.sumarPuntos(this.getUltimaMano().getEnvido().getPuntosQuiero());
+				// aumenta los puntos
+				PuntuacionDAO.getInstancia().actualizarPuntos(p);
+
+			}
+		}
+		
 	}
 
 }

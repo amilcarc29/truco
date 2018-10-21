@@ -4,9 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import dao.BazaDAO;
+import dao.JugadaDAO;
 import dao.JugadorDAO;
 import dao.ManoDAO;
 import dao.ParejaDAO;
+import dto.BazaDTO;
+import dto.JugadorDTO;
+import dto.ManoDTO;
+import dto.ParejaDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
@@ -33,6 +39,7 @@ public class Mano {
 
 	public Mano(int idMano) {
 		this.idMano = idMano;
+		this.truco = new Truco();
 	}
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico)
@@ -44,7 +51,8 @@ public class Mano {
 		// FALTA SACAR CARTAS DE LA BD Y ARMAR EL MAZO
 		// this.mazo = obtenerMazo();
 		this.bazas = new ArrayList<Baza>();
-		// FALTA VER SI SE CREA ENVIDO Y/O TRUCO
+		// FALTA VER SI SE CREA ENVIDO
+		this.truco = new Truco();
 
 		this.seCantoEnvido = false;
 		this.seCantoTruco = false;
@@ -64,8 +72,6 @@ public class Mano {
 		// turno del primer jugador
 		JugadorDAO.getInstancia().setTurno(this.jugadores.get(0));
 	}
-
-
 
 	private void repartir() throws UsuarioException, CategoriaException {
 		for (Jugador jug : jugadores) {
@@ -100,46 +106,33 @@ public class Mano {
 	}
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
-
+	
+	
+	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+	// ¿ES POR QUIEN RESPONDE O POR EL TURNO?
 	public void cantarTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		this.truco = new Truco();
+		Truco truco = new Truco();
+		this.truco.addDec(truco);
 	}
-
-	public void cantarVale4(Jugador j) {
-		// TODO Auto-generated method stub
-		if (this.truco == null)
-			this.truco = new Truco();
-		Vale4 v4 = new Vale4();
-		this.truco.addDec(v4);
-	}
-
+	
+	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+	// ¿ES POR QUIEN RESPONDE O POR EL TURNO?
 	public void cantarReTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		this.truco = new Truco();
 
 		ReTruco rt = new ReTruco();
+		this.truco.addDec(rt);
+
+	}
+	
+	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+	// ¿ES POR QUIEN RESPONDE?
+	public void cantarVale4(Jugador j) {
+		// TODO Auto-generated method stub
 
 		Vale4 v4 = new Vale4();
-		v4.addDec(rt);
-
 		this.truco.addDec(v4);
-
-	}
-
-	public void cantarQuieroTruco(Jugador j, boolean quiero) {
-
-		
-	}
-
-	public void cantarEnvido(Jugador j) {
-		// TODO Auto-generated method stub
-		if (this.envido == null)
-			this.envido = new Envido();
-		else {
-			Envido env = new Envido();
-			this.envido.addDec(env);
-		}
 	}
 
 	public Pareja getPareja(int idJugador) {
@@ -166,26 +159,29 @@ public class Mano {
 		return null;
 	}
 
-	public void cantarQuieroEnvido(Jugador j, boolean quiero) {
-
-		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
-		
-
-	}
-
-	/// TODO AGREGAR!
-	public void sinCantar() {
-
-
-	}
-
-	
 	public void jugarCarta(Carta carta, Jugador jugador)
 			throws JugadorException, CartaException, UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
 
+		// despues de jugar una carta se tiene que guardar la baza
+
+		if (this.bazas.size()==0) {
+			Baza nuevaBaza = new Baza(this.getJugadores());
+			nuevaBaza.save(this);
+			// es la primera baza
+			this.bazas.add(nuevaBaza);
+		}
+	
 		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
+		
 		ultimaBaza.jugarCarta(carta, jugador);
+		
+		// la jugada mayor esta en baza y son 4 esta mal, el update es por id mano
+		// actualizo la jugadamayor en todas las bazas de la mano
+	
+		BazaDAO.getInstancia().actualizarJugadaMayor(ultimaBaza);
+		//carga las ultimas modificaciones de la baza
+		this.bazas  = BazaDAO.getInstancia().buscarBazaPorIDMano(this);
 
 	}
 
@@ -214,7 +210,7 @@ public class Mano {
 
 	public void cambiarOrden() {
 		// // preguntar quien gano , ponerlo adelante
-		Jugador jugador =  this.bazas.get(this.bazas.size()-1).getJugadaMayor().getJugador();
+		Jugador jugador = this.bazas.get(this.bazas.size() - 1).getJugadaMayor().getJugador();
 
 		int i = 0;
 		int j = jugadores.indexOf(jugador);
@@ -236,15 +232,13 @@ public class Mano {
 		}
 		jugadores = jugadoresNuevo;
 
-		
-
 	}
 
 	public void armarNuevaBaza() {
 
 		// modifica el orden de los jugadores para la nueva baza
-		cambiarOrden() ;
-		
+		cambiarOrden();
+
 		Baza b = new Baza(this.getJugadores());
 		b.save(this);
 		// FIX arreglar
@@ -255,10 +249,10 @@ public class Mano {
 
 	}
 
-
 	public boolean terminoMano() throws CategoriaException {
 		// 3 Bazas maximo
-		if (this.getBazas().size() == 3)
+
+		if (this.getBazas().size() == 4)
 			return true;
 		else {
 			Pareja pareja = ParejaDAO.getInstancia()
@@ -303,7 +297,6 @@ public class Mano {
 		this.mazo = mazo;
 	}
 
-
 	public int getIdMano() {
 		return idMano;
 	}
@@ -335,4 +328,89 @@ public class Mano {
 	public void save(Chico chico) {
 		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
 	}
+
+	public ManoDTO toDTO() {
+		// TODO Auto-generated method stub
+
+		List<ParejaDTO> parDTO = new ArrayList<>();
+		for (Pareja p : parejas) {
+			parDTO.add(p.toDTO());
+		}
+
+		List<BazaDTO> bazDTO = new ArrayList<>();
+		for (Baza b : bazas) {
+			bazDTO.add(b.toDTO());
+		}
+
+		List<JugadorDTO> jugDTO = new ArrayList<>();
+		for (Jugador j : jugadores) {
+			jugDTO.add(j.toDTO());
+		}
+
+		return new ManoDTO(idMano, parDTO, bazDTO, jugDTO, puntoParaTerminarChico, seCantoEnvido, seCantoTruco);
+	}
+
+
+	public void noQuieroReTruco() {
+		
+		// FORZADO NULL POR TENER JUGADOR. VER!!!.
+		this.cantarTruco(null);
+		
+	}
+	
+	public void noQuieroValeCuatro() {
+		
+		// FORZADO NULL POR TENER JUGADOR. VER!!!.
+		this.cantarReTruco(null);
+		
+	}	
+
+	// ¿VER POR QUE ESTA ACA Y NO EN BAZA?
+	// LA BAZA TERMINA CUANDO HAY 4 JUGADAS HECHAS, NO CUANDO HAY 3 BAZAS EN MANO
+	public boolean terminoBaza() {
+		if (this.getUltimaBaza().getJugadas().size() == 4)
+			return true;
+		else
+			return false;
+	}
+
+	public void cantarEnvido() {
+		
+		Envido env = new Envido();
+
+		if (this.getEnvido() == null) {
+			this.setEnvido(env);
+		} else {
+			this.envido.addDec(env);
+		}
+			
+		
+	}
+
+	public void cantarRealEnvido() {
+
+		RealEnvido env = new RealEnvido();
+		this.envido.addDec(env);
+		
+	}
+
+	public void cantarFaltaEnvido(int puntosParaTerminar) {
+
+		FaltaEnvido env = new FaltaEnvido(puntosParaTerminar);
+		this.envido.addDec(env);
+		
+	}
+
+	// VER SI SE BORRAN LAS CARTAS QUE TIENE EL JUGADOR. PUEDE TRAER PROBLEMAS
+	public Pareja obtenerParejaGanadoraEnvido() {
+		Jugador ganador = this.getJugadores().get(0);
+		for (int i = 1; i < 4; i ++) {
+			if (ganador.obtenerPuntosEnvido() < this.jugadores.get(i).obtenerPuntosEnvido())
+				ganador = this.jugadores.get(i);
+		}
+		Pareja pareja = this.getPareja(ganador.getId());
+		return pareja;
+	}
+	
+
 }
