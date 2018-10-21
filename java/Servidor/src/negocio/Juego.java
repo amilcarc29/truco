@@ -251,7 +251,6 @@ public abstract class Juego {
 		this.chicos = chicos;
 	}
 
-
 	public abstract void save() throws ParejaException, CategoriaException, MiembroException;
 
 	public JuegoDTO toDTO() {
