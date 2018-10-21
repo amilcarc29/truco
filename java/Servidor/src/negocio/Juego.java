@@ -214,16 +214,16 @@ public abstract class Juego {
 	public abstract void save() throws ParejaException, CategoriaException, MiembroException;
 
 	public JuegoDTO toDTO() {
-		List pdto=new ArrayList<>();
-		for(Pareja p: parejas){
-			pdto.add(p.toDTO());
-		}
-		List cdto=new ArrayList<>();
-		for(Chico c: chicos){
-			cdto.add(c.toDTO());
-		}
+//		List pdto=new ArrayList<>();
+//		for(Pareja p: parejas){
+//			pdto.add(p.toDTO());
+//		}
+//		List cdto=new ArrayList<>();
+//		for(Chico c: chicos){
+//			cdto.add(c.toDTO());
+//		}
 		
-		JuegoDTO j = new JuegoDTO(this.idJuego, pdto, cdto, ganador.toDTO(), fecha);
+		JuegoDTO j = new JuegoDTO(this.idJuego,null, null, null, null);
 
 		return j;
 	}

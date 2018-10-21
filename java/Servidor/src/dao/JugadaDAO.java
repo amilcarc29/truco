@@ -95,7 +95,7 @@ public class JugadaDAO {
 		for (JugadaEntity bazaEnt : jugadas) {
 			
 			Jugada j = toNegocio(bazaEnt);
-		
+			ju.add(j);
 		}
 		
 		
@@ -109,7 +109,7 @@ public class JugadaDAO {
 		j.setCarta(CartaDAO.getInstancia().toNegocio(bazaEnt.getCarta()));
 		j.setJugador(JugadorDAO.getInstancia().buscarJugadorByIdClase(bazaEnt.getJugador().getIdJugador()));
 		
-		return new Jugada();
+		return j;
 	}
 
 
