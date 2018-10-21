@@ -48,7 +48,8 @@ public class Mano {
 		// FALTA SACAR CARTAS DE LA BD Y ARMAR EL MAZO
 		// this.mazo = obtenerMazo();
 		this.bazas = new ArrayList<Baza>();
-		// FALTA VER SI SE CREA ENVIDO Y/O TRUCO
+		// FALTA VER SI SE CREA ENVIDO
+		this.truco = new Truco();
 
 		this.seCantoEnvido = false;
 		this.seCantoTruco = false;
@@ -107,29 +108,25 @@ public class Mano {
 
 	public void cantarTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		this.truco = new Truco();
+		Truco truco = new Truco();
+		this.truco.addDec(truco);
+	}
+	
+	public void cantarReTruco(Jugador j) {
+		// TODO Auto-generated method stub
+		
+		ReTruco rt = new ReTruco();
+		this.truco.addDec(rt);
+
 	}
 
 	public void cantarVale4(Jugador j) {
 		// TODO Auto-generated method stub
-		if (this.truco == null)
-			this.truco = new Truco();
+		
 		Vale4 v4 = new Vale4();
 		this.truco.addDec(v4);
 	}
-
-	public void cantarReTruco(Jugador j) {
-		// TODO Auto-generated method stub
-		this.truco = new Truco();
-
-		ReTruco rt = new ReTruco();
-
-		Vale4 v4 = new Vale4();
-		v4.addDec(rt);
-
-		this.truco.addDec(v4);
-
-	}
+	
 
 	public void cantarQuieroTruco(Jugador j, boolean quiero) {
 

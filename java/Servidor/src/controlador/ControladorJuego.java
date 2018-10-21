@@ -74,19 +74,22 @@ public class ControladorJuego {
 		}
 	}
 
-	public void cantarTruco(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
-		Juego j = this.buscarJuego(idJuego);
-		j.cantarTruco();
+	public void cantarTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+		Juego jue = this.buscarJuego(juego.getIdJuego());
+		jue.cantarTruco();
 	}
 
-	public void cantarReTruco(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
-		Juego j = this.buscarJuego(idJuego);
-		j.cantarReTruco();
+	public void cantarReTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+		Juego jue = this.buscarJuego(juego.getIdJuego());
+		jue.cantarTruco();
+		jue.cantarReTruco();
 	}
 
-	public void cantarVale4(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
-		Juego j = this.buscarJuego(idJuego);
-		j.cantarVale4();
+	public void cantarVale4(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+		Juego jue = this.buscarJuego(juego.getIdJuego());
+		jue.cantarTruco();
+		jue.cantarReTruco();
+		jue.cantarVale4();
 	}
 
 	public void cantarQuieroTruco(int idJuego, boolean quieroSiNo)

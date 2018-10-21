@@ -170,17 +170,18 @@ public class Chico {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarTruco(j);
 	}
+	
+	public void cantarReTruco(Jugador j) {
+		// TODO Auto-generated method stub
+		this.manos.get(this.manos.size() - 1).cantarReTruco(j);
+	}
 
 	public void cantarVale4(Jugador j) {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarVale4(j);
 	}
 
-	public void cantarReTruco(Jugador j) {
-		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarReTruco(j);
-	}
-
+	
 	public void cantarQuieroTruco(Jugador j, boolean quieroSiNo) {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarQuieroTruco(j, quieroSiNo);
