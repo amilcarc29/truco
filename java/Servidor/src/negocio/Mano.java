@@ -107,13 +107,16 @@ public class Mano {
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 	
 	
-	// PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+	// ¿ES POR QUIEN RESPONDE O POR EL TURNO?
 	public void cantarTruco(Jugador j) {
 		// TODO Auto-generated method stub
 		Truco truco = new Truco();
 		this.truco.addDec(truco);
 	}
-
+	
+	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+	// ¿ES POR QUIEN RESPONDE O POR EL TURNO?
 	public void cantarReTruco(Jugador j) {
 		// TODO Auto-generated method stub
 
@@ -121,26 +124,14 @@ public class Mano {
 		this.truco.addDec(rt);
 
 	}
-
+	
+	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+	// ¿ES POR QUIEN RESPONDE?
 	public void cantarVale4(Jugador j) {
 		// TODO Auto-generated method stub
 
 		Vale4 v4 = new Vale4();
 		this.truco.addDec(v4);
-	}
-
-	public void cantarQuieroTruco(Jugador j, boolean quiero) {
-
-	}
-
-	public void cantarEnvido(Jugador j) {
-		// TODO Auto-generated method stub
-		if (this.envido == null)
-			this.envido = new Envido();
-		else {
-			Envido env = new Envido();
-			this.envido.addDec(env);
-		}
 	}
 
 	public Pareja getPareja(int idJugador) {
@@ -165,17 +156,6 @@ public class Mano {
 				return p;
 		}
 		return null;
-	}
-
-	public void cantarQuieroEnvido(Jugador j, boolean quiero) {
-
-		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
-
-	}
-
-	/// TODO AGREGAR!
-	public void sinCantar() {
-
 	}
 
 	public void jugarCarta(Carta carta, Jugador jugador)
@@ -371,11 +351,6 @@ public class Mano {
 		return new ManoDTO(idMano, parDTO, bazDTO, jugDTO, puntoParaTerminarChico, seCantoEnvido, seCantoTruco);
 	}
 
-	public void noQuieroTruco() {
-		// NO HACE FALTA QUE HAGA NADA. EL TRUCO YA SE INICIALIZA AL CREAR EL JUEGO.
-		// VER EN CONTROLADORJUEGO
-		
-	}
 
 	public void noQuieroReTruco() {
 		
@@ -389,12 +364,53 @@ public class Mano {
 		// FORZADO NULL POR TENER JUGADOR. VER!!!.
 		this.cantarReTruco(null);
 		
-	}
+	}	
+
+	// ¿VER POR QUE ESTA ACA Y NO EN BAZA?
+	// LA BAZA TERMINA CUANDO HAY 4 JUGADAS HECHAS, NO CUANDO HAY 3 BAZAS EN MANO
 	public boolean terminoBaza() {
 		if (this.getBazas().size() == 4)
 			return true;
 		else
 			return false;
+	}
+
+	public void cantarEnvido() {
+		
+		Envido env = new Envido();
+
+		if (this.getEnvido() == null) {
+			this.setEnvido(env);
+		} else {
+			this.envido.addDec(env);
+		}
+			
+		
+	}
+
+	public void cantarRealEnvido() {
+
+		RealEnvido env = new RealEnvido();
+		this.envido.addDec(env);
+		
+	}
+
+	public void cantarFaltaEnvido(int puntosParaTerminar) {
+
+		FaltaEnvido env = new FaltaEnvido(puntosParaTerminar);
+		this.envido.addDec(env);
+		
+	}
+
+	// VER SI SE BORRAN LAS CARTAS QUE TIENE EL JUGADOR. PUEDE TRAER PROBLEMAS
+	public Pareja obtenerParejaGanadoraEnvido() {
+		Jugador ganador = this.getJugadores().get(0);
+		for (int i = 1; i < 4; i ++) {
+			if (ganador.obtenerPuntosEnvido() < this.jugadores.get(i).obtenerPuntosEnvido())
+				ganador = this.jugadores.get(i);
+		}
+		Pareja pareja = this.getPareja(ganador.getId());
+		return pareja;
 	}
 	
 

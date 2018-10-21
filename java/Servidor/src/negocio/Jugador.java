@@ -127,6 +127,68 @@ public abstract class Jugador {
 
 		return truco;
 	}
+	
+	public List<Carta> getCartasMismoPalo(){
+		List <Carta> resultado = new LinkedList<Carta>();
+		for (int i = 0; i < 3; i++) {
+			for (int j = i+1; j < 2; j++) {
+				if (this.cartas.get(i).getPalo().equalsIgnoreCase(this.cartas.get(j).getPalo()))
+					if (this.cantidadElementos(resultado) == 0) {
+						resultado.add(this.cartas.get(i));
+						resultado.add(this.cartas.get(j));
+					} else {
+						resultado.add(this.cartas.get(j));
+					}
+			}				
+		}
+		if (this.cantidadElementos(resultado) > 2)
+			resultado.remove(this.obtenerCartaMenorPuntajeEnvido(resultado));
+		return resultado;
+	}
+	
+	public int obtenerCartaMenorPuntajeEnvido(List<Carta> lista) {
+		int pesoEnvido = 100;
+		for (Carta carta : lista) {
+			if (carta.getPesoEnvido() < pesoEnvido)
+				pesoEnvido = carta.getPesoEnvido();
+		}
+		for (Carta carta : lista)
+			if (carta.getPesoEnvido() == pesoEnvido)
+				return lista.indexOf(carta);
+		return 0;
+	}
+	
+	public int obtenerMayorPuntajeEnvido(List<Carta> lista) {
+		int pesoEnvido = 0;
+		for (Carta carta : lista) {
+			if (carta.getPesoEnvido() > pesoEnvido)
+				pesoEnvido = carta.getPesoEnvido();
+		}
+		return pesoEnvido;
+	}
+	
+	public int cantidadElementos(List<Carta> lista) {
+		// VER SI ARRANCA EN 0 o en 1
+		int i = 0;
+		for (Carta carta : lista)
+			i++;
+		return i;
+	}
+	
+	
+	public int obtenerPuntosEnvido() {
+		int puntos = 0;
+		List<Carta> cartas = this.getCartasMismoPalo();
+		if (cartas.isEmpty()) {
+			puntos = this.obtenerMayorPuntajeEnvido(this.cartas);
+		} else {
+			puntos = 20;
+			for (Carta carta : cartas) {
+				puntos += carta.getPesoEnvido();
+			}
+		}
+		return puntos;		
+	}
 
 	public List<Carta> getCartas() {
 		return this.cartas;

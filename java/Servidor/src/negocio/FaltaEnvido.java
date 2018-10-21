@@ -15,9 +15,6 @@ public class FaltaEnvido extends ComponenteEnvido {
 	@Override
 	public int getPuntosQuiero() {
 		// TODO Auto-generated method stub
-		if (dec != null)
-			return this.puntosParaGanar + this.dec.getPuntosQuiero();
-
 		return this.puntosParaGanar;
 	}
 
@@ -25,9 +22,9 @@ public class FaltaEnvido extends ComponenteEnvido {
 	public int getPuntosNoQuiero() {
 		// TODO Auto-generated method stub
 		if (dec != null)
-			return 3 + this.dec.getPuntosQuiero();
+			return this.dec.getPuntosQuiero();
 
-		return 3;
+		return 1;
 	}
 
 }

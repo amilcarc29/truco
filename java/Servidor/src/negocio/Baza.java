@@ -166,4 +166,6 @@ public class Baza {
 		
 		return new BazaDTO(idBaza,jugDTO,parda);
 	}
+
+
 }

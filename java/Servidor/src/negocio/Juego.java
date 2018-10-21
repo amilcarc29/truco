@@ -136,31 +136,6 @@ public abstract class Juego {
 		chicos.get(chicos.size() - 1).cantarVale4(jugador);
 	}
 
-	public void cantarQuieroEnvido(boolean quieroSiNo) throws CategoriaException {
-		// TODO Auto-generated method stub
-
-		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-
-		chicos.get(chicos.size() - 1).cantarQuieroEnvido(jugador, quieroSiNo);
-	}
-
-	public void cantarQuieroTruco(boolean quieroSiNo) throws CategoriaException {
-		// TODO Auto-generated method stub
-		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-		chicos.get(chicos.size() - 1).cantarQuieroTruco(jugador, quieroSiNo);
-	}
-
-	public void cantarEnvido() throws CategoriaException {
-		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-		chicos.get(chicos.size() - 1).cantarEnvido(jugador);
-	}
-
-	public void sinCantar() {
-		// TODO Auto-generated method stub
-		chicos.get(chicos.size() - 1).sinCantar();
-
-	}
-	
 	public Pareja obtenerParejaContraria(Jugador jugador) {
 		for (Pareja pareja : this.parejas) {
 			if (!pareja.tieneJugador(jugador.getId()))
@@ -185,9 +160,6 @@ public abstract class Juego {
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
 	}
 	
-	
-
-
 	
 	public boolean terminoJuego() {
 		// Es al mejor de 3
@@ -280,13 +252,7 @@ public abstract class Juego {
 		
 		
 	}
-
-	public void noQuieroTruco() {
-		
-		this.getUltimoChico().noQuieroTruco();	
-		
-	}
-
+	
 	public void noQuieroReTruco() {
 
 		this.getUltimoChico().noQuieroReTruco();	
@@ -298,5 +264,73 @@ public abstract class Juego {
 		this.getUltimoChico().noQuieroValeCuatro();	
 		
 	}
+
+	public void aumentarPuntosTruco(Pareja parejaG) throws CategoriaException {
+		
+		this.getUltimoChico().aumentarPuntosTruco(parejaG);
+		
+	}
+
+	public boolean terminoUltimoChico() {
+
+		return (this.getUltimoChico().terminoChico());
+		
+	}
+
+	public void finalizarUltimoChico() throws ParejaException {
+
+		this.getUltimoChico().finalizarChico();
+		
+	}
+
+	public void armarNuevaMano() throws UsuarioException, CategoriaException {
+
+		this.getUltimoChico().armarNuevaMano();
+		
+	}
+	
+	
+	// LE FALTA JUGADOR. VER! (DIFERENCIA CON TRUCO)
+	public void cantarEnvido() {
+		
+		this.getUltimoChico().cantarEnvido();
+				
+	}
+
+	public void cantarRealEnvido() {
+
+		this.getUltimoChico().cantarRealEnvido();
+		
+	}
+
+	public void cantarFaltaEnvido() {
+
+		this.getUltimoChico().cantarFaltaEnvido();
+		
+	}
+
+	public void aumentarPuntosEnvidoNoQuerido(Pareja parejaG) throws CategoriaException {
+
+		this.getUltimoChico().aumentarPuntosEnvidoNoQuerido(parejaG);
+		
+	}
+
+	public void aumentarPuntosEnvidoQuerido() throws CategoriaException {
+
+		this.getUltimoChico().aumentarPuntosEnvidoQuerido();
+		
+	}
+	
+//	public boolean terminoUltimaMano() {
+		
+//		return this.getUltimoChico().terminoUlitmaM
+		
+//	}
+
+//	public boolean terminoUltimaBaza() {
+//
+//		return this.getUltimoChico().terminoUltimaBaza();
+//		
+//	}
 
 }

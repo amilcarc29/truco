@@ -21,9 +21,9 @@ public class RealEnvido extends ComponenteEnvido {
 	public int getPuntosNoQuiero() {
 		// TODO Auto-generated method stub
 		if (dec != null)
-			return 2 + this.dec.getPuntosQuiero();
+			return this.dec.getPuntosQuiero();
 
-		return 2;
+		return 1;
 	}
 
 }
