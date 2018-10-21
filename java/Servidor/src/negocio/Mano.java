@@ -72,8 +72,6 @@ public class Mano {
 		JugadorDAO.getInstancia().setTurno(this.jugadores.get(0));
 	}
 
-
-
 	private void repartir() throws UsuarioException, CategoriaException {
 		for (Jugador jug : jugadores) {
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
@@ -113,10 +111,10 @@ public class Mano {
 		Truco truco = new Truco();
 		this.truco.addDec(truco);
 	}
-	
+
 	public void cantarReTruco(Jugador j) {
 		// TODO Auto-generated method stub
-		
+
 		ReTruco rt = new ReTruco();
 		this.truco.addDec(rt);
 
@@ -124,15 +122,13 @@ public class Mano {
 
 	public void cantarVale4(Jugador j) {
 		// TODO Auto-generated method stub
-		
+
 		Vale4 v4 = new Vale4();
 		this.truco.addDec(v4);
 	}
-	
 
 	public void cantarQuieroTruco(Jugador j, boolean quiero) {
 
-		
 	}
 
 	public void cantarEnvido(Jugador j) {
@@ -172,29 +168,39 @@ public class Mano {
 	public void cantarQuieroEnvido(Jugador j, boolean quiero) {
 
 		// TODO Auto-generated method stub el jugador +1 es de la otra pareja
-		
 
 	}
 
 	/// TODO AGREGAR!
 	public void sinCantar() {
 
-
 	}
 
-	
 	public void jugarCarta(Carta carta, Jugador jugador)
 			throws JugadorException, CartaException, UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
 
+		// despues de jugar una carta se tiene que guardar la baza
+		Baza nuevaBaza = new Baza(this.getJugadores());
+		nuevaBaza.save(this);
+		
+	
+
+		if (this.bazas == null) {
+
+			// es la primera baza
+			this.bazas = new ArrayList<>();
+
+		}
+		this.bazas.add(nuevaBaza);
 		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
+		
 		ultimaBaza.jugarCarta(carta, jugador);
 		
-		
-		//despues de jugar una carta se tiene que guardar la baza
-		Baza nuevaBaza = new Baza(ultimaBaza.getJugadores());
-		nuevaBaza.save(this);
-		this.bazas.add(nuevaBaza);
+		// la jugada mayor esta en baza y son 4 esta mal, el update es por id mano
+		// actualizo la jugadamayor en todas las bazas de la mano
+	
+		BazaDAO.getInstancia().actualizarJugadaMayor(this);
 
 	}
 
@@ -223,7 +229,7 @@ public class Mano {
 
 	public void cambiarOrden() {
 		// // preguntar quien gano , ponerlo adelante
-		Jugador jugador =  this.bazas.get(this.bazas.size()-1).getJugadaMayor().getJugador();
+		Jugador jugador = this.bazas.get(this.bazas.size() - 1).getJugadaMayor().getJugador();
 
 		int i = 0;
 		int j = jugadores.indexOf(jugador);
@@ -245,15 +251,13 @@ public class Mano {
 		}
 		jugadores = jugadoresNuevo;
 
-		
-
 	}
 
 	public void armarNuevaBaza() {
 
 		// modifica el orden de los jugadores para la nueva baza
-		cambiarOrden() ;
-		
+		cambiarOrden();
+
 		Baza b = new Baza(this.getJugadores());
 		b.save(this);
 		// FIX arreglar
@@ -264,10 +268,9 @@ public class Mano {
 
 	}
 
-
 	public boolean terminoMano() throws CategoriaException {
 		// 3 Bazas maximo
-		
+
 		if (this.getBazas().size() == 3)
 			return true;
 		else {
@@ -313,7 +316,6 @@ public class Mano {
 		this.mazo = mazo;
 	}
 
-
 	public int getIdMano() {
 		return idMano;
 	}
@@ -345,29 +347,25 @@ public class Mano {
 	public void save(Chico chico) {
 		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
 	}
-	
+
 	public ManoDTO toDTO() {
 		// TODO Auto-generated method stub
-		
-		
-		List<ParejaDTO> parDTO= new ArrayList<>();
-		for(Pareja p: parejas){
+
+		List<ParejaDTO> parDTO = new ArrayList<>();
+		for (Pareja p : parejas) {
 			parDTO.add(p.toDTO());
 		}
-		
-		
-		List<BazaDTO> bazDTO= new ArrayList<>();
-		for(Baza b: bazas){
+
+		List<BazaDTO> bazDTO = new ArrayList<>();
+		for (Baza b : bazas) {
 			bazDTO.add(b.toDTO());
 		}
-		
-		List<JugadorDTO> jugDTO= new ArrayList<>();
-		for(Jugador j: jugadores){
+
+		List<JugadorDTO> jugDTO = new ArrayList<>();
+		for (Jugador j : jugadores) {
 			jugDTO.add(j.toDTO());
 		}
-		
-		
-		
-		return new ManoDTO(idMano,parDTO,bazDTO,jugDTO,puntoParaTerminarChico,seCantoEnvido,seCantoTruco);
+
+		return new ManoDTO(idMano, parDTO, bazDTO, jugDTO, puntoParaTerminarChico, seCantoEnvido, seCantoTruco);
 	}
 }

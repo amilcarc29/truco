@@ -82,15 +82,6 @@ public class Baza {
 			Jugada jugada = new Jugada(jugador, carta);
 			jugada.save(this);
 			this.jugadas.add(jugada);
-			if (jugadaMayor == null) {
-				this.actualizarJugadaMayor(jugada);
-			}
-			else {
-				if (this.jugadaMayor.esMayor(jugada))
-					this.actualizarJugadaMayor(jugada);
-			}
-	
-			
 			
 		} catch (UsuarioException e) {
 			e.printStackTrace();
@@ -99,6 +90,8 @@ public class Baza {
 		}
 	}
 	
+	
+
 	public boolean terminoBaza() {
 		if (this.getJugadas().size() == 4)
 			return true;
@@ -106,10 +99,7 @@ public class Baza {
 			return false;
 	}
 	
-	public void actualizarJugadaMayor (Jugada jugada) {
-		jugadaMayor = jugada;
-		BazaDAO.getInstancia().actualizarJugadaMayor(this, jugada);
-	}
+
 
 	// FUNCION VIEJA DE JUGAR CARTA
 //	public void jugarCarta(int indiceJugador, int numero, String palo) throws JugadorException, CartaException {
