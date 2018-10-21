@@ -273,7 +273,7 @@ public class Mano {
 	public boolean terminoMano() throws CategoriaException {
 		// 3 Bazas maximo
 
-		if (this.getBazas().size() == 3)
+		if (this.getBazas().size() == 4)
 			return true;
 		else {
 			Pareja pareja = ParejaDAO.getInstancia()
@@ -390,5 +390,12 @@ public class Mano {
 		this.cantarReTruco(null);
 		
 	}
+	public boolean terminoBaza() {
+		if (this.getBazas().size() == 4)
+			return true;
+		else
+			return false;
+	}
+	
 
 }
