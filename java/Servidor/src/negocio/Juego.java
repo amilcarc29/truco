@@ -265,7 +265,7 @@ public abstract class Juego {
 		
 	}
 
-	public void aumentarPuntosTruco(Pareja parejaG) throws CategoriaException {
+	public void aumentarPuntosTruco(Pareja parejaG) throws CategoriaException, ParejaException {
 		
 		this.getUltimoChico().aumentarPuntosTruco(parejaG);
 		
@@ -309,13 +309,13 @@ public abstract class Juego {
 		
 	}
 
-	public void aumentarPuntosEnvidoNoQuerido(Pareja parejaG) throws CategoriaException {
+	public void aumentarPuntosEnvidoNoQuerido(Pareja parejaG) throws CategoriaException, ParejaException {
 
 		this.getUltimoChico().aumentarPuntosEnvidoNoQuerido(parejaG);
 		
 	}
 
-	public void aumentarPuntosEnvidoQuerido() throws CategoriaException {
+	public void aumentarPuntosEnvidoQuerido() throws CategoriaException, ParejaException {
 
 		this.getUltimoChico().aumentarPuntosEnvidoQuerido();
 		

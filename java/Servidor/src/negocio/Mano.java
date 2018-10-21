@@ -39,6 +39,7 @@ public class Mano {
 
 	public Mano(int idMano) {
 		this.idMano = idMano;
+		this.truco = new Truco();
 	}
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico)

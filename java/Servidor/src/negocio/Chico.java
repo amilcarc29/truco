@@ -133,7 +133,7 @@ public class Chico {
 
 	}
 
-	public void aumentarPuntosTruco(Pareja pareja) throws CategoriaException {
+	public void aumentarPuntosTruco(Pareja pareja) throws CategoriaException, ParejaException {
 		
 		for (Puntuacion p : this.getPuntosChico()) {
 			if (p.esPuntuacion(pareja)) {
@@ -357,7 +357,7 @@ public class Chico {
 		
 	}
 
-	public void aumentarPuntosEnvidoNoQuerido(Pareja pareja) throws CategoriaException {
+	public void aumentarPuntosEnvidoNoQuerido(Pareja pareja) throws CategoriaException, ParejaException {
 
 
 		for (Puntuacion p : this.getPuntosChico()) {
@@ -371,7 +371,7 @@ public class Chico {
 		
 	}
 
-	public void aumentarPuntosEnvidoQuerido() throws CategoriaException {
+	public void aumentarPuntosEnvidoQuerido() throws CategoriaException, ParejaException {
 		Pareja pareja = this.getUltimaMano().obtenerParejaGanadoraEnvido();
 		
 		for (Puntuacion p : this.getPuntosChico()) {

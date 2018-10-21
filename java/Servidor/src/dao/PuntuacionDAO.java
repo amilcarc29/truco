@@ -95,9 +95,19 @@ public class PuntuacionDAO {
 		return pareja;
 	}
 
-	public void actualizarPuntos(Puntuacion p) throws CategoriaException {
+	public void actualizarPuntos(Puntuacion p) throws CategoriaException, ParejaException {
 		PuntuacionEntity pEnt = null;
-		pEnt = this.buscarPuntosByIdEntity(p.getIdPuntuacion());
+
+		if (p.getIdPuntuacion() == 0) {
+			pEnt = new PuntuacionEntity();
+			pEnt.setPuntuacion(p.getIdPuntuacion());
+			
+			pEnt.setPareja(ParejaDAO.getInstancia().buscarParejaPorId(p.getPareja().getIdPareja()));
+
+		} else {
+
+			pEnt = this.buscarPuntosByIdEntity(p.getIdPuntuacion());
+		}
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
