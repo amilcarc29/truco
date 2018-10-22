@@ -19,6 +19,7 @@ import excepciones.JugadorException;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
+import negocio.Baza;
 import negocio.Carta;
 import negocio.Chico;
 import negocio.FactoryJuegos;
@@ -281,7 +282,7 @@ public class ControladorJuego {
 		if (jug.isTieneTurno()) {
 			jue.jugarCarta(car);
 
-			Mano utlimaB = jue.getUltimaMano();
+			Baza utlimaB = jue.getUltimaBaza();
 
 			if (utlimaB.terminoBaza()) {
 

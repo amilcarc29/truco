@@ -34,19 +34,19 @@ public class ClienteRmiUs2 {
 						for (CartaDTO cartaDTO : c) {
 							System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
 						}
-						String env = null;
-						System.out.println("cantar envido  ?: ");
-						env = br.readLine();
-
-						if ((env != null) && (env.equals("S"))) {
-							new BusinessDelegateTruco().cantarEnvido(juegoDTO);
-							System.out.println("quiere envido ?: ");
-							env = br.readLine();
-							if ((env != null) && (env.equals("S")))
-								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
-							else
-								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
-						}
+//						String env = null;
+//						System.out.println("cantar envido  ?: ");
+//						env = br.readLine();
+//
+//						if ((env != null) && (env.equals("S"))) {
+//							new BusinessDelegateTruco().cantarEnvido(juegoDTO);
+//							System.out.println("quiere envido ?: ");
+//							env = br.readLine();
+//							if ((env != null) && (env.equals("S")))
+//								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+//							else
+//								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
+//						}
 
 						System.out.println("carta numero: ");
 						int cn = Integer.parseInt(br.readLine());
