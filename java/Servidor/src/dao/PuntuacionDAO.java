@@ -93,33 +93,42 @@ public class PuntuacionDAO {
 		// TODO Auto-generated method stub
 		Puntuacion puntucaion = new Puntuacion(ParejaDAO.getInstancia().toNegocio(p.getPareja()));
 		puntucaion.setIdPuntuacion(p.getIdPuntuacion());
+		puntucaion.setPuntos(p.getPuntuacion());
 		
-		
-		puntucaion.setChico(ChicoDAO.getInstancia().toNegocio(p.getChico()));
+//		puntucaion.setChico(ChicoDAO.getInstancia().toNegocio(p.getChico()));
 		
 		return puntucaion;
 	}
 
 	public void actualizarPuntos(Puntuacion p) throws CategoriaException, ParejaException {
 		PuntuacionEntity pEnt = null;
-
-		if (p.getIdPuntuacion() == 0) {
-			pEnt = new PuntuacionEntity();
-			pEnt.setPuntuacion(p.getIdPuntuacion());
-			pEnt.setChico(ChicoDAO.getInstancia().buscarChicoPorID(p.getChico().getIdChico()));
-			pEnt.setPareja(ParejaDAO.getInstancia().buscarParejaPorId(p.getPareja().getIdPareja()));
-
-		} else {
-
-			pEnt = this.buscarPuntosByIdEntity(p.getIdPuntuacion());
-		}
-
+		
+		pEnt = this.buscarPuntosByIdEntity(p.getIdPuntuacion());
+		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
 		session.saveOrUpdate(pEnt);
 		session.getTransaction().commit();
 		session.close();
+
+//		if (p.getIdPuntuacion() == 0) {
+//			pEnt = new PuntuacionEntity();
+//			pEnt.setPuntuacion(p.getIdPuntuacion());
+//			pEnt.setChico(ChicoDAO.getInstancia().buscarChicoPorID(p.getChico().getIdChico()));
+//			pEnt.setPareja(ParejaDAO.getInstancia().buscarParejaPorId(p.getPareja().getIdPareja()));
+//
+//		} else {
+//
+//			pEnt = this.buscarPuntosByIdEntity(p.getIdPuntuacion());
+//		}
+//
+//		SessionFactory sf = HibernateUtil.getSessionFactory();
+//		Session session = sf.openSession();
+//		session.beginTransaction();
+//		session.saveOrUpdate(pEnt);
+//		session.getTransaction().commit();
+//		session.close();
 
 	}
 

@@ -47,29 +47,29 @@ public class BazaDAO {
 		return bz.getIdBaza();
 	}
 
-	public void actualizarJugadaMayor(Baza baza) throws UsuarioException, CategoriaException {
-		
-		Jugada jMayor = null;
-		jMayor = JugadaDAO.getInstancia().buscarJugadaMayorPorID(baza.getIdBaza());
-		JugadaEntity je =  JugadaDAO.getInstancia().buscarJugadaPorID(jMayor.getIdJugada());
-
-		//actualiza la jugada mayor en todas las bazas de la mano
-
-		BazaEntity be = this.buscarBazaPorID(baza.getIdBaza());
-		
-		
-
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-		session.beginTransaction();
-
-		
-		be.setJugadaMayor(je);
-		session.update(be);
-		session.getTransaction().commit();
-
-		session.close();
-	}
+//	public void actualizarJugadaMayor(Baza baza) throws UsuarioException, CategoriaException {
+//		
+//		Jugada jMayor = null;
+//		jMayor = JugadaDAO.getInstancia().buscarJugadaMayorPorID(baza.getIdBaza());
+//		JugadaEntity je =  JugadaDAO.getInstancia().buscarJugadaPorID(jMayor.getIdJugada());
+//
+//		//actualiza la jugada mayor en todas las bazas de la mano
+//
+//		BazaEntity be = this.buscarBazaPorID(baza.getIdBaza());
+//		
+//		
+//
+//		SessionFactory sf = HibernateUtil.getSessionFactory();
+//		Session session = sf.openSession();
+//		session.beginTransaction();
+//
+//		
+//		be.setJugadaMayor(je);
+//		session.update(be);
+//		session.getTransaction().commit();
+//
+//		session.close();
+//	}
 	
 
 	
@@ -117,10 +117,13 @@ public class BazaDAO {
 	public void actualizarJugadaMayor(Baza baza, Jugada jugada) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
+		
+		BazaEntity bz = null;
+		JugadaEntity jug = null;
 
 		// VER EXCEPCIONES
-		BazaEntity bz = BazaDAO.getInstancia().buscarBazaPorID(baza.getIdBaza());
-		JugadaEntity jug = JugadaDAO.getInstancia().buscarJugadaPorID(jugada.getIdJugada());
+		bz = BazaDAO.getInstancia().buscarBazaPorID(baza.getIdBaza());
+		jug = JugadaDAO.getInstancia().buscarJugadaPorID(jugada.getIdJugada());
 
 		bz.setJugadaMayor(jug);
 

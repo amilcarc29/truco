@@ -49,7 +49,7 @@ public class Chico {
 
 			/// puntos en 0
 			Puntuacion p = new Puntuacion(pareja);
-			p.setChico(this);
+//			p.setChico(this);
 			this.puntosChico.add(p);
 		}
 
