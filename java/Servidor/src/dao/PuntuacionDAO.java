@@ -74,7 +74,7 @@ public class PuntuacionDAO {
 		return puntuaciones;
 	}
 
-	public PuntuacionEntity buscarPuntosByIdEntity(Integer idPuntuacion) throws CategoriaException {
+	public PuntuacionEntity buscarPuntosByIdEntity(int idPuntuacion) throws CategoriaException {
 		// TODO Auto-generated method stub
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -104,11 +104,12 @@ public class PuntuacionDAO {
 		PuntuacionEntity pEnt = null;
 		
 		pEnt = this.buscarPuntosByIdEntity(p.getIdPuntuacion());
+		pEnt.setPuntuacion(p.getPuntos());
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
-		session.saveOrUpdate(pEnt);
+		session.update(pEnt);
 		session.getTransaction().commit();
 		session.close();
 

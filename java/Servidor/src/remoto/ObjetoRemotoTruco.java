@@ -125,6 +125,21 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 		return null;
 	}
+	
+	public void cantarEnvido(JuegoDTO juego) throws RemoteException{
+		try {
+			ControladorJuego.getInstancia().cantarEnvido(juego);
+		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws RemoteException{
@@ -136,6 +151,42 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (CartaException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (JuegoException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (CategoriaException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (UsuarioException e4) {
+			// TODO Auto-generated catch block
+			e4.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void quieroEnvido(JuegoDTO juego) throws RemoteException{
+		try {
+			ControladorJuego.getInstancia().quieroEnvido(juego);
+		} catch (JuegoException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (CategoriaException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (UsuarioException e4) {
+			// TODO Auto-generated catch block
+			e4.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException{
+		try {
+			ControladorJuego.getInstancia().noQuieroEnvido(juego, usuario);
 		} catch (JuegoException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();

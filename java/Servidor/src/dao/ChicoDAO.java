@@ -39,8 +39,8 @@ public class ChicoDAO {
 
 	public int guardarChico(Juego juego, Chico chico) throws ParejaException {
 		JuegoEntity jue = null;
-		ParejaEntity pa1 = null;
-		ParejaEntity pa2 = null;
+//		ParejaEntity pa1 = null;
+//		ParejaEntity pa2 = null;
 
 		try {
 			jue = JuegoDAO.getInstancia().buscarJuegoPorID(juego.getId());
@@ -48,12 +48,12 @@ public class ChicoDAO {
 			e.printStackTrace();
 		}
 
-		try {
-			pa1 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(0).getIdPareja());
-			pa2 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(1).getIdPareja());
-		} catch (ParejaException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			pa1 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(0).getIdPareja());
+//			pa2 = ParejaDAO.getInstancia().buscarParejaPorId(chico.getParejas().get(1).getIdPareja());
+//		} catch (ParejaException e1) {
+//			e1.printStackTrace();
+//		}
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -66,11 +66,11 @@ public class ChicoDAO {
 
 		// alta de puntuaciones
 
-		PuntuacionEntity pe1 = new PuntuacionEntity(ch, pa1, chico.getPuntosChico().get(0).getPuntos());
-		session.saveOrUpdate(pe1);
-
-		PuntuacionEntity pe2 = new PuntuacionEntity(ch, pa2, chico.getPuntosChico().get(1).getPuntos());
-		session.saveOrUpdate(pe2);
+//		PuntuacionEntity pe1 = new PuntuacionEntity(ch, pa1, chico.getPuntosChico().get(0).getPuntos());
+//		session.saveOrUpdate(pe1);
+//
+//		PuntuacionEntity pe2 = new PuntuacionEntity(ch, pa2, chico.getPuntosChico().get(1).getPuntos());
+//		session.saveOrUpdate(pe2);
 
 		session.getTransaction().commit();
 		session.close();

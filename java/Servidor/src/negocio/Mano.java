@@ -416,13 +416,15 @@ public class Mano {
 
 	// VER SI SE BORRAN LAS CARTAS QUE TIENE EL JUGADOR. PUEDE TRAER PROBLEMAS
 	public Pareja obtenerParejaGanadoraEnvido() {
-		Jugador ganador = this.getJugadores().get(0);
-		for (int i = 1; i < 4; i ++) {
-			if (ganador.obtenerPuntosEnvido() < this.jugadores.get(i).obtenerPuntosEnvido())
-				ganador = this.jugadores.get(i);
-		}
-		Pareja pareja = this.getPareja(ganador.getId());
+		Pareja pareja = this.getPareja(this.getJugadores().get(0).getId());
 		return pareja;
+//		Jugador ganador = this.getJugadores().get(0);
+//		for (int i = 1; i < 4; i ++) {
+//			if (ganador.testEnvido() < this.jugadores.get(i).testEnvido())
+//				ganador = this.jugadores.get(i);
+//		}
+//		Pareja pareja = this.getPareja(ganador.getId());
+//		return pareja;
 	}
 	
 

@@ -191,6 +191,9 @@ public class Chico {
 
 	public void save(Juego juego) throws UsuarioException, CategoriaException, ParejaException {
 		this.setIdChico(ChicoDAO.getInstancia().guardarChico(juego, this));
+		for (Puntuacion p : this.puntosChico) {
+			p.setIdPuntuacion(PuntuacionDAO.getInstancia().guardarPuntuacion(this, p.getPareja()));
+		}
 	}
 
 	public int getIdChico() {
@@ -369,7 +372,8 @@ public class Chico {
 		
 		for (Puntuacion p : this.getPuntosChico()) {
 			if (p.esPuntuacion(pareja)) {
-				p.sumarPuntos(this.getUltimaMano().getEnvido().getPuntosQuiero());
+				p.sumarPuntos(1);
+//				p.sumarPuntos(this.getUltimaMano().getEnvido().getPuntosQuiero());
 				// aumenta los puntos
 				PuntuacionDAO.getInstancia().actualizarPuntos(p);
 

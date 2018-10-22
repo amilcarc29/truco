@@ -179,6 +179,10 @@ public abstract class Jugador {
 			i++;
 		return i;
 	}
+	
+	public int testEnvido() {
+		return 1;
+	}
 
 	public int obtenerPuntosEnvido() {
 		int puntos = 0;
