@@ -299,7 +299,8 @@ public abstract class Juego {
 
 	public void armarNuevoChico() throws UsuarioException, CategoriaException, ParejaException {
 		// TODO Auto-generated method stub
-		
+
+		this.getUltimoChico().setJugadores(JugadorDAO.getInstancia().getJugadores(this.getId()));
 		this.getUltimoChico().cambiarOrden();
 		
 		
@@ -349,12 +350,6 @@ public abstract class Juego {
 		
 	}
 
-	public void armarNuevaMano() throws UsuarioException, CategoriaException {
-
-		this.getUltimoChico().armarNuevaMano();
-		
-	}
-	
 	
 	// LE FALTA JUGADOR. VER! (DIFERENCIA CON TRUCO)
 	public void cantarEnvido() {

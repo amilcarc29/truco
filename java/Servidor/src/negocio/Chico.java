@@ -263,7 +263,6 @@ public class Chico {
 	public void cambiarOrden() throws UsuarioException, CategoriaException {
 		jugadores.add(jugadores.get(0));
 		jugadores.remove(0);
-		
 		JugadorDAO.getInstancia().actualizarTurnos(jugadores);
 		
 	}

@@ -63,7 +63,6 @@ public class ControladorJuego {
 			// para tener el id el crear va despues del save
 
 			j.crearChico();
-			
 
 			juegos.add(j);
 			// imprimirDbg();
@@ -278,7 +277,7 @@ public class ControladorJuego {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Carta car = CartaDAO.getInstancia().buscarCartaPorID(carta.getIdCarta());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
-	
+
 		if (jug.isTieneTurno()) {
 			jue.jugarCarta(car);
 
@@ -309,17 +308,56 @@ public class ControladorJuego {
 
 						}
 					} else {
+						
+						ultimoChico.setJugadores(JugadorDAO.getInstancia().getJugadores(jue.getId()));
 						ultimoChico.armarNuevaMano();
 					}
 
 				} else {
-
+					List<Jugador> nuevoOrdenJugadores = cambiarOrden(jue.getId(), jue.getUltimaBaza());
+					ultimaM.setJugadores(nuevoOrdenJugadores);
 					ultimaM.armarNuevaBaza();
-
 				}
 			}
 		}
 
+	}
+
+	public List<Jugador> cambiarOrden(int idJuego, Baza ultima) throws UsuarioException, CategoriaException {
+		// // preguntar quien gano , ponerlo adelante
+		Jugador jugador = ultima.getJugadaMayor().getJugador();
+
+		int i = 0;
+		int j = 0;
+		List<Jugador> jugadores = JugadorDAO.getInstancia().getJugadores(idJuego);
+		for (int x = 0; x < jugadores.size(); x++) {
+
+			if (jugadores.get(x).esJugador(jugador.getId()))
+				break;
+
+			j++;
+		}
+
+		List<Jugador> jugadoresNuevo = new ArrayList<Jugador>();
+
+		jugadoresNuevo.add(jugador);
+
+		while (i < 3) {
+			j++;
+
+			if (j > 3)
+				j = 0;
+
+			jugadoresNuevo.add(jugadores.get(j));
+
+			i++;
+
+		}
+		jugadores = jugadoresNuevo;
+
+		JugadorDAO.getInstancia().actualizarTurnos(jugadores);
+
+		return jugadores;
 	}
 
 	public boolean sePuedeTruco(int idJuego) throws JuegoException {

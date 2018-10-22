@@ -20,10 +20,10 @@ public class ClienteRmi {
 
 
 			
-//			new BusinessDelegateTruco().alta("Emiliano", "pepe", "pepe");
-//			new BusinessDelegateTruco().alta("Debi", "pepe", "pepe");
-//			new BusinessDelegateTruco().alta("Lucas", "pepe", "pepe");
-//			new BusinessDelegateTruco().alta("Amilcar", "pepe", "pepe");
+			new BusinessDelegateTruco().alta("Emiliano", "pepe", "pepe");
+			new BusinessDelegateTruco().alta("Debi", "pepe", "pepe");
+			new BusinessDelegateTruco().alta("Lucas", "pepe", "pepe");
+			new BusinessDelegateTruco().alta("Amilcar", "pepe", "pepe");
 //
 //			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano", "pepe");
 //			UsuarioDTO us2 = new BusinessDelegateTruco().login("Debi", "pepe");
@@ -31,7 +31,7 @@ public class ClienteRmi {
 //			UsuarioDTO us4 = new BusinessDelegateTruco().login("Amilcar", "pepe");
 
 	//		new BusinessDelegateTruco().modificarUsuario("Emiliano", "pepe", "otroemail", "pepe2", "Emiliano123");
-			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano123", "pepe2");
+//			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano123", "pepe2");
 			
 			
 //			new BusinessDelegateTruco().agregarAListaEspera(us1);

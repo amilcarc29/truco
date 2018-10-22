@@ -140,9 +140,22 @@ public class JugadorDAO {
 		return null;
 	}
 
-	public List<Jugador> getJugadores() {
+	public List<Jugador> getJugadores(int idJuego) throws CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+
+		List<JugadorEntity> jugadoresEntity = (List<JugadorEntity>) session
+				.createQuery("from JugadorEntity where idJuego = ? order by ORDEN asc").setParameter(0, idJuego).list();
+
+		session.close();
+		List<Jugador> jugadores = new ArrayList<>();
+
+		for (JugadorEntity je : jugadoresEntity) {
+			jugadores.add(toNegocio(je));
+		}
+
 		return jugadores;
-	}
+	}	
 
 	public void setJugadores(List<Jugador> jugadores) {
 		this.jugadores = jugadores;
@@ -191,23 +204,26 @@ public class JugadorDAO {
 		int i = 0;
 
 		JugadorEntity jePrimero = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(0).getId());
+		session.beginTransaction();
 		jePrimero.setTieneTurno(true);
 		session.saveOrUpdate(jePrimero);
 		jePrimero.setOrden(i);
+		session.getTransaction().commit();
+		
 		i++;
 		
 		
 		for (int x = 1; x < jugadores.size(); x++) {
 			JugadorEntity je = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(x).getId());
-
+			session.beginTransaction();
 			je.setOrden(i);
 			je.setTieneTurno(false);
 			session.saveOrUpdate(je);
-			
+			session.getTransaction().commit();
 			i++;
 		}
 
-		session.getTransaction().commit();
+		
 		session.close();
 
 	}
