@@ -201,7 +201,7 @@ public class JugadorDAO {
 			JugadorEntity je = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(x).getId());
 
 			je.setOrden(i);
-
+			je.setTieneTurno(false);
 			session.saveOrUpdate(je);
 			
 			i++;
