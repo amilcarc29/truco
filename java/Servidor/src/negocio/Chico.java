@@ -142,13 +142,15 @@ public class Chico {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
 		// puntosPorTerminar del Chico?
 		// ---> Porque en el chico ya tenemos las parejas, los puntos y los jugadores.
-
+	
 		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
 		mano.save(this);
 //		mano.altaBaza();
 
 		manos.add(mano);
-
+		
+		
+		JugadorDAO.getInstancia().actualizarTurnos(jugadores);
 		// System.out.println("MANO NUMERO " + manos.size());
 	}
 
@@ -255,9 +257,11 @@ public class Chico {
 		// TODO Auto-generated method stub
 		return this.getManos().get(this.getManos().size() - 1);
 	}
-	public void cambiarOrden() {
+	public void cambiarOrden() throws UsuarioException, CategoriaException {
 		jugadores.add(jugadores.get(0));
 		jugadores.remove(0);
+		
+		JugadorDAO.getInstancia().actualizarTurnos(jugadores);
 		
 	}
 	public void armarNuevaMano() throws UsuarioException, CategoriaException {

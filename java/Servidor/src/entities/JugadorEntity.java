@@ -28,11 +28,14 @@ public class JugadorEntity {
 	@OneToOne
 	@JoinColumn(name = "idJuego")
 	private JuegoEntity juego;
+
 	
 	private boolean tieneTurno;
 	
-	
-	public JugadorEntity() {}
+	private int orden;
+
+	public JugadorEntity() {
+	}
 
 	public JugadorEntity(UsuarioEntity usuario, ParejaEntity pareja, MiembroEntity miembro, String tipo) {
 		super();
@@ -41,12 +44,7 @@ public class JugadorEntity {
 		this.miembro = miembro;
 		this.tipo = tipo;
 	}
-	
 
-	
-	public boolean tieneTurno() {
-		return tieneTurno;
-	}
 	public int getIdJugador() {
 		return idJugador;
 	}
@@ -95,7 +93,15 @@ public class JugadorEntity {
 		this.tipo = tipo;
 	}
 
-	public boolean isTieneTurno() {
+	public int getOrden() {
+		return orden;
+	}
+
+	public void setOrden(int orden) {
+		this.orden = orden;
+	}
+
+	public boolean geTieneTurno() {
 		return tieneTurno;
 	}
 

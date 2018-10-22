@@ -26,6 +26,9 @@ public abstract class Juego {
 	private Date fecha;
 	private boolean activo;
 
+	
+	private int JugadorTurno = 0;
+	
 	public Juego(List<Pareja> parejas) {
 		super();
 		this.parejas = parejas;
@@ -213,10 +216,12 @@ public abstract class Juego {
 
 		chicos.get(chicos.size() - 1).jugarCarta(carta, jugador);
 
-		JugadorDAO.getInstancia().setTurnoSigJugador(this, jugador);
+		 JugadorDAO.getInstancia().getPasarTurno(this);
 	
 	
 	}
+
+
 
 	public boolean sePuedeCantarEnvido() {
 		return chicos.get(chicos.size() - 1).sePuedeCantarEnvido();
@@ -381,6 +386,9 @@ public abstract class Juego {
 		this.getUltimoChico().aumentarPuntosEnvidoQuerido();
 		
 	}
+
+
+	
 	
 //	public boolean terminoUltimaMano() {
 		
