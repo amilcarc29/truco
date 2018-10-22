@@ -63,11 +63,28 @@ public class ControladorUsuario {
 	}
 
 	// TODO Agregar a Diagrama.
-	public void modificarUsuario(String apodo, String email, String password)
+	public void modificarUsuario(String apodo, String password, String nuevoEmail, String nuevaPass, String nuevoApodo)
 			throws UsuarioException, CategoriaException {
+
+		// busco el usuario que se quiere modificar por apodo y password
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
-		usuario.setEmail(email);
-		usuario.setPass(password);
+		if ((usuario != null) && (usuario.validarLogin(password))) {
+
+			if (nuevoEmail != null)
+				usuario.setEmail(nuevoEmail);
+
+			if (nuevaPass != null)
+				usuario.setPass(nuevaPass);
+
+			if (nuevoApodo != null)
+				usuario.setApodo(nuevoApodo);
+
+			UsuarioDAO.getInstancia().acutualizarUsuario(usuario);
+
+		} else {
+			System.out.println("Usuario o Contraseña incorrecta para: " + apodo);
+		}
+
 	}
 
 	// TODO Agregar a Diagrama. Y Modificar
@@ -84,7 +101,8 @@ public class ControladorUsuario {
 
 	public void verificarCategoriaJugador(String apodo) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
-		Categoria siguienteCategoria = CategoriaDAO.getInstancia().buscarCategoriaByNombreNegocio(siguienteCategoria(usuario.getCategoria().getNombre()));
+		Categoria siguienteCategoria = CategoriaDAO.getInstancia()
+				.buscarCategoriaByNombreNegocio(siguienteCategoria(usuario.getCategoria().getNombre()));
 		if (siguienteCategoria.debeSer(usuario)) {
 			usuario.actualizarCategoria(siguienteCategoria);
 		}
