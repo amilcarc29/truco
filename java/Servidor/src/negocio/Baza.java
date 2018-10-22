@@ -27,11 +27,8 @@ public class Baza {
 		jugadas = new LinkedList<Jugada>();
 		jugadaMayor = null;
 		parda = false;
-		
 	
 	}
-
-
 
 	public Jugada jugadaMayor() {
 		return this.jugadaMayor;
@@ -57,8 +54,6 @@ public class Baza {
 		this.parda = parda;
 	}
 
-
-
 	public boolean finalizoBaza() {
 		// TODO cuenta desde 0 las jugadas en la jugada simple son 4 maximo
 		if (parda)
@@ -82,12 +77,32 @@ public class Baza {
 			Jugada jugada = new Jugada(jugador, carta);
 			jugada.save(this);
 			this.jugadas.add(jugada);
+			this.actualizarJugadaMayor(jugada);
+			
+			
 			
 		} catch (UsuarioException e) {
 			e.printStackTrace();
 		} catch (CategoriaException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public void actualizarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException {
+		if (this.jugadaMayor == null) {
+			this.jugadaMayor = jugada;
+			this.guardarJugadaMayor(jugada);
+			
+		} else {
+			if (jugada.getCarta().getPesoTruco() > this.jugadaMayor.getCarta().getPesoTruco()) {
+				this.jugadaMayor = jugada;
+				this.guardarJugadaMayor(jugada);
+			}
+		}
+	}
+	
+	public void guardarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException {
+		BazaDAO.getInstancia().actualizarJugadaMayor(this, jugada);
 	}
 	
 	

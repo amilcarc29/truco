@@ -7,7 +7,7 @@ import excepciones.ParejaException;
 public class Puntuacion {
 	private int idPuntuacion;
 	private Pareja pareja;
-	private Chico chico;
+//	private Chico chico;
 	
 	private int puntos;
 
@@ -78,11 +78,11 @@ public class Puntuacion {
 		return new PuntuacionDTO(idPuntuacion,pareja.toDTO(),puntos);
 	}
 
-	public Chico getChico() {
-		return chico;
-	}
-
-	public void setChico(Chico chico) {
-		this.chico = chico;
-	}
+//	public Chico getChico() {
+//		return chico;
+//	}
+//
+//	public void setChico(Chico chico) {
+//		this.chico = chico;
+//	}
 }

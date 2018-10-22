@@ -179,9 +179,9 @@ public class Mano {
 		// la jugada mayor esta en baza y son 4 esta mal, el update es por id mano
 		// actualizo la jugadamayor en todas las bazas de la mano
 	
-		BazaDAO.getInstancia().actualizarJugadaMayor(ultimaBaza);
+		// BazaDAO.getInstancia().actualizarJugadaMayor(ultimaBaza);
 		//carga las ultimas modificaciones de la baza
-		this.bazas  = BazaDAO.getInstancia().buscarBazaPorIDMano(this);
+		// this.bazas = BazaDAO.getInstancia().buscarBazaPorIDMano(this);
 
 	}
 

@@ -30,6 +30,19 @@ public class JugadorDAO {
 
 	public JugadorDAO() {
 	}
+	
+	public void actualizarTurno(Jugador jugador) throws UsuarioException, CategoriaException {
+		JugadorEntity jugadorEntity = null;
+		jugadorEntity = this.buscarJugadorById(jugador.getId());
+		jugadorEntity.setTieneTurno(jugador.isTieneTurno());
+		
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.saveOrUpdate(jugadorEntity);
+		session.getTransaction().commit();
+		session.close();
+	}
 
 	public JugadorEntity buscarJugadorById(int idJugador) throws UsuarioException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -154,10 +167,6 @@ public class JugadorDAO {
 		session.getTransaction().commit();
 
 		
-		
-		
-		
-		
 		JugadorEntity jugadorSiguiente = (JugadorEntity) session
 				.createQuery("from JugadorEntity where idJuego = ? and orden = ?").setParameter(0, juego.getId())
 				.setParameter(1, (jturno.getOrden() + 1)).uniqueResult();
@@ -179,20 +188,23 @@ public class JugadorDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
-		int i = 1;
+		int i = 0;
 
 		JugadorEntity jePrimero = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(0).getId());
 		jePrimero.setTieneTurno(true);
 		session.saveOrUpdate(jePrimero);
-
+		jePrimero.setOrden(i);
+		i++;
+		
+		
 		for (int x = 1; x < jugadores.size(); x++) {
 			JugadorEntity je = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(x).getId());
 
 			je.setOrden(i);
 
 			session.saveOrUpdate(je);
+			
 			i++;
-
 		}
 
 		session.getTransaction().commit();

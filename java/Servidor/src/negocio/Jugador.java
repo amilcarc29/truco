@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.JugadorCartaDAO;
+import dao.JugadorDAO;
 import dto.JugadorDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -52,6 +53,10 @@ public abstract class Jugador {
 	public boolean tieneCartas() {
 
 		return (cartas.size() > 0);
+	}
+
+	public void actualizarTurno() throws UsuarioException, CategoriaException {
+		JugadorDAO.getInstancia().actualizarTurno(this);
 	}
 
 	public Carta getCarta(int numero, String palo) throws CartaException {
@@ -129,11 +134,11 @@ public abstract class Jugador {
 
 		return truco;
 	}
-	
-	public List<Carta> getCartasMismoPalo(){
-		List <Carta> resultado = new LinkedList<Carta>();
+
+	public List<Carta> getCartasMismoPalo() {
+		List<Carta> resultado = new LinkedList<Carta>();
 		for (int i = 0; i < 3; i++) {
-			for (int j = i+1; j < 2; j++) {
+			for (int j = i + 1; j < 2; j++) {
 				if (this.cartas.get(i).getPalo().equalsIgnoreCase(this.cartas.get(j).getPalo()))
 					if (this.cantidadElementos(resultado) == 0) {
 						resultado.add(this.cartas.get(i));
@@ -141,13 +146,13 @@ public abstract class Jugador {
 					} else {
 						resultado.add(this.cartas.get(j));
 					}
-			}				
+			}
 		}
 		if (this.cantidadElementos(resultado) > 2)
 			resultado.remove(this.obtenerCartaMenorPuntajeEnvido(resultado));
 		return resultado;
 	}
-	
+
 	public int obtenerCartaMenorPuntajeEnvido(List<Carta> lista) {
 		int pesoEnvido = 100;
 		for (Carta carta : lista) {
@@ -159,7 +164,7 @@ public abstract class Jugador {
 				return lista.indexOf(carta);
 		return 0;
 	}
-	
+
 	public int obtenerMayorPuntajeEnvido(List<Carta> lista) {
 		int pesoEnvido = 0;
 		for (Carta carta : lista) {
@@ -168,7 +173,7 @@ public abstract class Jugador {
 		}
 		return pesoEnvido;
 	}
-	
+
 	public int cantidadElementos(List<Carta> lista) {
 		// VER SI ARRANCA EN 0 o en 1
 		int i = 0;
@@ -176,8 +181,7 @@ public abstract class Jugador {
 			i++;
 		return i;
 	}
-	
-	
+
 	public int obtenerPuntosEnvido() {
 		int puntos = 0;
 		List<Carta> cartas = this.getCartasMismoPalo();
@@ -189,7 +193,7 @@ public abstract class Jugador {
 				puntos += carta.getPesoEnvido();
 			}
 		}
-		return puntos;		
+		return puntos;
 	}
 
 	public List<Carta> getCartas() {
@@ -198,11 +202,14 @@ public abstract class Jugador {
 	}
 
 
-	
+
+	public void setTieneTurno(boolean tieneTurno) {
+		this.tieneTurno = tieneTurno;
+	}
+
 	public JugadorDTO toDTO() {
 		// TODO Auto-generated method stub
-		
-		
+
 		return new JugadorDTO(this.idJugador);
 	}
 
@@ -210,9 +217,7 @@ public abstract class Jugador {
 		return tieneTurno;
 	}
 
-	public void setTieneTurno(boolean tieneTurno) {
-		this.tieneTurno = tieneTurno;
-	}
+
 
 	public int getOrden() {
 		return orden;
