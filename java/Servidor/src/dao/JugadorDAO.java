@@ -17,7 +17,10 @@ import negocio.JugadorIndividual;
 
 public class JugadorDAO {
 	private static JugadorDAO instancia;
-
+	
+	private List<Jugador> jugadores;
+	
+	
 	public static JugadorDAO getInstancia() {
 		if (instancia == null)
 			instancia = new JugadorDAO();
@@ -121,17 +124,17 @@ public class JugadorDAO {
 		return null;
 	}
 
-	public void setTurnoSigJugador(Juego juego) throws CategoriaException, UsuarioException {
+	public void setTurnoSigJugador(Jugador jugador) throws CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session ss = sf.openSession();
 		ss.beginTransaction();
 
-		List<Jugador> jugadores = this.buscarJugadoresByJuego(juego.getId());
+
 
 		for (int i = 0; i < jugadores.size() - 1; i++) {
-			if (jugadores.get(i).isTieneTurno()) {
+			if (jugadores.get(i).esJugador(jugador.getId())) {
 
 				JugadorEntity jant = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(i).getId());
 				jant.setTieneTurno(false);
@@ -171,6 +174,14 @@ public class JugadorDAO {
 		session.getTransaction().commit();
 		session.close();
 
+	}
+
+	public List<Jugador> getJugadores() {
+		return jugadores;
+	}
+
+	public void setJugadores(List<Jugador> jugadores) {
+		this.jugadores = jugadores;
 	}
 
 }

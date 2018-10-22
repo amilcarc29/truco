@@ -213,7 +213,16 @@ public class Mano {
 		Jugador jugador = this.bazas.get(this.bazas.size() - 1).getJugadaMayor().getJugador();
 
 		int i = 0;
-		int j = jugadores.indexOf(jugador);
+		int j = 0;
+		
+		for (int x = 0; x < jugadores.size(); x++) {
+			
+			if (jugadores.get(x).esJugador(jugador.getId())) 
+				break;
+			
+			
+			j++;
+		}
 
 		List<Jugador> jugadoresNuevo = new ArrayList<Jugador>();
 
@@ -231,7 +240,9 @@ public class Mano {
 
 		}
 		jugadores = jugadoresNuevo;
-
+		
+		
+		JugadorDAO.getInstancia().setJugadores(jugadores);
 	}
 
 	public void armarNuevaBaza() {

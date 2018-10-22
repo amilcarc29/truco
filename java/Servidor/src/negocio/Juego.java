@@ -213,7 +213,7 @@ public abstract class Juego {
 
 		chicos.get(chicos.size() - 1).jugarCarta(carta, jugador);
 
-		JugadorDAO.getInstancia().setTurnoSigJugador(this);
+		JugadorDAO.getInstancia().setTurnoSigJugador(jugador);
 	
 	
 	}
