@@ -29,6 +29,19 @@ public class JugadorDAO {
 
 	public JugadorDAO() {
 	}
+	
+	public void actualizarTurno(Jugador jugador) throws UsuarioException, CategoriaException {
+		JugadorEntity jugadorEntity = null;
+		jugadorEntity = this.buscarJugadorById(jugador.getId());
+		jugadorEntity.setTieneTurno(jugador.isTieneTurno());
+		
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.saveOrUpdate(jugadorEntity);
+		session.getTransaction().commit();
+		session.close();
+	}
 
 	public JugadorEntity buscarJugadorById(int idJugador) throws UsuarioException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();

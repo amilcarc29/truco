@@ -27,11 +27,8 @@ public class Baza {
 		jugadas = new LinkedList<Jugada>();
 		jugadaMayor = null;
 		parda = false;
-		
 	
 	}
-
-
 
 	public Jugada jugadaMayor() {
 		return this.jugadaMayor;
@@ -56,8 +53,6 @@ public class Baza {
 	public void setParda(boolean parda) {
 		this.parda = parda;
 	}
-
-
 
 	public boolean finalizoBaza() {
 		// TODO cuenta desde 0 las jugadas en la jugada simple son 4 maximo
