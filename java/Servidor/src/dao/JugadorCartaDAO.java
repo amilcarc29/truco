@@ -36,7 +36,7 @@ public class JugadorCartaDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
-
+		
 		JugadorEntity je = JugadorDAO.getInstancia().buscarJugadorById(jugador.getId());
 		for (Carta carta : cartas) {
 			CartaEntity ce = CartaDAO.getInstancia().buscarCartaPorIDEntity(carta.getIdCarta());
@@ -86,6 +86,25 @@ public class JugadorCartaDAO {
 		session.getTransaction().commit();
 		session.close();
 		
+	}
+
+	public void limpiarCartas(int idJugador) {
+		// TODO Auto-generated method stub
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+
+		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session.createQuery("from JugadorCartaEntity where idJugador = ?").setParameter(0, idJugador).list();
+
+		for (JugadorCartaEntity jc : jugadorcartasEnt) {
+			jc.setCartaJugada(true);
+			
+			session.beginTransaction();
+			session.saveOrUpdate(jc);
+			session.getTransaction().commit();
+			
+		}
+		session.close();
 	}
 
 

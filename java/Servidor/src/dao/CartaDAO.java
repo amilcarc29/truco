@@ -79,4 +79,6 @@ public class CartaDAO {
 		return cartas;
 	}
 
+
+
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Vector;
 
 import dao.BazaDAO;
+import dao.CartaDAO;
 import dao.JugadaDAO;
+import dao.JugadorCartaDAO;
 import dao.JugadorDAO;
 import dao.ManoDAO;
 import dao.ParejaDAO;
@@ -74,6 +76,12 @@ public class Mano {
 	}
 
 	private void repartir() throws UsuarioException, CategoriaException {
+
+		// arreglo pone todas las cartas del jugador como jugadas antes de pedir mas
+		for (Jugador jug : jugadores) {
+			JugadorCartaDAO.getInstancia().limpiarCartas(jug.getId());
+		}
+
 		for (Jugador jug : jugadores) {
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
 			jug.setCartas(cartas);
@@ -106,17 +114,18 @@ public class Mano {
 	}
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
-	
-	
-	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+
+	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL
+	// JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
 	// ¿ES POR QUIEN RESPONDE O POR EL TURNO?
 	public void cantarTruco(Jugador j) {
 		// TODO Auto-generated method stub
 		Truco truco = new Truco();
 		this.truco.addDec(truco);
 	}
-	
-	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+
+	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL
+	// JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
 	// ¿ES POR QUIEN RESPONDE O POR EL TURNO?
 	public void cantarReTruco(Jugador j) {
 		// TODO Auto-generated method stub
@@ -125,8 +134,9 @@ public class Mano {
 		this.truco.addDec(rt);
 
 	}
-	
-	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
+
+	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL
+	// JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
 	// ¿ES POR QUIEN RESPONDE?
 	public void cantarVale4(Jugador j) {
 		// TODO Auto-generated method stub
@@ -165,22 +175,22 @@ public class Mano {
 
 		// despues de jugar una carta se tiene que guardar la baza
 
-		if (this.bazas.size()==0) {
+		if (this.bazas.size() == 0) {
 			Baza nuevaBaza = new Baza(this.getJugadores());
 			nuevaBaza.save(this);
 			// es la primera baza
 			this.bazas.add(nuevaBaza);
 		}
-	
+
 		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
-		
+
 		ultimaBaza.jugarCarta(carta, jugador);
-		
+
 		// la jugada mayor esta en baza y son 4 esta mal, el update es por id mano
 		// actualizo la jugadamayor en todas las bazas de la mano
-	
+
 		// BazaDAO.getInstancia().actualizarJugadaMayor(ultimaBaza);
-		//carga las ultimas modificaciones de la baza
+		// carga las ultimas modificaciones de la baza
 		// this.bazas = BazaDAO.getInstancia().buscarBazaPorIDMano(this);
 
 	}
@@ -208,11 +218,9 @@ public class Mano {
 
 	}
 
-	
 	public void armarNuevaBaza() throws UsuarioException, CategoriaException {
 
 		// modifica el orden de los jugadores para la nueva baza
-	
 
 		Baza b = new Baza(this.getJugadores());
 		b.save(this);
@@ -230,13 +238,13 @@ public class Mano {
 		if (this.getBazas().size() == 3)
 			return true;
 		else {
-			if (this.getBazas().size()>1) {
-			Pareja pareja = ParejaDAO.getInstancia()
-					.buscarParejaDeUnJugador(this.getBazas().get(0).getJugadaMayor().getJugador().getId());
-			Pareja pareja1 = ParejaDAO.getInstancia()
-					.buscarParejaDeUnJugador(this.getBazas().get(1).getJugadaMayor().getJugador().getId());
-			if (pareja.getIdPareja() == pareja1.getIdPareja())
-				return true;
+			if (this.getBazas().size() > 1) {
+				Pareja pareja = ParejaDAO.getInstancia()
+						.buscarParejaDeUnJugador(this.getBazas().get(0).getJugadaMayor().getJugador().getId());
+				Pareja pareja1 = ParejaDAO.getInstancia()
+						.buscarParejaDeUnJugador(this.getBazas().get(1).getJugadaMayor().getJugador().getId());
+				if (pareja.getIdPareja() == pareja1.getIdPareja())
+					return true;
 			}
 		}
 		return false;
@@ -327,20 +335,19 @@ public class Mano {
 		return new ManoDTO(idMano, parDTO, bazDTO, jugDTO, puntoParaTerminarChico, seCantoEnvido, seCantoTruco);
 	}
 
-
 	public void noQuieroReTruco() {
-		
+
 		// FORZADO NULL POR TENER JUGADOR. VER!!!.
 		this.cantarTruco(null);
-		
+
 	}
-	
+
 	public void noQuieroValeCuatro() {
-		
+
 		// FORZADO NULL POR TENER JUGADOR. VER!!!.
 		this.cantarReTruco(null);
-		
-	}	
+
+	}
 
 	// ¿VER POR QUE ESTA ACA Y NO EN BAZA?
 	// LA BAZA TERMINA CUANDO HAY 4 JUGADAS HECHAS, NO CUANDO HAY 3 BAZAS EN MANO
@@ -352,7 +359,7 @@ public class Mano {
 	}
 
 	public void cantarEnvido() {
-		
+
 		Envido env = new Envido();
 
 		if (this.getEnvido() == null) {
@@ -360,36 +367,34 @@ public class Mano {
 		} else {
 			this.envido.addDec(env);
 		}
-			
-		
+
 	}
 
 	public void cantarRealEnvido() {
 
 		RealEnvido env = new RealEnvido();
 		this.envido.addDec(env);
-		
+
 	}
 
 	public void cantarFaltaEnvido(int puntosParaTerminar) {
 
 		FaltaEnvido env = new FaltaEnvido(puntosParaTerminar);
 		this.envido.addDec(env);
-		
+
 	}
 
 	// VER SI SE BORRAN LAS CARTAS QUE TIENE EL JUGADOR. PUEDE TRAER PROBLEMAS
 	public Pareja obtenerParejaGanadoraEnvido() {
 		Pareja pareja = this.getPareja(this.getJugadores().get(0).getId());
 		return pareja;
-//		Jugador ganador = this.getJugadores().get(0);
-//		for (int i = 1; i < 4; i ++) {
-//			if (ganador.testEnvido() < this.jugadores.get(i).testEnvido())
-//				ganador = this.jugadores.get(i);
-//		}
-//		Pareja pareja = this.getPareja(ganador.getId());
-//		return pareja;
+		// Jugador ganador = this.getJugadores().get(0);
+		// for (int i = 1; i < 4; i ++) {
+		// if (ganador.testEnvido() < this.jugadores.get(i).testEnvido())
+		// ganador = this.jugadores.get(i);
+		// }
+		// Pareja pareja = this.getPareja(ganador.getId());
+		// return pareja;
 	}
-	
 
 }
