@@ -17,10 +17,9 @@ import negocio.JugadorIndividual;
 
 public class JugadorDAO {
 	private static JugadorDAO instancia;
-	
+
 	private List<Jugador> jugadores;
-	
-	
+
 	public static JugadorDAO getInstancia() {
 		if (instancia == null)
 			instancia = new JugadorDAO();
@@ -137,14 +136,14 @@ public class JugadorDAO {
 		return null;
 	}
 
-	public void setTurnoSigJugador(Jugador jugador) throws CategoriaException, UsuarioException {
+	public void setTurnoSigJugador(Juego j, Jugador jugador) throws CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session ss = sf.openSession();
 		ss.beginTransaction();
 
-
+		List<Jugador> jugadores = j.getUltimoChico().getJugadores();
 
 		for (int i = 0; i < jugadores.size() - 1; i++) {
 			if (jugadores.get(i).esJugador(jugador.getId())) {
@@ -176,8 +175,7 @@ public class JugadorDAO {
 
 		List<JugadorEntity> jugadoresEntity = (List<JugadorEntity>) session
 				.createQuery("from JugadorEntity where idJuego = ? ").setParameter(0, j.getId()).list();
-		
-		
+
 		session.beginTransaction();
 
 		jugadoresEntity.get(0).setTieneTurno(true);
