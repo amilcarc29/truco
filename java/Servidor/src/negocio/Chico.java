@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.ChicoDAO;
+import dao.JugadorDAO;
 import dao.PuntuacionDAO;
 import dto.ChicoDTO;
 import dto.JugadorDTO;
@@ -60,7 +61,7 @@ public class Chico {
 		// puntos totales para terminar el chico (30). Es un chico, no dos de 15
 		this.puntosPorGanar = 30;
 		// altaMano(this.puntosPorGanar);
-
+		//JugadorDAO.getInstancia().setJugadores(jugadores);
 	}
 
 	public Pareja getGanador() {
@@ -257,6 +258,7 @@ public class Chico {
 	public void cambiarOrden() {
 		jugadores.add(jugadores.get(0));
 		jugadores.remove(0);
+		
 	}
 	public void armarNuevaMano() throws UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
