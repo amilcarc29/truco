@@ -8,6 +8,7 @@ import hbt.HibernateUtil;
 import servidor.ServidorTruco;
 import servidor.ThreadParejas;
 
+
 //SERVIDOR
 public class RmiTruco {
 	public static void main(String[] args) {

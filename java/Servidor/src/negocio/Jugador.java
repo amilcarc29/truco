@@ -15,6 +15,8 @@ public abstract class Jugador {
 	private int idJugador;
 	private List<Carta> cartas;
 	private boolean tieneTurno;
+	
+	private int orden;
 
 	// private static int cnt = 0;
 	//
@@ -203,9 +205,7 @@ public abstract class Jugador {
 
 	}
 
-	public boolean isTieneTurno() {
-		return tieneTurno;
-	}
+
 
 	public void setTieneTurno(boolean tieneTurno) {
 		this.tieneTurno = tieneTurno;
@@ -215,5 +215,19 @@ public abstract class Jugador {
 		// TODO Auto-generated method stub
 
 		return new JugadorDTO(this.idJugador);
+	}
+
+	public boolean isTieneTurno() {
+		return tieneTurno;
+	}
+
+
+
+	public int getOrden() {
+		return orden;
+	}
+
+	public void setOrden(int orden) {
+		this.orden = orden;
 	}
 }

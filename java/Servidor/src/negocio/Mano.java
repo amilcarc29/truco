@@ -208,7 +208,7 @@ public class Mano {
 
 	}
 
-	public void cambiarOrden() {
+	public void cambiarOrden() throws UsuarioException, CategoriaException {
 		// // preguntar quien gano , ponerlo adelante
 		Jugador jugador = this.bazas.get(this.bazas.size() - 1).getJugadaMayor().getJugador();
 
@@ -242,10 +242,10 @@ public class Mano {
 		jugadores = jugadoresNuevo;
 		
 		
-		JugadorDAO.getInstancia().setJugadores(jugadores);
+		JugadorDAO.getInstancia().actualizarTurnos(jugadores);
 	}
 
-	public void armarNuevaBaza() {
+	public void armarNuevaBaza() throws UsuarioException, CategoriaException {
 
 		// modifica el orden de los jugadores para la nueva baza
 		cambiarOrden();

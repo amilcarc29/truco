@@ -6,8 +6,10 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.CategoriaEntity;
 import entities.ChicoEntity;
 import entities.JugadorEntity;
+import entities.UsuarioEntity;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
@@ -72,7 +74,9 @@ public class JugadorDAO {
 		Jugador j = null;
 		if (pe.getTipo().equals("individual")) {
 			j = new JugadorIndividual(UsuarioDAO.getInstancia().toNegocio(pe.getUsuario()));
-			j.setTieneTurno(pe.tieneTurno());
+			j.setTieneTurno(pe.geTieneTurno());
+			j.setOrden(pe.getOrden());
+
 			j.setId(pe.getIdJugador());
 
 		}
@@ -136,63 +140,76 @@ public class JugadorDAO {
 		return null;
 	}
 
-	public void setTurnoSigJugador(Juego j, Jugador jugador) throws CategoriaException, UsuarioException {
-		// TODO Auto-generated method stub
-
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session ss = sf.openSession();
-		ss.beginTransaction();
-
-		List<Jugador> jugadores = j.getUltimoChico().getJugadores();
-
-		for (int i = 0; i < jugadores.size() - 1; i++) {
-			if (jugadores.get(i).esJugador(jugador.getId())) {
-
-				JugadorEntity jant = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(i).getId());
-				jant.setTieneTurno(false);
-
-				JugadorEntity jsig = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(i + 1).getId());
-				jsig.setTieneTurno(true);
-
-				ss.update(jant);
-				ss.update(jsig);
-
-				break;
-
-			}
-		}
-
-		ss.getTransaction().commit();
-		ss.close();
-
-	}
-	// TODO MEJORAR LA CONSULTA
-
-	public void setTurnoPrimero(Juego j) {
-		// TODO Auto-generated method stub
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-
-		List<JugadorEntity> jugadoresEntity = (List<JugadorEntity>) session
-				.createQuery("from JugadorEntity where idJuego = ? ").setParameter(0, j.getId()).list();
-
-		session.beginTransaction();
-
-		jugadoresEntity.get(0).setTieneTurno(true);
-
-		session.saveOrUpdate(jugadoresEntity.get(0));
-
-		session.getTransaction().commit();
-		session.close();
-
-	}
-
 	public List<Jugador> getJugadores() {
 		return jugadores;
 	}
 
 	public void setJugadores(List<Jugador> jugadores) {
 		this.jugadores = jugadores;
+	}
+
+	public void getPasarTurno(Juego juego) throws CategoriaException, UsuarioException {
+		// TODO Auto-generated method stub
+
+		Jugador jturno = this.getJugadorConTurno(juego);
+		//fue la ultima
+		if ((jturno.getOrden()+1)==4)return;
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		JugadorEntity jugadorAnterior = this.buscarJugadorById(jturno.getId());
+		
+		session.beginTransaction();
+		jugadorAnterior.setTieneTurno(false);
+		session.saveOrUpdate(jugadorAnterior);
+		
+		session.getTransaction().commit();
+
+		
+		JugadorEntity jugadorSiguiente = (JugadorEntity) session
+				.createQuery("from JugadorEntity where idJuego = ? and orden = ?").setParameter(0, juego.getId())
+				.setParameter(1, (jturno.getOrden() + 1)).uniqueResult();
+		
+
+		session.beginTransaction();
+		jugadorSiguiente.setTieneTurno(true);
+		
+		
+		session.saveOrUpdate(jugadorSiguiente);
+		session.getTransaction().commit();
+
+	
+		session.close();
+	}
+
+	public void actualizarTurnos(List<Jugador> jugadores) throws UsuarioException, CategoriaException {
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		int i = 0;
+
+		JugadorEntity jePrimero = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(0).getId());
+		jePrimero.setTieneTurno(true);
+		session.saveOrUpdate(jePrimero);
+		jePrimero.setOrden(i);
+		i++;
+		
+		
+		for (int x = 1; x < jugadores.size(); x++) {
+			JugadorEntity je = JugadorDAO.getInstancia().buscarJugadorById(jugadores.get(x).getId());
+
+			je.setOrden(i);
+			je.setTieneTurno(false);
+			session.saveOrUpdate(je);
+			
+			i++;
+		}
+
+		session.getTransaction().commit();
+		session.close();
+
 	}
 
 }
