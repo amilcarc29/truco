@@ -263,7 +263,7 @@ public class Mano {
 	public boolean terminoMano() throws CategoriaException {
 		// 3 Bazas maximo
 
-		if (this.getBazas().size() == 4)
+		if (this.getBazas().size() == 3)
 			return true;
 		else {
 			if (this.getBazas().size()>1) {

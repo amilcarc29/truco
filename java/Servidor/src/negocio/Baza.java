@@ -108,7 +108,7 @@ public class Baza {
 	
 
 	public boolean terminoBaza() {
-		if (this.getJugadas().size() == 5)
+		if (this.getJugadas().size() == 4)
 			return true;
 		else
 			return false;
