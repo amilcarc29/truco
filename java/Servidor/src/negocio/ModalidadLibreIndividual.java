@@ -11,12 +11,10 @@ public class ModalidadLibreIndividual extends Juego{
 
 	public ModalidadLibreIndividual() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ModalidadLibreIndividual(List<Pareja> parejas) {
 		super(parejas);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

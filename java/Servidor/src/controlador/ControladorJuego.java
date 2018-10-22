@@ -71,6 +71,7 @@ public class ControladorJuego {
 	}
 
 	public void finalizarJuego(int idJuego) throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException {
+		// Finaliza el juego y actualiza la categoria del usuario
 		buscarJuego(idJuego).finalizarJuego();
 	}
 
