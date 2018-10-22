@@ -60,12 +60,12 @@ public class PuntuacionDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 
-		List<PuntuacionEntity> puntuacion = (List<PuntuacionEntity>) session
+		List<PuntuacionEntity> puntEnt = (List<PuntuacionEntity>) session
 				.createQuery("from PuntuacionEntity where idChico = ? ").setParameter(0, idChico).list();
 
 		session.close();
 		List<Puntuacion> puntuaciones = new ArrayList<>();
-		List<PuntuacionEntity> puntEnt = new ArrayList<>();
+//		List<PuntuacionEntity> puntEnt = new ArrayList<>();
 
 		for (PuntuacionEntity p : puntEnt) {
 			puntuaciones.add(toNegocio(p));

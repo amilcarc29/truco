@@ -230,11 +230,11 @@ public abstract class Juego {
 	
 	public boolean terminoJuego() {
 		// Es al mejor de 3
-		if (this.getChicos().size() >= 3)
+		if (this.getChicos().size() == 3)
 			return true;
-		else {
-			Pareja pareja = this.getChicos().get(0).getGanador();
-			Pareja pareja1 = this.getChicos().get(1).getGanador();
+		else if (this.getChicos().size() > 1) {
+			Pareja pareja = this.chicos.get(0).getParejaGanadora();
+			Pareja pareja1 = this.chicos.get(1).getParejaGanadora();
 			if (pareja.getIdPareja() == pareja1.getIdPareja())
 				return true;
 		}

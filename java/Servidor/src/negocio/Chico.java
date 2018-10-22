@@ -129,7 +129,7 @@ public class Chico {
 		
 		for (Puntuacion p : this.getPuntosChico()) {
 			if (p.esPuntuacion(pareja)) {
-				p.sumarPuntos(this.getUltimaMano().getTruco().getPuntos());
+				p.sumarPuntos(30);
 				// aumenta los puntos
 				PuntuacionDAO.getInstancia().actualizarPuntos(p);
 

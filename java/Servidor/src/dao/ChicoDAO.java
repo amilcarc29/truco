@@ -23,6 +23,7 @@ import negocio.Juego;
 import negocio.JugadorIndividual;
 import negocio.Mano;
 import negocio.Pareja;
+import negocio.Puntuacion;
 
 public class ChicoDAO {
 
@@ -116,6 +117,9 @@ public class ChicoDAO {
 		parejas.add(ParejaDAO.getInstancia().toNegocio(chicoent.getJuego().getPareja1()));
 		parejas.add(ParejaDAO.getInstancia().toNegocio(chicoent.getJuego().getPareja2()));
 		Chico c = new Chico(parejas);
+		
+		List <Puntuacion> p = PuntuacionDAO.getInstancia().buscarPuntosByChico(chicoent.getIdChico());
+		c.setPuntosChico(p);
 
 		c.setIdChico(chicoent.getIdChico());
 
