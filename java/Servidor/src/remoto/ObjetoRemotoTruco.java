@@ -201,4 +201,17 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void modificarUsario(String apodo, String password, String nuevoEmail, String nuevaPass, String nuevoApodo)
+			throws RemoteException {
+	
+			try {
+				ControladorUsuario.getInstancia().modificarUsuario(apodo, password, nuevoEmail, nuevaPass, nuevoApodo);
+			} catch (UsuarioException | CategoriaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+	}
 }

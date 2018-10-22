@@ -109,4 +109,15 @@ public class BusinessDelegateTruco {
 		}
 		
 	}
+	
+	
+	public void modificarUsuario(String apodo, String password, String nuevoEmail, String nuevaPass, String nuevoApodo) throws ComunicacionException {
+		try {
+			ir.modificarUsario(apodo, password, nuevoEmail, nuevaPass, nuevoApodo);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+		
+	}
+	
 }

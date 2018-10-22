@@ -90,7 +90,8 @@ public class UsuarioEntity {
 	}
 
 	public void setPass(String pass) {
-		this.pass = pass;
+		
+		this.pass = HashUtil.hashString(pass);
 	}
 
 	public String getEmail() {

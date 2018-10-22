@@ -1,20 +1,18 @@
-package test;
+package servidor;
 
 import java.rmi.RemoteException;
 
 import javax.swing.JOptionPane;
 
 import hbt.HibernateUtil;
-import servidor.ServidorTruco;
-import servidor.ThreadParejas;
 
 
 //SERVIDOR
-public class RmiTruco {
+public class ServerTruco {
 	public static void main(String[] args) {
 		try {
 			HibernateUtil.getSessionFactory();
-			new ServidorTruco();
+			new ServidorRmiTruco();
 			new ThreadParejas().run();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(null, "No pude arrancar el servidor");

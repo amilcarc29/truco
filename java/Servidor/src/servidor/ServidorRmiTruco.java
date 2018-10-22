@@ -8,9 +8,9 @@ import java.rmi.registry.LocateRegistry;
 import interfaces.InterfaceRemotaTruco;
 import remoto.ObjetoRemotoTruco;
 
-public class ServidorTruco {
+public class ServidorRmiTruco {
 
-	public ServidorTruco() throws RemoteException{
+	public ServidorRmiTruco() throws RemoteException{
 		inicializar();
 	}
 

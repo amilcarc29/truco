@@ -93,6 +93,7 @@ public class UsuarioDAO {
 		} catch (CategoriaException e) {
 			e.printStackTrace();
 		}
+		
 		ue.setCategoria(cat);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -124,5 +125,24 @@ public class UsuarioDAO {
 		CategoriaEntity categoriaEntity = CategoriaDAO.getInstancia().toEntity(usuario.getCategoria());
 		usuarioEntity.setCategoria(categoriaEntity);
 		return usuarioEntity;
+	}
+
+	public void acutualizarUsuario(Usuario usuario) throws UsuarioException, CategoriaException {
+		// TODO Auto-generated method stub
+		
+		UsuarioEntity ue = null;
+		ue = this.buscarUsuarioByIdEntity(usuario.getIdUsuario());
+		ue.setEmail(usuario.getEmail());
+		ue.setPass(usuario.getPass());
+		ue.setApodo(usuario.getApodo());
+		
+		ue.setIdUsuario(usuario.getIdUsuario());
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.update(ue);
+		session.getTransaction().commit();
+		session.close();
+		
 	}
 }

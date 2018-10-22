@@ -25,15 +25,19 @@ public class ClienteRmi {
 //			new BusinessDelegateTruco().alta("Lucas", "pepe", "pepe");
 //			new BusinessDelegateTruco().alta("Amilcar", "pepe", "pepe");
 //
-			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano", "pepe");
-			UsuarioDTO us2 = new BusinessDelegateTruco().login("Debi", "pepe");
-			UsuarioDTO us3 = new BusinessDelegateTruco().login("Lucas", "pepe");
-			UsuarioDTO us4 = new BusinessDelegateTruco().login("Amilcar", "pepe");
+//			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano", "pepe");
+//			UsuarioDTO us2 = new BusinessDelegateTruco().login("Debi", "pepe");
+//			UsuarioDTO us3 = new BusinessDelegateTruco().login("Lucas", "pepe");
+//			UsuarioDTO us4 = new BusinessDelegateTruco().login("Amilcar", "pepe");
 
-			new BusinessDelegateTruco().agregarAListaEspera(us1);
-			new BusinessDelegateTruco().agregarAListaEspera(us2);
-			new BusinessDelegateTruco().agregarAListaEspera(us3);
-			new BusinessDelegateTruco().agregarAListaEspera(us4);
+	//		new BusinessDelegateTruco().modificarUsuario("Emiliano", "pepe", "otroemail", "pepe2", "Emiliano123");
+			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano123", "pepe2");
+			
+			
+//			new BusinessDelegateTruco().agregarAListaEspera(us1);
+//			new BusinessDelegateTruco().agregarAListaEspera(us2);
+//			new BusinessDelegateTruco().agregarAListaEspera(us3);
+//			new BusinessDelegateTruco().agregarAListaEspera(us4);
 //////
 //			
 ////
