@@ -108,6 +108,8 @@ public abstract class Juego {
 	}
 
 	public void finalizarJuego() throws UsuarioException, CategoriaException, ParejaException, MiembroException {
+		this.setGanador(this.chicos.get(0).getGanador());
+		
 		getParejas().forEach(pareja -> {
 			// Pareja que no gano.
 			if (!getGanador().esPareja(pareja.getIdPareja())) {

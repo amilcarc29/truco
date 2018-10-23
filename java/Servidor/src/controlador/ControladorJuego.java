@@ -272,7 +272,7 @@ public class ControladorJuego {
 	}
 
 	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws JugadorException, CartaException,
-			JuegoException, CategoriaException, UsuarioException, ParejaException {
+			JuegoException, CategoriaException, UsuarioException, ParejaException, MiembroException {
 
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Carta car = CartaDAO.getInstancia().buscarCartaPorID(carta.getIdCarta());
@@ -301,7 +301,10 @@ public class ControladorJuego {
 						ultimoChico.finalizarChico();
 
 						if (jue.terminoJuego()) {
-
+							
+							
+							System.out.println("FIN DE JUEGO");
+							this.finalizarJuego(jue.getId());
 						} else {
 
 							jue.armarNuevoChico();

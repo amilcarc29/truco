@@ -77,7 +77,7 @@ public class JugadorCartaDAO {
 		Session session = sf.openSession();
 		
 		JugadorCartaEntity jugadorcartasEnt = (JugadorCartaEntity) session.
-				createQuery("from JugadorCartaEntity where idJugador = ? and idCarta = ?  ").setParameter(0, idJugador).setParameter(1, idCarta).uniqueResult();
+				createQuery("from JugadorCartaEntity where idJugador = ? and idCarta = ? and cartaJugada = 0 ").setParameter(0, idJugador).setParameter(1, idCarta).uniqueResult();
 		//session.close();
 		
 		jugadorcartasEnt.setCartaJugada(true);

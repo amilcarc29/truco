@@ -88,4 +88,26 @@ public class JuegoEntity {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+	public Integer getIdJuego() {
+		return idJuego;
+	}
+	public void setIdJuego(Integer idJuego) {
+		this.idJuego = idJuego;
+	}
+	public ParejaEntity getParejaGanadora() {
+		return parejaGanadora;
+	}
+	public void setParejaGanadora(ParejaEntity parejaGanadora) {
+		this.parejaGanadora = parejaGanadora;
+	}
+	public void setPareja1(ParejaEntity pareja1) {
+		this.pareja1 = pareja1;
+	}
+	public void setPareja2(ParejaEntity pareja2) {
+		this.pareja2 = pareja2;
+	}
+	
+	
+	
+	
 }

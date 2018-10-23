@@ -114,6 +114,10 @@ public class JuegoDAO {
 			List<Chico> chicos = ChicoDAO.getInstancia().getChicos(juegoEntity.getId());
 			j.setChico(chicos);
 			j.setId(juegoEntity.getId());
+			
+			j.setParejas(chicos.get(0).getParejas());
+			if (juegoEntity.getParejaGanadora()!=null)
+				j.setGanador(ParejaDAO.getInstancia().toNegocio(juegoEntity.getParejaGanadora()));
 		}
 		return j;
 	}
