@@ -151,7 +151,7 @@ body{
 </style>
 
     <script src="js/prefixfree.min.js"></script>
-
+	<script src="js/login.js"></script>
 </head>
 
 <body>
@@ -162,10 +162,11 @@ body{
 			<div>Site<span>Random</span></div>
 		</div>
 		<br>
+		
 		<div class="login">
-				<input type="text" placeholder="username" name="user"><br>
-				<input type="password" placeholder="password" name="password"><br>
-				<input type="button" value="Login">
+				<input type="text" placeholder="username" id="user"><br>
+				<input type="password" placeholder="password" id="password"><br>
+				<input type="button" value="Login" onCLick="login();">
 		</div>
 
   <script src='js/jquery-3.3.1.min.js'></script>
