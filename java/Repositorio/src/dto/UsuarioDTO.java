@@ -2,6 +2,8 @@ package dto;
 
 import java.io.Serializable;
 
+import com.google.gson.JsonObject;
+
 public class UsuarioDTO implements Serializable{
 
 	private static final long serialVersionUID = 913850522288957303L;
@@ -15,7 +17,13 @@ public class UsuarioDTO implements Serializable{
 	private String email;
 	private CategoriaDTO categoria;
 	private boolean activo;
+	public JsonObject toJson() {
+		
+		JsonObject us = new JsonObject();
+		us.add("", value);
+		return null;
 
+	}
 	public UsuarioDTO(int idUsuario, int partidasGanadas, int partidasPerdidas, int puntaje, String apodo, String pass,
 			String email, CategoriaDTO categoria, boolean activo) {
 		super();
