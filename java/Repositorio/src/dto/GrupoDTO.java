@@ -62,4 +62,8 @@ public class GrupoDTO implements Serializable {
 	public void setPartidas(List<ModalidadCerradaDTO> partidas) {
 		this.partidas = partidas;
 	}
+
+	public String toJson() {
+		return JsonDTO.getJson(this);
+	}
 }

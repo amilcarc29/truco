@@ -63,4 +63,8 @@ public class CategoriaDTO implements Serializable {
 	public void setPromedioMinimo(int promedioMinimo) {
 		this.promedioMinimo = promedioMinimo;
 	}
+
+	public String toJson() {
+		return JsonDTO.getJson(this);
+	}
 }

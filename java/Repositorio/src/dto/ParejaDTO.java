@@ -9,6 +9,8 @@ private List<JugadorDTO> jugadores;
 		
 		this.jugadores=j;
 	}
-	
 
+	public String toJson() {
+		return JsonDTO.getJson(this);
+	}
 }

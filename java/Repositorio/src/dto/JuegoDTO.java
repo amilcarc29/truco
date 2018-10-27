@@ -34,4 +34,8 @@ public class JuegoDTO implements Serializable {
 	public void setIdJuego(int idJuego) {
 		this.idJuego = idJuego;
 	}
+
+	public String toJson() {
+		return JsonDTO.getJson(this);
+	}
 }

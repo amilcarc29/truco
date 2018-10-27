@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class JugadorDTO  implements Serializable{
 	
-	
 	private static final long serialVersionUID = -7553168826919721922L;
 	
 	
@@ -30,12 +29,8 @@ public class JugadorDTO  implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public String toJson() {
+		return JsonDTO.getJson(this);
+	}
 }

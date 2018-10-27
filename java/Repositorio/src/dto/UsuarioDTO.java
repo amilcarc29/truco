@@ -2,10 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-public class UsuarioDTO extends JsonDTO  implements Serializable {
+public class UsuarioDTO implements Serializable {
 
 	private static final long serialVersionUID = 913850522288957303L;
 
@@ -96,5 +93,9 @@ public class UsuarioDTO extends JsonDTO  implements Serializable {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public String toJson() {
+		return JsonDTO.getJson(this);
 	}
 }

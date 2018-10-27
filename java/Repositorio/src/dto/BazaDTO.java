@@ -13,9 +13,6 @@ public class BazaDTO implements Serializable{
 	private List<JugadorDTO> jugadores;
 	private boolean parda;
 
-	
-	
-	
 	public BazaDTO(int idBaza, List<JugadorDTO> jugDTO, boolean parda) {
 		super();
 		this.idBaza = idBaza;
@@ -30,4 +27,7 @@ public class BazaDTO implements Serializable{
 		this.idBaza = idBaza;
 	}	
 
+	public String toJson() {
+		return JsonDTO.getJson(this);
+	}
 }

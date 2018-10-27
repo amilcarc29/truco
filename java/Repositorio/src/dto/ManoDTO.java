@@ -2,8 +2,6 @@ package dto;
 
 import java.util.List;
 
-
-
 public class ManoDTO {
 	
 	private int idMano;
@@ -62,8 +60,6 @@ public class ManoDTO {
 		this.jugadores = jugadores;
 	}
 
-
-
 	public int getPuntoParaTerminarChico() {
 		return puntoParaTerminarChico;
 	}
@@ -87,9 +83,8 @@ public class ManoDTO {
 	public void setSeCantoTruco(boolean seCantoTruco) {
 		this.seCantoTruco = seCantoTruco;
 	}
-	
-	
-	
-	
 
+	public String toJson() {
+		return JsonDTO.getJson(this);
+	}
 }

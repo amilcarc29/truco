@@ -55,8 +55,7 @@ public class CartaDTO implements Serializable{
 		return serialVersionUID;
 	}
 	
-	
-	
-	
-
+	public String toJson() {
+		return JsonDTO.getJson(this);
+	}
 }

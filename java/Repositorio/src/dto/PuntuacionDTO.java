@@ -40,5 +40,7 @@ public class PuntuacionDTO {
 		this.puntos = puntos;
 	}
 
-
+	public String toJson() {
+		return JsonDTO.getJson(this);
+	}
 }
