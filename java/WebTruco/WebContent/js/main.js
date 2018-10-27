@@ -4,7 +4,5 @@ $(document).ready(function() {
 
 function loadUser(){
 	$("#userApodo").text(user.apodo);
-	
-	
-	
+
 }
