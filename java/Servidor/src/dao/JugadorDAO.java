@@ -70,20 +70,24 @@ public class JugadorDAO {
 		}
 	}
 
-	public Jugador toNegocio(JugadorEntity pe) throws CategoriaException {
+	public Jugador toNegocio(JugadorEntity pe) throws CategoriaException, UsuarioException {
 		Jugador j = null;
 		if (pe.getTipo().equals("individual")) {
 			j = new JugadorIndividual(UsuarioDAO.getInstancia().toNegocio(pe.getUsuario()));
 			j.setTieneTurno(pe.geTieneTurno());
 			j.setOrden(pe.getOrden());
-
+			
+			
+		
 			j.setId(pe.getIdJugador());
+			
+			j.setCartas(JugadorCartaDAO.getInstancia().getTodasCartasbyJugador(j));
 
 		}
 		return j;
 	}
 
-	public Jugador buscarJugadorByUsario(int idJuego, int idUsuario) throws CategoriaException {
+	public Jugador buscarJugadorByUsario(int idJuego, int idUsuario) throws CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -100,7 +104,7 @@ public class JugadorDAO {
 		return null;
 	}
 
-	public List<Jugador> buscarJugadoresByJuego(int idJuego) throws CategoriaException {
+	public List<Jugador> buscarJugadoresByJuego(int idJuego) throws CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -123,7 +127,7 @@ public class JugadorDAO {
 
 	}
 
-	public Jugador getJugadorConTurno(Juego juego) throws CategoriaException {
+	public Jugador getJugadorConTurno(Juego juego) throws CategoriaException, UsuarioException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		JugadorEntity jugadorEntity = (JugadorEntity) session
@@ -140,7 +144,7 @@ public class JugadorDAO {
 		return null;
 	}
 
-	public List<Jugador> getJugadores(int idJuego) throws CategoriaException {
+	public List<Jugador> getJugadores(int idJuego) throws CategoriaException, UsuarioException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 

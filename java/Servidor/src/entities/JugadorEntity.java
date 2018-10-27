@@ -29,9 +29,11 @@ public class JugadorEntity {
 	@JoinColumn(name = "idJuego")
 	private JuegoEntity juego;
 
-	
+	private boolean cantoTruco;
+	private boolean cantoEnvido;
+
 	private boolean tieneTurno;
-	
+
 	private int orden;
 
 	public JugadorEntity() {
@@ -107,5 +109,21 @@ public class JugadorEntity {
 
 	public void setTieneTurno(boolean tieneTurno) {
 		this.tieneTurno = tieneTurno;
+	}
+
+	public boolean isCantoTruco() {
+		return cantoTruco;
+	}
+
+	public void setCantoTruco(boolean cantoTruco) {
+		this.cantoTruco = cantoTruco;
+	}
+
+	public boolean isCantoEnvido() {
+		return cantoEnvido;
+	}
+
+	public void setCantoEnvido(boolean cantoEnvido) {
+		this.cantoEnvido = cantoEnvido;
 	}
 }

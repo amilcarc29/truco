@@ -71,6 +71,27 @@ public class JugadorCartaDAO {
 		return cartas;
 	}
 
+	
+	public List<Carta> getTodasCartasbyJugador(Jugador jug) {
+		// TODO Auto-generated method stub
+		
+		Vector<Carta> cartas = new Vector<>();
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+
+		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session.createQuery("from JugadorCartaEntity where idJugador = ? ").setParameter(0, jug.getId()).list();
+		session.close();
+
+		for (JugadorCartaEntity jc : jugadorcartasEnt) {
+			
+			cartas.add(CartaDAO.getInstancia().toNegocio(jc.getCarta()));
+		}
+		
+		return cartas;
+	}
+
+	
 	public void guardarCartaJugada(int idJugador, int idCarta) {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();

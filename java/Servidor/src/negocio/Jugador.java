@@ -77,8 +77,12 @@ public abstract class Jugador {
 		}
 	}
 
-	public void setCartas(List<Carta> cartas) throws UsuarioException, CategoriaException {
+	public void setCartas(List<Carta> cartas) {
+		// TODO Auto-generated method stub
 		this.cartas = cartas;
+	}
+	public void guardarCartas(List<Carta> cartas) throws UsuarioException, CategoriaException {
+		this.setCartas(cartas);
 		JugadorCartaDAO.getInstancia().guardarCartas(this.cartas, this);
 
 	}
@@ -182,9 +186,7 @@ public abstract class Jugador {
 		return i;
 	}
 	
-	public int testEnvido() {
-		return 1;
-	}
+
 
 	public int obtenerPuntosEnvido() {
 		int puntos = 0;
@@ -230,4 +232,5 @@ public abstract class Jugador {
 	public void setOrden(int orden) {
 		this.orden = orden;
 	}
+
 }

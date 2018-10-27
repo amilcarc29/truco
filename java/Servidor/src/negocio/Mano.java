@@ -84,7 +84,7 @@ public class Mano {
 
 		for (Jugador jug : jugadores) {
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
-			jug.setCartas(cartas);
+			jug.guardarCartas(cartas);
 		}
 
 	}
@@ -195,7 +195,7 @@ public class Mano {
 
 	}
 
-	public Pareja obtenerParejaGanadora() throws CategoriaException {
+	public Pareja obtenerParejaGanadora() throws CategoriaException, UsuarioException {
 		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
 
 		Jugador jMayorUlimaBaza = ultimaBaza.getJugadaMayor().getJugador();
@@ -221,7 +221,7 @@ public class Mano {
 	public void armarNuevaBaza() throws UsuarioException, CategoriaException {
 
 		// modifica el orden de los jugadores para la nueva baza
-
+		
 		Baza b = new Baza(this.getJugadores());
 		b.save(this);
 		// FIX arreglar
@@ -229,10 +229,11 @@ public class Mano {
 
 		// turno del primer jugador
 		JugadorDAO.getInstancia().setTurno(this.jugadores.get(0));
+		
 
 	}
 
-	public boolean terminoMano() throws CategoriaException {
+	public boolean terminoMano() throws CategoriaException, UsuarioException {
 		// 3 Bazas maximo
 
 		if (this.getBazas().size() == 3)
@@ -386,15 +387,17 @@ public class Mano {
 
 	// VER SI SE BORRAN LAS CARTAS QUE TIENE EL JUGADOR. PUEDE TRAER PROBLEMAS
 	public Pareja obtenerParejaGanadoraEnvido() {
-		Pareja pareja = this.getPareja(this.getJugadores().get(0).getId());
-		return pareja;
-		// Jugador ganador = this.getJugadores().get(0);
-		// for (int i = 1; i < 4; i ++) {
-		// if (ganador.testEnvido() < this.jugadores.get(i).testEnvido())
-		// ganador = this.jugadores.get(i);
-		// }
-		// Pareja pareja = this.getPareja(ganador.getId());
-		// return pareja;
+		Jugador ganador = this.getJugadores().get(0);
+		int puntos = ganador.getTantoEnvido();
+		for (Jugador jugador : this.jugadores)
+			if (jugador.getTantoEnvido() > puntos) {
+				ganador = jugador;
+				puntos = jugador.getTantoEnvido();
+			}
+		
+		
+		Pareja pareja2 = this.getPareja(ganador.getId());
+		return pareja2;
 	}
 
 }

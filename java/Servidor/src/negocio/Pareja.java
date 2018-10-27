@@ -97,11 +97,11 @@ public class Pareja {
 		return jugadores.get(1);
 	}
 
-	public Pareja saveIndividual() throws CategoriaException {
+	public Pareja saveIndividual() throws CategoriaException, UsuarioException {
 		return ParejaDAO.getInstancia().guardarParejaIndividual(this);
 	}
 
-	public Pareja saveGrupal() throws CategoriaException, MiembroException {
+	public Pareja saveGrupal() throws CategoriaException, MiembroException, UsuarioException {
 		try {
 			return ParejaDAO.getInstancia().guardarParejaGrupal(this);
 		} catch (MiembroException e) {

@@ -271,6 +271,10 @@ public class Chico {
 	}
 	public void armarNuevaMano() throws UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
+		
+		//limpiar cantoenvido canto truco
+ 
+		
 		//modifico el orden antes de la proxima mano
 		cambiarOrden();
 		
@@ -331,7 +335,7 @@ public class Chico {
 		
 //	}
 
-	public boolean terminoUltimaMano() throws CategoriaException {
+	public boolean terminoUltimaMano() throws CategoriaException, UsuarioException {
 
 		return this.getUltimaMano().terminoMano();
 		
@@ -378,8 +382,8 @@ public class Chico {
 		
 		for (Puntuacion p : this.getPuntosChico()) {
 			if (p.esPuntuacion(pareja)) {
-				p.sumarPuntos(1);
-//				p.sumarPuntos(this.getUltimaMano().getEnvido().getPuntosQuiero());
+//				p.sumarPuntos(1);
+				p.sumarPuntos(this.getUltimaMano().getEnvido().getPuntosQuiero());
 				// aumenta los puntos
 				PuntuacionDAO.getInstancia().actualizarPuntos(p);
 
