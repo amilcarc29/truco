@@ -188,17 +188,17 @@ public abstract class Juego {
 
 	// TODO Agregar a Diagrama.
 
-	public void cantarTruco() throws CategoriaException {
+	public void cantarTruco() throws CategoriaException, UsuarioException {
 		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
 		chicos.get(chicos.size() - 1).cantarTruco(jugador);
 	}
 
-	public void cantarReTruco() throws CategoriaException {
+	public void cantarReTruco() throws CategoriaException, UsuarioException {
 		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
 		chicos.get(chicos.size() - 1).cantarReTruco(jugador);
 	}
 
-	public void cantarVale4() throws CategoriaException {
+	public void cantarVale4() throws CategoriaException, UsuarioException {
 		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
 		chicos.get(chicos.size() - 1).cantarVale4(jugador);
 	}

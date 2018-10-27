@@ -32,7 +32,7 @@ public class ParejaDAO {
 		return instancia;
 	}
 
-	public Pareja guardarParejaIndividual(Pareja pareja) throws CategoriaException {
+	public Pareja guardarParejaIndividual(Pareja pareja) throws CategoriaException, UsuarioException {
 		UsuarioEntity ue1 = null;
 		UsuarioEntity ue2 = null;
 		JugadorIndividual ju1 = (JugadorIndividual) pareja.getJugador1();
@@ -92,7 +92,7 @@ public class ParejaDAO {
 	}
 	
 
-	public Pareja guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException {
+	public Pareja guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException, UsuarioException {
 		MiembroEntity mi1 = null;
 		MiembroEntity mi2 = null;
 		JugadorGrupal ju1 = (JugadorGrupal) pareja.getJugador1();
@@ -135,7 +135,7 @@ public class ParejaDAO {
 		return toNegocio(pe);
 	}
 
-	public Pareja toNegocio(ParejaEntity pe) throws CategoriaException {
+	public Pareja toNegocio(ParejaEntity pe) throws CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub
 		Pareja p = new Pareja(JugadorDAO.getInstancia().toNegocio(pe.getJugador1()),
 				JugadorDAO.getInstancia().toNegocio(pe.getJugador2()));
@@ -157,7 +157,7 @@ public class ParejaDAO {
 		} // TODO Auto-generated method stub
 	}
 	
-	public Pareja buscarParejaDeUnJugador (int idJugador) throws CategoriaException{
+	public Pareja buscarParejaDeUnJugador (int idJugador) throws CategoriaException, UsuarioException{
 		ParejaEntity parejaEnt = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();

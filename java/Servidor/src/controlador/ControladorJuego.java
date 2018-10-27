@@ -227,7 +227,7 @@ public class ControladorJuego {
 			jue.finalizarUltimoChico();
 
 			if (jue.terminoJuego()) {
-
+				System.out.println("FINALIZAR");
 				// FALTA HACER LA FINALIZACION DEL JUEGO
 				// ACTUALIZACION DE USUARIOS
 
