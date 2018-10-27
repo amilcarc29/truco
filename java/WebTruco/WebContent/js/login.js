@@ -15,13 +15,25 @@ function login() {
 			url : url,
 			data : userLogin, // serializes the form's elements.
 			success : function(data) {
+				if (data.ERROR){
+					
+					
+					$.alertable.alert('Error , el usuario no existe').always(function() {
+						
+					});
+					
+				}else{
 				
+					
+					window.location.replace("/WebTruco/main.jsp");
+
+				}
 			}
 		});
 		
 	} else {
 		$.alertable.alert('Falta usuario o pass').always(function() {
-			console.log('Alert dismissed');
+			
 		});
 	}
 	

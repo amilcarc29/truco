@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import delegado.BusinessDelegateTruco;
 import dto.UsuarioDTO;
@@ -38,19 +39,26 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
-		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-		
-	
-		
+		// Assuming your json object is **jsonObject**, perform the following, it will
+		// return your json object
+		HttpSession newSession = request.getSession(true);
+
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login(user, password);
-			out.print(us1.toJSON());
-			
-		} catch (ComunicacionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if (us1 == null) {
+				out.write("{\"ERROR\":\"TRUE\"}");
+				newSession.setAttribute("user", "null");
+
+			} else {
+				out.write(us1.toJson());
+				newSession.setAttribute("user", us1.toJson());
+
+			}
+
+		} catch (ComunicacionException e1) {
+
 		}
-		
+
 		out.flush();
 	}
 

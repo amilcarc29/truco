@@ -2,9 +2,10 @@ package dto;
 
 import java.io.Serializable;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class UsuarioDTO implements Serializable{
+public class UsuarioDTO extends JsonDTO  implements Serializable {
 
 	private static final long serialVersionUID = 913850522288957303L;
 
@@ -13,17 +14,12 @@ public class UsuarioDTO implements Serializable{
 	private int partidasPerdidas;
 	private int puntaje;
 	private String apodo;
-	private String pass;
 	private String email;
 	private CategoriaDTO categoria;
 	private boolean activo;
-	public JsonObject toJson() {
-		
-		JsonObject us = new JsonObject();
-		us.add("", value);
-		return null;
 
-	}
+	
+
 	public UsuarioDTO(int idUsuario, int partidasGanadas, int partidasPerdidas, int puntaje, String apodo, String pass,
 			String email, CategoriaDTO categoria, boolean activo) {
 		super();
@@ -32,7 +28,6 @@ public class UsuarioDTO implements Serializable{
 		this.partidasPerdidas = partidasPerdidas;
 		this.puntaje = puntaje;
 		this.apodo = apodo;
-		this.pass = pass;
 		this.email = email;
 		this.categoria = categoria;
 		this.activo = activo;
@@ -78,13 +73,6 @@ public class UsuarioDTO implements Serializable{
 		this.apodo = apodo;
 	}
 
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
 
 	public String getEmail() {
 		return email;
