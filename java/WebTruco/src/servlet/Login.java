@@ -50,8 +50,10 @@ public class Login extends HttpServlet {
 				newSession.setAttribute("user", "null");
 
 			} else {
-				out.write(us1.toJson());
-				newSession.setAttribute("user", us1.toJson());
+				String us = us1.toJson();
+				out.write(us);
+				newSession.setAttribute("userJson", us);
+				newSession.setAttribute("userObj", us1);
 
 			}
 

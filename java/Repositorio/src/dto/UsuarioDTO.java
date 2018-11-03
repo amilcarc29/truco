@@ -15,8 +15,6 @@ public class UsuarioDTO implements Serializable {
 	private CategoriaDTO categoria;
 	private boolean activo;
 
-	
-
 	public UsuarioDTO(int idUsuario, int partidasGanadas, int partidasPerdidas, int puntaje, String apodo, String pass,
 			String email, CategoriaDTO categoria, boolean activo) {
 		super();
@@ -69,7 +67,6 @@ public class UsuarioDTO implements Serializable {
 	public void setApodo(String apodo) {
 		this.apodo = apodo;
 	}
-
 
 	public String getEmail() {
 		return email;

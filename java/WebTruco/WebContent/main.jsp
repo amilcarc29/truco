@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-
+<%@include file="loginCheck.jsp" %>
 <title>CodePen - Random Login Form</title>
 
 <style>
@@ -154,13 +154,15 @@ body {
 }
 </style>
 	<link rel="stylesheet" href="css/jquery.alertable.css">
+	      <link rel="stylesheet" href="css/game.css">
+	
 	<script src='js/jquery-3.3.1.min.js'></script>
 	<script src="js/prefixfree.min.js"></script>
 	<script src="js/jquery.alertable.js"></script>
 	<script src="js/main.js"></script>
 	<script>
 	
-	var user = <%= session.getAttribute("user") %>;
+	var user = <%= session.getAttribute("userJson") %>;
 	</script>
 </head>
 
@@ -170,7 +172,20 @@ body {
 	<div class="grad"></div>
 	<div class="header">
 		<div id="main">
-			Hola <span id="userApodo"></span> , Cargando Juegos <img src ="/WebTruco/img/poker-chip.gif" style="width:40px;">
+			Hola <span id="userApodo"></span>
+			
+					 <button class="blob-btn" onCLick="unirsePartidaLibre()">
+						Unirse Partida Libre
+					  <span class="blob-btn__inner">
+					    <span class="blob-btn__blobs">
+					      <span class="blob-btn__blob"></span>
+					      <span class="blob-btn__blob"></span>
+					      <span class="blob-btn__blob"></span>
+					      <span class="blob-btn__blob"></span>
+					    </span>
+					  </span>
+					</button>
+  
 		</div>
 	</div>
 	<br>
