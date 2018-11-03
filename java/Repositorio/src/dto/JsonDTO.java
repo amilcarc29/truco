@@ -48,7 +48,7 @@ public class JsonDTO {
 		// }
 		// }
 		Gson gson = new Gson();
-		return gson.toJson(objectClass).toString();
+		return gson.toJson(objectClass);
 	}
 
 	private static Method buscarMetodo(Method[] metodos, String nombreAtributo) {

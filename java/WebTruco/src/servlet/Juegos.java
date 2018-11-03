@@ -12,8 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.sun.jdi.IntegerType;
 
 import delegado.BusinessDelegateTruco;
+import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
@@ -44,16 +49,17 @@ public class Juegos extends HttpServlet {
 
 		HttpSession newSession = request.getSession(true);
 		UsuarioDTO us1 = (UsuarioDTO) newSession.getAttribute("userObj");
-		if (us1 != null) {
+
+		if ((us1 != null) && (action != null)) {
 
 			try {
-
-				if (action.equals("buscarJuegos")) {
+				if (action.equals("getJuegos")) {
 
 					List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
 					JSONArray arr = new JSONArray();
 					for (JuegoDTO juegoDTO : juegos) {
-						arr.put(juegoDTO.toJson());
+						JSONObject obj = new JSONObject(juegoDTO.toJson());
+						arr.put(obj);
 					}
 					out.write(arr.toString());
 
@@ -61,9 +67,56 @@ public class Juegos extends HttpServlet {
 
 					new BusinessDelegateTruco().agregarAListaEspera(us1);
 					out.write("{\"ERROR\":\"FALSE\"}");
+
+				} else if (action.equals("getCartas")) {
+
+					Integer id = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
+
+					List<CartaDTO> c = new BusinessDelegateTruco().getCartas(j, us1);
+					
+					JSONArray arr = new JSONArray();
+					
+					for (CartaDTO cartaDTO : c) {
+						JSONObject obj = new JSONObject(cartaDTO.toJson());
+
+						arr.put(obj);
+					}
+					
+					
+					out.write(arr.toString());
+				}else if (action.equals("esMiturno")) {
+					
+					Integer id = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
+					
+					if (new BusinessDelegateTruco().esMiTurno(j, us1)){
+						out.write("{\"TURNO\":\"TRUE\"}");
+					}else {
+						out.write("{\"TURNO\":\"FALSE\"}");
+					}
+					
+				
+					
+					
+				}else if (action.equals("jugar")) {
+					
+					Integer id = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
+//					CartaDto carta = new CartaDTO(idCarta, numero, palo);
+//					
+//					if (new BusinessDelegateTruco().esMiTurno(j, us1)){
+//						new BusinessDelegateTruco().jugarCarta(j, cartaDTO, us1);
+//					}else {
+//						out.write("{\"TURNO\":\"FALSE\"}");
+//					}
+					
+				
+					
+					
 				}
 
-			} catch (ComunicacionException e) {
+			} catch (ComunicacionException | JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

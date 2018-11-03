@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<%@include file="loginCheck.jsp" %>
+<%@include file="loginCheck.jsp"%>
 <title>CodePen - Random Login Form</title>
 
 <style>
@@ -152,15 +152,140 @@ body {
 ::-moz-input-placeholder {
 	color: rgba(255, 255, 255, 0.6);
 }
+/* Outer */
+.popup {
+	width: 100%;
+	height: 100%;
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	background: rgba(0, 0, 0, 0.75);
+	z-index: 9000;
+}
+.popup2 {
+	width: 100%;
+	height: 100%;
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	background: rgba(0, 0, 0, 0.75);
+	z-index: 10000;
+}
+
+/* Inner */
+.popup-inner {
+	max-width: 700px;
+	width: 90%;
+	padding: 40px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
+	border-radius: 3px;
+	background: #fff;
+}
+
+/* Close Button */
+.popup-close {
+	width: 30px;
+	height: 30px;
+	padding-top: 4px;
+	display: inline-block;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	transition: ease 0.25s all;
+	-webkit-transform: translate(50%, -50%);
+	transform: translate(50%, -50%);
+	border-radius: 1000px;
+	background: rgba(0, 0, 0, 0.8);
+	font-family: Arial, Sans-Serif;
+	font-size: 20px;
+	text-align: center;
+	line-height: 100%;
+	color: #fff;
+}
+
+.popup-close:hover {
+	-webkit-transform: translate(50%, -50%) rotate(180deg);
+	transform: translate(50%, -50%) rotate(180deg);
+	background: rgba(0, 0, 0, 1);
+	text-decoration: none;
+}
+
+
+
+
+/* css list with numeber circle background -------------- */
+.numberlist{
+	width:450px;
+
+}
+.numberlist ol{
+	            counter-reset: li;
+				list-style: none;
+				*list-style: decimal;
+				font: 15px 'trebuchet MS', 'lucida sans';
+				padding: 0;
+				margin-bottom: 4em;
+
+}
+.numberlist ol ol{
+				margin: 0 0 0 2em;
+			}
+			
+.numberlist a{
+				position: relative;
+				display: block;
+				padding: .4em .4em .4em 2em;
+				*padding: .4em;
+				margin: .5em 0;
+				background: #FFF;
+				color: #444;
+				text-decoration: none;
+				-moz-border-radius: .3em;
+				-webkit-border-radius: .3em;
+				border-radius: .3em;
+			}
+
+.numberlist a:hover{
+				background: #cbe7f8;
+				text-decoration:underline;
+			}
+.numberlist a:before{
+				content: counter(li);
+				counter-increment: li;
+				position: absolute;	
+				left: -1.3em;
+				top: 50%;
+				margin-top: -1.3em;
+				background: #87ceeb;
+				height: 2em;
+				width: 2em;
+				line-height: 2em;
+				border: .3em solid #fff;
+				text-align: center;
+				font-weight: bold;
+				-moz-border-radius: 2em;
+				-webkit-border-radius: 2em;
+				border-radius: 2em;
+				color:#FFF;
+			}
+
+
 </style>
-	<link rel="stylesheet" href="css/jquery.alertable.css">
-	      <link rel="stylesheet" href="css/game.css">
-	
-	<script src='js/jquery-3.3.1.min.js'></script>
-	<script src="js/prefixfree.min.js"></script>
-	<script src="js/jquery.alertable.js"></script>
-	<script src="js/main.js"></script>
-	<script>
+<link rel="stylesheet" href="css/jquery.alertable.css">
+<link rel="stylesheet" href="css/game.css">
+
+<script src='js/jquery-3.3.1.min.js'></script>
+<script src="js/prefixfree.min.js"></script>
+<script src="js/jquery.alertable.js"></script>
+<script src="js/main.js"></script>
+<script>
 	
 	var user = <%= session.getAttribute("userJson") %>;
 	</script>
@@ -168,27 +293,91 @@ body {
 
 <body>
 
+	
+	
 	<div class="body"></div>
 	<div class="grad"></div>
 	<div class="header">
 		<div id="main">
 			Hola <span id="userApodo"></span>
-			
-					 <button class="blob-btn" onCLick="unirsePartidaLibre()">
-						Unirse Partida Libre
-					  <span class="blob-btn__inner">
-					    <span class="blob-btn__blobs">
-					      <span class="blob-btn__blob"></span>
-					      <span class="blob-btn__blob"></span>
-					      <span class="blob-btn__blob"></span>
-					      <span class="blob-btn__blob"></span>
-					    </span>
-					  </span>
-					</button>
-  
+
+
+
 		</div>
+		<div>
+
+			<button class="blob-btn" onCLick="unirsePartidaLibre()">
+				Unirse Partida Libre <span class="blob-btn__inner"> <span
+					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span>
+				</span>
+				</span>
+			</button>
+
+			<button class="blob-btn" data-popup-open="popup-1">
+				Mis Juegos <span class="blob-btn__inner"> <span
+					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span>
+				</span>
+				</span>
+			</button>
+		</div>
+
 	</div>
 	<br>
+	<a class="btn" data-popup-open="popup-1" href="#">Open Popup #1</a>
+
+
+	<div class="popup" data-popup="popup-1">
+			<div class="popup-inner">
+				<h2 id="JuegosTit" style="color: black;" >Cargando Juegos...</h2>
+				
+				
+				<div id="games" class="numberlist">
+						
+				</div>
+				
+	
+			
+			
+				<a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+			</div>
+		</div>
+		
+		
+		
+	<div class="popup2" data-popup="popup-2">	
+			<div class="popup-inner">
+				<h2 style="color: black;" id="CartasTit">Mis cartas</h2>
+				
+				
+				<div id="games2" class="numberlist">
+				
+				</div>
+				
+			<button class="blob-btn" data-popup-open="popup-1">
+				Cantar Envido <span class="blob-btn__inner"> <span
+					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span>
+				</span>
+				</span>
+			</button>
+				<button class="blob-btn" data-popup-open="popup-1">
+				Cantar Truco <span class="blob-btn__inner"> <span
+					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span>
+				</span>
+				</span>
+			</button>
+	
+				<a class="popup-close" data-popup-close="popup-2" href="#">x</a>
+			</div>
+ </div>
+
 
 </body>
 
