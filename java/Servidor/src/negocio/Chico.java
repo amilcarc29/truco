@@ -139,6 +139,20 @@ public class Chico {
 			}
 		}
 	}
+	
+	public void aumentarPuntosTrucoNoQuerido(Pareja pareja) throws CategoriaException, ParejaException {
+		
+		for (Puntuacion p : this.getPuntosChico()) {
+			if (p.esPuntuacion(pareja)) {
+				
+				p.sumarPuntos(this.getUltimaMano().getTruco().getPuntosNoQuiero());
+					
+				// aumenta los puntos
+				PuntuacionDAO.getInstancia().actualizarPuntos(p);
+
+			}
+		}
+	}
 
 	// TODO Agregar parámetro parejas a Diagrama.
 	public void altaMano(int puntosParaTerminar) throws UsuarioException, CategoriaException {
@@ -159,19 +173,19 @@ public class Chico {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
-	public void cantarTruco(Jugador j) {
+	public void cantarTruco() {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarTruco(j);
+		this.manos.get(this.manos.size() - 1).cantarTruco();
 	}
 	
-	public void cantarReTruco(Jugador j) {
+	public void cantarReTruco() {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarReTruco(j);
+		this.manos.get(this.manos.size() - 1).cantarReTruco();
 	}
 
-	public void cantarVale4(Jugador j) {
+	public void cantarVale4() {
 		// TODO Auto-generated method stub
-		this.manos.get(this.manos.size() - 1).cantarVale4(j);
+		this.manos.get(this.manos.size() - 1).cantarVale4();
 	}
 	
 	public void compFinalizacionChico() throws CategoriaException {
@@ -317,18 +331,8 @@ public class Chico {
 		return new ChicoDTO(idChico,manDTO,parDTO,punDTO,this.ganador.toDTO(),puntosPorGanar,jugDTO,sePuedeCantarEnvido);
 	}
 
-	public void noQuieroReTruco() {
-
-		this.getUltimaMano().noQuieroReTruco();
 		
-	}
 	
-	public void noQuieroValeCuatro() {
-
-		this.getUltimaMano().noQuieroValeCuatro();
-		
-	}
-
 //	public boolean terminoUltimaBaza() {
 
 //		return this.getUltimaMano().terminoBaza();

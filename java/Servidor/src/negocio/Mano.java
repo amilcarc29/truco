@@ -27,8 +27,8 @@ public class Mano {
 	private List<Baza> bazas;
 	private List<Jugador> jugadores;
 
-	private Envido envido;
-	private Truco truco;
+	private Envidoo envido;
+	private Trucoo truco;
 
 	private int puntoParaTerminarChico;
 	private Mazo mazo;
@@ -41,7 +41,7 @@ public class Mano {
 
 	public Mano(int idMano) {
 		this.idMano = idMano;
-		this.truco = new Truco();
+		this.truco = new Trucoo();
 	}
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico)
@@ -50,11 +50,9 @@ public class Mano {
 		this.parejas = parejas;
 		this.jugadores = jugadores;
 		setPuntoParaTerminarChico(puntoParaTerminarChico);
-		// FALTA SACAR CARTAS DE LA BD Y ARMAR EL MAZO
-		// this.mazo = obtenerMazo();
 		this.bazas = new ArrayList<Baza>();
-		// FALTA VER SI SE CREA ENVIDO
-		this.truco = new Truco();
+		this.truco = new Trucoo();
+		truco.save(this);
 
 		this.seCantoEnvido = false;
 		this.seCantoTruco = false;
@@ -115,34 +113,33 @@ public class Mano {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
-	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL
-	// JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
-	// ¿ES POR QUIEN RESPONDE O POR EL TURNO?
-	public void cantarTruco(Jugador j) {
-		// TODO Auto-generated method stub
-		Truco truco = new Truco();
-		this.truco.addDec(truco);
+	public void cantarTruco() {
+		
+		Trucoo truco = this.getTruco();
+		truco.setPuntosNoQuiero(truco.getPuntosQuiero());
+		truco.setPuntosQuiero(truco.getPuntosQuiero() + 1);
+		this.setTruco(truco);
+		truco.save(this);
+		
 	}
 
-	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL
-	// JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
-	// ¿ES POR QUIEN RESPONDE O POR EL TURNO?
-	public void cantarReTruco(Jugador j) {
-		// TODO Auto-generated method stub
-
-		ReTruco rt = new ReTruco();
-		this.truco.addDec(rt);
-
+	public void cantarReTruco() {
+		
+		Trucoo truco = this.getTruco();
+		truco.setPuntosNoQuiero(truco.getPuntosQuiero());
+		truco.setPuntosQuiero(truco.getPuntosQuiero() + 1);
+		this.setTruco(truco);
+		truco.save(this);
+		
 	}
 
-	// ¿PARA QUE QUEREMOS EL JUGADOR? CREO QUE NO VA, SOLAMENTE SETEA PUNTOS. EL
-	// JUGADOR IMPORTA CUANDO DAS LOS PUNTOS (OTRA FUNCION)
-	// ¿ES POR QUIEN RESPONDE?
-	public void cantarVale4(Jugador j) {
-		// TODO Auto-generated method stub
-
-		Vale4 v4 = new Vale4();
-		this.truco.addDec(v4);
+	public void cantarVale4() {
+		
+		Trucoo truco = this.getTruco();
+		truco.setPuntosNoQuiero(truco.getPuntosQuiero());
+		truco.setPuntosQuiero(truco.getPuntosQuiero() + 1);
+		this.setTruco(truco);
+		truco.save(this);
 	}
 
 	public Pareja getPareja(int idJugador) {
@@ -259,19 +256,19 @@ public class Mano {
 		this.bazas = bazas;
 	}
 
-	public Envido getEnvido() {
+	public Envidoo getEnvido() {
 		return envido;
 	}
 
-	public void setEnvido(Envido envido) {
+	public void setEnvido(Envidoo envido) {
 		this.envido = envido;
 	}
 
-	public Truco getTruco() {
+	public Trucoo getTruco() {
 		return truco;
 	}
 
-	public void setTruco(Truco truco) {
+	public void setTruco(Trucoo truco) {
 		this.truco = truco;
 	}
 
@@ -336,20 +333,8 @@ public class Mano {
 		return new ManoDTO(idMano, parDTO, bazDTO, jugDTO, puntoParaTerminarChico, seCantoEnvido, seCantoTruco);
 	}
 
-	public void noQuieroReTruco() {
-
-		// FORZADO NULL POR TENER JUGADOR. VER!!!.
-		this.cantarTruco(null);
-
-	}
-
-	public void noQuieroValeCuatro() {
-
-		// FORZADO NULL POR TENER JUGADOR. VER!!!.
-		this.cantarReTruco(null);
-
-	}
-
+	
+	
 	// ¿VER POR QUE ESTA ACA Y NO EN BAZA?
 	// LA BAZA TERMINA CUANDO HAY 4 JUGADAS HECHAS, NO CUANDO HAY 3 BAZAS EN MANO
 	public boolean terminoBaza() {
@@ -360,28 +345,53 @@ public class Mano {
 	}
 
 	public void cantarEnvido() {
-
-		Envido env = new Envido();
-
-		if (this.getEnvido() == null) {
-			this.setEnvido(env);
+		
+		Envidoo env = this.getEnvido();
+		
+		if (env == null) {
+			env = new Envidoo(2);
 		} else {
-			this.envido.addDec(env);
+			env.setPuntosNoQuiero(env.getPuntosQuiero());
+			env.setPuntosQuiero(env.getPuntosQuiero() + 2);
 		}
+		
+		this.setEnvido(env);
+		env.save(this);		
 
 	}
 
 	public void cantarRealEnvido() {
-
-		RealEnvido env = new RealEnvido();
-		this.envido.addDec(env);
+		
+		Envidoo env = this.getEnvido();
+		
+		if (env == null) {
+			env = new Envidoo(3);
+		} else {
+			env.setPuntosNoQuiero(env.getPuntosQuiero());
+			env.setPuntosQuiero(env.getPuntosQuiero() + 3);
+		}
+		
+		this.setEnvido(env);
+		env.save(this);		
+		
+		
 
 	}
 
 	public void cantarFaltaEnvido(int puntosParaTerminar) {
+		
+		Envidoo env = this.getEnvido();
+		
+		if (env == null) {
+			env = new Envidoo(puntosParaTerminar);
+		} else {
+			env.setPuntosNoQuiero(env.getPuntosQuiero());
+			env.setPuntosQuiero(puntosParaTerminar);
+		}
+		
+		this.setEnvido(env);
+		env.save(this);	
 
-		FaltaEnvido env = new FaltaEnvido(puntosParaTerminar);
-		this.envido.addDec(env);
 
 	}
 
@@ -399,5 +409,6 @@ public class Mano {
 		Pareja pareja2 = this.getPareja(ganador.getId());
 		return pareja2;
 	}
+
 
 }

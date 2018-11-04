@@ -9,6 +9,7 @@ import entities.BazaEntity;
 import entities.CartaEntity;
 import entities.CategoriaEntity;
 import entities.ChicoEntity;
+import entities.EnvidooEntity;
 import entities.GrupoEntity;
 import entities.JuegoEntity;
 import entities.JugadaEntity;
@@ -18,6 +19,7 @@ import entities.ManoEntity;
 import entities.MiembroEntity;
 import entities.ParejaEntity;
 import entities.PuntuacionEntity;
+import entities.TrucooEntity;
 import entities.UsuarioEntity;
 
 public class HibernateUtil {
@@ -42,6 +44,8 @@ public class HibernateUtil {
 			config.addAnnotatedClass(CartaEntity.class);
 			config.addAnnotatedClass(JugadaEntity.class);
 			config.addAnnotatedClass(JugadorCartaEntity.class);
+			config.addAnnotatedClass(EnvidooEntity.class);
+			config.addAnnotatedClass(TrucooEntity.class);
 
 			sessionFactory = config.buildSessionFactory();
 			

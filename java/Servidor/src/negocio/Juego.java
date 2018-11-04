@@ -188,19 +188,16 @@ public abstract class Juego {
 
 	// TODO Agregar a Diagrama.
 
-	public void cantarTruco() throws CategoriaException, UsuarioException {
-		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-		chicos.get(chicos.size() - 1).cantarTruco(jugador);
+	public void cantarTruco() {
+		chicos.get(chicos.size() - 1).cantarTruco();
 	}
 
 	public void cantarReTruco() throws CategoriaException, UsuarioException {
-		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-		chicos.get(chicos.size() - 1).cantarReTruco(jugador);
+		chicos.get(chicos.size() - 1).cantarReTruco();
 	}
 
 	public void cantarVale4() throws CategoriaException, UsuarioException {
-		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
-		chicos.get(chicos.size() - 1).cantarVale4(jugador);
+		chicos.get(chicos.size() - 1).cantarVale4();
 	}
 
 	public Pareja obtenerParejaContraria(Jugador jugador) {
@@ -321,18 +318,7 @@ public abstract class Juego {
 		
 		
 	}
-	
-	public void noQuieroReTruco() {
-
-		this.getUltimoChico().noQuieroReTruco();	
 		
-	}
-	
-	public void noQuieroValeCuatro() {
-
-		this.getUltimoChico().noQuieroValeCuatro();	
-		
-	}
 
 	public void aumentarPuntosTruco(Pareja parejaG) throws CategoriaException, ParejaException {
 		
@@ -384,6 +370,11 @@ public abstract class Juego {
 		
 	}
 
+	public void aumentarPuntosTrucoNoQuerido(Pareja parejaG) throws CategoriaException, ParejaException {
+		
+		this.getUltimoChico().aumentarPuntosTrucoNoQuerido(parejaG);
+		
+	}
 
 	
 	

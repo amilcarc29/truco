@@ -82,48 +82,32 @@ public class ControladorJuego {
 	 * UN JUEGO Y ACTUALIZAR EL TRUCO EN LA BD
 	 */
 
-	// ESTA FUNCION ES PARA CUANDO DICEN QUIERO A UN TRUCO => AUMENTA EL VALOR DEL
-	// TRUCO A 2
+	
 	public void cantarTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarTruco();
 	}
-
-	// ESTA FUNCION ES PARA CUANDO DICEN QUIERO A UN RETRUCO => AUMENTA EL VALOR DEL
-	// TRUCO A 3
+	
+	
 	public void cantarReTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
-		jue.cantarTruco();
 		jue.cantarReTruco();
 	}
 
-	// ESTA FUNCION ES PARA CUANDO DICEN QUIERO A UN VALECUATRO => AUMENTA EL VALOR
-	// DEL TRUCO A 4
 	public void cantarVale4(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
-		jue.cantarTruco();
-		jue.cantarReTruco();
 		jue.cantarVale4();
 	}
 
-	// ESTO CREO QUE NO HACE FALTA. CUANDO DICEN QUIERO SE DISPARAN LAS FUNCIONES
-	// cantar...
-	// public void cantarQuieroTruco(int idJuego, boolean quieroSiNo)
-	// throws JuegoException, CategoriaException, UsuarioException {
-	// // TODO Auto-generated method stub
-	// Juego j = this.buscarJuego(idJuego);
-	// j.cantarQuieroTruco(quieroSiNo);
-	// }
-
+	
 	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN TRUCO (VALE 1 PUNTO)
 	public void noQuieroTruco(UsuarioDTO usuario, JuegoDTO juego)
 			throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
 		Pareja parejaG = jue.obtenerParejaContraria(jug);
-		// ESTA FUNCION NO HACE FALTA. SOLO HAY QUE DAR PUNTOS. EL TRUCO YA VALE 1
-		// jue.noQuieroTruco();
-		jue.aumentarPuntosTruco(parejaG);
+		
+		jue.aumentarPuntosTrucoNoQuerido(parejaG);
 
 		if (jue.terminoUltimoChico()) {
 
@@ -141,60 +125,7 @@ public class ControladorJuego {
 			}
 		}
 	}
-
-	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN RETRUCO (VALE 2 PUNTOS)
-	public void noQuieroReTruco(UsuarioDTO usuario, JuegoDTO juego)
-			throws JuegoException, CategoriaException, UsuarioException, ParejaException {
-		Juego jue = this.buscarJuego(juego.getIdJuego());
-		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
-		Pareja parejaG = jue.obtenerParejaContraria(jug);
-		jue.noQuieroReTruco();
-
-		jue.aumentarPuntosTruco(parejaG);
-
-		if (jue.terminoUltimoChico()) {
-
-			jue.finalizarUltimoChico();
-
-			if (jue.terminoJuego()) {
-
-				// FALTA HACER LA FINALIZACION DEL JUEGO
-				// ACTUALIZACION DE USUARIOS
-
-			} else {
-
-				jue.armarNuevoChico();
-
-			}
-		}
-	}
-
-	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN VALECUATRO (VALE 3 PUNTOS)
-	public void noQuieroValeCuatro(UsuarioDTO usuario, JuegoDTO juego)
-			throws JuegoException, CategoriaException, UsuarioException, ParejaException {
-		Juego jue = this.buscarJuego(juego.getIdJuego());
-		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
-		Pareja parejaG = jue.obtenerParejaContraria(jug);
-		jue.noQuieroValeCuatro();
-		jue.aumentarPuntosTruco(parejaG);
-
-		if (jue.terminoUltimoChico()) {
-
-			jue.finalizarUltimoChico();
-
-			if (jue.terminoJuego()) {
-
-				// FALTA HACER LA FINALIZACION DEL JUEGO
-				// ACTUALIZACION DE USUARIOS
-
-			} else {
-
-				jue.armarNuevoChico();
-
-			}
-		}
-	}
-
+	
 	/*
 	 * FIN FUNCIONES DE TRUCO
 	 */
