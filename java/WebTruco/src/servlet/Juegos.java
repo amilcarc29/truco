@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.sun.jdi.IntegerType;
+
 import delegado.BusinessDelegateTruco;
+import dto.CartaDTO;
+import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 
@@ -32,29 +41,86 @@ public class Juegos extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
-		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
-		// Assuming your json object is **jsonObject**, perform the following, it will
-		// return your json object
-		HttpSession newSession = request.getSession(true);
-//		newSession.getAttribute(arg0)
-//		try {
-//			UsuarioDTO us1 = new BusinessDelegateTruco().login(user, password);
-//			if (us1 == null) {
-//				out.write("{\"ERROR\":\"TRUE\"}");
-//				newSession.setAttribute("user", "null");
-//
-//			} else {
-//				out.write(us1.toJson());
-//				newSession.setAttribute("user", us1.toJson());
-//
-//			}
-//
-//		} catch (ComunicacionException e1) {
-//
-//		}
 
+		response.setContentType("application/json");
+
+		String action = request.getParameter("action");
+
+		HttpSession newSession = request.getSession(true);
+		UsuarioDTO us1 = (UsuarioDTO) newSession.getAttribute("userObj");
+
+		if ((us1 != null) && (action != null)) {
+
+			try {
+				if (action.equals("getJuegos")) {
+
+					List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
+					JSONArray arr = new JSONArray();
+					for (JuegoDTO juegoDTO : juegos) {
+						JSONObject obj = new JSONObject(juegoDTO.toJson());
+						arr.put(obj);
+					}
+					out.write(arr.toString());
+
+				} else if (action.equals("unirsePartida")) {
+
+					new BusinessDelegateTruco().agregarAListaEspera(us1);
+					out.write("{\"ERROR\":\"FALSE\"}");
+
+				} else if (action.equals("getCartas")) {
+
+					Integer id = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
+
+					List<CartaDTO> c = new BusinessDelegateTruco().getCartas(j, us1);
+					
+					JSONArray arr = new JSONArray();
+					
+					for (CartaDTO cartaDTO : c) {
+						JSONObject obj = new JSONObject(cartaDTO.toJson());
+
+						arr.put(obj);
+					}
+					
+					
+					out.write(arr.toString());
+				}else if (action.equals("esMiturno")) {
+					
+					Integer id = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
+					
+					if (new BusinessDelegateTruco().esMiTurno(j, us1)){
+						out.write("{\"TURNO\":\"TRUE\"}");
+					}else {
+						out.write("{\"TURNO\":\"FALSE\"}");
+					}
+					
+				
+					
+					
+				}else if (action.equals("jugar")) {
+					
+					Integer id = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
+//					CartaDto carta = new CartaDTO(idCarta, numero, palo);
+//					
+//					if (new BusinessDelegateTruco().esMiTurno(j, us1)){
+//						new BusinessDelegateTruco().jugarCarta(j, cartaDTO, us1);
+//					}else {
+//						out.write("{\"TURNO\":\"FALSE\"}");
+//					}
+					
+				
+					
+					
+				}
+
+			} catch (ComunicacionException | JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		out.flush();
 	}
 

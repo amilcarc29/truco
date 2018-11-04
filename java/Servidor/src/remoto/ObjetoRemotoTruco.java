@@ -92,7 +92,23 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 		return null;
 	}
-
+	
+	@Override
+	public JuegoDTO getJuegosById(int idJuego) throws RemoteException {
+		try {
+			return ControladorJuego.getInstancia().buscarJuego(idJuego).toDTO();
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	@Override
 	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {

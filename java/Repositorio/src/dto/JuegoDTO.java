@@ -20,10 +20,10 @@ public class JuegoDTO implements Serializable {
 	public JuegoDTO(int idJuego,List<ParejaDTO> parejas,List<ChicoDTO> chicos,ParejaDTO ganador,Date fec) {
 		super();
 		this.idJuego = idJuego;
-		this.parejas=parejas;
-		this.chicos=chicos;
-		this.ganador=ganador;
-		this.fecha=fec;
+		this.setParejas(parejas);
+		this.setChicos(chicos);
+		this.setGanador(ganador);
+		this.setFecha(fec);
 	}
 
 
@@ -37,5 +37,45 @@ public class JuegoDTO implements Serializable {
 
 	public String toJson() {
 		return JsonDTO.getJson(this);
+	}
+
+
+	public List<ParejaDTO> getParejas() {
+		return parejas;
+	}
+
+
+	public void setParejas(List<ParejaDTO> parejas) {
+		this.parejas = parejas;
+	}
+
+
+	public List<ChicoDTO> getChicos() {
+		return chicos;
+	}
+
+
+	public void setChicos(List<ChicoDTO> chicos) {
+		this.chicos = chicos;
+	}
+
+
+	public ParejaDTO getGanador() {
+		return ganador;
+	}
+
+
+	public void setGanador(ParejaDTO ganador) {
+		this.ganador = ganador;
+	}
+
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 }
