@@ -51,8 +51,8 @@ public class Mano {
 		this.jugadores = jugadores;
 		setPuntoParaTerminarChico(puntoParaTerminarChico);
 		this.bazas = new ArrayList<Baza>();
-		this.truco = new Trucoo();
-		truco.save(this);
+//		this.truco = new Trucoo();
+//		truco.save(this);
 
 		this.seCantoEnvido = false;
 		this.seCantoTruco = false;
@@ -348,8 +348,9 @@ public class Mano {
 		
 		Envidoo env = this.getEnvido();
 		
-		if (env == null) {
-			env = new Envidoo(2);
+		if (env.getPuntosNoQuiero() == 0) {
+			env.setPuntosNoQuiero(1);
+			env.setPuntosQuiero(env.getPuntosQuiero() + 2);
 		} else {
 			env.setPuntosNoQuiero(env.getPuntosQuiero());
 			env.setPuntosQuiero(env.getPuntosQuiero() + 2);
@@ -364,8 +365,9 @@ public class Mano {
 		
 		Envidoo env = this.getEnvido();
 		
-		if (env == null) {
-			env = new Envidoo(3);
+		if (env.getPuntosNoQuiero() == 0) {
+			env.setPuntosNoQuiero(1);
+			env.setPuntosQuiero(env.getPuntosQuiero() + 3);
 		} else {
 			env.setPuntosNoQuiero(env.getPuntosQuiero());
 			env.setPuntosQuiero(env.getPuntosQuiero() + 3);
@@ -382,8 +384,9 @@ public class Mano {
 		
 		Envidoo env = this.getEnvido();
 		
-		if (env == null) {
-			env = new Envidoo(puntosParaTerminar);
+		if (env.getPuntosNoQuiero() == 0) {
+			env.setPuntosNoQuiero(1);
+			env.setPuntosQuiero(puntosParaTerminar);
 		} else {
 			env.setPuntosNoQuiero(env.getPuntosQuiero());
 			env.setPuntosQuiero(puntosParaTerminar);

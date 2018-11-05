@@ -6,10 +6,12 @@ import org.hibernate.SessionFactory;
 import entities.EnvidooEntity;
 import entities.JugadorEntity;
 import entities.ManoEntity;
+import entities.TrucooEntity;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Envidoo;
 import negocio.Mano;
+import negocio.Trucoo;
 
 public class EnvidooDAO {
 	
@@ -54,6 +56,24 @@ public class EnvidooDAO {
 		session.close();
 		
 		return envidooEntity;
+	}
+	
+	public Envidoo buscarEnvidoByMano (int idMano) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		EnvidooEntity envidooEntity = (EnvidooEntity) session.createQuery("from EnvidooEntity where idMano = ?")
+				.setParameter(0, idMano).uniqueResult();
+		session.close();
+		
+		return this.toNegocio(envidooEntity);
+	}
+	
+	public Envidoo toNegocio (EnvidooEntity envido) {
+		Envidoo env = new Envidoo();
+		env.setId(envido.getIdEnvite());
+		env.setPuntosQuiero(envido.getPuntosQuiero());
+		env.setPuntosNoQuiero(envido.getPuntosNoQuiero());
+		return env;
 	}
 	
 	

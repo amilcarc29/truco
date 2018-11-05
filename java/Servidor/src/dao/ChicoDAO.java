@@ -129,8 +129,8 @@ public class ChicoDAO {
 		for (Mano m : c.getManos()) {
 			m.setParejas(parejas);
 			m.setJugadores(JugadorDAO.getInstancia().buscarJugadoresByJuego(chicoent.getJuego().getId()));
-
-			
+			m.setTruco(TrucoDAO.getInstancia().buscarTrucoByMano(m.getIdMano()));
+			m.setEnvido(EnvidooDAO.getInstancia().buscarEnvidoByMano(m.getIdMano()));
 			List<Baza> bazas = BazaDAO.getInstancia().buscarBazaPorIDMano(m);
 			m.setBazas(bazas);
 
