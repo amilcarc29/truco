@@ -44,6 +44,16 @@ public class TrucoDAO {
 		
 	}
 	
+	public Trucoo buscarTrucoByMano (int idMano) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		TrucooEntity trucooEntity = (TrucooEntity) session.createQuery("from TrucooEntity where idMano = ?")
+				.setParameter(0, idMano).uniqueResult();
+		session.close();
+		
+		return this.toNegocio(trucooEntity);
+	}
+	
 	public TrucooEntity buscarTrucoByID (int idTruco) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -52,5 +62,13 @@ public class TrucoDAO {
 		session.close();
 		
 		return trucooEntity;
+	}
+	
+	public Trucoo toNegocio (TrucooEntity truco) {
+		Trucoo tru = new Trucoo();
+		tru.setId(truco.getIdTruco());
+		tru.setPuntosQuiero(truco.getPuntosQuiero());
+		tru.setPuntosNoQuiero(truco.getPuntosNoQuiero());
+		return tru;
 	}
 }

@@ -15,7 +15,7 @@ public class Envidoo {
 	
 	public Envidoo (int puntosQuiero) {
 		this.puntosQuiero = puntosQuiero;
-		this.puntosNoQuiero = 1;
+		this.puntosNoQuiero = 0;
 	}
 
 	public int getId() {

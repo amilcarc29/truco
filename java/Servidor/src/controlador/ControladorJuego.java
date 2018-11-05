@@ -58,7 +58,7 @@ public class ControladorJuego {
 			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException {
 		Juego j = fcJuegos.getJuego(grupo.getParejas(), grupo.getTipoJuego());
 		if (j != null) {
-			// Creo que se debería crear el chico en el constructor de Juego y no aca (VER)
+			
 			j.save();
 			// para tener el id el crear va despues del save
 

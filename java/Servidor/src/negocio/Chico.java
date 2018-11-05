@@ -129,9 +129,8 @@ public class Chico {
 		
 		for (Puntuacion p : this.getPuntosChico()) {
 			if (p.esPuntuacion(pareja)) {
-				
-				p.sumarPuntos(30);
-				//p.sumarPuntos(this.getUltimaMano().getTruco().getPuntos());
+
+				p.sumarPuntos(this.getUltimaMano().getTruco().getPuntosQuiero());
 				
 				// aumenta los puntos
 				PuntuacionDAO.getInstancia().actualizarPuntos(p);
@@ -162,6 +161,13 @@ public class Chico {
 	
 		Mano mano = new Mano(parejas, jugadores, puntosParaTerminar);
 		mano.save(this);
+		Trucoo truco = new Trucoo();
+		truco.save(mano);
+		mano.setTruco(truco);
+		
+		Envidoo envido = new Envidoo(0);
+		envido.save(mano);
+		mano.setEnvido(envido);
 //		mano.altaBaza();
 
 		manos.add(mano);
