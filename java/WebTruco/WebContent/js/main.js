@@ -2,8 +2,8 @@ var interval;
 var partidasActivas = "";
 var tituloCargado = false;
 var juegoActual;
-var tm;
-
+var tm1;
+var tm2;
 $(document).ready(function() {
 	loadUser();
 	loopPartidas();
@@ -109,7 +109,7 @@ function abrirJuego(idJuego) {
 			cargarCartas(data, idJuego, 'games2');
 			juegoActual = idJuego;
 			verificarTurnoJuegoSel();
-			 getCartasJugadas() ;
+			getCartasJugadas() ;
 			
 		}
 	});
@@ -117,7 +117,8 @@ function abrirJuego(idJuego) {
 }
 
 function clearInterval(){
-	  clearTimeout(tm);
+	  clearTimeout(tm1);
+	  clearTimeout(tm2);
 }
 
 function reloadCartas(){
@@ -157,7 +158,7 @@ function notifyMe() {
 
 }
 function verificarTurnoJuegoSel() {
-	tm =  setTimeout(function() {
+	tm1 =  setTimeout(function() {
 
 		var url = '/WebTruco/Juegos';
 		var buscarJuegos = {
@@ -177,9 +178,19 @@ function verificarTurnoJuegoSel() {
 
 			}
 		});
-		 getCartasJugadas();
+		
 		verificarTurnoJuegoSel();
 	}, 50000);
+	
+	
+	
+	tm2 =  setTimeout(function() {
+
+		 getCartasJugadas();
+
+	}, 100);
+	
+	
 
 }
 
@@ -241,6 +252,7 @@ function jugar(idCarta, idJuego) {
 		success : function(data) {
 			if (data.JUGADA == "TRUE") {
 				reloadCartas();
+				 getCartasJugadas();
 			}
 		}
 	});

@@ -40,6 +40,7 @@ public class EnvidooDAO {
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
+		session.beginTransaction();
 		session.saveOrUpdate(env);
 		session.getTransaction().commit();
 		session.close();
@@ -51,7 +52,7 @@ public class EnvidooDAO {
 	public EnvidooEntity buscarEnvioByID (int idEnvido) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		EnvidooEntity envidooEntity = (EnvidooEntity) session.createQuery("from EnvidooEntity where idEnvido = ?")
+		EnvidooEntity envidooEntity = (EnvidooEntity) session.createQuery("from EnvidooEntity where idEnvite = ?")
 				.setParameter(0, idEnvido).uniqueResult();
 		session.close();
 		

@@ -36,6 +36,8 @@ public class TrucoDAO {
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
+		session.beginTransaction();
+
 		session.saveOrUpdate(truc);
 		session.getTransaction().commit();
 		session.close();
