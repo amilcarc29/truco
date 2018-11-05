@@ -112,6 +112,17 @@ public class Mano {
 	}
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
+	
+	public void setTieneQueContestar (Jugador jugador) {
+		
+//		for (Jugador j : jugadores)
+//			JugadorDAO.getInstancia().inicializarContestar(j);
+		
+		Pareja p = this.getParejaContrariaActual(jugador.getId());
+		
+		JugadorDAO.getInstancia().setTieneQueContestar(p);
+				
+	}
 
 	public void cantarTruco() {
 		

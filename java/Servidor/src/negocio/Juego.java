@@ -215,7 +215,7 @@ public abstract class Juego {
 
 		chicos.get(chicos.size() - 1).jugarCarta(carta, jugador);
 
-		 JugadorDAO.getInstancia().getPasarTurno(this);
+		JugadorDAO.getInstancia().getPasarTurno(this);
 	
 	
 	}
@@ -373,6 +373,11 @@ public abstract class Juego {
 	public void aumentarPuntosTrucoNoQuerido(Pareja parejaG) throws CategoriaException, ParejaException {
 		
 		this.getUltimoChico().aumentarPuntosTrucoNoQuerido(parejaG);
+		
+	}
+
+	public void setTieneQueContestar(Jugador jug) {
+		this.getUltimoChico().setTieneQueContestar(jug);
 		
 	}
 

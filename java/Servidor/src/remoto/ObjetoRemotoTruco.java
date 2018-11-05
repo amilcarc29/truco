@@ -160,9 +160,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 	
 	@Override
-	public void cantarEnvido(JuegoDTO juego) throws RemoteException{
+	public void cantarEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException{
 		try {
-			ControladorJuego.getInstancia().cantarEnvido(juego);
+			ControladorJuego.getInstancia().cantarEnvido(juego, usuario);
 		} catch (JuegoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -176,9 +176,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 	
 	@Override
-	public void cantarRealEnvido(JuegoDTO juego) throws RemoteException{
+	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException{
 		try {
-			ControladorJuego.getInstancia().cantarRealEnvido(juego);
+			ControladorJuego.getInstancia().cantarRealEnvido(juego, usuario);
 		} catch (JuegoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,9 +192,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 	
 	@Override
-	public void cantarFaltaEnvido(JuegoDTO juego) throws RemoteException{
+	public void cantarFaltaEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException{
 		try {
-			ControladorJuego.getInstancia().cantarFaltaEnvido(juego);
+			ControladorJuego.getInstancia().cantarFaltaEnvido(juego, usuario);
 		} catch (JuegoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -287,9 +287,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void cantarTruco(JuegoDTO juego) throws RemoteException {
+	public void cantarTruco(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
-			ControladorJuego.getInstancia().cantarTruco(juego);
+			ControladorJuego.getInstancia().cantarTruco(juego, usuario);
 		} catch (JuegoException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -304,9 +304,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void cantarReTruco(JuegoDTO juego) throws RemoteException {
+	public void cantarReTruco(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
-			ControladorJuego.getInstancia().cantarReTruco(juego);
+			ControladorJuego.getInstancia().cantarReTruco(juego, usuario);
 		} catch (JuegoException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -321,9 +321,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void cantarValeCuatro(JuegoDTO juego) throws RemoteException {
+	public void cantarValeCuatro(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
-			ControladorJuego.getInstancia().cantarVale4(juego);
+			ControladorJuego.getInstancia().cantarVale4(juego, usuario);
 		} catch (JuegoException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();

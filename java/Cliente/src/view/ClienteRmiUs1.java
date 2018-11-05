@@ -40,21 +40,21 @@ public class ClienteRmiUs1 {
 						
 						while (jug != null && !jug.equals("jug")) {							
 							if (jug.equals("env"))
-								new BusinessDelegateTruco().cantarEnvido(juegoDTO);
+								new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
 							if (jug.equals("real"))
-								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO);
+								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
 							if (jug.equals("falta"))
-								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO);
+								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
 							if (jug.equals("qe"))
 								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
 							if (jug.equals("nqe"))
 								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
 							if (jug.equals("truco"))
-								new BusinessDelegateTruco().cantarTruco(juegoDTO);
+								new BusinessDelegateTruco().cantarTruco(juegoDTO, us1);
 							if (jug.equals("retruco"))
-								new BusinessDelegateTruco().cantarReTruco(juegoDTO);
+								new BusinessDelegateTruco().cantarReTruco(juegoDTO, us1);
 							if (jug.equals("valec"))
-								new BusinessDelegateTruco().cantarValeCuatro(juegoDTO);
+								new BusinessDelegateTruco().cantarValeCuatro(juegoDTO, us1);
 							if (jug.equals("nqt"))
 								new BusinessDelegateTruco().noQuieroTruco(juegoDTO, us1);
 							System.out.println("que desea hacer  ?: ");

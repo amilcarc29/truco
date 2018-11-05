@@ -402,4 +402,10 @@ public class Chico {
 		
 	}
 
+	public void setTieneQueContestar(Jugador jug) {
+		
+		this.getUltimaMano().setTieneQueContestar(jug);
+		
+	}
+
 }

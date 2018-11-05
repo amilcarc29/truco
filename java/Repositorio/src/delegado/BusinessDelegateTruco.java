@@ -97,25 +97,25 @@ public class BusinessDelegateTruco {
 		}
 	}
 	
-	public void cantarEnvido(JuegoDTO juego) throws ComunicacionException {
+	public void cantarEnvido(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
 		try {
-			ir.cantarEnvido(juego);
+			ir.cantarEnvido(juego, usuario);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
 	
-	public void cantarRealEnvido(JuegoDTO juego) throws ComunicacionException{
+	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException{
 		try {
-			ir.cantarRealEnvido(juego);
+			ir.cantarRealEnvido(juego, usuario);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
 	
-	public void cantarFaltaEnvido(JuegoDTO juego) throws ComunicacionException{
+	public void cantarFaltaEnvido(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException{
 		try {
-			ir.cantarFaltaEnvido(juego);
+			ir.cantarFaltaEnvido(juego, usuario);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
@@ -139,26 +139,26 @@ public class BusinessDelegateTruco {
 		
 	}
 	
-	public void cantarTruco(JuegoDTO juego) throws ComunicacionException {
+	public void cantarTruco(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
 		try {
-			ir.cantarTruco(juego);
+			ir.cantarTruco(juego, usuario);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 		
 	}
-	public void cantarReTruco(JuegoDTO juego) throws ComunicacionException {
+	public void cantarReTruco(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
 		try {
-			ir.cantarReTruco(juego);
+			ir.cantarReTruco(juego, usuario);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 		
 	}
 	
-	public void cantarValeCuatro(JuegoDTO juego) throws ComunicacionException {
+	public void cantarValeCuatro(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
 		try {
-			ir.cantarValeCuatro(juego);
+			ir.cantarValeCuatro(juego, usuario);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}

@@ -16,6 +16,7 @@ import hbt.HibernateUtil;
 import negocio.Juego;
 import negocio.Jugador;
 import negocio.JugadorIndividual;
+import negocio.Pareja;
 
 public class JugadorDAO {
 	private static JugadorDAO instancia;
@@ -29,6 +30,28 @@ public class JugadorDAO {
 	}
 
 	public JugadorDAO() {
+	}
+	
+	public void setTieneQueContestar(Pareja pareja) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JugadorEntity jugadorEntity = (JugadorEntity) session.createQuery("from JugadorEntity where idPareja = ? and orden = ? or orden = ?")
+					.setParameter(0, pareja.getIdPareja()).setParameter(1, 2).setParameter(2, 3).uniqueResult();
+		jugadorEntity.setTieneQueContestar(true);
+		session.saveOrUpdate(jugadorEntity);
+		session.getTransaction().commit();
+		session.close();	
+	}
+	
+	public void inicializarContestar(Jugador jugador) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JugadorEntity jugadorEntity = (JugadorEntity) session.createQuery("from JugadorEntity where idJugador = ?")
+					.setParameter(0, jugador.getId()).uniqueResult();
+		jugadorEntity.setTieneQueContestar(false);
+		session.saveOrUpdate(jugadorEntity);
+		session.getTransaction().commit();
+		session.close();		
 	}
 	
 	public void actualizarTurno(Jugador jugador) throws UsuarioException, CategoriaException {

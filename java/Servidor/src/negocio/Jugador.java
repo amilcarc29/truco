@@ -17,6 +17,8 @@ public abstract class Jugador {
 	private boolean tieneTurno;
 	
 	private int orden;
+	
+	private int tieneQueContestar;
 
 	// private static int cnt = 0;
 	//

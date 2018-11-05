@@ -35,6 +35,8 @@ public class JugadorEntity {
 	private boolean tieneTurno;
 
 	private int orden;
+	
+	private boolean tieneQueContestar;
 
 	public JugadorEntity() {
 	}
@@ -125,5 +127,23 @@ public class JugadorEntity {
 
 	public void setCantoEnvido(boolean cantoEnvido) {
 		this.cantoEnvido = cantoEnvido;
+	}	
+
+	public boolean isTieneQueContestar() {
+		return tieneQueContestar;
 	}
+
+	public void setTieneQueContestar(boolean tieneQueContestar) {
+		this.tieneQueContestar = tieneQueContestar;
+	}
+
+	public boolean isTieneTurno() {
+		return tieneTurno;
+	}
+
+	public void setIdJugador(Integer idJugador) {
+		this.idJugador = idJugador;
+	}
+	
+	
 }

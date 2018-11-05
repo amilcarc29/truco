@@ -11,6 +11,7 @@ import dao.JugadorDAO;
 import dao.UsuarioDAO;
 import dto.CartaDTO;
 import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -83,18 +84,20 @@ public class ControladorJuego {
 	 */
 
 	
-	public void cantarTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+	public void cantarTruco(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarTruco();
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
+		jue.setTieneQueContestar(jug);
 	}
 	
 	
-	public void cantarReTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+	public void cantarReTruco(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarReTruco();
 	}
 
-	public void cantarVale4(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+	public void cantarVale4(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarVale4();
 	}
@@ -135,17 +138,17 @@ public class ControladorJuego {
 	/*
 	 * FUNCIONES DE ENVIDO
 	 */
-	public void cantarEnvido(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+	public void cantarEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarEnvido();
 	}
 
-	public void cantarRealEnvido(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarRealEnvido();
 	}
 
-	public void cantarFaltaEnvido(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+	public void cantarFaltaEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarFaltaEnvido();
 	}
