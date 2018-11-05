@@ -35,7 +35,7 @@ public class EnvidooDAO {
 			env = new EnvidooEntity(m, null, envido.getPuntosQuiero(), envido.getPuntosNoQuiero());
 		} else {
 			env.setPuntosQuiero(envido.getPuntosQuiero());
-			env.setPuntosNoQuiero(env.getPuntosNoQuiero());
+			env.setPuntosNoQuiero(envido.getPuntosNoQuiero());
 		}
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();

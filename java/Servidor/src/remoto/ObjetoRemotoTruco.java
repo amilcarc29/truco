@@ -159,6 +159,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		return null;
 	}
 	
+	@Override
 	public void cantarEnvido(JuegoDTO juego) throws RemoteException{
 		try {
 			ControladorJuego.getInstancia().cantarEnvido(juego);
@@ -173,30 +174,34 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
-	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws RemoteException{
+	public void cantarRealEnvido(JuegoDTO juego) throws RemoteException{
 		try {
-			ControladorJuego.getInstancia().jugarCarta(juego, carta, usuario);
-		} catch (JugadorException e) {
+			ControladorJuego.getInstancia().cantarRealEnvido(juego);
+		} catch (JuegoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (CartaException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (JuegoException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		} catch (CategoriaException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
-		} catch (UsuarioException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
-		} catch (ParejaException e) {
+		} catch (CategoriaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (MiembroException e) {
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void cantarFaltaEnvido(JuegoDTO juego) throws RemoteException{
+		try {
+			ControladorJuego.getInstancia().cantarFaltaEnvido(juego);
+		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -239,6 +244,36 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
+	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws RemoteException{
+		try {
+			ControladorJuego.getInstancia().jugarCarta(juego, carta, usuario);
+		} catch (JugadorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CartaException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JuegoException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (CategoriaException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (UsuarioException e4) {
+			// TODO Auto-generated catch block
+			e4.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MiembroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+
+	@Override
 	public void modificarUsario(String apodo, String password, String nuevoEmail, String nuevaPass, String nuevoApodo)
 			throws RemoteException {
 	
@@ -249,5 +284,76 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 				e.printStackTrace();
 			}
 	
+	}
+
+	@Override
+	public void cantarTruco(JuegoDTO juego) throws RemoteException {
+		try {
+			ControladorJuego.getInstancia().cantarTruco(juego);
+		} catch (JuegoException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (CategoriaException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (UsuarioException e4) {
+			// TODO Auto-generated catch block
+			e4.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void cantarReTruco(JuegoDTO juego) throws RemoteException {
+		try {
+			ControladorJuego.getInstancia().cantarReTruco(juego);
+		} catch (JuegoException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (CategoriaException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (UsuarioException e4) {
+			// TODO Auto-generated catch block
+			e4.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void cantarValeCuatro(JuegoDTO juego) throws RemoteException {
+		try {
+			ControladorJuego.getInstancia().cantarVale4(juego);
+		} catch (JuegoException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (CategoriaException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (UsuarioException e4) {
+			// TODO Auto-generated catch block
+			e4.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException {
+		try {
+			ControladorJuego.getInstancia().noQuieroTruco(us1, juego);
+		} catch (JuegoException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (CategoriaException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (UsuarioException e4) {
+			// TODO Auto-generated catch block
+			e4.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

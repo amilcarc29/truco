@@ -348,9 +348,8 @@ public class Mano {
 		
 		Envidoo env = this.getEnvido();
 		
-		if (env.getPuntosNoQuiero() == 0) {
-			env.setPuntosNoQuiero(1);
-			env.setPuntosQuiero(env.getPuntosQuiero() + 2);
+		if (env.getPuntosQuiero() == 1) {
+			env.setPuntosQuiero(env.getPuntosQuiero() + 1);
 		} else {
 			env.setPuntosNoQuiero(env.getPuntosQuiero());
 			env.setPuntosQuiero(env.getPuntosQuiero() + 2);
@@ -365,9 +364,8 @@ public class Mano {
 		
 		Envidoo env = this.getEnvido();
 		
-		if (env.getPuntosNoQuiero() == 0) {
-			env.setPuntosNoQuiero(1);
-			env.setPuntosQuiero(env.getPuntosQuiero() + 3);
+		if (env.getPuntosQuiero() == 1) {
+			env.setPuntosQuiero(env.getPuntosQuiero() + 2);
 		} else {
 			env.setPuntosNoQuiero(env.getPuntosQuiero());
 			env.setPuntosQuiero(env.getPuntosQuiero() + 3);
@@ -384,8 +382,7 @@ public class Mano {
 		
 		Envidoo env = this.getEnvido();
 		
-		if (env.getPuntosNoQuiero() == 0) {
-			env.setPuntosNoQuiero(1);
+		if (env.getPuntosQuiero() == 1) {
 			env.setPuntosQuiero(puntosParaTerminar);
 		} else {
 			env.setPuntosNoQuiero(env.getPuntosQuiero());

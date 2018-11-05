@@ -8,14 +8,10 @@ public class Envidoo {
 	private int id;
 	private int puntosQuiero;
 	private int puntosNoQuiero;
-	
-	public Envidoo () {
 		
-	}
-	
-	public Envidoo (int puntosQuiero) {
-		this.puntosQuiero = puntosQuiero;
-		this.puntosNoQuiero = 0;
+	public Envidoo () {
+		this.puntosQuiero = 1;
+		this.puntosNoQuiero = 1;
 	}
 
 	public int getId() {

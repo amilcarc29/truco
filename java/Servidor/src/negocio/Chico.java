@@ -165,7 +165,7 @@ public class Chico {
 		truco.save(mano);
 		mano.setTruco(truco);
 		
-		Envidoo envido = new Envidoo(0);
+		Envidoo envido = new Envidoo();
 		envido.save(mano);
 		mano.setEnvido(envido);
 //		mano.altaBaza();

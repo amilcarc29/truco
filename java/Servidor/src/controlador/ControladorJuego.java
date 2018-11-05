@@ -108,6 +108,8 @@ public class ControladorJuego {
 		Pareja parejaG = jue.obtenerParejaContraria(jug);
 		
 		jue.aumentarPuntosTrucoNoQuerido(parejaG);
+		
+		//FALTA TERMINAR LA MANO
 
 		if (jue.terminoUltimoChico()) {
 

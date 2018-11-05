@@ -104,6 +104,22 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
+	
+	public void cantarRealEnvido(JuegoDTO juego) throws ComunicacionException{
+		try {
+			ir.cantarRealEnvido(juego);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
+	public void cantarFaltaEnvido(JuegoDTO juego) throws ComunicacionException{
+		try {
+			ir.cantarFaltaEnvido(juego);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
 
 	public void quieroEnvido(JuegoDTO juego) throws ComunicacionException {
 		try {
@@ -123,6 +139,41 @@ public class BusinessDelegateTruco {
 		
 	}
 	
+	public void cantarTruco(JuegoDTO juego) throws ComunicacionException {
+		try {
+			ir.cantarTruco(juego);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+		
+	}
+	public void cantarReTruco(JuegoDTO juego) throws ComunicacionException {
+		try {
+			ir.cantarReTruco(juego);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+		
+	}
+	
+	public void cantarValeCuatro(JuegoDTO juego) throws ComunicacionException {
+		try {
+			ir.cantarValeCuatro(juego);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+		
+	}
+	
+	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws ComunicacionException {
+		try {
+			ir.noQuieroTruco(juego, us1);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+		
+	}
+	
 	
 	public void modificarUsuario(String apodo, String password, String nuevoEmail, String nuevaPass, String nuevoApodo) throws ComunicacionException {
 		try {
@@ -132,5 +183,7 @@ public class BusinessDelegateTruco {
 		}
 		
 	}
+	
+	
 	
 }

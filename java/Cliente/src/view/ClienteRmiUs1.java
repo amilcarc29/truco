@@ -34,19 +34,33 @@ public class ClienteRmiUs1 {
 						for (CartaDTO cartaDTO : c) {
 							System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
 						}
-						String env = null;
-						System.out.println("cantar envido  ?: ");
-						env = br.readLine();
-
-						if ((env != null) && (env.equals("S"))) {
-							new BusinessDelegateTruco().cantarEnvido(juegoDTO);
-							System.out.println("quiere envido ?: ");
-							env = br.readLine();
-							if ((env != null) && (env.equals("S")))
+						String jug = null;
+						System.out.println("que desea hacer  ?: ");
+						jug = br.readLine();
+						
+						while (jug != null && !jug.equals("jug")) {							
+							if (jug.equals("env"))
+								new BusinessDelegateTruco().cantarEnvido(juegoDTO);
+							if (jug.equals("real"))
+								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO);
+							if (jug.equals("falta"))
+								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO);
+							if (jug.equals("qe"))
 								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
-							else
+							if (jug.equals("nqe"))
 								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
+							if (jug.equals("truco"))
+								new BusinessDelegateTruco().cantarTruco(juegoDTO);
+							if (jug.equals("retruco"))
+								new BusinessDelegateTruco().cantarReTruco(juegoDTO);
+							if (jug.equals("valec"))
+								new BusinessDelegateTruco().cantarValeCuatro(juegoDTO);
+							if (jug.equals("nqt"))
+								new BusinessDelegateTruco().noQuieroTruco(juegoDTO, us1);
+							System.out.println("que desea hacer  ?: ");
+							jug = br.readLine();
 						}
+
 						System.out.println("carta numero: ");
 						int cn = Integer.parseInt(br.readLine());
 						System.out.println("carta palo: ");

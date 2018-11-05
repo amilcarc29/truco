@@ -19,11 +19,16 @@ public interface InterfaceRemotaTruco extends Remote {
 	public List<JuegoDTO> getJuegosActivo(UsuarioDTO usuario) throws RemoteException;
 	public JuegoDTO getJuegosById(int idJuego) throws RemoteException ;
 	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
-	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws RemoteException;
-	
+	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws RemoteException;	
 	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public void cantarEnvido(JuegoDTO juego) throws RemoteException;
+	public void cantarRealEnvido(JuegoDTO juego) throws RemoteException;
+	public void cantarFaltaEnvido(JuegoDTO juego) throws RemoteException;
 	public void quieroEnvido(JuegoDTO juego) throws RemoteException;
 	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO us1) throws RemoteException;
+	public void cantarTruco(JuegoDTO juego) throws RemoteException;
+	public void cantarReTruco(JuegoDTO juego) throws RemoteException;
+	public void cantarValeCuatro(JuegoDTO juego) throws RemoteException;
+	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException;
 	public  List<CartaDTO> getCartasJugadas(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 }
