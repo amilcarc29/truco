@@ -81,6 +81,13 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
+	public List<CartaDTO> getCartasJugadas(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
+		try {
+			return ir.getCartasJugadas(juego, usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
 
 	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws ComunicacionException {
 		try {

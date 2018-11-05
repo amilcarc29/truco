@@ -58,7 +58,7 @@ public class ControladorJuego {
 			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException {
 		Juego j = fcJuegos.getJuego(grupo.getParejas(), grupo.getTipoJuego());
 		if (j != null) {
-			// Creo que se debería crear el chico en el constructor de Juego y no aca (VER)
+			
 			j.save();
 			// para tener el id el crear va despues del save
 
@@ -356,4 +356,20 @@ public class ControladorJuego {
 		}
 		return cartasDto;
 	}
+	
+	public List<CartaDTO> getCartasJugadas(JuegoDTO juego, UsuarioDTO usuario)
+			throws CategoriaException, UsuarioException, JuegoException {
+		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
+		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
+
+		List<Carta> cartas = JugadorCartaDAO.getInstancia().getCartasbyBaza(ju.getUltimaBaza());
+		List<CartaDTO> cartasDto = new ArrayList<>();
+
+		for (Carta carta : cartas) {
+			cartasDto.add(carta.toDTO());
+		}
+		return cartasDto;
+	}
+	
 }

@@ -88,6 +88,9 @@ public class Baza {
 		}
 	}
 	
+	
+	
+	
 	public void actualizarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException {
 		if (this.jugadaMayor == null) {
 			this.jugadaMayor = jugada;

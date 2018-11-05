@@ -74,46 +74,62 @@ public class Juegos extends HttpServlet {
 					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
 
 					List<CartaDTO> c = new BusinessDelegateTruco().getCartas(j, us1);
-					
+
 					JSONArray arr = new JSONArray();
-					
+
 					for (CartaDTO cartaDTO : c) {
 						JSONObject obj = new JSONObject(cartaDTO.toJson());
 
 						arr.put(obj);
 					}
-					
-					
+
 					out.write(arr.toString());
-				}else if (action.equals("esMiturno")) {
-					
+				} else if (action.equals("getCartasJugadas")) {
+
 					Integer id = Integer.valueOf(request.getParameter("idJuego"));
 					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
-					
-					if (new BusinessDelegateTruco().esMiTurno(j, us1)){
+
+					List<CartaDTO> c = new BusinessDelegateTruco().getCartasJugadas(j, us1);
+
+					JSONArray arr = new JSONArray();
+
+					for (CartaDTO cartaDTO : c) {
+						JSONObject obj = new JSONObject(cartaDTO.toJson());
+
+						arr.put(obj);
+					}
+
+					out.write(arr.toString());
+				} else if (action.equals("esMiturno")) {
+
+					Integer id = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
+
+					if (new BusinessDelegateTruco().esMiTurno(j, us1)) {
 						out.write("{\"TURNO\":\"TRUE\"}");
-					}else {
+					} else {
 						out.write("{\"TURNO\":\"FALSE\"}");
 					}
-					
-				
-					
-					
-				}else if (action.equals("jugar")) {
-					
-					Integer id = Integer.valueOf(request.getParameter("idJuego"));
-					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
-//					CartaDto carta = new CartaDTO(idCarta, numero, palo);
-//					
-//					if (new BusinessDelegateTruco().esMiTurno(j, us1)){
-//						new BusinessDelegateTruco().jugarCarta(j, cartaDTO, us1);
-//					}else {
-//						out.write("{\"TURNO\":\"FALSE\"}");
-//					}
-					
-				
-					
-					
+
+				} else if (action.equals("JugarCarta")) {
+
+					Integer idCar = Integer.valueOf(request.getParameter("idCarta"));
+
+					Integer idJu = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO juegoDTO = new BusinessDelegateTruco().getJuegosById(idJu);
+
+					List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
+
+					CartaDTO jugarCarta = null;
+					for (CartaDTO cartas : c) {
+						if (cartas.getIdCarta() == idCar) {
+
+							jugarCarta = cartas;
+							break;
+						}
+					}
+					new BusinessDelegateTruco().jugarCarta(juegoDTO, jugarCarta, us1);
+					out.write("{\"JUGADA\":\"TRUE\"}");
 				}
 
 			} catch (ComunicacionException | JSONException e) {

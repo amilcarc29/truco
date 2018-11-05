@@ -352,7 +352,9 @@ body {
 			<div class="popup-inner">
 				<h2 style="color: black;" id="CartasTit">Mis cartas</h2>
 				
+				<div id="games3" class="numberlist">
 				
+				</div>
 				<div id="games2" class="numberlist">
 				
 				</div>
@@ -374,7 +376,7 @@ body {
 				</span>
 			</button>
 	
-				<a class="popup-close" data-popup-close="popup-2" href="#">x</a>
+				<a class="popup-close" data-popup-close="popup-2" href="#" onClick="clearInterval()">x</a>
 			</div>
  </div>
 

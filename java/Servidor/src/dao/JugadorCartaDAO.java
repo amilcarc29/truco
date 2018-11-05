@@ -10,12 +10,14 @@ import org.hibernate.SessionFactory;
 import entities.CartaEntity;
 import entities.CategoriaEntity;
 import entities.JuegoEntity;
+import entities.JugadaEntity;
 import entities.JugadorCartaEntity;
 import entities.JugadorEntity;
 import entities.UsuarioEntity;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
+import negocio.Baza;
 import negocio.Carta;
 import negocio.Jugador;
 
@@ -71,7 +73,26 @@ public class JugadorCartaDAO {
 		return cartas;
 	}
 
-	
+	public List<Carta> getCartasbyBaza(Baza baza) {
+		// TODO Auto-generated method stub
+		
+		Vector<Carta> cartas = new Vector<>();
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+
+		List<JugadaEntity> JugadasEnt = (List<JugadaEntity>) session.createQuery("from JugadaEntity where idBaza = ?").
+				setParameter(0, baza.getIdBaza()).list();
+		session.close();
+
+		for (JugadaEntity jc : JugadasEnt) {
+			
+			cartas.add(CartaDAO.getInstancia().toNegocio(jc.getCarta()));
+		}
+		
+		return cartas;
+	}
+
 	public List<Carta> getTodasCartasbyJugador(Jugador jug) {
 		// TODO Auto-generated method stub
 		
