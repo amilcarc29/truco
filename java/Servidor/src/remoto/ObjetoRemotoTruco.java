@@ -143,9 +143,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		return null;
 	}
 	@Override
-	public List<CartaDTO> getCartasJugadas(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
+	public List<CartaDTO> getCartasJugadas(JuegoDTO juego) throws RemoteException {
 		try {
-			return ControladorJuego.getInstancia().getCartasJugadas(juego, usuario);
+			return ControladorJuego.getInstancia().getCartasJugadas(juego);
 		} catch (CategoriaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

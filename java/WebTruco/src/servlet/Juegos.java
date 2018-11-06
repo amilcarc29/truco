@@ -15,8 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.sun.jdi.IntegerType;
-
 import delegado.BusinessDelegateTruco;
 import dto.CartaDTO;
 import dto.JuegoDTO;
@@ -89,7 +87,7 @@ public class Juegos extends HttpServlet {
 					Integer id = Integer.valueOf(request.getParameter("idJuego"));
 					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
 
-					List<CartaDTO> c = new BusinessDelegateTruco().getCartasJugadas(j, us1);
+					List<CartaDTO> c = new BusinessDelegateTruco().getCartasJugadas(j);
 
 					JSONArray arr = new JSONArray();
 
@@ -100,6 +98,12 @@ public class Juegos extends HttpServlet {
 					}
 
 					out.write(arr.toString());
+				} else if (action.equals("getJuego")) {
+
+					Integer id = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
+
+					out.write(j.toJson().toString());
 				} else if (action.equals("esMiturno")) {
 
 					Integer id = Integer.valueOf(request.getParameter("idJuego"));

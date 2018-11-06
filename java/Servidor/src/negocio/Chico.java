@@ -333,8 +333,10 @@ public class Chico {
 			jugDTO.add(j.toDTO());
 		}
 		
-		
-		return new ChicoDTO(idChico,manDTO,parDTO,punDTO,this.ganador.toDTO(),puntosPorGanar,jugDTO,sePuedeCantarEnvido);
+		if (this.ganador==null)
+		return new ChicoDTO(idChico,manDTO,parDTO,punDTO,null,puntosPorGanar,jugDTO,sePuedeCantarEnvido);
+		else
+			return new ChicoDTO(idChico,manDTO,parDTO,punDTO,this.ganador.toDTO(),puntosPorGanar,jugDTO,sePuedeCantarEnvido);
 	}
 
 		

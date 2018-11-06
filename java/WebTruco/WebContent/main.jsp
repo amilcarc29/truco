@@ -163,6 +163,7 @@ body {
 	background: rgba(0, 0, 0, 0.75);
 	z-index: 9000;
 }
+
 .popup2 {
 	width: 100%;
 	height: 100%;
@@ -217,66 +218,98 @@ body {
 	text-decoration: none;
 }
 
-
-
-
 /* css list with numeber circle background -------------- */
-.numberlist{
-	width:450px;
-
+.numberlist {
+	width: 450px;
 }
-.numberlist ol{
-	            counter-reset: li;
-				list-style: none;
-				*list-style: decimal;
-				font: 15px 'trebuchet MS', 'lucida sans';
-				padding: 0;
-				margin-bottom: 4em;
 
+.numberlist ol {
+	counter-reset: li;
+	list-style: none;
+	*list-style: decimal;
+	font: 15px 'trebuchet MS', 'lucida sans';
+	padding: 0;
+	margin-bottom: 4em;
 }
-.numberlist ol ol{
-				margin: 0 0 0 2em;
-			}
-			
-.numberlist a{
-				position: relative;
-				display: block;
-				padding: .4em .4em .4em 2em;
-				*padding: .4em;
-				margin: .5em 0;
-				background: #FFF;
-				color: #444;
-				text-decoration: none;
-				-moz-border-radius: .3em;
-				-webkit-border-radius: .3em;
-				border-radius: .3em;
-			}
 
-.numberlist a:hover{
-				background: #cbe7f8;
-				text-decoration:underline;
-			}
-.numberlist a:before{
-				content: counter(li);
-				counter-increment: li;
-				position: absolute;	
-				left: -1.3em;
-				top: 50%;
-				margin-top: -1.3em;
-				background: #87ceeb;
-				height: 2em;
-				width: 2em;
-				line-height: 2em;
-				border: .3em solid #fff;
-				text-align: center;
-				font-weight: bold;
-				-moz-border-radius: 2em;
-				-webkit-border-radius: 2em;
-				border-radius: 2em;
-				color:#FFF;
-			}
+.numberlist ol ol {
+	margin: 0 0 0 2em;
+}
 
+.numberlist a {
+	position: relative;
+	display: block;
+	padding: .4em .4em .4em 2em;
+	*padding: .4em;
+	margin: .5em 0;
+	background: #FFF;
+	color: #444;
+	text-decoration: none;
+	-moz-border-radius: .3em;
+	-webkit-border-radius: .3em;
+	border-radius: .3em;
+}
 
+.numberlist a:hover {
+	background: #cbe7f8;
+	text-decoration: underline;
+}
+
+.numberlist a:before {
+	content: counter(li);
+	counter-increment: li;
+	position: absolute;
+	left: -1.3em;
+	top: 50%;
+	margin-top: -1.3em;
+	background: #87ceeb;
+	height: 2em;
+	width: 2em;
+	line-height: 2em;
+	border: .3em solid #fff;
+	text-align: center;
+	font-weight: bold;
+	-moz-border-radius: 2em;
+	-webkit-border-radius: 2em;
+	border-radius: 2em;
+	color: #FFF;
+}
+
+/* DivTable.com */
+.divTable {
+	display: table;
+	width: 100%;
+}
+
+.divTableRow {
+	display: table-row;
+}
+
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+
+.divTableCell, .divTableHead {
+	display: table-cell;
+	padding: 3px 10px;
+}
+
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+
+.divTableFoot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+
+.divTableBody {
+	display: table-row-group;
+}
 </style>
 <link rel="stylesheet" href="css/jquery.alertable.css">
 <link rel="stylesheet" href="css/game.css">
@@ -293,8 +326,8 @@ body {
 
 <body>
 
-	
-	
+
+
 	<div class="body"></div>
 	<div class="grad"></div>
 	<div class="header">
@@ -331,34 +364,55 @@ body {
 
 
 	<div class="popup" data-popup="popup-1">
-			<div class="popup-inner">
-				<h2 id="JuegosTit" style="color: black;" >Cargando Juegos...</h2>
-				
-				
-				<div id="games" class="numberlist">
-						
-				</div>
-				
-	
-			
-			
-				<a class="popup-close" data-popup-close="popup-1" href="#">x</a>
-			</div>
+		<div class="popup-inner">
+			<h2 id="JuegosTit" style="color: black;">Cargando Juegos...</h2>
+
+
+			<div id="games" class="numberlist"></div>
+
+
+
+
+			<a class="popup-close" data-popup-close="popup-1" href="#">x</a>
 		</div>
-		
-		
-		
-	<div class="popup2" data-popup="popup-2">	
-			<div class="popup-inner">
-				<h2 style="color: black;" id="CartasTit">Mis cartas</h2>
+	</div>
+
+
+
+	<div class="popup2" data-popup="popup-2">
+		<div class="popup-inner">
+			<h2 style="color: black;" id="CartasTit">Juego</h2>
+
+
+
+			<div class="divTable">
+				<div class="divTableBody">
 				
-				<div id="games3" class="numberlist">
-				
+					<div class="divTableRow">
+						<div class="divTableCell">&nbsp;</div>
+						<div class="divTableCell">&nbsp;</div>
+						<div class="divTableCell"><h2 style="color: black;" id="puntos">PUNTOS:</h2></div>
+					</div>
+					<div class="divTableRow">
+						<div class="divTableCell">&nbsp;</div>
+						<div class="divTableCell">
+							<div id="games3" class="numberlist"></div>
+						</div>
+						<div class="divTableCell">&nbsp;</div>
+					</div>
+					<div class="divTableRow">
+						<div class="divTableCell">&nbsp;</div>
+						<div class="divTableCell">
+							<div id="games2" class="numberlist"></div>
+						</div>
+						<div class="divTableCell">&nbsp;</div>
+					</div>
 				</div>
-				<div id="games2" class="numberlist">
-				
-				</div>
-				
+			</div>
+			<!-- DivTable.com -->
+			<!-- DivTable.com -->
+
+
 			<button class="blob-btn" data-popup-open="popup-1">
 				Cantar Envido <span class="blob-btn__inner"> <span
 					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
@@ -367,7 +421,7 @@ body {
 				</span>
 				</span>
 			</button>
-				<button class="blob-btn" data-popup-open="popup-1">
+			<button class="blob-btn" data-popup-open="popup-1">
 				Cantar Truco <span class="blob-btn__inner"> <span
 					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
 						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
@@ -375,10 +429,11 @@ body {
 				</span>
 				</span>
 			</button>
-	
-				<a class="popup-close" data-popup-close="popup-2" href="#" onClick="clearInterval()">x</a>
-			</div>
- </div>
+
+			<a class="popup-close" data-popup-close="popup-2" href="#"
+				onClick="clearInterval()">x</a>
+		</div>
+	</div>
 
 
 </body>

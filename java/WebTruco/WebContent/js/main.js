@@ -2,6 +2,8 @@ var interval;
 var partidasActivas = "";
 var tituloCargado = false;
 var juegoActual;
+var juegoJson;
+
 var tm1;
 var tm2;
 $(document).ready(function() {
@@ -188,7 +190,7 @@ function verificarTurnoJuegoSel() {
 
 		 getCartasJugadas();
 
-	}, 100);
+	}, 1000);
 	
 	
 
@@ -276,6 +278,7 @@ function getCartasJugadas() {
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
 			cargarCartas(data,juegoActual, 'games3' );
+			getPuntos();
 		}
 	});
 
@@ -283,7 +286,28 @@ function getCartasJugadas() {
 
 }
 
+function getPuntos() {
 
+	var url = '/WebTruco/Juegos';
+
+	var buscarJuegos = {
+		action : 'getJuego',
+		idJuego : juegoActual
+	};
+
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : buscarJuegos, // serializes the form's elements.
+		success : function(data) {
+			juegoJson = data;
+			document.getElementById('puntos').innerHTML = "PUNTOS: [p1:" +juegoJson.chicos[0].puntosChico[0].puntos +",p2:"+juegoJson.chicos[0].puntosChico[1].puntos+"]";
+		}
+	});
+
+	
+
+}
 
 function loadActions() {
 	$(function() {

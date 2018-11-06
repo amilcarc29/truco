@@ -308,7 +308,9 @@ public class Mano {
 	}
 
 	public Baza getUltimaBaza() {
-		return this.bazas.get(this.bazas.size() - 1);
+		if (this.bazas.size()>0)
+			return this.bazas.get(this.bazas.size() - 1);
+		return null;
 	}
 
 	public boolean seCantoTruco() {

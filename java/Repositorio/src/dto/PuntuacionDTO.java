@@ -1,7 +1,8 @@
 package dto;
 
+import java.io.Serializable;
 
-public class PuntuacionDTO {
+public class PuntuacionDTO  implements Serializable{
 	
 	private int idPuntuacion;
 	private ParejaDTO pareja;

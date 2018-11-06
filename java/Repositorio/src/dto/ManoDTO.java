@@ -1,8 +1,9 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ManoDTO {
+public class ManoDTO  implements Serializable{
 	
 	private int idMano;
 	private List<ParejaDTO> parejas;
