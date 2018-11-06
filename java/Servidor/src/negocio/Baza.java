@@ -8,7 +8,9 @@ import dao.BazaDAO;
 import dao.JugadorCartaDAO;
 import dto.BazaDTO;
 import dto.JugadorDTO;
+import excepciones.BazaException;
 import excepciones.CategoriaException;
+import excepciones.ManoException;
 import excepciones.UsuarioException;
 
 public class Baza {
@@ -65,11 +67,11 @@ public class Baza {
 	}
 
 	// sacado el return. PARA QUE QUEREMOS QUE RETORNE EL ID? (Puede que lo usaban para algo y no se)
-	public void save(Mano mano) {
+	public void save(Mano mano) throws ManoException {
 		this.setIdBaza(BazaDAO.getInstancia().guardarBaza(mano));
 	}
 
-	public void jugarCarta(Carta carta, Jugador jugador) throws UsuarioException, CategoriaException {
+	public void jugarCarta(Carta carta, Jugador jugador) throws UsuarioException, CategoriaException, BazaException {
 		try { 
 
 			JugadorCartaDAO.getInstancia().guardarCartaJugada(jugador.getId(), carta.getIdCarta());
@@ -91,7 +93,7 @@ public class Baza {
 	
 	
 	
-	public void actualizarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException {
+	public void actualizarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException, BazaException {
 		if (this.jugadaMayor == null) {
 			this.jugadaMayor = jugada;
 			this.guardarJugadaMayor(jugada);
@@ -104,7 +106,7 @@ public class Baza {
 		}
 	}
 	
-	public void guardarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException {
+	public void guardarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException, BazaException {
 		BazaDAO.getInstancia().actualizarJugadaMayor(this, jugada);
 	}
 	

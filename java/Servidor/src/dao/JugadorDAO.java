@@ -11,6 +11,7 @@ import entities.ChicoEntity;
 import entities.JugadorEntity;
 import entities.UsuarioEntity;
 import excepciones.CategoriaException;
+import excepciones.JuegoException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Juego;
@@ -120,11 +121,8 @@ public class JugadorDAO {
 		session.close();
 		if (jugadorEntity != null) {
 			return toNegocio(jugadorEntity);
-		} else {
-			// throw new UsuarioException("El jugador con id: " + idJugador + "no existe en
-			// la base de datos.");
 		}
-		return null;
+		throw new UsuarioException("El jugador con id: " + idUsuario + "no existe en el juego: " + idJuego);
 	}
 
 	public List<Jugador> buscarJugadoresByJuego(int idJuego) throws CategoriaException, UsuarioException {
@@ -150,7 +148,7 @@ public class JugadorDAO {
 
 	}
 
-	public Jugador getJugadorConTurno(Juego juego) throws CategoriaException, UsuarioException {
+	public Jugador getJugadorConTurno(Juego juego) throws CategoriaException, UsuarioException, JuegoException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		JugadorEntity jugadorEntity = (JugadorEntity) session
@@ -159,12 +157,8 @@ public class JugadorDAO {
 		session.close();
 		if (jugadorEntity != null) {
 			return toNegocio(jugadorEntity);
-		} else {
-			// throw new UsuarioException("El jugador con id: " + idJugador + "no existe en
-			// la base de datos.");
 		}
-
-		return null;
+		throw new JuegoException("El juego con id: " + juego.getId() + "no existe en la base de datos.");
 	}
 
 	public List<Jugador> getJugadores(int idJuego) throws CategoriaException, UsuarioException {
@@ -188,7 +182,7 @@ public class JugadorDAO {
 		this.jugadores = jugadores;
 	}
 
-	public void getPasarTurno(Juego juego) throws CategoriaException, UsuarioException {
+	public void getPasarTurno(Juego juego) throws CategoriaException, UsuarioException, JuegoException {
 		// TODO Auto-generated method stub
 
 		Jugador jturno = this.getJugadorConTurno(juego);

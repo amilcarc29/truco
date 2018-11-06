@@ -1,6 +1,7 @@
 package negocio;
 
 import dao.TrucoDAO;
+import excepciones.ManoException;
 
 public class Trucoo {
 	
@@ -46,7 +47,7 @@ public class Trucoo {
 		this.id = id;
 	}
 
-	public void save(Mano mano) {
+	public void save(Mano mano) throws ManoException {
 
 		this.setId(TrucoDAO.getInstancia().guardarTruco(this, mano));
 		

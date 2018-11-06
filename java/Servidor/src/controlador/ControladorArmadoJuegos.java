@@ -11,6 +11,7 @@ import excepciones.CategoriaException;
 import excepciones.GrupoJuegoException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
+import excepciones.ManoException;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
@@ -95,7 +96,7 @@ public class ControladorArmadoJuegos {
 
 	// TODO Renombrar en Diagrama
 	public void confirmarGrupo(GrupoJuego grupo)
-			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException {
+			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException, ManoException {
 		ControladorJuego.getInstancia().iniciarJuego(grupo);
 	}
 
@@ -119,7 +120,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public void iniciarPartidaLibre(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4)
-			throws UsuarioException, CategoriaException, JuegoException, ParejaException {
+			throws UsuarioException, CategoriaException, JuegoException, ParejaException, ManoException {
 		try {
 
 			Pareja p1 = this.armarPareja(u1, u2);
@@ -149,7 +150,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public void iniciarPartidaEnPareja(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4)
-			throws UsuarioException, CategoriaException, JuegoException, ParejaException {
+			throws UsuarioException, CategoriaException, JuegoException, ParejaException, ManoException {
 		try {
 
 			Pareja p1 = this.armarPareja(u1, u2);
@@ -175,7 +176,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public void iniciarPartidaCerrada(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4, GrupoDTO g)
-			throws UsuarioException, CategoriaException, JuegoException, MiembroException, ParejaException {
+			throws UsuarioException, CategoriaException, JuegoException, MiembroException, ParejaException, ManoException {
 		{
 			try {
 
@@ -213,7 +214,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public Pareja armarParejaCerrada(UsuarioDTO u1, UsuarioDTO u2, GrupoDTO g)
-			throws UsuarioException, CategoriaException, MiembroException {
+			throws UsuarioException, CategoriaException, MiembroException, ParejaException {
 		Miembro m1 = ControladorGrupo.getInstancia().buscarMiembro(u1, g);
 		Miembro m2 = ControladorGrupo.getInstancia().buscarMiembro(u2, g);
 		JugadorGrupal j1 = new JugadorGrupal(m1);

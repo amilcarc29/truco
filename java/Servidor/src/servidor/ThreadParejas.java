@@ -11,6 +11,7 @@ import controlador.ControladorArmadoJuegos;
 import controlador.ControladorJuego;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
+import excepciones.ManoException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import negocio.Jugador;
@@ -72,6 +73,9 @@ public class ThreadParejas implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ManoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

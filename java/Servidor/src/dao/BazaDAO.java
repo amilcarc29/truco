@@ -12,7 +12,9 @@ import entities.ChicoEntity;
 import entities.JuegoEntity;
 import entities.JugadaEntity;
 import entities.ManoEntity;
+import excepciones.BazaException;
 import excepciones.CategoriaException;
+import excepciones.ManoException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Baza;
@@ -31,7 +33,7 @@ public class BazaDAO {
 	public BazaDAO() {
 	}
 
-	public int guardarBaza(Mano mano) {
+	public int guardarBaza(Mano mano) throws ManoException {
 		ManoEntity m = null;
 		// ver excepciones
 		m = ManoDAO.getInstancia().buscarManoPorID(mano.getIdMano());
@@ -74,7 +76,7 @@ public class BazaDAO {
 
 	
 	
-	public BazaEntity buscarBazaPorID(int idBaza) {
+	public BazaEntity buscarBazaPorID(int idBaza) throws BazaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		BazaEntity bazaEntity = (BazaEntity) session.createQuery("from BazaEntity where idBaza = ?")
@@ -82,10 +84,8 @@ public class BazaDAO {
 		session.close();
 		if (bazaEntity != null) {
 			return bazaEntity;
-		} else {
-			// falta la excepcion Baza
-			return null;
 		}
+		throw new BazaException("La baza con id: " + idBaza + "no existe.");
 	}
 
 	public List<Baza> buscarBazaPorIDMano(Mano mano) throws UsuarioException, CategoriaException {
@@ -114,7 +114,7 @@ public class BazaDAO {
 
 	}
 
-	public void actualizarJugadaMayor(Baza baza, Jugada jugada) {
+	public void actualizarJugadaMayor(Baza baza, Jugada jugada) throws BazaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
