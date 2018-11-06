@@ -10,6 +10,7 @@ import entities.BazaEntity;
 import entities.ChicoEntity;
 import entities.JuegoEntity;
 import entities.ManoEntity;
+import excepciones.ManoException;
 import hbt.HibernateUtil;
 import negocio.Baza;
 import negocio.Chico;
@@ -46,7 +47,7 @@ public class ManoDAO {
 		return me.getIdMano();
 	}
 
-	public ManoEntity buscarManoPorID(int idMano) {
+	public ManoEntity buscarManoPorID(int idMano) throws ManoException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		ManoEntity mano = (ManoEntity) session.createQuery("from ManoEntity where idMano = ?").setParameter(0, idMano)
@@ -55,8 +56,7 @@ public class ManoDAO {
 		if (mano != null) {
 			return mano;
 		} else {
-			// ver excepciones
-			return null;
+			throw new ManoException("La mano con id: " + idMano + "no existe en la base de datos.");
 		}
 	}
 

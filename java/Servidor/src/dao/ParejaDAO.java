@@ -157,7 +157,7 @@ public class ParejaDAO {
 		} // TODO Auto-generated method stub
 	}
 	
-	public Pareja buscarParejaDeUnJugador (int idJugador) throws CategoriaException, UsuarioException{
+	public Pareja buscarParejaDeUnJugador (int idJugador) throws CategoriaException, UsuarioException, ParejaException{
 		ParejaEntity parejaEnt = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -167,15 +167,8 @@ public class ParejaDAO {
 		session.close();
 		if (parejaEnt != null) {
 			return toNegocio(parejaEnt);
-		} else {
-			try {
-				throw new ParejaException("La pareja con el jugador de id: " + idJugador + "no existe en la base de datos.");
-			} catch (ParejaException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} // TODO Auto-generated method stub
-		return null;
+		}
+		throw new ParejaException("La pareja con el jugador de id: " + idJugador + "no existe en la base de datos.");
 	}
 
 	public void actualizarJuego(int idPareja, int idJuego) throws ParejaException {

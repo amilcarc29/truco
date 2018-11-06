@@ -66,6 +66,23 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
+	
+	public boolean alguienTieneQueContestar(JuegoDTO juego) throws ComunicacionException {
+		try {
+			return ir.alguienTieneQueContestar(juego);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
+	public boolean tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
+		try {
+			return ir.tengoQueContestar(juego, usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
 	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
 		try {
 			return ir.esMiTurno(juego, usuario);

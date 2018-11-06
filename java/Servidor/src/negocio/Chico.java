@@ -11,9 +11,11 @@ import dto.JugadorDTO;
 import dto.ManoDTO;
 import dto.ParejaDTO;
 import dto.PuntuacionDTO;
+import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.ManoException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
@@ -154,7 +156,7 @@ public class Chico {
 	}
 
 	// TODO Agregar parámetro parejas a Diagrama.
-	public void altaMano(int puntosParaTerminar) throws UsuarioException, CategoriaException {
+	public void altaMano(int puntosParaTerminar) throws UsuarioException, CategoriaException, ManoException {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
 		// puntosPorTerminar del Chico?
 		// ---> Porque en el chico ya tenemos las parejas, los puntos y los jugadores.
@@ -179,17 +181,17 @@ public class Chico {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 
-	public void cantarTruco() {
+	public void cantarTruco() throws ManoException {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarTruco();
 	}
 	
-	public void cantarReTruco() {
+	public void cantarReTruco() throws ManoException {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarReTruco();
 	}
 
-	public void cantarVale4() {
+	public void cantarVale4() throws ManoException {
 		// TODO Auto-generated method stub
 		this.manos.get(this.manos.size() - 1).cantarVale4();
 	}
@@ -201,7 +203,7 @@ public class Chico {
 	}
 
 	public void jugarCarta(Carta carta, Jugador jugador)
-			throws JugadorException, CartaException, UsuarioException, CategoriaException {
+			throws JugadorException, CartaException, UsuarioException, CategoriaException, ManoException, BazaException {
 		// TODO Auto-generated method stub
 		Mano mUltima = this.manos.get(this.manos.size() - 1);
 
@@ -289,7 +291,7 @@ public class Chico {
 		JugadorDAO.getInstancia().actualizarTurnos(jugadores);
 		
 	}
-	public void armarNuevaMano() throws UsuarioException, CategoriaException {
+	public void armarNuevaMano() throws UsuarioException, CategoriaException, ManoException {
 		// TODO Auto-generated method stub
 		
 		//limpiar cantoenvido canto truco
@@ -347,20 +349,20 @@ public class Chico {
 		
 //	}
 
-	public boolean terminoUltimaMano() throws CategoriaException, UsuarioException {
+	public boolean terminoUltimaMano() throws CategoriaException, UsuarioException, ParejaException {
 
 		return this.getUltimaMano().terminoMano();
 		
 	}
 	
 	// LE FALTA JUGADOR. VER! (DIFERENCIA CON TRUCO)
-	public void cantarEnvido() {
+	public void cantarEnvido() throws ManoException {
 
 		this.getUltimaMano().cantarEnvido();
 		
 	}
 
-	public void cantarRealEnvido() {
+	public void cantarRealEnvido() throws ManoException {
 
 		this.getUltimaMano().cantarRealEnvido();
 		
@@ -368,7 +370,7 @@ public class Chico {
 	
 	
 	// YA NO NECESITAMOS PASARLE AL CHICO PUNTOS PARA TERMINAR. SACARLO SI HAY TIEMPO
-	public void cantarFaltaEnvido() {
+	public void cantarFaltaEnvido() throws ManoException {
 		
 		
 		this.getUltimaMano().cantarFaltaEnvido(this.getPuntosParaTerminar());
@@ -407,6 +409,15 @@ public class Chico {
 	public void setTieneQueContestar(Jugador jug) {
 		
 		this.getUltimaMano().setTieneQueContestar(jug);
+		
+	}
+
+	public boolean alguienTieneQueContestar() {
+		return (this.getUltimaMano().alguienTieneQueContestar());
+	}
+
+	public void inicializarContestar() {
+		this.getUltimaMano().inicializarContestar();
 		
 	}
 

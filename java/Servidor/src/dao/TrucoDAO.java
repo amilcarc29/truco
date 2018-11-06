@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 
 import entities.ManoEntity;
 import entities.TrucooEntity;
+import excepciones.ManoException;
 import hbt.HibernateUtil;
 import negocio.Mano;
 import negocio.Trucoo;
@@ -22,7 +23,7 @@ public class TrucoDAO {
 		return instancia;
 	}
 	
-	public int guardarTruco (Trucoo truco, Mano mano) {
+	public int guardarTruco (Trucoo truco, Mano mano) throws ManoException {
 		ManoEntity m = null;
 		m = ManoDAO.getInstancia().buscarManoPorID(mano.getIdMano());
 		TrucooEntity truc = this.buscarTrucoByID(truco.getId());

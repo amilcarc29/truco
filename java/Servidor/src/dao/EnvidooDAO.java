@@ -7,6 +7,7 @@ import entities.EnvidooEntity;
 import entities.JugadorEntity;
 import entities.ManoEntity;
 import entities.TrucooEntity;
+import excepciones.ManoException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Envidoo;
@@ -26,7 +27,7 @@ public class EnvidooDAO {
 		return instancia;
 	}
 	
-	public int guardarEnvido (Envidoo envido, Mano mano) {
+	public int guardarEnvido (Envidoo envido, Mano mano) throws ManoException {
 		ManoEntity m = null;
 		m = ManoDAO.getInstancia().buscarManoPorID(mano.getIdMano());
 		EnvidooEntity env = this.buscarEnvioByID(envido.getId());

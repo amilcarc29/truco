@@ -15,9 +15,12 @@ import dto.BazaDTO;
 import dto.JugadorDTO;
 import dto.ManoDTO;
 import dto.ParejaDTO;
+import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JugadorException;
+import excepciones.ManoException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
 public class Mano {
@@ -61,7 +64,7 @@ public class Mano {
 		repartir();
 	}
 
-	public void altaBaza() {
+	public void altaBaza() throws ManoException {
 		Baza b = new Baza(this.getJugadores());
 		b.save(this);
 		// FIX arreglar
@@ -115,16 +118,20 @@ public class Mano {
 	
 	public void setTieneQueContestar (Jugador jugador) {
 		
-//		for (Jugador j : jugadores)
-//			JugadorDAO.getInstancia().inicializarContestar(j);
+		this.inicializarContestar();
 		
 		Pareja p = this.getParejaContrariaActual(jugador.getId());
 		
 		JugadorDAO.getInstancia().setTieneQueContestar(p);
 				
 	}
+	
+	public void inicializarContestar(){
+		for (Jugador j : jugadores)
+			JugadorDAO.getInstancia().inicializarContestar(j);
+	}
 
-	public void cantarTruco() {
+	public void cantarTruco() throws ManoException {
 		
 		Trucoo truco = this.getTruco();
 		truco.setPuntosNoQuiero(truco.getPuntosQuiero());
@@ -134,7 +141,7 @@ public class Mano {
 		
 	}
 
-	public void cantarReTruco() {
+	public void cantarReTruco() throws ManoException {
 		
 		Trucoo truco = this.getTruco();
 		truco.setPuntosNoQuiero(truco.getPuntosQuiero());
@@ -144,7 +151,7 @@ public class Mano {
 		
 	}
 
-	public void cantarVale4() {
+	public void cantarVale4() throws ManoException {
 		
 		Trucoo truco = this.getTruco();
 		truco.setPuntosNoQuiero(truco.getPuntosQuiero());
@@ -178,7 +185,7 @@ public class Mano {
 	}
 
 	public void jugarCarta(Carta carta, Jugador jugador)
-			throws JugadorException, CartaException, UsuarioException, CategoriaException {
+			throws JugadorException, CartaException, UsuarioException, CategoriaException, ManoException, BazaException {
 		// TODO Auto-generated method stub
 
 		// despues de jugar una carta se tiene que guardar la baza
@@ -203,7 +210,7 @@ public class Mano {
 
 	}
 
-	public Pareja obtenerParejaGanadora() throws CategoriaException, UsuarioException {
+	public Pareja obtenerParejaGanadora() throws CategoriaException, UsuarioException, ParejaException {
 		Baza ultimaBaza = this.bazas.get(this.bazas.size() - 1);
 
 		Jugador jMayorUlimaBaza = ultimaBaza.getJugadaMayor().getJugador();
@@ -226,7 +233,7 @@ public class Mano {
 
 	}
 
-	public void armarNuevaBaza() throws UsuarioException, CategoriaException {
+	public void armarNuevaBaza() throws UsuarioException, CategoriaException, ManoException {
 
 		// modifica el orden de los jugadores para la nueva baza
 		
@@ -241,7 +248,7 @@ public class Mano {
 
 	}
 
-	public boolean terminoMano() throws CategoriaException, UsuarioException {
+	public boolean terminoMano() throws CategoriaException, UsuarioException, ParejaException {
 		// 3 Bazas maximo
 
 		if (this.getBazas().size() == 3)
@@ -348,7 +355,7 @@ public class Mano {
 
 	
 	
-	// ¿VER POR QUE ESTA ACA Y NO EN BAZA?
+	// ï¿½VER POR QUE ESTA ACA Y NO EN BAZA?
 	// LA BAZA TERMINA CUANDO HAY 4 JUGADAS HECHAS, NO CUANDO HAY 3 BAZAS EN MANO
 	public boolean terminoBaza() {
 		if (this.getUltimaBaza().getJugadas().size() == 4)
@@ -357,7 +364,7 @@ public class Mano {
 			return false;
 	}
 
-	public void cantarEnvido() {
+	public void cantarEnvido() throws ManoException {
 		
 		Envidoo env = this.getEnvido();
 		
@@ -373,7 +380,7 @@ public class Mano {
 
 	}
 
-	public void cantarRealEnvido() {
+	public void cantarRealEnvido() throws ManoException {
 		
 		Envidoo env = this.getEnvido();
 		
@@ -391,7 +398,7 @@ public class Mano {
 
 	}
 
-	public void cantarFaltaEnvido(int puntosParaTerminar) {
+	public void cantarFaltaEnvido(int puntosParaTerminar) throws ManoException {
 		
 		Envidoo env = this.getEnvido();
 		
@@ -421,6 +428,15 @@ public class Mano {
 		
 		Pareja pareja2 = this.getPareja(ganador.getId());
 		return pareja2;
+	}
+
+	public boolean alguienTieneQueContestar() {
+		boolean resultado = false;
+		for (Jugador j : this.jugadores){
+			if (JugadorDAO.getInstancia().tieneQueContestar(j))
+				resultado = true;
+		}
+		return resultado;
 	}
 
 

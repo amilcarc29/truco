@@ -10,6 +10,7 @@ import dao.UsuarioDAO;
 import dto.ParejaDTO;
 import excepciones.CategoriaException;
 import excepciones.MiembroException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
 public class Pareja {
@@ -101,7 +102,7 @@ public class Pareja {
 		return ParejaDAO.getInstancia().guardarParejaIndividual(this);
 	}
 
-	public Pareja saveGrupal() throws CategoriaException, MiembroException, UsuarioException {
+	public Pareja saveGrupal() throws CategoriaException, MiembroException, UsuarioException, ParejaException {
 		try {
 			return ParejaDAO.getInstancia().guardarParejaGrupal(this);
 		} catch (MiembroException e) {
@@ -109,7 +110,7 @@ public class Pareja {
 		} catch (CategoriaException e1) {
 			e1.printStackTrace();
 		}
-		return null;
+		throw new ParejaException("No se pudo guardar la pareja grupal.");
 	}
 	
 	public ParejaDTO toDTO() {

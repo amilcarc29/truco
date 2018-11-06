@@ -334,7 +334,7 @@ body {
 		<div id="main">
 			Hola <span id="userApodo"></span>
 
-
+			<h6 id="usuarioEnEspera"></h6>
 
 		</div>
 		<div>

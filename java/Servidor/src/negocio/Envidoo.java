@@ -1,6 +1,7 @@
 package negocio;
 
 import dao.EnvidooDAO;
+import excepciones.ManoException;
 
 public class Envidoo {
 	
@@ -38,7 +39,7 @@ public class Envidoo {
 		this.puntosNoQuiero = puntosNoQuiero;
 	}
 
-	public void save(Mano mano) {
+	public void save(Mano mano) throws ManoException {
 		
 		this.setId(EnvidooDAO.getInstancia().guardarEnvido(this, mano));
 	

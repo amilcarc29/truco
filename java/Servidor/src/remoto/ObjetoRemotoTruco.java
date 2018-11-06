@@ -11,10 +11,12 @@ import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.JugadorDTO;
 import dto.UsuarioDTO;
+import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
+import excepciones.ManoException;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
@@ -172,6 +174,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -188,6 +193,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -202,6 +210,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ManoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -222,6 +233,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (ParejaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -238,6 +252,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e4.printStackTrace();
 		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ManoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -266,6 +283,12 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (MiembroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BazaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -299,6 +322,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e4) {
 			// TODO Auto-generated catch block
 			e4.printStackTrace();
+		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -316,6 +342,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e4) {
 			// TODO Auto-generated catch block
 			e4.printStackTrace();
+		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -333,6 +362,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e4) {
 			// TODO Auto-generated catch block
 			e4.printStackTrace();
+		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -353,7 +385,44 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (ParejaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public boolean tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
+		try {
+			return ControladorJuego.getInstancia().responderJugador(juego, usuario);
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean alguienTieneQueContestar(JuegoDTO juego) throws RemoteException {
+		try {
+			return ControladorJuego.getInstancia().alguienTieneQueContestar(juego);
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

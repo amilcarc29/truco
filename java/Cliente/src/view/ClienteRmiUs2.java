@@ -27,40 +27,78 @@ public class ClienteRmiUs2 {
 				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
 				for (JuegoDTO juegoDTO : juegos) {
 					System.out.println(juegoDTO.getIdJuego());
-					if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
-						System.out.println("turno de " + us1.getApodo());
-
-						List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
-						for (CartaDTO cartaDTO : c) {
-							System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
+					if (new BusinessDelegateTruco().alguienTieneQueContestar(juegoDTO)) {
+						if (new BusinessDelegateTruco().tengoQueContestar(juegoDTO, us1)) {
+							String con = null;
+							System.out.println("que contestas  ?: ");
+							con = br.readLine();
+														
+							if (con.equals("env"))
+								new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
+							if (con.equals("real"))
+								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
+							if (con.equals("falta"))
+								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+							if (con.equals("qe"))
+								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+							if (con.equals("nqe"))
+								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
+							if (con.equals("truco"))
+								new BusinessDelegateTruco().cantarTruco(juegoDTO, us1);
+							if (con.equals("retruco"))
+								new BusinessDelegateTruco().cantarReTruco(juegoDTO, us1);
+							if (con.equals("valec"))
+								new BusinessDelegateTruco().cantarValeCuatro(juegoDTO, us1);
+							if (con.equals("nqt"))
+								new BusinessDelegateTruco().noQuieroTruco(juegoDTO, us1);
 						}
-//						String env = null;
-//						System.out.println("cantar envido  ?: ");
-//						env = br.readLine();
-//
-//						if ((env != null) && (env.equals("S"))) {
-//							new BusinessDelegateTruco().cantarEnvido(juegoDTO);
-//							System.out.println("quiere envido ?: ");
-//							env = br.readLine();
-//							if ((env != null) && (env.equals("S")))
-//								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
-//							else
-//								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
-//						}
-
-						System.out.println("carta numero: ");
-						int cn = Integer.parseInt(br.readLine());
-						System.out.println("carta palo: ");
-						String cp = br.readLine();
-
-						for (CartaDTO cartaDTO : c) {
-							if ((cartaDTO.getNumero() == cn) && (cartaDTO.getPalo().equals(cp))) {
-								new BusinessDelegateTruco().jugarCarta(juegoDTO, cartaDTO, us1);
-							}
-						}
-
 					} else {
-						System.out.println("No es mi turno");
+						if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
+							System.out.println("turno de " + us1.getApodo());
+
+							List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
+							for (CartaDTO cartaDTO : c) {
+								System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
+							}
+							String jug = null;
+							System.out.println("que desea hacer  ?: ");
+							jug = br.readLine();
+
+							if (jug.equals("env"))
+								new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
+							if (jug.equals("real"))
+								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
+							if (jug.equals("falta"))
+								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+							if (jug.equals("qe"))
+								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+							if (jug.equals("nqe"))
+								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
+							if (jug.equals("truco"))
+								new BusinessDelegateTruco().cantarTruco(juegoDTO, us1);
+							if (jug.equals("retruco"))
+								new BusinessDelegateTruco().cantarReTruco(juegoDTO, us1);
+							if (jug.equals("valec"))
+								new BusinessDelegateTruco().cantarValeCuatro(juegoDTO, us1);
+							if (jug.equals("nqt"))
+								new BusinessDelegateTruco().noQuieroTruco(juegoDTO, us1);
+
+							if (jug.equals("jug")) {
+								System.out.println("carta numero: ");
+								int cn = Integer.parseInt(br.readLine());
+								System.out.println("carta palo: ");
+								String cp = br.readLine();
+
+								for (CartaDTO cartaDTO : c) {
+									if ((cartaDTO.getNumero() == cn) && (cartaDTO.getPalo().equals(cp))) {
+										new BusinessDelegateTruco().jugarCarta(juegoDTO, cartaDTO, us1);
+									}
+								}
+							}
+
+						} else {
+							System.out.println("No es mi turno");
+						}
 					}
 
 				}
@@ -76,4 +114,5 @@ public class ClienteRmiUs2 {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
+
 }

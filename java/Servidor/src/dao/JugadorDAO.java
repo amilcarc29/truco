@@ -11,6 +11,7 @@ import entities.ChicoEntity;
 import entities.JugadorEntity;
 import entities.UsuarioEntity;
 import excepciones.CategoriaException;
+import excepciones.JuegoException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Juego;
@@ -35,9 +36,10 @@ public class JugadorDAO {
 	public void setTieneQueContestar(Pareja pareja) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		JugadorEntity jugadorEntity = (JugadorEntity) session.createQuery("from JugadorEntity where idPareja = ? and orden = ? or orden = ?")
-					.setParameter(0, pareja.getIdPareja()).setParameter(1, 2).setParameter(2, 3).uniqueResult();
+		JugadorEntity jugadorEntity = (JugadorEntity) session.createQuery("from JugadorEntity where idPareja = ? and (orden = 2 or orden = 3)")
+					.setParameter(0, pareja.getIdPareja()).uniqueResult();
 		jugadorEntity.setTieneQueContestar(true);
+		session.beginTransaction();
 		session.saveOrUpdate(jugadorEntity);
 		session.getTransaction().commit();
 		session.close();	
@@ -49,6 +51,7 @@ public class JugadorDAO {
 		JugadorEntity jugadorEntity = (JugadorEntity) session.createQuery("from JugadorEntity where idJugador = ?")
 					.setParameter(0, jugador.getId()).uniqueResult();
 		jugadorEntity.setTieneQueContestar(false);
+		session.beginTransaction();
 		session.saveOrUpdate(jugadorEntity);
 		session.getTransaction().commit();
 		session.close();		
@@ -62,6 +65,7 @@ public class JugadorDAO {
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
+		session.beginTransaction();
 		session.saveOrUpdate(jugadorEntity);
 		session.getTransaction().commit();
 		session.close();
@@ -99,8 +103,7 @@ public class JugadorDAO {
 			j = new JugadorIndividual(UsuarioDAO.getInstancia().toNegocio(pe.getUsuario()));
 			j.setTieneTurno(pe.geTieneTurno());
 			j.setOrden(pe.getOrden());
-			
-			
+			j.setTieneQueContestar(pe.isTieneQueContestar());
 		
 			j.setId(pe.getIdJugador());
 			
@@ -120,11 +123,8 @@ public class JugadorDAO {
 		session.close();
 		if (jugadorEntity != null) {
 			return toNegocio(jugadorEntity);
-		} else {
-			// throw new UsuarioException("El jugador con id: " + idJugador + "no existe en
-			// la base de datos.");
 		}
-		return null;
+		throw new UsuarioException("El jugador con id: " + idUsuario + "no existe en el juego: " + idJuego);
 	}
 
 	public List<Jugador> buscarJugadoresByJuego(int idJuego) throws CategoriaException, UsuarioException {
@@ -150,7 +150,7 @@ public class JugadorDAO {
 
 	}
 
-	public Jugador getJugadorConTurno(Juego juego) throws CategoriaException, UsuarioException {
+	public Jugador getJugadorConTurno(Juego juego) throws CategoriaException, UsuarioException, JuegoException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		JugadorEntity jugadorEntity = (JugadorEntity) session
@@ -159,12 +159,8 @@ public class JugadorDAO {
 		session.close();
 		if (jugadorEntity != null) {
 			return toNegocio(jugadorEntity);
-		} else {
-			// throw new UsuarioException("El jugador con id: " + idJugador + "no existe en
-			// la base de datos.");
 		}
-
-		return null;
+		throw new JuegoException("El juego con id: " + juego.getId() + "no existe en la base de datos.");
 	}
 
 	public List<Jugador> getJugadores(int idJuego) throws CategoriaException, UsuarioException {
@@ -188,7 +184,7 @@ public class JugadorDAO {
 		this.jugadores = jugadores;
 	}
 
-	public void getPasarTurno(Juego juego) throws CategoriaException, UsuarioException {
+	public void getPasarTurno(Juego juego) throws CategoriaException, UsuarioException, JuegoException {
 		// TODO Auto-generated method stub
 
 		Jugador jturno = this.getJugadorConTurno(juego);
@@ -253,6 +249,16 @@ public class JugadorDAO {
 		
 		session.close();
 
+	}
+
+	public boolean tieneQueContestar(Jugador j) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JugadorEntity jugadorEntity = (JugadorEntity) session
+				.createQuery("from JugadorEntity where idJugador = ?").setParameter(0, j.getId())
+				.uniqueResult();
+		session.close();
+		return j.isTieneQueContestar();
 	}
 
 }
