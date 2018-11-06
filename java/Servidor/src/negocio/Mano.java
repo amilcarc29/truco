@@ -115,13 +115,17 @@ public class Mano {
 	
 	public void setTieneQueContestar (Jugador jugador) {
 		
-//		for (Jugador j : jugadores)
-//			JugadorDAO.getInstancia().inicializarContestar(j);
+		this.inicializarContestar();
 		
 		Pareja p = this.getParejaContrariaActual(jugador.getId());
 		
 		JugadorDAO.getInstancia().setTieneQueContestar(p);
 				
+	}
+	
+	public void inicializarContestar(){
+		for (Jugador j : jugadores)
+			JugadorDAO.getInstancia().inicializarContestar(j);
 	}
 
 	public void cantarTruco() {
@@ -419,6 +423,15 @@ public class Mano {
 		
 		Pareja pareja2 = this.getPareja(ganador.getId());
 		return pareja2;
+	}
+
+	public boolean alguienTieneQueContestar() {
+		boolean resultado = false;
+		for (Jugador j : this.jugadores){
+			if (JugadorDAO.getInstancia().tieneQueContestar(j))
+				resultado = true;
+		}
+		return resultado;
 	}
 
 

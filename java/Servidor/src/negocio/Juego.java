@@ -381,6 +381,15 @@ public abstract class Juego {
 		
 	}
 
+	public boolean alguienTieneQueContestar() {
+		return(this.getUltimoChico().alguienTieneQueContestar());
+	}
+
+	public void inicializarContestar() {
+		this.getUltimoChico().inicializarContestar();
+		
+	}
+
 	
 	
 //	public boolean terminoUltimaMano() {

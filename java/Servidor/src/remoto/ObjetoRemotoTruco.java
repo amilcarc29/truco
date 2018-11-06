@@ -356,4 +356,38 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 		
 	}
+
+	@Override
+	public boolean tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
+		try {
+			return ControladorJuego.getInstancia().responderJugador(juego, usuario);
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean alguienTieneQueContestar(JuegoDTO juego) throws RemoteException {
+		try {
+			return ControladorJuego.getInstancia().alguienTieneQueContestar(juego);
+		} catch (UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

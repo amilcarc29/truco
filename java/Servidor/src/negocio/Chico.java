@@ -408,4 +408,13 @@ public class Chico {
 		
 	}
 
+	public boolean alguienTieneQueContestar() {
+		return (this.getUltimaMano().alguienTieneQueContestar());
+	}
+
+	public void inicializarContestar() {
+		this.getUltimaMano().inicializarContestar();
+		
+	}
+
 }

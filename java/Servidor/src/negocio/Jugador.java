@@ -18,7 +18,7 @@ public abstract class Jugador {
 	
 	private int orden;
 	
-	private int tieneQueContestar;
+	private boolean tieneQueContestar;
 
 	// private static int cnt = 0;
 	//
@@ -224,8 +224,22 @@ public abstract class Jugador {
 	public boolean isTieneTurno() {
 		return tieneTurno;
 	}
+	
+	public int getIdJugador() {
+		return idJugador;
+	}
 
+	public void setIdJugador(int idJugador) {
+		this.idJugador = idJugador;
+	}
 
+	public boolean isTieneQueContestar() {
+		return tieneQueContestar;
+	}
+
+	public void setTieneQueContestar(boolean tieneQueContestar) {
+		this.tieneQueContestar = tieneQueContestar;
+	}
 
 	public int getOrden() {
 		return orden;
