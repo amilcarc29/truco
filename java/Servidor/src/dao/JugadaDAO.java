@@ -13,6 +13,7 @@ import entities.JuegoEntity;
 import entities.JugadaEntity;
 import entities.JugadorEntity;
 import entities.UsuarioEntity;
+import excepciones.BazaException;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
@@ -35,7 +36,7 @@ public class JugadaDAO {
 
 	}
 
-	public int guardarJugada(Jugada jugada, Baza baza) throws UsuarioException, CategoriaException {
+	public int guardarJugada(Jugada jugada, Baza baza) throws UsuarioException, CategoriaException, BazaException {
 		JugadorEntity jug = null;
 		CartaEntity ca = null;
 		BazaEntity ba = null;

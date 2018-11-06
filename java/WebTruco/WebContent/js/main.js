@@ -41,6 +41,7 @@ function unirsePartidaLibre() {
 		data : unirsePartida, // serializes the form's elements.
 		success : function(data) {
 			esperandoPartida = true;
+			document.getElementById('usuarioEnEspera').innerHTML = "Buscando partida...";
 
 		}
 	});
@@ -87,8 +88,11 @@ function litarPartidas() {
 	document.getElementById('games').innerHTML = lista;
 	if (!tituloCargado) {
 		tituloCargado = true;
-		document.getElementById('JuegosTit').innerHTML = "Mis Juegos!";
-
+		if (partidasActivas.length == 0) {
+			document.getElementById('JuegosTit').innerHTML = "No hay juegos activos.";
+		} else {
+			document.getElementById('JuegosTit').innerHTML = "Mis Juegos!";
+		}
 	}
 	loadActions();
 

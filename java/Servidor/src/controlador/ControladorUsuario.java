@@ -96,7 +96,7 @@ public class ControladorUsuario {
 		} else {
 			System.out.println("Usuario o Contraseña incorrecta para: " + apodo);
 		}
-		return null;
+		throw new UsuarioException("Usuario no encontrado: " + apodo);
 	}
 
 	public void verificarCategoriaJugador(String apodo) throws UsuarioException, CategoriaException {

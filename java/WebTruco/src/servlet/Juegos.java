@@ -15,8 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.sun.jdi.IntegerType;
-
 import delegado.BusinessDelegateTruco;
 import dto.CartaDTO;
 import dto.JuegoDTO;
