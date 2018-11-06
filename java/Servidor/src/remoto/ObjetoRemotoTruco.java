@@ -368,6 +368,22 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 		
 	}
+	
+	@Override
+	public void quieroTruco(JuegoDTO juego) throws RemoteException {
+		try {
+			ControladorJuego.getInstancia().quieroTruco(juego);
+		} catch (JuegoException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (CategoriaException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (UsuarioException e4) {
+			// TODO Auto-generated catch block
+			e4.printStackTrace();
+		}		
+	}
 
 	@Override
 	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException {
@@ -425,4 +441,6 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 		return false;
 	}
+
+	
 }

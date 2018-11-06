@@ -52,6 +52,8 @@ public class ClienteRmiUs4 {
 								new BusinessDelegateTruco().cantarValeCuatro(juegoDTO, us1);
 							if (con.equals("nqt"))
 								new BusinessDelegateTruco().noQuieroTruco(juegoDTO, us1);
+							if (con.equals("qt"))
+								new BusinessDelegateTruco().quieroTruco(juegoDTO);
 						}
 					} else {
 						if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
@@ -83,6 +85,8 @@ public class ClienteRmiUs4 {
 								new BusinessDelegateTruco().cantarValeCuatro(juegoDTO, us1);
 							if (jug.equals("nqt"))
 								new BusinessDelegateTruco().noQuieroTruco(juegoDTO, us1);
+							if (jug.equals("qt"))
+								new BusinessDelegateTruco().quieroTruco(juegoDTO);
 
 							if (jug.equals("jug")) {
 								System.out.println("carta numero: ");

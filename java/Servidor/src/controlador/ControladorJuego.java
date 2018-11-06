@@ -109,6 +109,11 @@ public class ControladorJuego {
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
 		jue.setTieneQueContestar(jug);
 	}
+	
+	public void quieroTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+		Juego jue = this.buscarJuego(juego.getIdJuego());
+		jue.inicializarContestar();
+	}
 
 	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN TRUCO (VALE 1 PUNTO)
 	public void noQuieroTruco(UsuarioDTO usuario, JuegoDTO juego)
@@ -410,5 +415,7 @@ public class ControladorJuego {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		return ju.alguienTieneQueContestar();
 	}
+
+	
 	
 }

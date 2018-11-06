@@ -182,6 +182,15 @@ public class BusinessDelegateTruco {
 		
 	}
 	
+	public void quieroTruco(JuegoDTO juego) throws ComunicacionException {
+		try {
+			ir.quieroTruco(juego);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+		
+	}
+	
 	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws ComunicacionException {
 		try {
 			ir.noQuieroTruco(juego, us1);
@@ -200,6 +209,8 @@ public class BusinessDelegateTruco {
 		}
 		
 	}
+
+	
 	
 	
 	

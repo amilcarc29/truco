@@ -301,10 +301,20 @@ public class Chico {
 		cambiarOrden();
 		
 		Mano mano = new Mano(parejas, jugadores, this.getPuntosParaTerminar());
-		mano.save(this);
+		mano.save(this);		
+		
+		Trucoo truco = new Trucoo();
+		truco.save(mano);
+		mano.setTruco(truco);
+		
+		Envidoo envido = new Envidoo();
+		envido.save(mano);
+		mano.setEnvido(envido);
 		mano.altaBaza();
-
+		
 		manos.add(mano);
+		
+		
 
 	}
 	
