@@ -21,6 +21,7 @@ import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import interfaces.InterfaceRemotaTruco;
+import negocio.Jugador;
 
 public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceRemotaTruco {
 
@@ -131,7 +132,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	@Override
 	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
-			return ControladorJuego.getInstancia().getCartas(juego, usuario);
+			return ControladorJuego.getInstancia().getCartas(juego, usuario, false);
 		} catch (CategoriaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,22 +145,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 		return null;
 	}
-	@Override
-	public List<CartaDTO> getCartasJugadas(JuegoDTO juego) throws RemoteException {
-		try {
-			return ControladorJuego.getInstancia().getCartasJugadas(juego);
-		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+
 	
 	@Override
 	public void cantarEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException{

@@ -30,7 +30,6 @@ public interface InterfaceRemotaTruco extends Remote {
 	public void cantarReTruco(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public void cantarValeCuatro(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException;
-	public  List<CartaDTO> getCartasJugadas(JuegoDTO juego) throws RemoteException;
 	public boolean tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public boolean alguienTieneQueContestar(JuegoDTO juego) throws RemoteException;
 	public void quieroTruco(JuegoDTO juego) throws RemoteException;

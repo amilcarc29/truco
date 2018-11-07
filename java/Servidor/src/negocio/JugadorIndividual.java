@@ -6,6 +6,7 @@ public class JugadorIndividual extends Jugador {
 
 	public JugadorIndividual(Usuario usuario) {
 		setUsuario(usuario);
+		setApodo(usuario.getApodo());
 	}
 
 	public Usuario getUsuario() {

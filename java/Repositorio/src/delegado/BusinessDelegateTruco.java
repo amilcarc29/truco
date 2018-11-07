@@ -8,6 +8,7 @@ import java.util.List;
 
 import dto.CartaDTO;
 import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 import interfaces.InterfaceRemotaTruco;
@@ -98,13 +99,7 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
-	public List<CartaDTO> getCartasJugadas(JuegoDTO juego) throws ComunicacionException {
-		try {
-			return ir.getCartasJugadas(juego);
-		} catch (RemoteException e) {
-			throw new ComunicacionException("Error en las comunicaciones");
-		}
-	}
+
 
 	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws ComunicacionException {
 		try {

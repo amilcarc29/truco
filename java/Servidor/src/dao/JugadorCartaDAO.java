@@ -54,7 +54,7 @@ public class JugadorCartaDAO {
 
 	}
 
-	public List<Carta> getCartasbyJugador(Jugador jug) {
+	public List<Carta> getCartasbyJugador(Jugador jug, boolean jugada) {
 		// TODO Auto-generated method stub
 		
 		Vector<Carta> cartas = new Vector<>();
@@ -62,7 +62,8 @@ public class JugadorCartaDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 
-		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=0").setParameter(0, jug.getId()).list();
+		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=?")
+				.setParameter(0, jug.getId()).setParameter(1, jugada).list();
 		session.close();
 
 		for (JugadorCartaEntity jc : jugadorcartasEnt) {
@@ -73,25 +74,7 @@ public class JugadorCartaDAO {
 		return cartas;
 	}
 
-	public List<Carta> getCartasbyBaza(Baza baza) {
-		// TODO Auto-generated method stub
-		
-		Vector<Carta> cartas = new Vector<>();
-		
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-
-		List<JugadaEntity> JugadasEnt = (List<JugadaEntity>) session.createQuery("from JugadaEntity where idBaza = ?").
-				setParameter(0, baza.getIdBaza()).list();
-		session.close();
-
-		for (JugadaEntity jc : JugadasEnt) {
-			
-			cartas.add(CartaDAO.getInstancia().toNegocio(jc.getCarta()));
-		}
-		
-		return cartas;
-	}
+	
 
 	public List<Carta> getTodasCartasbyJugador(Jugador jug) {
 		// TODO Auto-generated method stub

@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import delegado.BusinessDelegateTruco;
 import dto.CartaDTO;
 import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 
@@ -82,23 +83,7 @@ public class Juegos extends HttpServlet {
 					}
 
 					out.write(arr.toString());
-				} else if (action.equals("getCartasJugadas")) {
-
-					Integer id = Integer.valueOf(request.getParameter("idJuego"));
-					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
-
-					List<CartaDTO> c = new BusinessDelegateTruco().getCartasJugadas(j);
-
-					JSONArray arr = new JSONArray();
-
-					for (CartaDTO cartaDTO : c) {
-						JSONObject obj = new JSONObject(cartaDTO.toJson());
-
-						arr.put(obj);
-					}
-
-					out.write(arr.toString());
-				} else if (action.equals("getJuego")) {
+				}else if (action.equals("getJuego")) {
 
 					Integer id = Integer.valueOf(request.getParameter("idJuego"));
 					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);

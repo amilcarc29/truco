@@ -379,13 +379,13 @@ public class ControladorJuego {
 		return jug.isTieneTurno();
 	}
 
-	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario)
+	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario, boolean jugada)
 			throws CategoriaException, UsuarioException, JuegoException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
 
-		List<Carta> cartas = JugadorCartaDAO.getInstancia().getCartasbyJugador(jug);
+		List<Carta> cartas = JugadorCartaDAO.getInstancia().getCartasbyJugador(jug, jugada);
 		List<CartaDTO> cartasDto = new ArrayList<>();
 
 		for (Carta carta : cartas) {
@@ -394,21 +394,6 @@ public class ControladorJuego {
 		return cartasDto;
 	}
 
-	public List<CartaDTO> getCartasJugadas(JuegoDTO juego)
-			throws CategoriaException, UsuarioException, JuegoException {
-		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
-
-		List<CartaDTO> cartasDto = new ArrayList<>();
-
-		if (ju.getUltimaBaza() != null) {
-			List<Carta> cartas = JugadorCartaDAO.getInstancia().getCartasbyBaza(ju.getUltimaBaza());
-
-			for (Carta carta : cartas) {
-				cartasDto.add(carta.toDTO());
-			}
-		}
-		return cartasDto;
-	}
 
 
 	public boolean alguienTieneQueContestar(JuegoDTO juego) throws CategoriaException, JuegoException, UsuarioException {

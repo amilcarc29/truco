@@ -177,7 +177,7 @@ body {
 
 /* Inner */
 .popup-inner {
-	max-width: 700px;
+	max-width: 1000px;
 	width: 90%;
 	padding: 40px;
 	position: absolute;
@@ -319,9 +319,10 @@ body {
 <script src="js/jquery.alertable.js"></script>
 <script src="js/main.js"></script>
 <script>
-	
-	var user = <%= session.getAttribute("userJson") %>;
-	</script>
+	var user =
+<%=session.getAttribute("userJson")%>
+	;
+</script>
 </head>
 
 <body>
@@ -384,33 +385,50 @@ body {
 			<h2 style="color: black;" id="CartasTit">Juego</h2>
 
 
-
 			<div class="divTable">
 				<div class="divTableBody">
-				
 					<div class="divTableRow">
 						<div class="divTableCell">&nbsp;</div>
-						<div class="divTableCell">&nbsp;</div>
-						<div class="divTableCell"><h2 style="color: black;" id="puntos">PUNTOS:</h2></div>
+						<div id="jug3" class="divTableCell">&nbsp;</div>
+						<div id="status" class="divTableCell">&nbsp;</div>
+					</div>
+					<div class="divTableRow">
+						<div id="jug2" class="divTableCell">&nbsp;</div>
+						<div class="divTableCell">
+							<div class="divTable">
+								<div class="divTableBody">
+									<div class="divTableRow">
+										<div class="divTableCell">&nbsp;</div>
+										<div id="jug3jug" class="divTableCell">&nbsp;</div>
+										<div class="divTableCell">&nbsp;</div>
+									</div>
+									<div class="divTableRow">
+										<div id="jug2jug" class="divTableCell">&nbsp;</div>
+										<div class="divTableCell">&nbsp;</div>
+										<div id="jug4jug" class="divTableCell">&nbsp;</div>
+									</div>
+									<div class="divTableRow">
+										<div class="divTableCell">&nbsp;</div>
+										<div id="jug1jug" class="divTableCell">&nbsp;</div>
+										<div class="divTableCell">&nbsp;</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="jug4" class="divTableCell">&nbsp;</div>
 					</div>
 					<div class="divTableRow">
 						<div class="divTableCell">&nbsp;</div>
-						<div class="divTableCell">
-							<div id="games3" class="numberlist"></div>
-						</div>
-						<div class="divTableCell">&nbsp;</div>
-					</div>
-					<div class="divTableRow">
-						<div class="divTableCell">&nbsp;</div>
-						<div class="divTableCell">
-							<div id="games2" class="numberlist"></div>
-						</div>
+						<div id="jug1" class="divTableCell">&nbsp;</div>
 						<div class="divTableCell">&nbsp;</div>
 					</div>
 				</div>
 			</div>
 			<!-- DivTable.com -->
-			<!-- DivTable.com -->
+
+
+
+
 
 
 			<button class="blob-btn" data-popup-open="popup-1">

@@ -1,10 +1,13 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import controlador.ControladorJuego;
 import dao.JugadorCartaDAO;
 import dao.JugadorDAO;
+import dto.CartaDTO;
 import dto.JugadorDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -15,9 +18,10 @@ public abstract class Jugador {
 	private int idJugador;
 	private List<Carta> cartas;
 	private boolean tieneTurno;
-	
+	private String apodo;
+
 	private int orden;
-	
+
 	private boolean tieneQueContestar;
 
 	// private static int cnt = 0;
@@ -83,6 +87,7 @@ public abstract class Jugador {
 		// TODO Auto-generated method stub
 		this.cartas = cartas;
 	}
+
 	public void guardarCartas(List<Carta> cartas) throws UsuarioException, CategoriaException {
 		this.setCartas(cartas);
 		JugadorCartaDAO.getInstancia().guardarCartas(this.cartas, this);
@@ -187,8 +192,6 @@ public abstract class Jugador {
 			i++;
 		return i;
 	}
-	
-
 
 	public int obtenerPuntosEnvido() {
 		int puntos = 0;
@@ -209,22 +212,29 @@ public abstract class Jugador {
 
 	}
 
-
-
 	public void setTieneTurno(boolean tieneTurno) {
 		this.tieneTurno = tieneTurno;
 	}
 
 	public JugadorDTO toDTO() {
 		// TODO Auto-generated method stub
+		JugadorDTO j = new JugadorDTO(this.idJugador);
+		j.setApodo(this.apodo);
+		List<Carta> c = JugadorCartaDAO.getInstancia().getCartasbyJugador(this, true);
+		List<CartaDTO> cdto = new ArrayList<>();
 
-		return new JugadorDTO(this.idJugador);
+		for (Carta carta : c) {
+			cdto.add(carta.toDTO());
+		}
+		j.setCartas(cdto);
+
+		return j;
 	}
 
 	public boolean isTieneTurno() {
 		return tieneTurno;
 	}
-	
+
 	public int getIdJugador() {
 		return idJugador;
 	}
@@ -247,6 +257,14 @@ public abstract class Jugador {
 
 	public void setOrden(int orden) {
 		this.orden = orden;
+	}
+
+	public String getApodo() {
+		return apodo;
+	}
+
+	public void setApodo(String apodo) {
+		this.apodo = apodo;
 	}
 
 }

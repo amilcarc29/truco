@@ -4,18 +4,17 @@ var tituloCargado = false;
 var juegoActual;
 var juegoJson;
 
-var tm1;
-var tm2;
+var partidas;
+var juegoActual;
+
 $(document).ready(function() {
+
 	loadUser();
 	loopPartidas();
 	loadActions();
 	notifyCheck();
-	
 	document.title = 'Player: ' + user.apodo;
-	
-	
-	
+
 });
 var esperandoPartida = false;
 function loadUser() {
@@ -37,25 +36,78 @@ function unirsePartidaLibre() {
 		action : 'unirsePartida'
 	};
 
-	$.ajax({
-		type : "POST",
-		url : url,
-		data : unirsePartida, // serializes the form's elements.
-		success : function(data) {
-			esperandoPartida = true;
-			document.getElementById('usuarioEnEspera').innerHTML = "Buscando partida...";
+	$
+			.ajax({
+				type : "POST",
+				url : url,
+				data : unirsePartida, // serializes the form's elements.
+				success : function(data) {
+					esperandoPartida = true;
+					document.getElementById('usuarioEnEspera').innerHTML = "Buscando partida...";
 
-		}
-	});
+				}
+			});
 
 }
+
 function loopPartidas() {
 
-	interval = setInterval(function() {
+	partidas = setInterval(function() {
 		buscarPartida();
 	}, 5000);
 
 }
+function abrirJuego(idJuego) {
+	juegoActual = idJuego;
+
+	loopRenderGame();
+}
+function loopRenderGame() {
+
+	partidas = setInterval(function() {
+		renderGame();
+		 getCartas();
+		 
+		// //notificaTurno();
+		// getCartasJugadas(juegoActual);
+		// getPuntos(juegoActual);
+	}, 1000);
+
+}
+
+function renderGame() {
+
+	var url = '/WebTruco/Juegos';
+	var buscarJuegos = {
+		action : 'getJuego',
+		idJuego : juegoActual
+	};
+
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : buscarJuegos, // serializes the form's elements.
+		success : function(data) {
+			render(data);
+		}
+	});
+
+}
+function render(data){
+	var txtStatus  = "<p style='color: blue'>Chico " + data.chicos.length + "\n, Mano " + data.chicos[data.chicos.length-1].manos.length  + " \n " +
+	"Puntos [p1 " + data.chicos[data.chicos.length-1].puntosChico[0].puntos +", p2 " +  data.chicos[data.chicos.length-1].puntosChico[1].puntos+"]</p>";
+	document.getElementById('status').innerHTML =txtStatus ;
+	var jugNum=1;
+	for (var i =0; i<data.parejas.length;i++){
+		
+		for (var x =0; x<data.parejas[i].jugadores.length;x++){
+			
+				drawCartas(data.parejas[i].jugadores[x].cartas, juegoActual, 'jug'+ jugNum + "jug", false, jugNum % 2);
+				jugNum++;
+		}
+	}
+}
+
 function buscarPartida() {
 
 	var url = '/WebTruco/Juegos';
@@ -70,12 +122,12 @@ function buscarPartida() {
 		success : function(data) {
 			partidasActivas = data;
 
-			litarPartidas();
+			listarPartidas();
 		}
 	});
 
 }
-function litarPartidas() {
+function listarPartidas() {
 	var lista = " <ol>";
 
 	for (var i = 0; i < partidasActivas.length; i++) {
@@ -99,36 +151,8 @@ function litarPartidas() {
 	loadActions();
 
 }
-function abrirJuego(idJuego) {
-	var url = '/WebTruco/Juegos';
-	var buscarJuegos = {
-		action : 'getCartas',
-		idJuego : idJuego
-	};
 
-	$.ajax({
-		type : "POST",
-		url : url,
-		data : buscarJuegos, // serializes the form's elements.
-		success : function(data) {
-
-			cargarCartas(data, idJuego, 'games2');
-			juegoActual = idJuego;
-			verificarTurnoJuegoSel();
-			getCartasJugadas() ;
-			
-		}
-	});
-
-}
-
-function clearInterval(){
-	  clearTimeout(tm1);
-	  clearTimeout(tm2);
-}
-
-function reloadCartas(){
-	
+function getCartas(idJuego) {
 	var url = '/WebTruco/Juegos';
 	var buscarJuegos = {
 		action : 'getCartas',
@@ -141,12 +165,19 @@ function reloadCartas(){
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
 
-			cargarCartas(data, juegoActual,'games2');
-		
-			
+			drawCartas(data, idJuego, 'jug1', true, true);
+
 		}
 	});
+
 }
+
+function clearInterval() {
+
+	clearTimeout(partidas);
+	clearTimeout(juegoActual);
+}
+
 function notifyMe() {
 	// Comprobamos si el navegador soporta las notificaciones
 	if (!("Notification" in window)) {
@@ -159,56 +190,69 @@ function notifyMe() {
 		var notification = new Notification("Es su turno " + user.apodo);
 	}
 
-	
-
-
 }
-function verificarTurnoJuegoSel() {
-	tm1 =  setTimeout(function() {
+function notificaTurno() {
 
-		var url = '/WebTruco/Juegos';
-		var buscarJuegos = {
-			action : 'esMiturno',
-			idJuego : juegoActual
-		};
+	var url = '/WebTruco/Juegos';
+	var buscarJuegos = {
+		action : 'esMiturno',
+		idJuego : juegoActual
+	};
 
-		$.ajax({
-			type : "POST",
-			url : url,
-			data : buscarJuegos, // serializes the form's elements.
-			success : function(data) {
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : buscarJuegos, // serializes the form's elements.
+		success : function(data) {
 
-				if (data.TURNO == "TRUE") {
-					notifyMe();
-				}
-
+			if (data.TURNO == "TRUE") {
+				notifyMe();
 			}
-		});
-		
-		verificarTurnoJuegoSel();
-	}, 50000);
-	
-	
-	
-	tm2 =  setTimeout(function() {
 
-		 getCartasJugadas();
-
-	}, 1000);
-	
-	
-
+		}
+	});
 }
 
-function cargarCartas(data, juego, div) {
+function drawCartas(data, juego, div, action, drop) {
+	
+	
 	var cartas = "";
+	
+	 cartas = "<div class='divTable'><div class='divTableBody'><div class='divTableRow'>";
 
-	for (var i = 0; i < data.length; i++) {
+	 
+	if (drop){
+		for (var i = 0; i < data.length; i++) {
 
-		cartas += "<img src='./img/" + data[i].palo + "/" + data[i].numero
-				+ ".jpg' style='cursor:pointer' onClick='verificarTurno(" + data[i].idCarta + ", "
-				+ juego + ")' >";
+			cartas += "<div class='divTableCell'><img src='./img/" + data[i].palo + "/" + data[i].numero
+					+ ".jpg' ";
+			
+			if(action){
+				onClick=" style='cursor:pointer' 'verificarTurno("+ data[i].idCarta + ", " + juego + ")'";
+			}
+		
+			
+			cartas += "></div>";
+		}
+	}else{
+			for (var i = 0; i < data.length; i++) {
+
+				cartas += "<div class='divTableRow'><div class='divTableCell'><img src='./img/" + data[i].palo + "/" + data[i].numero
+						+ ".jpg' ";
+				
+				if(action){
+					onClick=" style='cursor:pointer' 'verificarTurno("+ data[i].idCarta + ", " + juego + ")'";
+				}
+			
+				
+				cartas += "></div></div>";
+			}
 	}
+
+	cartas += "</div></div></div>";
+
+	
+
 
 	document.getElementById(div).innerHTML = cartas;
 }
@@ -257,8 +301,7 @@ function jugar(idCarta, idJuego) {
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
 			if (data.JUGADA == "TRUE") {
-				reloadCartas();
-				 getCartasJugadas();
+
 			}
 		}
 	});
@@ -267,51 +310,6 @@ function jugar(idCarta, idJuego) {
 
 
 
-function getCartasJugadas() {
-
-	var url = '/WebTruco/Juegos';
-
-	var buscarJuegos = {
-		action : 'getCartasJugadas',
-		idJuego : juegoActual
-	};
-
-	$.ajax({
-		type : "POST",
-		url : url,
-		data : buscarJuegos, // serializes the form's elements.
-		success : function(data) {
-			cargarCartas(data,juegoActual, 'games3' );
-			getPuntos();
-		}
-	});
-
-	
-
-}
-
-function getPuntos() {
-
-	var url = '/WebTruco/Juegos';
-
-	var buscarJuegos = {
-		action : 'getJuego',
-		idJuego : juegoActual
-	};
-
-	$.ajax({
-		type : "POST",
-		url : url,
-		data : buscarJuegos, // serializes the form's elements.
-		success : function(data) {
-			juegoJson = data;
-			document.getElementById('puntos').innerHTML = "PUNTOS: [p1:" +juegoJson.chicos[0].puntosChico[0].puntos +",p2:"+juegoJson.chicos[0].puntosChico[1].puntos+"]";
-		}
-	});
-
-	
-
-}
 
 function loadActions() {
 	$(function() {
@@ -343,30 +341,28 @@ function loadActions() {
 
 }
 
-
 function notifyCheck() {
-	  // Comprobamos si el navegador soporta las notificaciones
-	  if (!("Notification" in window)) {
-	    alert("Este navegador no soporta las notificaciones del sistema");
-	  }
-
-	  // Comprobamos si ya nos habían dado permiso
-	  else if (Notification.permission === "granted") {
-	    // Si esta correcto lanzamos la notificación
-	    var notification = new Notification("Buenas ! " + user.apodo);
-	  }
-
-	  // Si no, tendremos que pedir permiso al usuario
-	  else if (Notification.permission !== 'denied') {
-	    Notification.requestPermission(function (permission) {
-	      // Si el usuario acepta, lanzamos la notificación
-	      if (permission === "granted") {
-	        var notification = new Notification("Gracias !");
-	      }
-	    });
-	  }
-
-	  // Finalmente, si el usuario te ha denegado el permiso y 
-	  // quieres ser respetuoso no hay necesidad molestar más.
+	// Comprobamos si el navegador soporta las notificaciones
+	if (!("Notification" in window)) {
+		alert("Este navegador no soporta las notificaciones del sistema");
 	}
 
+	// Comprobamos si ya nos habían dado permiso
+	else if (Notification.permission === "granted") {
+		// Si esta correcto lanzamos la notificación
+		var notification = new Notification("Buenas ! " + user.apodo);
+	}
+
+	// Si no, tendremos que pedir permiso al usuario
+	else if (Notification.permission !== 'denied') {
+		Notification.requestPermission(function(permission) {
+			// Si el usuario acepta, lanzamos la notificación
+			if (permission === "granted") {
+				var notification = new Notification("Gracias !");
+			}
+		});
+	}
+
+	// Finalmente, si el usuario te ha denegado el permiso y
+	// quieres ser respetuoso no hay necesidad molestar más.
+}
