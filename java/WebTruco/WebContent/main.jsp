@@ -80,7 +80,9 @@ body {
 	padding: 10px;
 	z-index: 2;
 }
-
+.divGame{
+z-index: 999999;
+}
 .login input[type=text] {
 	width: 250px;
 	height: 30px;
@@ -310,6 +312,23 @@ body {
 .divTableBody {
 	display: table-row-group;
 }
+
+
+.rotateimg90 {
+  -webkit-transform:rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.rotateimg-90 {
+  -webkit-transform:rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
 </style>
 <link rel="stylesheet" href="css/jquery.alertable.css">
 <link rel="stylesheet" href="css/game.css">
@@ -330,8 +349,10 @@ body {
 
 
 	<div class="body"></div>
-	<div class="grad"></div>
+	<div class="grad">qwdwqdqwdqwd</div>
 	<div class="header">
+	
+
 		<div id="main">
 			Hola <span id="userApodo"></span>
 
@@ -379,11 +400,8 @@ body {
 	</div>
 
 
-
-	<div class="popup2" data-popup="popup-2">
-		<div class="popup-inner">
-			<h2 style="color: black;" id="CartasTit">Juego</h2>
-
+	<div class="divGame">
+			
 
 			<div class="divTable">
 				<div class="divTableBody">
@@ -424,35 +442,12 @@ body {
 					</div>
 				</div>
 			</div>
-			<!-- DivTable.com -->
-
-
-
-
-
-
-			<button class="blob-btn" data-popup-open="popup-1">
-				Cantar Envido <span class="blob-btn__inner"> <span
-					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span>
-				</span>
-				</span>
-			</button>
-			<button class="blob-btn" data-popup-open="popup-1">
-				Cantar Truco <span class="blob-btn__inner"> <span
-					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span>
-				</span>
-				</span>
-			</button>
-
-			<a class="popup-close" data-popup-close="popup-2" href="#"
-				onClick="clearInterval()">x</a>
-		</div>
+			
+	
 	</div>
-
+	
+	
+	
 
 </body>
 
