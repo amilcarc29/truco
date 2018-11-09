@@ -65,7 +65,8 @@ function abrirJuego(idJuego) {
 	loopRenderGame();
 }
 function loopRenderGame() {
-
+	renderGame();
+	getCartas();
 	partidas = setInterval(function() {
 		renderGame();
 		getCartas();
@@ -96,20 +97,20 @@ function renderGame() {
 
 }
 function render(data) {
-//	var txtStatus = "<p style='color: blue'>Chico " + data.chicos.length
-//			+ "\n, Mano " + data.chicos[data.chicos.length - 1].manos.length
-//			+ " \n " + "Puntos [p1 "
-//			+ data.chicos[data.chicos.length - 1].puntosChico[0].puntos
-//			+ ", p2 "
-//			+ data.chicos[data.chicos.length - 1].puntosChico[1].puntos
-//			+ "]</p>";
-//	document.getElementById('status').innerHTML = txtStatus;
+	// var txtStatus = "<p style='color: blue'>Chico " + data.chicos.length
+	// + "\n, Mano " + data.chicos[data.chicos.length - 1].manos.length
+	// + " \n " + "Puntos [p1 "
+	// + data.chicos[data.chicos.length - 1].puntosChico[0].puntos
+	// + ", p2 "
+	// + data.chicos[data.chicos.length - 1].puntosChico[1].puntos
+	// + "]</p>";
+	// document.getElementById('status').innerHTML = txtStatus;
 	var jugNum = 1;
 	for (var i = 0; i < data.parejas.length; i++) {
 
 		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
 
-			drawCartas(data.parejas[i].jugadores[x].cartas, juegoActual, jugNum);
+			drawCartas(data.parejas[i].jugadores[x], juegoActual, jugNum);
 			jugNum++;
 		}
 	}
@@ -172,7 +173,7 @@ function getCartas(idJuego) {
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
 
-			//drawCartas(data, idJuego, 'jug1', true, true);
+			drawCartasSinJugar(data);
 
 		}
 	});
@@ -219,23 +220,19 @@ function notificaTurno() {
 		}
 	});
 }
-function openGameClass(){
-	
-	$( "#bodyDiv" ).removeClass( "body" );
-	$( "#gradDiv" ).removeClass( "grad" );
-	$( "#headerDiv" ).removeClass( "header" );
-	$("#userApodo").text("");
-}
-function closeGameClass(){
-	
-	$( "#bodyDiv" ).addClass( "body" );
-	$( "#gradDiv" ).addClass( "grad" );
-	$( "#headerDiv" ).addClass( "header" );
-	$("#userApodo").text(user.apodo);
-	
-}
+function openGameClass() {
 
-function drawCartas(data, juego, jugNum ) {
+	$("#bodyDiv").removeClass("body");
+	$("#gradDiv").removeClass("grad");
+}
+function closeGameClass() {
+
+	$("#bodyDiv").addClass("body");
+	$("#gradDiv").addClass("grad");
+
+
+}
+function drawCartasSinJugar(data) {
 
 	var i = 0;
 
@@ -243,123 +240,198 @@ function drawCartas(data, juego, jugNum ) {
 	var imgtmp = "";
 
 	while (i < data.length) {
-		 imgtmp = "<img src='./img/" + data[i].palo + "/" + data[i].numero
-				+ ".jpg' height='50%' ";
+		imgtmp = "<img src='./img/" + data[i].palo + "/" + data[i].numero
+				+ ".jpg'  ";
 		
-		
-		if  (jugNum==2)
-			 imgtmp +=" class='rotateimg90' ";
-			
-		if  (jugNum==4)
-			 imgtmp +=" class='rotateimg-90'  ";
-		 imgtmp +=">";	
-			
-		 cartasImg[i] = imgtmp;
+		imgtmp += " onclick='verificarTurno("+data[i].idCarta+","+juegoActual+")' ";
+		imgtmp += ">";
+
+		cartasImg[i] = imgtmp;
 		i++;
-	
+
 	}
-	
-	for (var x = i; x<9 ; x++){
-		 imgtmp = "<img src='./img/EMPTY/EMPTY.png' height='50%' >";
-		 cartasImg[x] = imgtmp;
+
+	for (var x = i; x < 9; x++) {
+
+		cartasImg[x] = "";
 	}
 	var tableDiv = "";
-	if (jugNum==1){
-		
-		tableDiv +=  '<div class="divTable">';
-		tableDiv +=  '<div class="divTableBody">';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[0]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[1]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[2]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[3]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[4]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[5]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[6]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[7]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[8]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '</div>';
+	tableDiv += '<div class="divTable">';
+	tableDiv += '<div class="divTableBody">';
+	tableDiv += '	<div class="divTableRow">';
+	tableDiv += '	<div class="divTableCell">';
+	tableDiv += '		<div class="misCartas">Mis Cartas</div>';
+	tableDiv += '	</div>';
+	tableDiv += '</div>';
+	tableDiv += '<div class="divTableRow">';
+	tableDiv += '	<div class="divTableCell">' + cartasImg[0] + '</div>';
+	tableDiv += '	<div class="divTableCell">' + cartasImg[1] + '</div>';
+	tableDiv += '	<div class="divTableCell">' + cartasImg[2] + '</div>';
+	tableDiv += '</div>';
+	tableDiv += '</div>';
+	tableDiv += '</div>';
+
+	document.getElementById("misCartas").innerHTML = tableDiv;
+
+}
+function drawCartas(data, juego, jugNum) {
+
+	var i = 0;
+
+	var cartasImg = [];
+	var imgtmp = "";
+
+	while (i < data.cartas.length) {
+		imgtmp = "<img src='./img/" + data.cartas[i].palo + "/" + data.cartas[i].numero
+				+ ".jpg' height='70%' ";
+
+		if (jugNum == 2)
+			imgtmp += " class='rotateimg90' ";
+
+		if (jugNum == 4)
+			imgtmp += " class='rotateimg-90'  ";
+
+		imgtmp += ">";
+
+		cartasImg[i] = imgtmp;
+		i++;
+
 	}
-	
-	if (jugNum==2){
-		
-		tableDiv +=  '<div class="divTable">';
-		tableDiv +=  '<div class="divTableBody">';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[6]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[3]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[0]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[7]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[4]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[1]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[8]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[5]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[2]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '</div>';
+
+	for (var x = i; x < 9; x++) {
+			if (x<3)
+				imgtmp = "<img src='./img/EMPTY/BACK.png' height='70%' ";
+			else
+				imgtmp = "<img src='./img/EMPTY/EMPTY.png' height='70%' ";
+			if (jugNum == 2)
+				imgtmp += " class='rotateimg90' ";
+			
+			if (jugNum == 4)
+				imgtmp += " class='rotateimg-90'  ";
+			
+			imgtmp += ">";
+			
+			cartasImg[x] = imgtmp;
 	}
-	if (jugNum==3){
-		
-		tableDiv +=  '<div class="divTable">';
-		tableDiv +=  '<div class="divTableBody">';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[8]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[7]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[6]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[5]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[4]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[3]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[2]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[1]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[0]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '</div>';
+	var tableDiv = "";
+	if (jugNum == 1) {
+
+		tableDiv += '<div class="divTable">';
+		tableDiv += '<div class="divTableBody">';
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell"></div>';
+		tableDiv += '<div class="divTableCell">'+data.apodo+'</div>';
+		tableDiv += '<div class="divTableCell"></div>';
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[0] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[2] + '</div>';
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[3] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[5] + '</div>';
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[8] + '</div>';
+		tableDiv += '</div>';
+
+		tableDiv += '</div>';
+		tableDiv += '</div>';
 	}
-	
-	if (jugNum==4){
-		
-		tableDiv +=  '<div class="divTable">';
-		tableDiv +=  '<div class="divTableBody">';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[0]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[3]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[6]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[1]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[4]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[7]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '<div class="divTableRow">';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[2]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[5]+'</div>';
-		tableDiv +=  '<div class="divTableCell">'+cartasImg[8]+'</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '</div>';
-		tableDiv +=  '</div>';
+
+	if (jugNum == 2) {
+
+		tableDiv += '<div class="divTable">';
+		tableDiv += '<div class="divTableBody">';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[3] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[0] + '</div>';
+		tableDiv += '<div class="divTableCell"></div>';
+
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
+		tableDiv += '<div class="divTableCell">'+data.apodo+'</div>';
+
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[8] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[5] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[2] + '</div>';
+		tableDiv += '<div class="divTableCell"></div>';
+
+		tableDiv += '</div>';
+		tableDiv += '</div>';
+		tableDiv += '</div>';
 	}
-	
-	
-	document.getElementById("jug"  + jugNum + "jug").innerHTML = '<div class="divTable">'+
-	'<div class="divTableBody">'+tableDiv+
-	'</div>'+
-	'</div>';
+	if (jugNum == 3) {
+
+		tableDiv += '<div class="divTable">';
+		tableDiv += '<div class="divTableBody">';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[8] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[5] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[3] + '</div>';
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[2] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[0] + '</div>';
+		tableDiv += '</div>';
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell"></div>';
+		tableDiv += '<div class="divTableCell">'+data.apodo+'</div>';
+		tableDiv += '<div class="divTableCell"></div>';
+		tableDiv += '</div>';
+		tableDiv += '</div>';
+		tableDiv += '</div>';
+	}
+
+	if (jugNum == 4) {
+
+		tableDiv += '<div class="divTable">';
+		tableDiv += '<div class="divTableBody">';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell"></div>';
+
+		tableDiv += '<div class="divTableCell">' + cartasImg[0] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[3] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">'+data.apodo+'</div>';
+
+		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
+		tableDiv += '</div>';
+		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell"></div>';
+
+		tableDiv += '<div class="divTableCell">' + cartasImg[2] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[5] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[8] + '</div>';
+		tableDiv += '</div>';
+		tableDiv += '</div>';
+		tableDiv += '</div>';
+	}
+
+	document.getElementById("jug" + jugNum + "jug").innerHTML = '<div class="divTable">'
+			+ '<div class="divTableBody">' + tableDiv + '</div>' + '</div>';
 }
 
 function verificarTurno(idCarta, idJuego) {

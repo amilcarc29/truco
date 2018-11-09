@@ -283,8 +283,13 @@ body {
 .divTable {
 	display: table;
 	width: 100%;
+	padding-left: 5%;
 }
-
+/* DivTable.com */
+.divTableCenter {
+	display: table;
+	width: 100%;
+}
 .divTableRow {
 	display: table-row;
 }
@@ -297,6 +302,16 @@ body {
 .divTableCell, .divTableHead {
 	display: table-cell;
 	padding: 3px 10px;
+}
+.divTableCell2, .divTableHead {
+	display: table-cell;
+	padding: 3px 10px;
+	width: 50%;
+}
+.divTableCell1, .divTableHead {
+	display: table-cell;
+	padding: 3px 10px;
+	width: 100%;
 }
 
 .divTableHeading {
@@ -330,10 +345,14 @@ body {
 	-o-transform: rotate(-90deg);
 	transform: rotate(-90deg);
 }
-.imgBTable{
-    background-image: url("./img/table.jpg");
-    background-size:100%;
-    
+
+.imgBTable {
+	background-image: url("./img/table.jpg");
+	background-size: 100%;
+}
+.misCartas{
+    font-size: 150%;
+
 
 }
 </style>
@@ -361,7 +380,7 @@ body {
 
 
 		<div id="main">
-			 <span id="userApodo"></span>
+			<span id="userApodo"></span>
 
 			<h6 id="usuarioEnEspera"></h6>
 
@@ -389,8 +408,9 @@ body {
 
 	</div>
 	<br>
-	<div class="imgBTable"> 
-<div class="divTable">
+
+	<div class="imgBTable">
+		<div class="divTable">
 			<div class="divTableBody">
 				<div class="divTableRow">
 					<div class="divTableCell">&nbsp;</div>
@@ -409,13 +429,15 @@ body {
 								</div>
 								<div class="divTableRow">
 									<div id="jug2jug" class="divTableCell">&nbsp;</div>
-									<div class="divTableCell">&nbsp;</div>
+									<div class="divTableCell">
+
+									</div>
 									<div id="jug4jug" class="divTableCell">&nbsp;</div>
 								</div>
 								<div class="divTableRow">
 									<div class="divTableCell">&nbsp;</div>
 									<div id="jug1jug" class="divTableCell">&nbsp;</div>
-									<div class="divTableCell">&nbsp;</div>
+									<div class="divTableCell" id = "misCartas">&nbsp;</div>
 								</div>
 							</div>
 						</div>
@@ -429,8 +451,8 @@ body {
 				</div>
 			</div>
 		</div>
-		</div>
-	
+	</div>
+
 
 
 	<div class="popup" data-popup="popup-1">
@@ -447,7 +469,7 @@ body {
 		</div>
 	</div>
 
-		
+
 
 
 
