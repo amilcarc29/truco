@@ -54,8 +54,8 @@ body {
 
 .header {
 	position: absolute;
-	top: calc(50% - 35px);
-	left: calc(50% - 255px);
+	top: calc(20% - 35px);
+	left: calc(20% - 255px);
 	z-index: 2;
 }
 
@@ -80,9 +80,11 @@ body {
 	padding: 10px;
 	z-index: 2;
 }
-.divGame{
-z-index: 999999;
+
+.divGame {
+	z-index: 999999;
 }
+
 .login input[type=text] {
 	width: 250px;
 	height: 30px;
@@ -313,21 +315,26 @@ z-index: 999999;
 	display: table-row-group;
 }
 
-
 .rotateimg90 {
-  -webkit-transform:rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	transform: rotate(90deg);
 }
 
 .rotateimg-90 {
-  -webkit-transform:rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+.imgBTable{
+    background-image: url("./img/table.jpg");
+    background-size:100%;
+    
+
 }
 </style>
 <link rel="stylesheet" href="css/jquery.alertable.css">
@@ -348,13 +355,13 @@ z-index: 999999;
 
 
 
-	<div class="body"></div>
-	<div class="grad">qwdwqdqwdqwd</div>
-	<div class="header">
-	
+	<div class="body" id="bodyDiv"></div>
+	<div class="grad" id="gradDiv"></div>
+	<div class="header" id="headerDiv">
+
 
 		<div id="main">
-			Hola <span id="userApodo"></span>
+			 <span id="userApodo"></span>
 
 			<h6 id="usuarioEnEspera"></h6>
 
@@ -382,7 +389,48 @@ z-index: 999999;
 
 	</div>
 	<br>
-	<a class="btn" data-popup-open="popup-1" href="#">Open Popup #1</a>
+	<div class="imgBTable"> 
+<div class="divTable">
+			<div class="divTableBody">
+				<div class="divTableRow">
+					<div class="divTableCell">&nbsp;</div>
+					<div id="jug3" class="divTableCell">&nbsp;</div>
+					<div id="status" class="divTableCell">&nbsp;</div>
+				</div>
+				<div class="divTableRow">
+					<div id="jug2" class="divTableCell">&nbsp;</div>
+					<div class="divTableCell">
+						<div class="divTable">
+							<div class="divTableBody">
+								<div class="divTableRow">
+									<div class="divTableCell">&nbsp;</div>
+									<div id="jug3jug" class="divTableCell">&nbsp;</div>
+									<div class="divTableCell">&nbsp;</div>
+								</div>
+								<div class="divTableRow">
+									<div id="jug2jug" class="divTableCell">&nbsp;</div>
+									<div class="divTableCell">&nbsp;</div>
+									<div id="jug4jug" class="divTableCell">&nbsp;</div>
+								</div>
+								<div class="divTableRow">
+									<div class="divTableCell">&nbsp;</div>
+									<div id="jug1jug" class="divTableCell">&nbsp;</div>
+									<div class="divTableCell">&nbsp;</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="jug4" class="divTableCell">&nbsp;</div>
+				</div>
+				<div class="divTableRow">
+					<div class="divTableCell">&nbsp;</div>
+					<div id="jug1" class="divTableCell">&nbsp;</div>
+					<div class="divTableCell">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	
 
 
 	<div class="popup" data-popup="popup-1">
@@ -399,55 +447,9 @@ z-index: 999999;
 		</div>
 	</div>
 
+		
 
-	<div class="divGame">
-			
 
-			<div class="divTable">
-				<div class="divTableBody">
-					<div class="divTableRow">
-						<div class="divTableCell">&nbsp;</div>
-						<div id="jug3" class="divTableCell">&nbsp;</div>
-						<div id="status" class="divTableCell">&nbsp;</div>
-					</div>
-					<div class="divTableRow">
-						<div id="jug2" class="divTableCell">&nbsp;</div>
-						<div class="divTableCell">
-							<div class="divTable">
-								<div class="divTableBody">
-									<div class="divTableRow">
-										<div class="divTableCell">&nbsp;</div>
-										<div id="jug3jug" class="divTableCell">&nbsp;</div>
-										<div class="divTableCell">&nbsp;</div>
-									</div>
-									<div class="divTableRow">
-										<div id="jug2jug" class="divTableCell">&nbsp;</div>
-										<div class="divTableCell">&nbsp;</div>
-										<div id="jug4jug" class="divTableCell">&nbsp;</div>
-									</div>
-									<div class="divTableRow">
-										<div class="divTableCell">&nbsp;</div>
-										<div id="jug1jug" class="divTableCell">&nbsp;</div>
-										<div class="divTableCell">&nbsp;</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="jug4" class="divTableCell">&nbsp;</div>
-					</div>
-					<div class="divTableRow">
-						<div class="divTableCell">&nbsp;</div>
-						<div id="jug1" class="divTableCell">&nbsp;</div>
-						<div class="divTableCell">&nbsp;</div>
-					</div>
-				</div>
-			</div>
-			
-	
-	</div>
-	
-	
-	
 
 </body>
 

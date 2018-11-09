@@ -18,7 +18,7 @@ $(document).ready(function() {
 });
 var esperandoPartida = false;
 function loadUser() {
-	$("#userApodo").text(user.apodo);
+	$("#userApodo").text("Hola " + user.apodo);
 
 }
 function unirsePartidaLibre() {
@@ -58,6 +58,8 @@ function loopPartidas() {
 
 }
 function abrirJuego(idJuego) {
+	openGameClass();
+
 	juegoActual = idJuego;
 
 	loopRenderGame();
@@ -137,7 +139,7 @@ function listarPartidas() {
 
 	for (var i = 0; i < partidasActivas.length; i++) {
 
-		lista += "  <li><a href=\"#\"  onclick=\"abrirJuego("
+		lista += "  <li><a href=\"#\" data-popup-close=\"popup-1\"  onclick=\"abrirJuego("
 				+ partidasActivas[i].idJuego
 				+ ")\">"
 				+ partidasActivas[i].idJuego + "</a></li>";
@@ -216,6 +218,21 @@ function notificaTurno() {
 
 		}
 	});
+}
+function openGameClass(){
+	
+	$( "#bodyDiv" ).removeClass( "body" );
+	$( "#gradDiv" ).removeClass( "grad" );
+	$( "#headerDiv" ).removeClass( "header" );
+	$("#userApodo").text("");
+}
+function closeGameClass(){
+	
+	$( "#bodyDiv" ).addClass( "body" );
+	$( "#gradDiv" ).addClass( "grad" );
+	$( "#headerDiv" ).addClass( "header" );
+	$("#userApodo").text(user.apodo);
+	
 }
 
 function drawCartas(data, juego, jugNum ) {
