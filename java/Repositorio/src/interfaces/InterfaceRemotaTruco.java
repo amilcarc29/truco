@@ -8,6 +8,7 @@ import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.JugadorDTO;
 import dto.UsuarioDTO;
+import excepciones.MiembroException;
 
 public interface InterfaceRemotaTruco extends Remote {
 
@@ -24,12 +25,12 @@ public interface InterfaceRemotaTruco extends Remote {
 	public void cantarEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public void cantarFaltaEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
-	public void quieroEnvido(JuegoDTO juego) throws RemoteException;
-	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO us1) throws RemoteException;
+	public void quieroEnvido(JuegoDTO juego) throws RemoteException, MiembroException;
+	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO us1) throws RemoteException, MiembroException;
 	public void cantarTruco(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public void cantarReTruco(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public void cantarValeCuatro(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
-	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException;
+	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException, MiembroException;
 	public boolean tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public boolean alguienTieneQueContestar(JuegoDTO juego) throws RemoteException;
 	public void quieroTruco(JuegoDTO juego) throws RemoteException;

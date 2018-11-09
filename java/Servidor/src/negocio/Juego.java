@@ -111,61 +111,18 @@ public abstract class Juego {
 		return getUltimoChico().getParejaGanadora();
 	}
 
-	public void finalizarJuego() throws UsuarioException, CategoriaException, ParejaException, MiembroException {
-		this.setGanador(this.chicos.get(0).getGanador());
+	public abstract void finalizarJuego() throws UsuarioException, CategoriaException, ParejaException, MiembroException;
 
-		getParejas().forEach(pareja -> {
-			// Pareja que no gano.
-			if (!getGanador().esPareja(pareja.getIdPareja())) {
-				pareja.getJugadores().forEach(jugador -> {
-					try {
-						Usuario usuario = UsuarioDAO.getInstancia()
-								.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(jugador.getId()).getUsuario());
-						actualizarPuntosUsuario(usuario, -1, 1, calcularPuntosSegunCategoria(usuario, false));
-						ControladorUsuario.getInstancia().verificarCategoriaJugador(usuario.getApodo());
-					} catch (UsuarioException e) {
-						e.printStackTrace();
-					} catch (CategoriaException e) {
-						e.printStackTrace();
-					}
-				});
-			} else {
-				// Pareja que gano.
-				pareja.getJugadores().forEach(jugador -> {
-					try {
-						Usuario usuario = UsuarioDAO.getInstancia()
-								.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(jugador.getId()).getUsuario());
-						actualizarPuntosUsuario(usuario, 1, 1, calcularPuntosSegunCategoria(usuario, true));
-						ControladorUsuario.getInstancia().verificarCategoriaJugador(usuario.getApodo());
-					} catch (UsuarioException e) {
-						e.printStackTrace();
-					} catch (CategoriaException e) {
-						e.printStackTrace();
-					}
-				});
-			}
-		});
-		setActivo(false);
-		save();
-	}
-
-	private void actualizarPuntosUsuario(Usuario usuario, int partidasGanadas, int partidasJugadas, int puntaje)
-			throws CategoriaException, UsuarioException {
-		usuario.actualizarPartidasGanadas(partidasJugadas);
-		usuario.actualizarPartidasJugadas(partidasJugadas);
-		usuario.actualizarPuntaje(puntaje);
-	}
-
-	private int calcularPuntosSegunCategoria(Usuario usuario, boolean ganador)
+	public int calcularPuntosSegunCategoria(Usuario usuario)
 			throws CategoriaException, UsuarioException {
 		int puntosAgregados = 0;
-		if (ganador && esCategoriaInferior(usuario.getCategoria().getNombre())) {
+		if (esCategoriaInferior(usuario.getCategoria().getNombre())) {
 			puntosAgregados = 2;
 		}
 		return calcularPuntos() + puntosAgregados;
 	}
 
-	private boolean esCategoriaInferior(String nombreCategoria) throws CategoriaException, UsuarioException {
+	public boolean esCategoriaInferior(String nombreCategoria) throws CategoriaException, UsuarioException {
 
 		switch (nombreCategoria) {
 		case "NOVATO":

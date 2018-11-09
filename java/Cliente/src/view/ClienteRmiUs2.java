@@ -12,10 +12,11 @@ import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
+import excepciones.MiembroException;
 
 public class ClienteRmiUs2 {
 
-	public static void main(String[] args) throws NumberFormatException, IOException {
+	public static void main(String[] args) throws NumberFormatException, IOException, MiembroException {
 		// TODO Auto-generated method stub
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Debi", "pepe");

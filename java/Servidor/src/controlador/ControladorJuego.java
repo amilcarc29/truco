@@ -117,7 +117,7 @@ public class ControladorJuego {
 
 	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN TRUCO (VALE 1 PUNTO)
 	public void noQuieroTruco(UsuarioDTO usuario, JuegoDTO juego)
-			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException {
+			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
 		Pareja parejaG = jue.obtenerParejaContraria(jug);
@@ -133,8 +133,7 @@ public class ControladorJuego {
 
 			if (jue.terminoJuego()) {
 
-				// FALTA HACER LA FINALIZACION DEL JUEGO
-				// ACTUALIZACION DE USUARIOS
+				jue.finalizarJuego();
 
 			} else {
 
@@ -176,7 +175,7 @@ public class ControladorJuego {
 	}
 
 	public void quieroEnvido(JuegoDTO juego)
-			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException {
+			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.aumentarPuntosEnvidoQuerido();
 		jue.inicializarContestar();
@@ -186,9 +185,8 @@ public class ControladorJuego {
 			jue.finalizarUltimoChico();
 
 			if (jue.terminoJuego()) {
-				System.out.println("FINALIZAR");
-				// FALTA HACER LA FINALIZACION DEL JUEGO
-				// ACTUALIZACION DE USUARIOS
+				
+				jue.finalizarJuego();
 
 			} else {
 
@@ -199,7 +197,7 @@ public class ControladorJuego {
 	}
 
 	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO usuario)
-			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException {
+			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
 		Pareja parejaG = jue.obtenerParejaContraria(jug);
@@ -212,8 +210,7 @@ public class ControladorJuego {
 
 			if (jue.terminoJuego()) {
 
-				// FALTA HACER LA FINALIZACION DEL JUEGO
-				// ACTUALIZACION DE USUARIOS
+				jue.finalizarJuego();
 
 			} else {
 
@@ -262,8 +259,8 @@ public class ControladorJuego {
 
 						if (jue.terminoJuego()) {
 
-							System.out.println("FIN DE JUEGO");
-							this.finalizarJuego(jue.getId());
+							jue.finalizarJuego();
+							
 						} else {
 
 							jue.armarNuevoChico();

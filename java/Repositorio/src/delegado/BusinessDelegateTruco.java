@@ -11,6 +11,7 @@ import dto.JuegoDTO;
 import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
+import excepciones.MiembroException;
 import interfaces.InterfaceRemotaTruco;
 
 public class BusinessDelegateTruco {
@@ -133,7 +134,7 @@ public class BusinessDelegateTruco {
 		}
 	}
 
-	public void quieroEnvido(JuegoDTO juego) throws ComunicacionException {
+	public void quieroEnvido(JuegoDTO juego) throws ComunicacionException, MiembroException {
 		try {
 			ir.quieroEnvido(juego);
 		} catch (RemoteException e) {
@@ -142,7 +143,7 @@ public class BusinessDelegateTruco {
 		
 	}
 
-	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO us1) throws ComunicacionException {
+	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO us1) throws ComunicacionException, MiembroException {
 		try {
 			ir.noQuieroEnvido(juego, us1);
 		} catch (RemoteException e) {
@@ -186,7 +187,7 @@ public class BusinessDelegateTruco {
 		
 	}
 	
-	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws ComunicacionException {
+	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws ComunicacionException, MiembroException {
 		try {
 			ir.noQuieroTruco(juego, us1);
 		} catch (RemoteException e) {
