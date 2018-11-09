@@ -3,7 +3,10 @@ package negocio;
 import java.util.List;
 
 import dao.JuegoDAO;
+import excepciones.CategoriaException;
+import excepciones.MiembroException;
 import excepciones.ParejaException;
+import excepciones.UsuarioException;
 
 public class ModalidadLibreEnPareja extends Juego{
 
@@ -23,5 +26,12 @@ public class ModalidadLibreEnPareja extends Juego{
 
 	public void save() throws ParejaException {
 		JuegoDAO.getInstancia().guardarJuegoLibreEnPareja(this);
+	}
+
+	@Override
+	public void finalizarJuego() throws UsuarioException, CategoriaException, ParejaException, MiembroException {
+		// TODO Auto-generated method stub
+		// FALTA
+		
 	}
 }

@@ -29,6 +29,20 @@ public class JuegoDAO {
 
 	public JuegoDAO() {
 	}
+	
+	public void finalizarJuego(Juego juego) throws ParejaException {
+		JuegoEntity je = this.buscarJuegoPorID(juego.getId());
+		ParejaEntity pe = null;
+		pe = ParejaDAO.getInstancia().buscarParejaPorId(juego.getGanador().getIdPareja());
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		je.setParejaGanadora(pe);
+		je.setActivo(false);
+		session.beginTransaction();
+		session.saveOrUpdate(je);
+		session.getTransaction().commit();
+		session.close();
+	}
 
 	public int guardarJuegoLibreIndividual(Juego juego) throws ParejaException {
 		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja1().getIdPareja());

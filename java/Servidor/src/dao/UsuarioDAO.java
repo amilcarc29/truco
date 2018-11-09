@@ -4,10 +4,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import entities.CategoriaEntity;
+import entities.JugadorEntity;
 import entities.UsuarioEntity;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
+import negocio.Juego;
+import negocio.Jugador;
 import negocio.Usuario;
 
 public class UsuarioDAO {
@@ -22,6 +25,29 @@ public class UsuarioDAO {
 			instancia = new UsuarioDAO();
 		}
 		return instancia;
+	}
+	
+	public Usuario obtenerUsuarioJuegoIndividual (Jugador jugador) throws UsuarioException, CategoriaException {
+		JugadorEntity je = null;
+		je = JugadorDAO.getInstancia().buscarJugadorById(jugador.getId());
+		return toNegocio(je.getUsuario());
+	}
+	
+	public void actualizarPuntajesUsuario(Usuario usuario) throws UsuarioException, CategoriaException {
+		UsuarioEntity ue = null;
+		ue = this.buscarUsuarioByIdEntity(usuario.getIdUsuario());
+		
+		ue.setPartidasGanadas(usuario.getPartidasGanadas());
+		ue.setPartidasJugadas(usuario.getPartidasJugadas());
+		ue.setPuntaje(usuario.getPuntaje());
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(ue);
+		session.getTransaction().commit();
+		session.close();
+		
 	}
 
 	// CHEQUEAR = TE TRAE EL USUARIO CON LA CATEGORIA CARGADA?
@@ -53,10 +79,12 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public void actualizarCategoria(Usuario usuario) {
+	public void actualizarCategoria(Usuario usuario) throws UsuarioException, CategoriaException {
 		CategoriaEntity cat = null;
-		UsuarioEntity ue = new UsuarioEntity(usuario.getPartidasGanadas(), usuario.getPartidasJugadas(),
-				usuario.getPuntaje(), usuario.getApodo(), usuario.getPass(), usuario.getEmail(), usuario.getActivo());
+		UsuarioEntity ue = null;
+		
+		ue = this.buscarUsuarioByIdEntity(usuario.getIdUsuario());
+		
 		try {
 			cat = CategoriaDAO.getInstancia().buscarCategoriaByNombre(usuario.getCategoria().getNombre());
 		} catch (CategoriaException e) {

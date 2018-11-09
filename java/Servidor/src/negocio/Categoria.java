@@ -2,6 +2,7 @@ package negocio;
 
 import dto.CategoriaDTO;
 import excepciones.CategoriaException;
+import excepciones.UsuarioException;
 
 public abstract class Categoria {
 
@@ -24,7 +25,7 @@ public abstract class Categoria {
 		public Categoria(){
 			
 		}
-		public abstract void actualizar(Usuario usuario) throws CategoriaException;
+		public abstract void actualizar(Usuario usuario) throws CategoriaException, UsuarioException;
 		
 		public abstract boolean debeSer(Usuario usuario);
 		

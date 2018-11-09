@@ -2,6 +2,7 @@ package negocio;
 
 import dao.CategoriaDAO;
 import excepciones.CategoriaException;
+import excepciones.UsuarioException;
 
 public class Master extends Categoria{
 
@@ -10,7 +11,7 @@ public class Master extends Categoria{
 	}
 
 	@Override
-	public void actualizar(Usuario usuario) throws CategoriaException {
+	public void actualizar(Usuario usuario) throws CategoriaException, UsuarioException {
 		// En Master solo puede bajar		
 		if (!this.debeSer(usuario)) {
 			Experto experto = (Experto) CategoriaDAO.getInstancia().buscarCategoriaByNombreNegocio("EXPERTO");
