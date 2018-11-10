@@ -355,6 +355,20 @@ body {
 
 
 }
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 999!important;
+    background: url(./img/load.gif) 50% 50% no-repeat rgba(41, 37, 37, 0.89);
+    background-size: 55px 55px;
+   
+}
+
+
+
 </style>
 <link rel="stylesheet" href="css/jquery.alertable.css">
 <link rel="stylesheet" href="css/game.css">
@@ -373,7 +387,7 @@ body {
 <body>
 
 
-
+	<div class="loader" id="loader"></div>
 	<div class="body" id="bodyDiv"></div>
 	<div class="grad" id="gradDiv"></div>
 	<div class="header" id="headerDiv">

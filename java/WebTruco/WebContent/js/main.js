@@ -3,7 +3,7 @@ var partidasActivas = "";
 var tituloCargado = false;
 var juegoActual;
 var juegoJson;
-
+var turno;
 var partidas;
 var juegoActual;
 
@@ -14,6 +14,7 @@ $(document).ready(function() {
 	loadActions();
 	notifyCheck();
 	document.title = 'Player: ' + user.apodo;
+	$("#loader").fadeOut("fast");
 
 });
 var esperandoPartida = false;
@@ -58,10 +59,10 @@ function loopPartidas() {
 
 }
 function abrirJuego(idJuego) {
+	$("#loader").fadeIn("fast");
+
 	openGameClass();
-
 	juegoActual = idJuego;
-
 	loopRenderGame();
 }
 function loopRenderGame() {
@@ -70,11 +71,15 @@ function loopRenderGame() {
 	partidas = setInterval(function() {
 		renderGame();
 		getCartas();
-
 		// //notificaTurno();
 		// getCartasJugadas(juegoActual);
 		// getPuntos(juegoActual);
 	}, 10000);
+	partidas = setInterval(function() {
+
+		turno = notificaTurno();
+		notificaTurno();
+	}, 50000);
 
 }
 
@@ -114,6 +119,7 @@ function render(data) {
 			jugNum++;
 		}
 	}
+	$("#loader").fadeOut("fast");
 }
 
 function buscarPartida() {
@@ -230,7 +236,6 @@ function closeGameClass() {
 	$("#bodyDiv").addClass("body");
 	$("#gradDiv").addClass("grad");
 
-
 }
 function drawCartasSinJugar(data) {
 
@@ -241,9 +246,10 @@ function drawCartasSinJugar(data) {
 
 	while (i < data.length) {
 		imgtmp = "<img src='./img/" + data[i].palo + "/" + data[i].numero
-				+ ".jpg'  ";
-		
-		imgtmp += " onclick='verificarTurno("+data[i].idCarta+","+juegoActual+")' ";
+				+ ".jpg' style='cursor: pointer;' ";
+
+		imgtmp += " onclick='verificarTurno(" + data[i].idCarta + ","
+				+ juegoActual + ")' ";
 		imgtmp += ">";
 
 		cartasImg[i] = imgtmp;
@@ -282,8 +288,8 @@ function drawCartas(data, juego, jugNum) {
 	var imgtmp = "";
 
 	while (i < data.cartas.length) {
-		imgtmp = "<img src='./img/" + data.cartas[i].palo + "/" + data.cartas[i].numero
-				+ ".jpg' height='70%' ";
+		imgtmp = "<img src='./img/" + data.cartas[i].palo + "/"
+				+ data.cartas[i].numero + ".jpg' height='70%' ";
 
 		if (jugNum == 2)
 			imgtmp += " class='rotateimg90' ";
@@ -299,19 +305,19 @@ function drawCartas(data, juego, jugNum) {
 	}
 
 	for (var x = i; x < 9; x++) {
-			if (x<3)
-				imgtmp = "<img src='./img/EMPTY/BACK.png' height='70%' ";
-			else
-				imgtmp = "<img src='./img/EMPTY/EMPTY.png' height='70%' ";
-			if (jugNum == 2)
-				imgtmp += " class='rotateimg90' ";
-			
-			if (jugNum == 4)
-				imgtmp += " class='rotateimg-90'  ";
-			
-			imgtmp += ">";
-			
-			cartasImg[x] = imgtmp;
+		if (x < 3)
+			imgtmp = "<img src='./img/EMPTY/BACK.png' height='70%' ";
+		else
+			imgtmp = "<img src='./img/EMPTY/EMPTY.png' height='70%' ";
+		if (jugNum == 2)
+			imgtmp += " class='rotateimg90' ";
+
+		if (jugNum == 4)
+			imgtmp += " class='rotateimg-90'  ";
+
+		imgtmp += ">";
+
+		cartasImg[x] = imgtmp;
 	}
 	var tableDiv = "";
 	if (jugNum == 1) {
@@ -321,7 +327,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
 		tableDiv += '<div class="divTableCell"></div>';
-		tableDiv += '<div class="divTableCell">'+data.apodo+'</div>';
+		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
 		tableDiv += '<div class="divTableCell"></div>';
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
@@ -359,7 +365,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
 		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
 		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
-		tableDiv += '<div class="divTableCell">'+data.apodo+'</div>';
+		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
 
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
@@ -394,7 +400,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
 		tableDiv += '<div class="divTableCell"></div>';
-		tableDiv += '<div class="divTableCell">'+data.apodo+'</div>';
+		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
 		tableDiv += '<div class="divTableCell"></div>';
 		tableDiv += '</div>';
 		tableDiv += '</div>';
@@ -413,7 +419,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
-		tableDiv += '<div class="divTableCell">'+data.apodo+'</div>';
+		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
 
 		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
 		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
@@ -463,7 +469,7 @@ function verificarTurno(idCarta, idJuego) {
 	});
 }
 function jugar(idCarta, idJuego) {
-
+	$("#loader").fadeIn("fast");
 	var url = '/WebTruco/Juegos';
 
 	var buscarJuegos = {
@@ -478,7 +484,10 @@ function jugar(idCarta, idJuego) {
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
 			if (data.JUGADA == "TRUE") {
-
+				renderGame();
+				getCartas();
+				
+				
 			}
 		}
 	});
