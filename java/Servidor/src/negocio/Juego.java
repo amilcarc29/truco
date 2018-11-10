@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import controlador.ControladorUsuario;
 import dao.JugadorDAO;
 import dao.ParejaDAO;
-import dao.UsuarioDAO;
 import dto.ChicoDTO;
 import dto.JuegoDTO;
 import dto.ParejaDTO;
 import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.ChicoException;
 import excepciones.JuegoException;
+import excepciones.JugadaException;
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import excepciones.MiembroException;
@@ -145,7 +145,7 @@ public abstract class Juego {
 	}
 
 	// TODO tener en cuenta el orden para cada mano
-	public void crearChico() throws UsuarioException, CategoriaException, ParejaException, ManoException {
+	public void crearChico() throws UsuarioException, CategoriaException, ParejaException, ManoException, CartaException, ChicoException {
 		Chico chico = new Chico(parejas);
 		chico.save(this);
 		chico.altaMano(chico.getPuntosParaTerminar());
@@ -174,7 +174,7 @@ public abstract class Juego {
 		throw new ParejaException("No se encontro la pareja del jugador: " + jugador.getId());
 	}
 
-	public void jugarCarta(Carta carta) throws JugadorException, CartaException, UsuarioException, CategoriaException, JuegoException, ManoException, BazaException {
+	public void jugarCarta(Carta carta) throws JugadorException, CartaException, UsuarioException, CategoriaException, JuegoException, ManoException, BazaException, JugadaException {
 
 		// TODO ver si se pasa a baza
 		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
@@ -254,7 +254,7 @@ public abstract class Juego {
 		return this.getUltimoChico().getUltimaMano();
 	}
 
-	public Baza getUltimaBaza() {
+	public Baza getUltimaBaza() throws BazaException {
 
 		return this.getUltimaMano().getUltimaBaza();
 	}
@@ -264,7 +264,7 @@ public abstract class Juego {
 		return chicos.get(chicos.size() - 1);
 	}
 
-	public void armarNuevoChico() throws UsuarioException, CategoriaException, ParejaException, ManoException {
+	public void armarNuevoChico() throws UsuarioException, CategoriaException, ParejaException, ManoException, CartaException, ChicoException {
 		// TODO Auto-generated method stub
 
 		this.getUltimoChico().setJugadores(JugadorDAO.getInstancia().getJugadores(this.getId()));
@@ -297,7 +297,7 @@ public abstract class Juego {
 
 	}
 
-	public void finalizarUltimoChico() throws ParejaException {
+	public void finalizarUltimoChico() throws ParejaException, ChicoException {
 
 		this.getUltimoChico().finalizarChico();
 
@@ -341,7 +341,7 @@ public abstract class Juego {
 
 	}
 
-	public void setTieneQueContestar(Jugador jug) {
+	public void setTieneQueContestar(Jugador jug) throws ParejaException {
 		this.getUltimoChico().setTieneQueContestar(jug);
 
 	}

@@ -2,6 +2,7 @@ package remoto;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import controlador.ControladorArmadoJuegos;
@@ -9,19 +10,19 @@ import controlador.ControladorJuego;
 import controlador.ControladorUsuario;
 import dto.CartaDTO;
 import dto.JuegoDTO;
-import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.ChicoException;
 import excepciones.JuegoException;
+import excepciones.JugadaException;
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import interfaces.InterfaceRemotaTruco;
-import negocio.Jugador;
 
 public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceRemotaTruco {
 
@@ -93,7 +94,8 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		// Devuelve una lista vacia en lugar de null
+		return new ArrayList<JuegoDTO>();
 	}
 	
 	@Override
@@ -163,6 +165,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (ManoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -180,6 +185,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParejaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -201,10 +209,13 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (ManoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
-	public void quieroEnvido(JuegoDTO juego) throws RemoteException, MiembroException{
+	public void quieroEnvido(JuegoDTO juego) throws RemoteException {
 		try {
 			ControladorJuego.getInstancia().quieroEnvido(juego);
 		} catch (JuegoException e2) {
@@ -222,10 +233,19 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (ManoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (CartaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MiembroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ChicoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
-	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException, MiembroException{
+	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
 			ControladorJuego.getInstancia().noQuieroEnvido(juego, usuario);
 		} catch (JuegoException e2) {
@@ -241,6 +261,15 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CartaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MiembroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ChicoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -277,6 +306,12 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (BazaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ChicoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JugadaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -311,6 +346,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (ManoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -331,6 +369,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (ManoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -349,6 +390,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e4.printStackTrace();
 		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParejaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -372,7 +416,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException, MiembroException {
+	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException {
 		try {
 			ControladorJuego.getInstancia().noQuieroTruco(us1, juego);
 		} catch (JuegoException e2) {
@@ -388,6 +432,15 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ManoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CartaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MiembroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ChicoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

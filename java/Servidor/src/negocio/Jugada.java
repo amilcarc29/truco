@@ -1,8 +1,8 @@
 package negocio;
 
 import dao.JugadaDAO;
-import dao.JugadorCartaDAO;
 import excepciones.BazaException;
+import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 
@@ -62,7 +62,7 @@ public class Jugada {
 		this.idJugada = idJugada;
 	}
 
-	public void save(Baza baza) throws UsuarioException, CategoriaException, BazaException {
+	public void save(Baza baza) throws UsuarioException, CategoriaException, BazaException, CartaException {
 		try {
 			this.setIdJugada(JugadaDAO.getInstancia().guardarJugada(this, baza));
 		} catch (UsuarioException e) {

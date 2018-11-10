@@ -63,7 +63,7 @@ public class ControladorGrupo {
 		} catch (MiembroException e1) {
 			e1.printStackTrace();
 		}
-		return null;
+		throw new MiembroException("no se encontro el miembro: " + u.getApodo() + "en el grupo: " + g.getIdGrupo());
 	}
 
 	public void altaGrupo(String nombre, String apodoAdministrador, int puntoPorPartida) throws UsuarioException, GrupoException, CategoriaException {

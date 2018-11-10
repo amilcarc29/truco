@@ -6,13 +6,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import entities.BazaEntity;
 import entities.ChicoEntity;
-import entities.JuegoEntity;
 import entities.ManoEntity;
+import excepciones.ChicoException;
 import excepciones.ManoException;
 import hbt.HibernateUtil;
-import negocio.Baza;
 import negocio.Chico;
 import negocio.Mano;
 
@@ -29,7 +27,7 @@ public class ManoDAO {
 	public ManoDAO() {
 	}
 
-	public int guardarMano(Chico chico, Mano mano) {
+	public int guardarMano(Chico chico, Mano mano) throws ChicoException {
 		ChicoEntity ch = null;
 		// VER EXCEPCIONES
 		ch = ChicoDAO.getInstancia().buscarChicoPorID(chico.getIdChico());

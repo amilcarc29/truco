@@ -14,6 +14,7 @@ import entities.ManoEntity;
 import entities.ParejaEntity;
 import entities.PuntuacionEntity;
 import excepciones.CategoriaException;
+import excepciones.ChicoException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
@@ -79,7 +80,7 @@ public class ChicoDAO {
 		return ch.getIdChico();
 	}
 
-	public ChicoEntity buscarChicoPorID(int idChico) {
+	public ChicoEntity buscarChicoPorID(int idChico) throws ChicoException {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -88,11 +89,8 @@ public class ChicoDAO {
 		session.close();
 		if (chico != null) {
 			return chico;
-		} else {
-			// pasarla ! a un metodo de busqueda nuevo throw new UsuarioException("El
-			// usuario con apodo: " + apodo + "no existe en la base de datos.");
-			return null;
 		}
+		throw new ChicoException("No se encontro el chico con id: " + idChico);
 	}
 
 	public List<Chico> getChicos(int idJuego) throws CategoriaException, UsuarioException {
@@ -139,7 +137,7 @@ public class ChicoDAO {
 		return c;
 	}
 
-	public void actualizarParejaGanadora(Chico chico) throws ParejaException {
+	public void actualizarParejaGanadora(Chico chico) throws ParejaException, ChicoException {
 		ParejaEntity pE = null;
 		ChicoEntity cE = null;
 		cE = this.buscarChicoPorID(chico.getIdChico());

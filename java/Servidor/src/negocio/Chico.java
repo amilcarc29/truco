@@ -14,6 +14,8 @@ import dto.PuntuacionDTO;
 import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.ChicoException;
+import excepciones.JugadaException;
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import excepciones.ParejaException;
@@ -105,7 +107,7 @@ public class Chico {
 		return null;
 	}
 
-	public void finalizarChico() throws ParejaException {
+	public void finalizarChico() throws ParejaException, ChicoException {
 
 		// buscar ganador
 		this.setGanador(this.getParejaGanadora());
@@ -156,7 +158,7 @@ public class Chico {
 	}
 
 	// TODO Agregar parámetro parejas a Diagrama.
-	public void altaMano(int puntosParaTerminar) throws UsuarioException, CategoriaException, ManoException {
+	public void altaMano(int puntosParaTerminar) throws UsuarioException, CategoriaException, ManoException, CartaException, ChicoException {
 		// FIXME Por qué parámetros? no debería usar las parejas, jugadores y
 		// puntosPorTerminar del Chico?
 		// ---> Porque en el chico ya tenemos las parejas, los puntos y los jugadores.
@@ -203,7 +205,7 @@ public class Chico {
 	}
 
 	public void jugarCarta(Carta carta, Jugador jugador)
-			throws JugadorException, CartaException, UsuarioException, CategoriaException, ManoException, BazaException {
+			throws JugadorException, CartaException, UsuarioException, CategoriaException, ManoException, BazaException, JugadaException {
 		// TODO Auto-generated method stub
 		Mano mUltima = this.manos.get(this.manos.size() - 1);
 
@@ -216,7 +218,7 @@ public class Chico {
 		return sePuedeCantarEnvido;
 	}
 
-	public void save(Juego juego) throws UsuarioException, CategoriaException, ParejaException {
+	public void save(Juego juego) throws UsuarioException, CategoriaException, ParejaException, ChicoException {
 		this.setIdChico(ChicoDAO.getInstancia().guardarChico(juego, this));
 		for (Puntuacion p : this.puntosChico) {
 			p.setIdPuntuacion(PuntuacionDAO.getInstancia().guardarPuntuacion(this, p.getPareja()));
@@ -291,7 +293,7 @@ public class Chico {
 		JugadorDAO.getInstancia().actualizarTurnos(jugadores);
 		
 	}
-	public void armarNuevaMano() throws UsuarioException, CategoriaException, ManoException {
+	public void armarNuevaMano() throws UsuarioException, CategoriaException, ManoException, CartaException, ChicoException {
 		// TODO Auto-generated method stub
 		
 		//limpiar cantoenvido canto truco
@@ -416,7 +418,7 @@ public class Chico {
 		
 	}
 
-	public void setTieneQueContestar(Jugador jug) {
+	public void setTieneQueContestar(Jugador jug) throws ParejaException {
 		
 		this.getUltimaMano().setTieneQueContestar(jug);
 		

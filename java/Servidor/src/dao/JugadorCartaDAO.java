@@ -1,6 +1,5 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -8,16 +7,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import entities.CartaEntity;
-import entities.CategoriaEntity;
-import entities.JuegoEntity;
-import entities.JugadaEntity;
 import entities.JugadorCartaEntity;
 import entities.JugadorEntity;
-import entities.UsuarioEntity;
+import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
-import negocio.Baza;
 import negocio.Carta;
 import negocio.Jugador;
 
@@ -33,7 +28,7 @@ public class JugadorCartaDAO {
 	public JugadorCartaDAO() {
 	}
 
-	public void guardarCartas(List<Carta> cartas, Jugador jugador) throws UsuarioException, CategoriaException {
+	public void guardarCartas(List<Carta> cartas, Jugador jugador) throws UsuarioException, CategoriaException, CartaException {
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();

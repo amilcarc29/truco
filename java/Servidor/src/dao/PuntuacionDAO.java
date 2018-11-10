@@ -7,15 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import entities.ChicoEntity;
-import entities.JugadorEntity;
 import entities.ParejaEntity;
 import entities.PuntuacionEntity;
 import excepciones.CategoriaException;
+import excepciones.ChicoException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Chico;
-import negocio.Jugador;
 import negocio.Pareja;
 import negocio.Puntuacion;
 
@@ -32,7 +31,7 @@ public class PuntuacionDAO {
 	public PuntuacionDAO() {
 	}
 
-	public int guardarPuntuacion(Chico chico, Pareja pareja) throws ParejaException {
+	public int guardarPuntuacion(Chico chico, Pareja pareja) throws ParejaException, ChicoException {
 		ChicoEntity ch = null;
 		ParejaEntity pa = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();

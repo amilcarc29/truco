@@ -8,19 +8,17 @@ import org.hibernate.SessionFactory;
 
 import entities.BazaEntity;
 import entities.CartaEntity;
-import entities.CategoriaEntity;
-import entities.JuegoEntity;
 import entities.JugadaEntity;
 import entities.JugadorEntity;
-import entities.UsuarioEntity;
 import excepciones.BazaException;
+import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.JugadaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Baza;
 import negocio.Carta;
 import negocio.Jugada;
-import negocio.Mano;
 
 public class JugadaDAO {
 
@@ -36,7 +34,7 @@ public class JugadaDAO {
 
 	}
 
-	public int guardarJugada(Jugada jugada, Baza baza) throws UsuarioException, CategoriaException, BazaException {
+	public int guardarJugada(Jugada jugada, Baza baza) throws UsuarioException, CategoriaException, BazaException, CartaException {
 		JugadorEntity jug = null;
 		CartaEntity ca = null;
 		BazaEntity ba = null;
@@ -69,7 +67,7 @@ public class JugadaDAO {
 		return je.getIdJugada();
 	}
 
-	public JugadaEntity buscarJugadaPorID(int idJugada) {
+	public JugadaEntity buscarJugadaPorID(int idJugada) throws JugadaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		JugadaEntity jugadaEntity = (JugadaEntity) session.createQuery("from JugadaEntity where idJugada = ?")
@@ -77,10 +75,8 @@ public class JugadaDAO {
 		session.close();
 		if (jugadaEntity != null) {
 			return jugadaEntity;
-		} else {
-			// falta la excepcion Jugada
-			return null;
 		}
+		throw new JugadaException("No se encontro la jugada con id: " + idJugada);
 	}
 
 	public List<Jugada> buscarJugadaPorIDBaza(int idBaza) throws UsuarioException, CategoriaException {

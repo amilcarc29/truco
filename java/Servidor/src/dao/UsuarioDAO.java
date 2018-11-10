@@ -9,7 +9,6 @@ import entities.UsuarioEntity;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
-import negocio.Juego;
 import negocio.Jugador;
 import negocio.Usuario;
 
@@ -142,8 +141,8 @@ public class UsuarioDAO {
 		if (usuarioEntity != null) {
 			return toNegocio(usuarioEntity);
 		} else {
-			// pasarla ! a un metodo de busqueda nuevo throw new UsuarioException("El usuario con apodo: " + apodo + "no existe en la base de datos.");
-			return null;
+			// pasarla ! a un metodo de busqueda nuevo 
+			throw new UsuarioException("El usuario con apodo: " + apodo + "no existe en la base de datos.");
 		}
 	}
 
@@ -158,7 +157,7 @@ public class UsuarioDAO {
 	public void acutualizarUsuario(Usuario usuario) throws UsuarioException, CategoriaException {
 		// TODO Auto-generated method stub
 		
-		UsuarioEntity ue = null;
+		UsuarioEntity ue = new UsuarioEntity();
 		ue = this.buscarUsuarioByIdEntity(usuario.getIdUsuario());
 		ue.setEmail(usuario.getEmail());
 		ue.setPass(usuario.getPass());

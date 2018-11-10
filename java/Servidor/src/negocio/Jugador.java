@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import controlador.ControladorJuego;
 import dao.JugadorCartaDAO;
 import dao.JugadorDAO;
 import dto.CartaDTO;
@@ -88,7 +87,7 @@ public abstract class Jugador {
 		this.cartas = cartas;
 	}
 
-	public void guardarCartas(List<Carta> cartas) throws UsuarioException, CategoriaException {
+	public void guardarCartas(List<Carta> cartas) throws UsuarioException, CategoriaException, CartaException {
 		this.setCartas(cartas);
 		JugadorCartaDAO.getInstancia().guardarCartas(this.cartas, this);
 

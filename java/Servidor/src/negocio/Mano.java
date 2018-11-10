@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import dao.BazaDAO;
-import dao.CartaDAO;
-import dao.JugadaDAO;
 import dao.JugadorCartaDAO;
 import dao.JugadorDAO;
 import dao.ManoDAO;
@@ -18,6 +15,8 @@ import dto.ParejaDTO;
 import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.ChicoException;
+import excepciones.JugadaException;
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import excepciones.ParejaException;
@@ -48,7 +47,7 @@ public class Mano {
 	}
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico)
-			throws UsuarioException, CategoriaException {
+			throws UsuarioException, CategoriaException, CartaException {
 		super();
 		this.parejas = parejas;
 		this.jugadores = jugadores;
@@ -76,7 +75,7 @@ public class Mano {
 		JugadorDAO.getInstancia().setTurno(this.jugadores.get(0));
 	}
 
-	private void repartir() throws UsuarioException, CategoriaException {
+	private void repartir() throws UsuarioException, CategoriaException, CartaException {
 
 		// arreglo pone todas las cartas del jugador como jugadas antes de pedir mas
 		for (Jugador jug : jugadores) {
@@ -116,7 +115,7 @@ public class Mano {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 	
-	public void setTieneQueContestar (Jugador jugador) {
+	public void setTieneQueContestar (Jugador jugador) throws ParejaException {
 		
 		this.inicializarContestar();
 		
@@ -160,32 +159,32 @@ public class Mano {
 		truco.save(this);
 	}
 
-	public Pareja getPareja(int idJugador) {
+	public Pareja getPareja(int idJugador) throws ParejaException {
 		for (Pareja p : parejas) {
 			if (p.tieneJugador(idJugador))
 				return p;
 		}
-		return null;
+		throw new ParejaException("No se encontro la pareja del jugador con id: " + idJugador);
 	}
 
-	public Pareja getParejaActual(int idJugador) {
+	public Pareja getParejaActual(int idJugador) throws ParejaException {
 		for (Pareja p : parejas) {
 			if (p.tieneJugador(idJugador))
 				return p;
 		}
-		return null;
+		throw new ParejaException("No se encontro la pareja del jugador con id: " + idJugador);
 	}
 
-	public Pareja getParejaContrariaActual(int idJugador) {
+	public Pareja getParejaContrariaActual(int idJugador) throws ParejaException {
 		for (Pareja p : parejas) {
 			if (!p.tieneJugador(idJugador))
 				return p;
 		}
-		return null;
+		throw new ParejaException("No se encontro la pareja del jugador con id: " + idJugador);
 	}
 
 	public void jugarCarta(Carta carta, Jugador jugador)
-			throws JugadorException, CartaException, UsuarioException, CategoriaException, ManoException, BazaException {
+			throws JugadorException, CartaException, UsuarioException, CategoriaException, ManoException, BazaException, JugadaException {
 		// TODO Auto-generated method stub
 
 		// despues de jugar una carta se tiene que guardar la baza
@@ -314,10 +313,10 @@ public class Mano {
 		this.seCantoEnvido = seCantoEnvido;
 	}
 
-	public Baza getUltimaBaza() {
+	public Baza getUltimaBaza() throws BazaException {
 		if (this.bazas.size()>0)
 			return this.bazas.get(this.bazas.size() - 1);
-		return null;
+		throw new BazaException("No se encontro la ultima baza");
 	}
 
 	public boolean seCantoTruco() {
@@ -328,7 +327,7 @@ public class Mano {
 		this.seCantoTruco = seCantoTruco;
 	}
 
-	public void save(Chico chico) {
+	public void save(Chico chico) throws ChicoException {
 		this.setIdMano(ManoDAO.getInstancia().guardarMano(chico, this));
 	}
 
@@ -357,7 +356,7 @@ public class Mano {
 	
 	// �VER POR QUE ESTA ACA Y NO EN BAZA?
 	// LA BAZA TERMINA CUANDO HAY 4 JUGADAS HECHAS, NO CUANDO HAY 3 BAZAS EN MANO
-	public boolean terminoBaza() {
+	public boolean terminoBaza() throws BazaException {
 		if (this.getUltimaBaza().getJugadas().size() == 4)
 			return true;
 		else
@@ -416,7 +415,7 @@ public class Mano {
 	}
 
 	// VER SI SE BORRAN LAS CARTAS QUE TIENE EL JUGADOR. PUEDE TRAER PROBLEMAS
-	public Pareja obtenerParejaGanadoraEnvido() {
+	public Pareja obtenerParejaGanadoraEnvido() throws ParejaException {
 		Jugador ganador = this.getJugadores().get(0);
 		int puntos = ganador.getTantoEnvido();
 		for (Jugador jugador : this.jugadores)

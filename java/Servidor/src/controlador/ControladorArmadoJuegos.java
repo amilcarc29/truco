@@ -3,11 +3,12 @@ package controlador;
 import java.util.List;
 import java.util.Vector;
 
-import dao.JugadorDAO;
 import dto.GrupoDTO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
+import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.ChicoException;
 import excepciones.GrupoJuegoException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
@@ -96,7 +97,7 @@ public class ControladorArmadoJuegos {
 
 	// TODO Renombrar en Diagrama
 	public void confirmarGrupo(GrupoJuego grupo)
-			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException, ManoException {
+			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException, ManoException, CartaException, ChicoException {
 		ControladorJuego.getInstancia().iniciarJuego(grupo);
 	}
 
@@ -120,7 +121,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public void iniciarPartidaLibre(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4)
-			throws UsuarioException, CategoriaException, JuegoException, ParejaException, ManoException {
+			throws UsuarioException, CategoriaException, JuegoException, ParejaException, ManoException, CartaException, ChicoException {
 		try {
 
 			Pareja p1 = this.armarPareja(u1, u2);
@@ -150,7 +151,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public void iniciarPartidaEnPareja(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4)
-			throws UsuarioException, CategoriaException, JuegoException, ParejaException, ManoException {
+			throws UsuarioException, CategoriaException, JuegoException, ParejaException, ManoException, CartaException, ChicoException {
 		try {
 
 			Pareja p1 = this.armarPareja(u1, u2);
@@ -176,7 +177,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public void iniciarPartidaCerrada(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4, GrupoDTO g)
-			throws UsuarioException, CategoriaException, JuegoException, MiembroException, ParejaException, ManoException {
+			throws UsuarioException, CategoriaException, JuegoException, MiembroException, ParejaException, ManoException, CartaException, ChicoException {
 		{
 			try {
 

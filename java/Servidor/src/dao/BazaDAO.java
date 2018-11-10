@@ -7,13 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import entities.BazaEntity;
-import entities.CartaEntity;
-import entities.ChicoEntity;
-import entities.JuegoEntity;
 import entities.JugadaEntity;
 import entities.ManoEntity;
 import excepciones.BazaException;
 import excepciones.CategoriaException;
+import excepciones.JugadaException;
 import excepciones.ManoException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
@@ -114,7 +112,7 @@ public class BazaDAO {
 
 	}
 
-	public void actualizarJugadaMayor(Baza baza, Jugada jugada) throws BazaException {
+	public void actualizarJugadaMayor(Baza baza, Jugada jugada) throws BazaException, JugadaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		

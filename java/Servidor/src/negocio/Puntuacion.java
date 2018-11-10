@@ -2,6 +2,7 @@ package negocio;
 
 import dao.PuntuacionDAO;
 import dto.PuntuacionDTO;
+import excepciones.ChicoException;
 import excepciones.ParejaException;
 
 public class Puntuacion {
@@ -59,7 +60,7 @@ public class Puntuacion {
 		return this.pareja.tieneJugador(idJugador);
 	}
 
-	public void save(Chico chico) throws ParejaException {
+	public void save(Chico chico) throws ParejaException, ChicoException {
 		try {
 			this.setIdPuntuacion(PuntuacionDAO.getInstancia().guardarPuntuacion(chico, this.getPareja()));
 		} catch (ParejaException e) {

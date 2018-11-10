@@ -11,12 +11,13 @@ import dao.JugadorDAO;
 import dao.UsuarioDAO;
 import dto.CartaDTO;
 import dto.JuegoDTO;
-import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.ChicoException;
 import excepciones.JuegoException;
+import excepciones.JugadaException;
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import excepciones.MiembroException;
@@ -58,7 +59,7 @@ public class ControladorJuego {
 	}
 
 	public void iniciarJuego(GrupoJuego grupo)
-			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException, ManoException {
+			throws JuegoException, UsuarioException, CategoriaException, ParejaException, MiembroException, ManoException, CartaException, ChicoException {
 		Juego j = fcJuegos.getJuego(grupo.getParejas(), grupo.getTipoJuego());
 		if (j != null) {
 
@@ -86,7 +87,7 @@ public class ControladorJuego {
 	 */
 
 
-	public void cantarTruco(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException {
+	public void cantarTruco(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarTruco();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
@@ -95,7 +96,7 @@ public class ControladorJuego {
 
 	
 	
-	public void cantarReTruco(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException {
+	public void cantarReTruco(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarReTruco();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
@@ -103,7 +104,7 @@ public class ControladorJuego {
 	}
 
 
-	public void cantarVale4(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException {
+	public void cantarVale4(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarVale4();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
@@ -117,7 +118,7 @@ public class ControladorJuego {
 
 	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN TRUCO (VALE 1 PUNTO)
 	public void noQuieroTruco(UsuarioDTO usuario, JuegoDTO juego)
-			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException {
+			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException, CartaException, ChicoException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(juego.getIdJuego(), usuario.getIdUsuario());
 		Pareja parejaG = jue.obtenerParejaContraria(jug);
@@ -151,7 +152,7 @@ public class ControladorJuego {
 	 * FUNCIONES DE ENVIDO
 	 */
 
-	public void cantarEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException {
+	public void cantarEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarEnvido();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
@@ -159,7 +160,7 @@ public class ControladorJuego {
 	}
 
 
-	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException {
+	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarRealEnvido();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
@@ -167,7 +168,7 @@ public class ControladorJuego {
 	}
 
 
-	public void cantarFaltaEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException {
+	public void cantarFaltaEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarFaltaEnvido();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
@@ -175,7 +176,7 @@ public class ControladorJuego {
 	}
 
 	public void quieroEnvido(JuegoDTO juego)
-			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException {
+			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException, CartaException, ChicoException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.aumentarPuntosEnvidoQuerido();
 		jue.inicializarContestar();
@@ -197,7 +198,7 @@ public class ControladorJuego {
 	}
 
 	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO usuario)
-			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException {
+			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException, CartaException, ChicoException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
 		Pareja parejaG = jue.obtenerParejaContraria(jug);
@@ -229,7 +230,7 @@ public class ControladorJuego {
 	}
 
 	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws JugadorException, CartaException,
-			JuegoException, CategoriaException, UsuarioException, ParejaException, MiembroException, ManoException, BazaException {
+			JuegoException, CategoriaException, UsuarioException, ParejaException, MiembroException, ManoException, BazaException, ChicoException, JugadaException {
 
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		Carta car = CartaDAO.getInstancia().buscarCartaPorID(carta.getIdCarta());

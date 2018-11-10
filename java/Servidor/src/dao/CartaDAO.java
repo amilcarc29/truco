@@ -1,6 +1,5 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -8,12 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import entities.CartaEntity;
-import entities.CategoriaEntity;
-import entities.JuegoEntity;
-import excepciones.CategoriaException;
+import excepciones.CartaException;
 import hbt.HibernateUtil;
 import negocio.Carta;
-import negocio.Juego;
 
 public class CartaDAO {
 
@@ -29,7 +25,7 @@ public class CartaDAO {
 		return instancia;
 	}
 
-	public Carta buscarCartaPorID(int idCarta) {
+	public Carta buscarCartaPorID(int idCarta) throws CartaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		CartaEntity cartaEntity = (CartaEntity) session.createQuery("from CartaEntity where idCarta = ?")
@@ -37,13 +33,11 @@ public class CartaDAO {
 		session.close();
 		if (cartaEntity != null) {
 			return toNegocio(cartaEntity);
-		} else {
-			// falta la excepcion Carta
-			return null;
 		}
+		throw new CartaException("no se encontro la carta con id: " + idCarta);
 	}
 
-	public CartaEntity buscarCartaPorIDEntity(int idCarta) {
+	public CartaEntity buscarCartaPorIDEntity(int idCarta) throws CartaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		CartaEntity cartaEntity = (CartaEntity) session.createQuery("from CartaEntity where idCarta = ?")
@@ -51,10 +45,8 @@ public class CartaDAO {
 		session.close();
 		if (cartaEntity != null) {
 			return cartaEntity;
-		} else {
-			// falta la excepcion Carta
-			return null;
 		}
+		throw new CartaException("No se encontro la carta con id: " + idCarta);
 	}
 
 	public Carta toNegocio(CartaEntity carta) {
@@ -78,8 +70,5 @@ public class CartaDAO {
 
 		return cartas;
 	}
-
-
-
 
 }

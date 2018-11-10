@@ -9,7 +9,9 @@ import dao.JugadorCartaDAO;
 import dto.BazaDTO;
 import dto.JugadorDTO;
 import excepciones.BazaException;
+import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.JugadaException;
 import excepciones.ManoException;
 import excepciones.UsuarioException;
 
@@ -71,7 +73,7 @@ public class Baza {
 		this.setIdBaza(BazaDAO.getInstancia().guardarBaza(mano));
 	}
 
-	public void jugarCarta(Carta carta, Jugador jugador) throws UsuarioException, CategoriaException, BazaException {
+	public void jugarCarta(Carta carta, Jugador jugador) throws UsuarioException, CategoriaException, BazaException, CartaException, JugadaException {
 		try { 
 
 			JugadorCartaDAO.getInstancia().guardarCartaJugada(jugador.getId(), carta.getIdCarta());
@@ -93,7 +95,7 @@ public class Baza {
 	
 	
 	
-	public void actualizarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException, BazaException {
+	public void actualizarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException, BazaException, JugadaException {
 		if (this.jugadaMayor == null) {
 			this.jugadaMayor = jugada;
 			this.guardarJugadaMayor(jugada);
@@ -106,7 +108,7 @@ public class Baza {
 		}
 	}
 	
-	public void guardarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException, BazaException {
+	public void guardarJugadaMayor(Jugada jugada) throws UsuarioException, CategoriaException, BazaException, JugadaException {
 		BazaDAO.getInstancia().actualizarJugadaMayor(this, jugada);
 	}
 	
