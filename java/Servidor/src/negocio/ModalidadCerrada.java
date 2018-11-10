@@ -3,7 +3,10 @@ package negocio;
 import java.util.List;
 
 import dao.JuegoDAO;
+import excepciones.CategoriaException;
+import excepciones.MiembroException;
 import excepciones.ParejaException;
+import excepciones.UsuarioException;
 
 public class ModalidadCerrada  extends Juego{
 
@@ -24,5 +27,12 @@ public class ModalidadCerrada  extends Juego{
 
 	public void save() throws ParejaException {
 		JuegoDAO.getInstancia().guardarJuegoCerrado(this);
+	}
+
+	@Override
+	public void finalizarJuego() throws UsuarioException, CategoriaException, ParejaException, MiembroException {
+		// TODO Auto-generated method stub
+		// FALTA
+		
 	}
 }

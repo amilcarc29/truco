@@ -204,7 +204,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 	}
 	
-	public void quieroEnvido(JuegoDTO juego) throws RemoteException{
+	public void quieroEnvido(JuegoDTO juego) throws RemoteException, MiembroException{
 		try {
 			ControladorJuego.getInstancia().quieroEnvido(juego);
 		} catch (JuegoException e2) {
@@ -225,7 +225,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 	}
 	
-	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException{
+	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException, MiembroException{
 		try {
 			ControladorJuego.getInstancia().noQuieroEnvido(juego, usuario);
 		} catch (JuegoException e2) {
@@ -372,7 +372,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException {
+	public void noQuieroTruco(JuegoDTO juego, UsuarioDTO us1) throws RemoteException, MiembroException {
 		try {
 			ControladorJuego.getInstancia().noQuieroTruco(us1, juego);
 		} catch (JuegoException e2) {

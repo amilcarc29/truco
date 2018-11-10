@@ -54,8 +54,8 @@ body {
 
 .header {
 	position: absolute;
-	top: calc(50% - 35px);
-	left: calc(50% - 255px);
+	top: calc(20% - 35px);
+	left: calc(20% - 255px);
 	z-index: 2;
 }
 
@@ -79,6 +79,10 @@ body {
 	width: 350px;
 	padding: 10px;
 	z-index: 2;
+}
+
+.divGame {
+	z-index: 999999;
 }
 
 .login input[type=text] {
@@ -279,8 +283,13 @@ body {
 .divTable {
 	display: table;
 	width: 100%;
+	padding-left: 5%;
 }
-
+/* DivTable.com */
+.divTableCenter {
+	display: table;
+	width: 100%;
+}
 .divTableRow {
 	display: table-row;
 }
@@ -293,6 +302,16 @@ body {
 .divTableCell, .divTableHead {
 	display: table-cell;
 	padding: 3px 10px;
+}
+.divTableCell2, .divTableHead {
+	display: table-cell;
+	padding: 3px 10px;
+	width: 50%;
+}
+.divTableCell1, .divTableHead {
+	display: table-cell;
+	padding: 3px 10px;
+	width: 100%;
 }
 
 .divTableHeading {
@@ -309,6 +328,32 @@ body {
 
 .divTableBody {
 	display: table-row-group;
+}
+
+.rotateimg90 {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+
+.rotateimg-90 {
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+
+.imgBTable {
+	background-image: url("./img/table.jpg");
+	background-size: 100%;
+}
+.misCartas{
+    font-size: 150%;
+
+
 }
 </style>
 <link rel="stylesheet" href="css/jquery.alertable.css">
@@ -329,11 +374,13 @@ body {
 
 
 
-	<div class="body"></div>
-	<div class="grad"></div>
-	<div class="header">
+	<div class="body" id="bodyDiv"></div>
+	<div class="grad" id="gradDiv"></div>
+	<div class="header" id="headerDiv">
+
+
 		<div id="main">
-			Hola <span id="userApodo"></span>
+			<span id="userApodo"></span>
 
 			<h6 id="usuarioEnEspera"></h6>
 
@@ -361,7 +408,51 @@ body {
 
 	</div>
 	<br>
-	<a class="btn" data-popup-open="popup-1" href="#">Open Popup #1</a>
+
+	<div class="imgBTable">
+		<div class="divTable">
+			<div class="divTableBody">
+				<div class="divTableRow">
+					<div class="divTableCell">&nbsp;</div>
+					<div id="jug3" class="divTableCell">&nbsp;</div>
+					<div id="status" class="divTableCell">&nbsp;</div>
+				</div>
+				<div class="divTableRow">
+					<div id="jug2" class="divTableCell">&nbsp;</div>
+					<div class="divTableCell">
+						<div class="divTable">
+							<div class="divTableBody">
+								<div class="divTableRow">
+									<div class="divTableCell">&nbsp;</div>
+									<div id="jug3jug" class="divTableCell">&nbsp;</div>
+									<div class="divTableCell">&nbsp;</div>
+								</div>
+								<div class="divTableRow">
+									<div id="jug2jug" class="divTableCell">&nbsp;</div>
+									<div class="divTableCell">
+
+									</div>
+									<div id="jug4jug" class="divTableCell">&nbsp;</div>
+								</div>
+								<div class="divTableRow">
+									<div class="divTableCell">&nbsp;</div>
+									<div id="jug1jug" class="divTableCell">&nbsp;</div>
+									<div class="divTableCell" id = "misCartas">&nbsp;</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="jug4" class="divTableCell">&nbsp;</div>
+				</div>
+				<div class="divTableRow">
+					<div class="divTableCell">&nbsp;</div>
+					<div id="jug1" class="divTableCell">&nbsp;</div>
+					<div class="divTableCell">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 
 	<div class="popup" data-popup="popup-1">
@@ -380,78 +471,6 @@ body {
 
 
 
-	<div class="popup2" data-popup="popup-2">
-		<div class="popup-inner">
-			<h2 style="color: black;" id="CartasTit">Juego</h2>
-
-
-			<div class="divTable">
-				<div class="divTableBody">
-					<div class="divTableRow">
-						<div class="divTableCell">&nbsp;</div>
-						<div id="jug3" class="divTableCell">&nbsp;</div>
-						<div id="status" class="divTableCell">&nbsp;</div>
-					</div>
-					<div class="divTableRow">
-						<div id="jug2" class="divTableCell">&nbsp;</div>
-						<div class="divTableCell">
-							<div class="divTable">
-								<div class="divTableBody">
-									<div class="divTableRow">
-										<div class="divTableCell">&nbsp;</div>
-										<div id="jug3jug" class="divTableCell">&nbsp;</div>
-										<div class="divTableCell">&nbsp;</div>
-									</div>
-									<div class="divTableRow">
-										<div id="jug2jug" class="divTableCell">&nbsp;</div>
-										<div class="divTableCell">&nbsp;</div>
-										<div id="jug4jug" class="divTableCell">&nbsp;</div>
-									</div>
-									<div class="divTableRow">
-										<div class="divTableCell">&nbsp;</div>
-										<div id="jug1jug" class="divTableCell">&nbsp;</div>
-										<div class="divTableCell">&nbsp;</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="jug4" class="divTableCell">&nbsp;</div>
-					</div>
-					<div class="divTableRow">
-						<div class="divTableCell">&nbsp;</div>
-						<div id="jug1" class="divTableCell">&nbsp;</div>
-						<div class="divTableCell">&nbsp;</div>
-					</div>
-				</div>
-			</div>
-			<!-- DivTable.com -->
-
-
-
-
-
-
-			<button class="blob-btn" data-popup-open="popup-1">
-				Cantar Envido <span class="blob-btn__inner"> <span
-					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span>
-				</span>
-				</span>
-			</button>
-			<button class="blob-btn" data-popup-open="popup-1">
-				Cantar Truco <span class="blob-btn__inner"> <span
-					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span>
-				</span>
-				</span>
-			</button>
-
-			<a class="popup-close" data-popup-close="popup-2" href="#"
-				onClick="clearInterval()">x</a>
-		</div>
-	</div>
 
 
 </body>

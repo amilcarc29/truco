@@ -2,6 +2,7 @@ package negocio;
 
 import dao.CategoriaDAO;
 import excepciones.CategoriaException;
+import excepciones.UsuarioException;
 
 public class Novato extends Categoria {
 
@@ -16,7 +17,7 @@ public class Novato extends Categoria {
 	}
 
 	@Override
-	public void actualizar(Usuario usuario) throws CategoriaException {
+	public void actualizar(Usuario usuario) throws CategoriaException, UsuarioException {
 		// En novato solo puede subir
 		Calificado calificado = (Calificado) CategoriaDAO.getInstancia().buscarCategoriaByNombreNegocio("CALIFICADO");
 		if (calificado.debeSer(usuario)) {

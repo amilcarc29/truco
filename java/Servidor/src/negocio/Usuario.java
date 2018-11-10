@@ -3,6 +3,7 @@ package negocio;
 import dao.UsuarioDAO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
+import excepciones.UsuarioException;
 import utils.HashUtil;
 
 public class Usuario {
@@ -131,10 +132,19 @@ public class Usuario {
 		return (this.getPuntaje() / this.getPartidasJugadas());
 	}
 
-	public void actualizarCategoria (Categoria categoria) {
+	public void actualizarCategoria (Categoria categoria) throws UsuarioException, CategoriaException {
 		this.setCategoria(categoria);
 		UsuarioDAO.getInstancia().actualizarCategoria(this);
 		// ver como actualizar en la parte WEB si sigue logueado
+	}
+	
+	public void actualizarPuntos(int partidasGanadas, int partidasJugadas, int puntaje)
+			throws CategoriaException, UsuarioException {
+		this.actualizarPartidasGanadas(partidasGanadas);
+		this.actualizarPartidasJugadas(partidasJugadas);
+		this.actualizarPuntaje(puntaje);
+		UsuarioDAO.getInstancia().actualizarPuntajesUsuario(this);
+		this.getCategoria().actualizar(this);
 	}
 
 	public UsuarioDTO toDTO() {
