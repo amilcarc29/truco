@@ -26,9 +26,9 @@ public class Experto extends Categoria{
 
 	@Override
 	public boolean debeSer(Usuario usuario) {
-		if (usuario.getPartidasJugadas() > this.getMinimoPartida() &&
-				usuario.getPuntaje() > this.getMinimoPuntos() &&
-				usuario.getPromedio() > this.getPromedioMinimo())
+		if (usuario.getPartidasJugadas() >= this.getMinimoPartida() &&
+				usuario.getPuntaje() >= this.getMinimoPuntos() &&
+				usuario.getPromedio() >= this.getPromedioMinimo())
 			return true;
 		else
 			return false;

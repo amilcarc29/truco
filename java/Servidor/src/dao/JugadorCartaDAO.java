@@ -107,7 +107,7 @@ public class JugadorCartaDAO {
 		session.close();
 		
 	}
-
+		
 	public void limpiarCartas(int idJugador) {
 		// TODO Auto-generated method stub
 

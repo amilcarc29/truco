@@ -88,6 +88,13 @@ public class Mano {
 		}
 
 	}
+	
+	public void finalizarMano() {
+		for (Jugador jug : jugadores) {
+			JugadorDAO.getInstancia().finalizar(jug);
+			JugadorCartaDAO.getInstancia().limpiarCartas(jug.getId());
+		}
+	}
 
 	public List<Pareja> getParejas() {
 		return parejas;

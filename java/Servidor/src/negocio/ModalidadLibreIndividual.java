@@ -3,6 +3,7 @@ package negocio;
 import java.util.List;
 
 import dao.JuegoDAO;
+import dao.JugadorDAO;
 import dao.UsuarioDAO;
 import excepciones.CategoriaException;
 import excepciones.MiembroException;
@@ -44,6 +45,7 @@ public class ModalidadLibreIndividual extends Juego{
 				}
 			}
 		}
+		this.getUltimaMano().finalizarMano();
 		JuegoDAO.getInstancia().finalizarJuego(this);
 	}
 }

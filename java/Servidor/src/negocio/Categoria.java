@@ -27,7 +27,7 @@ public abstract class Categoria {
 		}
 		public abstract void actualizar(Usuario usuario) throws CategoriaException, UsuarioException;
 		
-		public abstract boolean debeSer(Usuario usuario);
+		public abstract boolean debeSer(Usuario usuario) throws CategoriaException;
 		
 		private void setIdCategoria(int idCategoria) {
 			this.idCategoria = idCategoria;

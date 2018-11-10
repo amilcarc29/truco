@@ -261,4 +261,20 @@ public class JugadorDAO {
 		return j.isTieneQueContestar();
 	}
 
+	public void finalizar(Jugador jug) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();		
+		
+		JugadorEntity jugador = (JugadorEntity) session
+				.createQuery("from JugadorEntity where idJugador = ?").setParameter(0, jug.getId())
+				.uniqueResult();
+		
+		session.beginTransaction();
+		jugador.setTieneTurno(false);
+		session.beginTransaction();
+
+		session.saveOrUpdate(jugador);
+		session.getTransaction().commit();		
+	}
+
 }
