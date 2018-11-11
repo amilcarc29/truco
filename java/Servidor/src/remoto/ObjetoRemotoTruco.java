@@ -448,7 +448,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public boolean tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
+	public String tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
 			return ControladorJuego.getInstancia().responderJugador(juego, usuario);
 		} catch (CategoriaException e) {
@@ -461,7 +461,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		return null;
 	}
 
 	@Override

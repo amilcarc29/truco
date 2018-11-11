@@ -418,9 +418,9 @@ public class Chico {
 		
 	}
 
-	public void setTieneQueContestar(Jugador jug) throws ParejaException {
+	public void setTieneQueContestar(Jugador jug, String tanto) throws ParejaException {
 		
-		this.getUltimaMano().setTieneQueContestar(jug);
+		this.getUltimaMano().setTieneQueContestar(jug,tanto);
 		
 	}
 

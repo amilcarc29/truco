@@ -6,9 +6,11 @@ import java.util.Vector;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.BazaEntity;
 import entities.CartaEntity;
 import entities.JugadorCartaEntity;
 import entities.JugadorEntity;
+import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
@@ -91,7 +93,7 @@ public class JugadorCartaDAO {
 	}
 
 	
-	public void guardarCartaJugada(int idJugador, int idCarta) {
+	public void guardarCartaJugada(int idJugador, int idCarta, int idBaza) throws BazaException {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -100,6 +102,8 @@ public class JugadorCartaDAO {
 				createQuery("from JugadorCartaEntity where idJugador = ? and idCarta = ? and cartaJugada = 0 ").setParameter(0, idJugador).setParameter(1, idCarta).uniqueResult();
 		//session.close();
 		
+		BazaEntity baza = BazaDAO.getInstancia().buscarBazaPorID(idBaza);
+		jugadorcartasEnt.setBaza(baza);
 		jugadorcartasEnt.setCartaJugada(true);
 		session.beginTransaction();
 		session.saveOrUpdate(jugadorcartasEnt);

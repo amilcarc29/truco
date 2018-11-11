@@ -77,7 +77,7 @@ public class BusinessDelegateTruco {
 		}
 	}
 	
-	public boolean tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
+	public String tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
 		try {
 			return ir.tengoQueContestar(juego, usuario);
 		} catch (RemoteException e) {

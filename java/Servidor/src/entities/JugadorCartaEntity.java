@@ -24,12 +24,20 @@ public class JugadorCartaEntity {
 	@JoinColumn(name = "idCarta")
 	private CartaEntity Carta;
 
+	
+	@OneToOne
+	@JoinColumn(name = "idBaza")
+	private BazaEntity baza;
+
+	
 	private boolean cartaJugada;
 
 	public JugadorCartaEntity() {
 
 	}
-
+	public void setBaza(BazaEntity baza) {
+		this.baza = baza;
+	}
 	public JugadorCartaEntity(JugadorEntity jugador, CartaEntity carta) {
 		this.Jugador = jugador;
 		this.Carta = carta;

@@ -29,14 +29,13 @@ public class JugadorEntity {
 	@JoinColumn(name = "idJuego")
 	private JuegoEntity juego;
 
-	private boolean cantoTruco;
-	private boolean cantoEnvido;
-
 	private boolean tieneTurno;
 
 	private int orden;
-	
-	private boolean tieneQueContestar;
+
+	@OneToOne
+	@JoinColumn(name = "tanto")
+	private TantoEntity tanto;
 
 	public JugadorEntity() {
 	}
@@ -113,28 +112,12 @@ public class JugadorEntity {
 		this.tieneTurno = tieneTurno;
 	}
 
-	public boolean isCantoTruco() {
-		return cantoTruco;
+	public TantoEntity getTanto() {
+		return tanto;
 	}
 
-	public void setCantoTruco(boolean cantoTruco) {
-		this.cantoTruco = cantoTruco;
-	}
-
-	public boolean isCantoEnvido() {
-		return cantoEnvido;
-	}
-
-	public void setCantoEnvido(boolean cantoEnvido) {
-		this.cantoEnvido = cantoEnvido;
-	}	
-
-	public boolean isTieneQueContestar() {
-		return tieneQueContestar;
-	}
-
-	public void setTieneQueContestar(boolean tieneQueContestar) {
-		this.tieneQueContestar = tieneQueContestar;
+	public void setTanto(TantoEntity tanto) {
+		this.tanto = tanto;
 	}
 
 	public boolean isTieneTurno() {
@@ -144,6 +127,5 @@ public class JugadorEntity {
 	public void setIdJugador(Integer idJugador) {
 		this.idJugador = idJugador;
 	}
-	
-	
+
 }

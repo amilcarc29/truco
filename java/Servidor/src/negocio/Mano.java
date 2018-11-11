@@ -122,13 +122,13 @@ public class Mano {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 	
-	public void setTieneQueContestar (Jugador jugador) throws ParejaException {
+	public void setTieneQueContestar (Jugador jugador, String tanto) throws ParejaException {
 		
 		this.inicializarContestar();
 		
 		Pareja p = this.getParejaContrariaActual(jugador.getId());
 		
-		JugadorDAO.getInstancia().setTieneQueContestar(p);
+		JugadorDAO.getInstancia().setTieneQueContestar(p, tanto);
 				
 	}
 	

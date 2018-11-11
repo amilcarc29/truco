@@ -21,6 +21,7 @@ import dto.JuegoDTO;
 import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
+import excepciones.MiembroException;
 
 /**
  * Servlet implementation class Login
@@ -83,7 +84,7 @@ public class Juegos extends HttpServlet {
 					}
 
 					out.write(arr.toString());
-				}else if (action.equals("getJuego")) {
+				} else if (action.equals("getJuego")) {
 
 					Integer id = Integer.valueOf(request.getParameter("idJuego"));
 					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
@@ -94,11 +95,17 @@ public class Juegos extends HttpServlet {
 					Integer id = Integer.valueOf(request.getParameter("idJuego"));
 					JuegoDTO j = new BusinessDelegateTruco().getJuegosById(id);
 
-					if (new BusinessDelegateTruco().esMiTurno(j, us1)) {
-						out.write("{\"TURNO\":\"TRUE\"}");
-					} else {
-						out.write("{\"TURNO\":\"FALSE\"}");
-					}
+					boolean turno = new BusinessDelegateTruco().esMiTurno(j, us1);
+					boolean cantaron = new BusinessDelegateTruco().alguienTieneQueContestar(j);
+					String tanto = new BusinessDelegateTruco().tengoQueContestar(j, us1);
+
+					JSONObject jsonOb = new JSONObject();
+
+					jsonOb.put("TURNO", turno);
+					jsonOb.put("CANTARON", cantaron);
+					jsonOb.put("TANTO", tanto);
+
+					out.write(jsonOb.toString());
 
 				} else if (action.equals("JugarCarta")) {
 
@@ -119,9 +126,39 @@ public class Juegos extends HttpServlet {
 					}
 					new BusinessDelegateTruco().jugarCarta(juegoDTO, jugarCarta, us1);
 					out.write("{\"JUGADA\":\"TRUE\"}");
+				} else if (action.equals("cantarTanto")) {
+
+					Integer idJu = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO juegoDTO = new BusinessDelegateTruco().getJuegosById(idJu);
+					String jug = request.getParameter("jug");
+
+					if (jug.equals("ENVIDO"))
+						new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
+					if (jug.equals("REAL ENVIDO"))
+						new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
+					if (jug.equals("FALTA ENVIDO"))
+						new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+					if (jug.equals("QUIERO ENVIDO"))
+						new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+					if (jug.equals("NO QUIERO ENVIDO"))
+						new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
+					if (jug.equals("TRUCO"))
+						new BusinessDelegateTruco().cantarTruco(juegoDTO, us1);
+					if (jug.equals("RE TRUCO"))
+						new BusinessDelegateTruco().cantarReTruco(juegoDTO, us1);
+					if (jug.equals("VALE CUATRO"))
+						new BusinessDelegateTruco().cantarValeCuatro(juegoDTO, us1);
+					if (jug.equals("NO QUIERO TRUCO"))
+						new BusinessDelegateTruco().noQuieroTruco(juegoDTO, us1);
+					if (jug.equals("QUIERO TRUCO"))
+						new BusinessDelegateTruco().quieroTruco(juegoDTO);
+
 				}
 
 			} catch (ComunicacionException | JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MiembroException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

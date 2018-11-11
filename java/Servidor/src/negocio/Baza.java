@@ -76,7 +76,7 @@ public class Baza {
 	public void jugarCarta(Carta carta, Jugador jugador) throws UsuarioException, CategoriaException, BazaException, CartaException, JugadaException {
 		try { 
 
-			JugadorCartaDAO.getInstancia().guardarCartaJugada(jugador.getId(), carta.getIdCarta());
+			JugadorCartaDAO.getInstancia().guardarCartaJugada(jugador.getId(), carta.getIdCarta(), this.getIdBaza());
 
 			Jugada jugada = new Jugada(jugador, carta);
 			jugada.save(this);

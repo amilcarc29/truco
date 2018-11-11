@@ -8,6 +8,7 @@ import dao.JugadorCartaDAO;
 import dao.JugadorDAO;
 import dto.CartaDTO;
 import dto.JugadorDTO;
+import entities.Tanto;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.UsuarioException;
@@ -21,7 +22,7 @@ public abstract class Jugador {
 
 	private int orden;
 
-	private boolean tieneQueContestar;
+	private String tanto;
 
 	// private static int cnt = 0;
 	//
@@ -242,12 +243,12 @@ public abstract class Jugador {
 		this.idJugador = idJugador;
 	}
 
-	public boolean isTieneQueContestar() {
-		return tieneQueContestar;
+	public String getTanto() {
+		return tanto;
 	}
 
-	public void setTieneQueContestar(boolean tieneQueContestar) {
-		this.tieneQueContestar = tieneQueContestar;
+	public void setTanto(String tanto) {
+		this.tanto = tanto;
 	}
 
 	public int getOrden() {
