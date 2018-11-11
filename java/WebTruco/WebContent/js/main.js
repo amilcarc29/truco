@@ -244,7 +244,114 @@ function notificaTurno() {
 		}
 	});
 }
-
+function alertTanto(tanto){
+	
+	if (tanto == "ENVIDO"){
+		
+		$.confirm({
+		    title: 'Cantaron',
+		    theme: 'supervan',
+		    content: 'Cantaron ' + tanto,
+		    buttons: {
+		        aceptar: function () {
+		          
+		        },
+		        cancel: function () {
+		           
+		        },
+		        envido: {
+		       
+		        },
+		        realEnvido: {
+				       
+		        },
+		        faltaEnvido: {
+				       
+		        }
+		    }
+		});
+		
+		
+	}else if(tanto == "FALTA ENVIDO"){
+		
+		$.confirm({
+		    title: 'Cantaron',
+		    theme: 'supervan',
+		    content: 'Cantaron ' + tanto,
+		    buttons: {
+		        aceptar: function () {
+		          
+		        },
+		        cancel: function () {
+		           
+		        }
+		    }
+		});
+		
+	}else if(tanto == "REAL ENVIDO"){
+		
+		$.confirm({
+		    title: 'Cantaron',
+		    theme: 'supervan',
+		    content: 'Cantaron ' +tanto,
+		    buttons: {
+		        aceptar: function () {
+			          
+		        },
+		        cancel: function () {
+		           
+		        },
+		     
+		        faltaEnvido: {
+				       
+		        }
+		    }
+		});
+		
+	}else if(tanto == "TRUCO"){
+		
+		$.confirm({
+		    title: 'Cantaron',
+		    theme: 'supervan',
+		    content: 'Cantaron ' +tanto,
+		    buttons: {
+		        aceptar: function () {
+			          
+		        },
+		        cancel: function () {
+		           
+		        },
+		        retTruco: {
+				       
+		        },
+		        valeCuatro: {
+				       
+		        }
+		    }
+		});
+		
+	}else if(tanto == "RE TRUCO"){
+		
+		$.confirm({
+		    title: 'Cantaron',
+		    theme: 'supervan',
+		    content: 'Cantaron ' +tanto,
+		    buttons: {
+		        aceptar: function () {
+			          
+		        },
+		        cancel: function () {
+		           
+		        },
+		        valeCuatro: {
+				       
+		        }
+		    }
+		});
+		
+	}
+	
+}
 
 function notificaTanto() {
 
@@ -262,15 +369,12 @@ function notificaTanto() {
 			
 			
 			if ((data.TANTO != null)){
-
-				$.alertable.confirm('Cantaron ' + data.TANTO + ' aceptas? ')
-						.then(function() {
-							// OK was selected
-						}, function() {
-							// Cancel was selected
-						}).always(function() {
-							// Modal was dismissed
-						});
+				
+				clearInterval(tanto);
+				alertTanto(data.TANTO)
+			
+				
+				
 			} else {
 
 			}

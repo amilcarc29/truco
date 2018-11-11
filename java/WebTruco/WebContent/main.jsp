@@ -372,10 +372,13 @@ body {
 </style>
 <link rel="stylesheet" href="css/jquery.alertable.css">
 <link rel="stylesheet" href="css/game.css">
+<link rel="stylesheet" href="css/jquery-confirm.css">
 
 <script src='js/jquery-3.3.1.min.js'></script>
 <script src="js/prefixfree.min.js"></script>
 <script src="js/jquery.alertable.js"></script>
+<script src="js/jquery-confirm.js"></script>
+
 <script src="js/main.js"></script>
 <script>
 	var user =
