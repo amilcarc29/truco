@@ -6,8 +6,8 @@ var juegoJson;
 
 var turno;
 var partidas;
-var tanto;
-
+var intTanto;
+var tantoMsgVis  = false;
 var juegoActual;
 
 $(document).ready(function() {
@@ -84,20 +84,19 @@ function loopRenderGame() {
 		turno = notificaTurno();
 
 	}, 50000);
-	
-	tanto = setInterval(function() {
 
-		notificaTanto()
-
-	}, 1000);
-	
-	
-	
-
-	
+	tantoLoop();
 
 }
 
+function tantoLoop() {
+	intTanto = setInterval(function() {
+
+		notificaTanto()
+
+	}, 10000);
+
+}
 function renderGame() {
 
 	var url = '/WebTruco/Juegos';
@@ -237,122 +236,146 @@ function notificaTurno() {
 		url : url,
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
-			if (data.TURNO == "TRUE") {
+			if (data.TURNO == true) {
 				notifyMe();
 			}
 
 		}
 	});
 }
-function alertTanto(tanto){
-	
-	if (tanto == "ENVIDO"){
-		
-		$.confirm({
-		    title: 'Cantaron',
-		    theme: 'supervan',
-		    content: 'Cantaron ' + tanto,
-		    buttons: {
-		        aceptar: function () {
-		          
-		        },
-		        cancel: function () {
-		           
-		        },
-		        envido: {
-		       
-		        },
-		        realEnvido: {
-				       
-		        },
-		        faltaEnvido: {
-				       
-		        }
-		    }
-		});
-		
-		
-	}else if(tanto == "FALTA ENVIDO"){
-		
-		$.confirm({
-		    title: 'Cantaron',
-		    theme: 'supervan',
-		    content: 'Cantaron ' + tanto,
-		    buttons: {
-		        aceptar: function () {
-		          
-		        },
-		        cancel: function () {
-		           
-		        }
-		    }
-		});
-		
-	}else if(tanto == "REAL ENVIDO"){
-		
-		$.confirm({
-		    title: 'Cantaron',
-		    theme: 'supervan',
-		    content: 'Cantaron ' +tanto,
-		    buttons: {
-		        aceptar: function () {
-			          
-		        },
-		        cancel: function () {
-		           
-		        },
-		     
-		        faltaEnvido: {
-				       
-		        }
-		    }
-		});
-		
-	}else if(tanto == "TRUCO"){
-		
-		$.confirm({
-		    title: 'Cantaron',
-		    theme: 'supervan',
-		    content: 'Cantaron ' +tanto,
-		    buttons: {
-		        aceptar: function () {
-			          
-		        },
-		        cancel: function () {
-		           
-		        },
-		        retTruco: {
-				       
-		        },
-		        valeCuatro: {
-				       
-		        }
-		    }
-		});
-		
-	}else if(tanto == "RE TRUCO"){
-		
-		$.confirm({
-		    title: 'Cantaron',
-		    theme: 'supervan',
-		    content: 'Cantaron ' +tanto,
-		    buttons: {
-		        aceptar: function () {
-			          
-		        },
-		        cancel: function () {
-		           
-		        },
-		        valeCuatro: {
-				       
-		        }
-		    }
-		});
-		
-	}
-	
-}
+function alertTanto(tanto) {
 
+	if (tanto == "ENVIDO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO ENVIDO");
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO ENVIDO");
+				},
+				envido : function() {
+					notificaTantoRespuesta("ENVIDO");
+				},
+				realEnvido : function() {
+					notificaTantoRespuesta("REAL ENVIDO");
+				},
+				faltaEnvido : function() {
+					notificaTantoRespuesta("FALTA ENVIDO");
+
+				}
+			}
+		});
+
+	} else if (tanto == "FALTA ENVIDO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO ENVIDO");
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO ENVIDO");
+				}
+			}
+		});
+
+	} else if (tanto == "REAL ENVIDO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO ENVIDO");
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO ENVIDO");
+				},
+
+				faltaEnvido : function() {
+					notificaTantoRespuesta("FALTA ENVIDO");
+
+				}
+			}
+		});
+
+	} else if (tanto == "TRUCO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO TRUCO");
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO TRUCO");
+
+				},
+				retTruco : function() {
+					notificaTantoRespuesta("RE TRUCO");
+
+				},
+				valeCuatro : function() {
+					notificaTantoRespuesta("VALE CUATRO");
+
+				}
+			}
+		});
+
+	} else if (tanto == "RE TRUCO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO TRUCO");
+
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO TRUCO");
+
+				},
+				valeCuatro : function() {
+					notificaTantoRespuesta("VALE CUATRO");
+
+				}
+			}
+		});
+
+	}
+
+}
+function notificaTantoRespuesta(tantoResp) {
+	var url = '/WebTruco/Juegos';
+
+	var buscarJuegos = {
+		action : 'responderTanto',
+		idJuego : juegoActual,
+		jug : tantoResp
+	};
+
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : buscarJuegos, // serializes the form's elements.
+		success : function(data) {
+			tantoMsgVis = false;
+		}
+	});
+}
 function notificaTanto() {
 
 	var url = '/WebTruco/Juegos';
@@ -366,15 +389,15 @@ function notificaTanto() {
 		url : url,
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
-			
-			
-			if ((data.TANTO != null)){
-				
-				clearInterval(tanto);
-				alertTanto(data.TANTO)
+
+			if ((data.TANTO != null)) {
+
 			
 				
-				
+				if (!tantoMsgVis){
+					alertTanto(data.TANTO)
+					tantoMsgVis = true;
+				}
 			} else {
 
 			}
@@ -382,7 +405,6 @@ function notificaTanto() {
 		}
 	});
 }
-
 
 function openGameClass() {
 	$("#mainButton").fadeOut("fast");
@@ -683,7 +705,11 @@ function renderPunt(data) {
 			+ '</div>';
 	divPnt += '<div class="divTableCell"></div>';
 	divPnt += '</div>';
-
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">' + makeButton('TRUCO', 'TRUCO')
+			+ '</div>';
+	divPnt += '<div class="divTableCell"></div>';
+	divPnt += '</div>';
 	divPnt += '</div>';
 	divPnt += '</div>';
 
@@ -747,7 +773,11 @@ function cantarTanto(jugada) {
 		url : url,
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
+			if (data.TURNO ==false) {
+				$.alertable.alert('No es su turno').always(function() {
 
+				});
+			}
 		}
 	});
 

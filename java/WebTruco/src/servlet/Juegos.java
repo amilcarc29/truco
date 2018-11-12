@@ -126,35 +126,81 @@ public class Juegos extends HttpServlet {
 					}
 					new BusinessDelegateTruco().jugarCarta(juegoDTO, jugarCarta, us1);
 					out.write("{\"JUGADA\":\"TRUE\"}");
-				} else if (action.equals("cantarTanto")) {
+				} else if (action.equals("responderTanto")) {
 
 					Integer idJu = Integer.valueOf(request.getParameter("idJuego"));
 					JuegoDTO juegoDTO = new BusinessDelegateTruco().getJuegosById(idJu);
 					String jug = request.getParameter("jug");
+					String tanto = new BusinessDelegateTruco().tengoQueContestar(juegoDTO, us1);
+					JSONObject jsonOb = new JSONObject();
+					if (tanto==null) {
+						
+						
 
-					if (jug.equals("ENVIDO"))
-						new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
-					if (jug.equals("REAL ENVIDO"))
-						new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
-					if (jug.equals("FALTA ENVIDO"))
-						new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
-					if (jug.equals("QUIERO ENVIDO"))
-						new BusinessDelegateTruco().quieroEnvido(juegoDTO);
-					if (jug.equals("NO QUIERO ENVIDO"))
-						new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
-					if (jug.equals("TRUCO"))
-						new BusinessDelegateTruco().cantarTruco(juegoDTO, us1);
-					if (jug.equals("RE TRUCO"))
-						new BusinessDelegateTruco().cantarReTruco(juegoDTO, us1);
-					if (jug.equals("VALE CUATRO"))
-						new BusinessDelegateTruco().cantarValeCuatro(juegoDTO, us1);
-					if (jug.equals("NO QUIERO TRUCO"))
-						new BusinessDelegateTruco().noQuieroTruco(juegoDTO, us1);
-					if (jug.equals("QUIERO TRUCO"))
-						new BusinessDelegateTruco().quieroTruco(juegoDTO);
+						jsonOb.put("TURNO", false);
+						
+					} else {
+						if (jug.equals("ENVIDO"))
+							new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
+						if (jug.equals("REAL ENVIDO"))
+							new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
+						if (jug.equals("FALTA ENVIDO"))
+							new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+						if (jug.equals("QUIERO ENVIDO"))
+							new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+						if (jug.equals("NO QUIERO ENVIDO"))
+							new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
+						if (jug.equals("TRUCO"))
+							new BusinessDelegateTruco().cantarTruco(juegoDTO, us1);
+						if (jug.equals("RE TRUCO"))
+							new BusinessDelegateTruco().cantarReTruco(juegoDTO, us1);
+						if (jug.equals("VALE CUATRO"))
+							new BusinessDelegateTruco().cantarValeCuatro(juegoDTO, us1);
+						if (jug.equals("NO QUIERO TRUCO"))
+							new BusinessDelegateTruco().noQuieroTruco(juegoDTO, us1);
+						if (jug.equals("QUIERO TRUCO"))
+							new BusinessDelegateTruco().quieroTruco(juegoDTO);
+						
+						
+						jsonOb.put("TURNO", true);
+					}
+					out.write(jsonOb.toString());
+				}else if (action.equals("cantarTanto")) {
 
+					Integer idJu = Integer.valueOf(request.getParameter("idJuego"));
+					JuegoDTO juegoDTO = new BusinessDelegateTruco().getJuegosById(idJu);
+					String jug = request.getParameter("jug");
+					boolean turno = new BusinessDelegateTruco().esMiTurno(juegoDTO, us1);
+					JSONObject jsonOb = new JSONObject();
+					if (!turno) {
+						
+						jsonOb.put("TURNO", false);
+						
+					} else {
+						if (jug.equals("ENVIDO"))
+							new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
+						if (jug.equals("REAL ENVIDO"))
+							new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
+						if (jug.equals("FALTA ENVIDO"))
+							new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+	
+						
+						if (jug.equals("TRUCO"))
+							new BusinessDelegateTruco().cantarTruco(juegoDTO, us1);
+						if (jug.equals("RE TRUCO"))
+							new BusinessDelegateTruco().cantarReTruco(juegoDTO, us1);
+						if (jug.equals("VALE CUATRO"))
+							new BusinessDelegateTruco().cantarValeCuatro(juegoDTO, us1);
+						
+						if (jug.equals("QUIERO TRUCO"))
+							new BusinessDelegateTruco().quieroTruco(juegoDTO);
+						
+						
+						jsonOb.put("TURNO", true);
+					}
+					out.write(jsonOb.toString());
 				}
-
+				
 			} catch (ComunicacionException | JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
