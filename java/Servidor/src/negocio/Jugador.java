@@ -220,6 +220,7 @@ public abstract class Jugador {
 		// TODO Auto-generated method stub
 		JugadorDTO j = new JugadorDTO(this.idJugador);
 		j.setApodo(this.apodo);
+		j.setTieneTurno(this.tieneTurno);		
 		List<Carta> c = JugadorCartaDAO.getInstancia().getCartasbyJugador(this, true);
 		List<CartaDTO> cdto = new ArrayList<>();
 

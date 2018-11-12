@@ -445,11 +445,12 @@ body {
 									
 									
 									</div>
-									<div id="jug3jug" class="divTableCell">&nbsp;</div>
+									<div id="jug2jug" class="divTableCell">&nbsp;</div>
+									
 									<div class="divTableCell" id ="misCartas">&nbsp;</div>
 								</div>
 								<div class="divTableRow">
-									<div id="jug2jug" class="divTableCell">&nbsp;</div>
+									<div id="jug3jug" class="divTableCell">&nbsp;</div>
 									<div class="divTableCell">
 
 									</div>

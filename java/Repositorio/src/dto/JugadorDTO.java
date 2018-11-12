@@ -8,6 +8,7 @@ public class JugadorDTO implements Serializable {
 	private static final long serialVersionUID = -7553168826919721922L;
 	private String apodo;
 	private List<CartaDTO> cartas;
+	private boolean tieneTurno;
 
 	private int idJugador;
 
@@ -46,5 +47,13 @@ public class JugadorDTO implements Serializable {
 
 	public void setCartas(List<CartaDTO> cartas) {
 		this.cartas = cartas;
+	}
+
+	public boolean isTieneTurno() {
+		return tieneTurno;
+	}
+
+	public void setTieneTurno(boolean tieneTurno) {
+		this.tieneTurno = tieneTurno;
 	}
 }

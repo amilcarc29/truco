@@ -7,7 +7,7 @@ var juegoJson;
 var turno;
 var partidas;
 var intTanto;
-var tantoMsgVis  = false;
+var tantoMsgVis = false;
 var juegoActual;
 
 $(document).ready(function() {
@@ -72,6 +72,7 @@ function loopRenderGame() {
 	renderGame();
 	getCartas();
 	notificaTurno();
+
 	partidas = setInterval(function() {
 		renderGame();
 		getCartas();
@@ -79,6 +80,7 @@ function loopRenderGame() {
 		// getCartasJugadas(juegoActual);
 		// getPuntos(juegoActual);
 	}, 10000);
+
 	partidas = setInterval(function() {
 
 		turno = notificaTurno();
@@ -392,9 +394,7 @@ function notificaTanto() {
 
 			if ((data.TANTO != null)) {
 
-			
-				
-				if (!tantoMsgVis){
+				if (!tantoMsgVis) {
 					alertTanto(data.TANTO)
 					tantoMsgVis = true;
 				}
@@ -409,7 +409,7 @@ function notificaTanto() {
 function openGameClass() {
 	$("#mainButton").fadeOut("fast");
 	document.getElementById("userApodo").innerHTML = "";
-
+	document.getElementById('usuarioEnEspera').innerHTML =  "" ;
 	$("#bodyDiv").removeClass("body");
 	$("#gradDiv").removeClass("grad");
 }
@@ -449,7 +449,9 @@ function drawCartasSinJugar(data) {
 	var tableDiv = "";
 	tableDiv += '<div class="divTable">';
 	tableDiv += '<div class="divTableBody">';
-	tableDiv += '	<div class="divTableRow">';
+
+
+	tableDiv += '<div class="divTableRow">';
 	tableDiv += '	<div class="divTableCell">';
 	tableDiv += '		<div class="misCartas">Mis Cartas</div>';
 	tableDiv += '	</div>';
@@ -476,7 +478,7 @@ function drawCartas(data, juego, jugNum) {
 		imgtmp = "<img src='./img/" + data.cartas[i].palo + "/"
 				+ data.cartas[i].numero + ".jpg' height='70%' ";
 
-		if (jugNum == 2)
+		if (jugNum == 3)
 			imgtmp += " class='rotateimg90' ";
 
 		if (jugNum == 4)
@@ -495,7 +497,7 @@ function drawCartas(data, juego, jugNum) {
 
 			imgtmp = "<img src='./img/EMPTY/BACK.png' height='70%' ";
 
-			if (jugNum == 2)
+			if (jugNum == 3)
 				imgtmp += " class='rotateimg90' ";
 
 			if (jugNum == 4)
@@ -512,7 +514,7 @@ function drawCartas(data, juego, jugNum) {
 
 		imgtmp = "<img src='./img/EMPTY/BACK.png' height='70%' ";
 
-		if (jugNum == 2)
+		if (jugNum == 3)
 			imgtmp += " class='rotateimg90' ";
 
 		if (jugNum == 4)
@@ -528,7 +530,7 @@ function drawCartas(data, juego, jugNum) {
 
 	for (var x = i; x < 9; x++) {
 		imgtmp = "<img src='./img/EMPTY/EMPTY.png' height='70%' ";
-		if (jugNum == 2)
+		if (jugNum == 3)
 			imgtmp += " class='rotateimg90' ";
 
 		if (jugNum == 4)
@@ -570,21 +572,25 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '</div>';
 	}
 
-	if (jugNum == 2) {
+	if (jugNum == 3) {
 
 		tableDiv += '<div class="divTable">';
 		tableDiv += '<div class="divTableBody">';
 		tableDiv += '<div class="divTableRow">';
-		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
-		tableDiv += '<div class="divTableCell">' + cartasImg[3] + '</div>';
-		tableDiv += '<div class="divTableCell">' + cartasImg[0] + '</div>';
+		
+		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
+		
 		tableDiv += '<div class="divTableCell"></div>';
 
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
-		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
-		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
-		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
+
+		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[3] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[0] + '</div>';
+		
 		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
 
 		tableDiv += '</div>';
@@ -598,7 +604,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '</div>';
 		tableDiv += '</div>';
 	}
-	if (jugNum == 3) {
+	if (jugNum == 2) {
 
 		tableDiv += '<div class="divTable">';
 		tableDiv += '<div class="divTableBody">';
@@ -661,37 +667,56 @@ function drawCartas(data, juego, jugNum) {
 
 }
 function renderPunt(data) {
+	var turno = "";
+	for (var i = 0; i < data.parejas.length; i++) {
 
+		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
+
+			if (data.parejas[i].jugadores[x].tieneTurno) {
+				turno = data.parejas[i].jugadores[x].apodo;
+				break;
+			}
+
+		}
+
+	}
+
+	
 	var divPnt = "";
 	divPnt += '<div class="divTable">';
 	divPnt += '<div class="divTableBody">';
+	
 	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">Usuario </div>';
-	divPnt += '<div class="divTableCell">' + user.apodo + '</div>';
+	divPnt += '<div class="divTableCell">Turno De ' + turno + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 1  ' + data.parejas[0].jugadores[0].apodo + " " + data.parejas[0].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Puntos </div>';
 	divPnt += '</div>';
+	
 	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">Pareja 1   </div>';
-	divPnt += '<div class="divTableCell">' + data.parejas[0].jugadores[0].apodo
-			+ " " + data.parejas[0].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Usuario ' + user.apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 2  ' + data.parejas[1].jugadores[0].apodo + " " + data.parejas[1].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 1 = '+data.chicos[0].puntosChico[0].puntos + ', Pareja 2 = ' + data.chicos[0].puntosChico[1].puntos +' </div>';
 	divPnt += '</div>';
+	
+	if (data.chicos.length>=2){
 	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">Pareja 2   </div>';
-	divPnt += '<div class="divTableCell"> '
-			+ data.parejas[1].jugadores[0].apodo + " "
-			+ data.parejas[1].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 1 ' + data.parejas[0].jugadores[0].apodo + " " + data.parejas[0].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 1 ='+data.chicos[1].puntosChico[0].puntos + ', Pareja 2 = ' + data.chicos[1].puntosChico[1].puntos +' </div>';
 	divPnt += '</div>';
-	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">Puntos  </div>';
-
-	for (var i = 0; i < data.chicos.length; i++) {
-
-		for (var x = 0; x < data.chicos[i].puntosChico.length; x++) {
-			divPnt += "<div class='divTableCell'>Chico, num " + (i + 1)
-					+ ", Pareja " + (x + 1) + ", puntos "
-					+ data.chicos[i].puntosChico[x].puntos + "</div>";
-
-		}
 	}
+	
+	
+	if (data.chicos.length>=3){
+		
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">Pareja 2  '+ data.parejas[1].jugadores[0].apodo + " "	+ data.parejas[1].jugadores[1].apodo + ' </div>';
+	divPnt += '<div class="divTableCell">Pareja 1 = '+data.chicos[2].puntosChico[0].puntos + ', Pareja 2 = ' + data.chicos[2].puntosChico[1].puntos +' </div>';
+	divPnt += '</div>';
+	}
+	
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">  </div>';
+
 
 	divPnt += '</div>';
 
@@ -714,6 +739,8 @@ function renderPunt(data) {
 	divPnt += '</div>';
 
 	document.getElementById("divPuntosDatos").innerHTML = divPnt;
+
+
 
 }
 
@@ -773,8 +800,12 @@ function cantarTanto(jugada) {
 		url : url,
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
-			if (data.TURNO ==false) {
+			if (data.TURNO == false) {
 				$.alertable.alert('No es su turno').always(function() {
+
+				});
+			} else {
+				$.alertable.alert('Se canto ' + jugada).always(function() {
 
 				});
 			}
