@@ -3,7 +3,7 @@ package dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class BazaDTO implements Serializable{
+public class BazaDTO extends JsonDTO  implements Serializable{
 
 	private static final long serialVersionUID = 7697472000145577384L;
 	/**
@@ -27,7 +27,9 @@ public class BazaDTO implements Serializable{
 		this.idBaza = idBaza;
 	}	
 
+	@Override
 	public String toJson() {
-		return JsonDTO.getJson(this);
+		// TODO Auto-generated method stub
+		 return getJson(this);
 	}
 }

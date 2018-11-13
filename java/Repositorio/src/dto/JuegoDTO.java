@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class JuegoDTO implements Serializable {
+public class JuegoDTO extends JsonDTO  implements Serializable {
 	/**
 	 * 
 	 */
@@ -35,10 +35,11 @@ public class JuegoDTO implements Serializable {
 		this.idJuego = idJuego;
 	}
 
+	@Override
 	public String toJson() {
-		return JsonDTO.getJson(this);
+		// TODO Auto-generated method stub
+		 return getJson(this);
 	}
-
 
 	public List<ParejaDTO> getParejas() {
 		return parejas;

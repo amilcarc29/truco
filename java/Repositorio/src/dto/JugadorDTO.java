@@ -3,7 +3,7 @@ package dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class JugadorDTO implements Serializable {
+public class JugadorDTO extends JsonDTO  implements Serializable {
 
 	private static final long serialVersionUID = -7553168826919721922L;
 	private String apodo;
@@ -31,10 +31,12 @@ public class JugadorDTO implements Serializable {
 		return serialVersionUID;
 	}
 
+	@Override
 	public String toJson() {
-		return JsonDTO.getJson(this);
+		// TODO Auto-generated method stub
+		 return getJson(this);
 	}
-
+	
 	public String getApodo() {
 		return apodo;
 	}

@@ -3,7 +3,7 @@ package dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class GrupoDTO implements Serializable {
+public class GrupoDTO extends JsonDTO  implements Serializable {
 
 	private static final long serialVersionUID = -3914554002626879933L;
 
@@ -63,7 +63,9 @@ public class GrupoDTO implements Serializable {
 		this.partidas = partidas;
 	}
 
+	@Override
 	public String toJson() {
-		return JsonDTO.getJson(this);
+		// TODO Auto-generated method stub
+		 return getJson(this);
 	}
 }
