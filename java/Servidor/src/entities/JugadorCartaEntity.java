@@ -26,8 +26,8 @@ public class JugadorCartaEntity {
 
 	
 	@OneToOne
-	@JoinColumn(name = "idBaza")
-	private BazaEntity baza;
+	@JoinColumn(name = "idMano")
+	private ManoEntity mano;
 
 	
 	private boolean cartaJugada;
@@ -35,8 +35,8 @@ public class JugadorCartaEntity {
 	public JugadorCartaEntity() {
 
 	}
-	public void setBaza(BazaEntity baza) {
-		this.baza = baza;
+	public void setMano(ManoEntity mano) {
+		this.mano = mano;
 	}
 	public JugadorCartaEntity(JugadorEntity jugador, CartaEntity carta) {
 		this.Jugador = jugador;

@@ -10,13 +10,16 @@ import entities.BazaEntity;
 import entities.CartaEntity;
 import entities.JugadorCartaEntity;
 import entities.JugadorEntity;
+import entities.ManoEntity;
 import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.ManoException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Carta;
 import negocio.Jugador;
+import negocio.Mano;
 
 public class JugadorCartaDAO {
 	private static JugadorCartaDAO instancia;
@@ -30,8 +33,11 @@ public class JugadorCartaDAO {
 	public JugadorCartaDAO() {
 	}
 
-	public void guardarCartas(List<Carta> cartas, Jugador jugador) throws UsuarioException, CategoriaException, CartaException {
+	public void guardarCartas(List<Carta> cartas, Jugador jugador, int idMano) throws UsuarioException, CategoriaException, CartaException, ManoException {
 
+		
+		ManoEntity mano = ManoDAO.getInstancia().buscarManoPorID(idMano);
+		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
@@ -41,6 +47,7 @@ public class JugadorCartaDAO {
 			CartaEntity ce = CartaDAO.getInstancia().buscarCartaPorIDEntity(carta.getIdCarta());
 
 			JugadorCartaEntity jc = new JugadorCartaEntity(je, ce);
+			jc.setMano(mano);
 
 			session.saveOrUpdate(jc);
 
@@ -50,7 +57,6 @@ public class JugadorCartaDAO {
 		session.close();
 
 	}
-
 	public List<Carta> getCartasbyJugador(Jugador jug, boolean jugada) {
 		// TODO Auto-generated method stub
 		
@@ -59,8 +65,28 @@ public class JugadorCartaDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 
-		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=?")
+		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=?" )
 				.setParameter(0, jug.getId()).setParameter(1, jugada).list();
+		session.close();
+
+		for (JugadorCartaEntity jc : jugadorcartasEnt) {
+			
+			cartas.add(CartaDAO.getInstancia().toNegocio(jc.getCarta()));
+		}
+		
+		return cartas;
+	}
+	
+	public List<Carta> getCartasbyJugador(Jugador jug, Mano mano, boolean jugada) {
+		// TODO Auto-generated method stub
+		
+		Vector<Carta> cartas = new Vector<>();
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+
+		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=?  and idMano=? " )
+				.setParameter(0, jug.getId()).setParameter(1, jugada).setParameter(2, mano.getIdMano()).list();
 		session.close();
 
 		for (JugadorCartaEntity jc : jugadorcartasEnt) {
@@ -93,7 +119,7 @@ public class JugadorCartaDAO {
 	}
 
 	
-	public void guardarCartaJugada(int idJugador, int idCarta, int idBaza) throws BazaException {
+	public void guardarCartaJugada(int idJugador, int idCarta) throws BazaException {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -102,8 +128,6 @@ public class JugadorCartaDAO {
 				createQuery("from JugadorCartaEntity where idJugador = ? and idCarta = ? and cartaJugada = 0 ").setParameter(0, idJugador).setParameter(1, idCarta).uniqueResult();
 		//session.close();
 		
-		BazaEntity baza = BazaDAO.getInstancia().buscarBazaPorID(idBaza);
-		jugadorcartasEnt.setBaza(baza);
 		jugadorcartasEnt.setCartaJugada(true);
 		session.beginTransaction();
 		session.saveOrUpdate(jugadorcartasEnt);

@@ -383,8 +383,8 @@ public class ControladorJuego {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
-
-		List<Carta> cartas = JugadorCartaDAO.getInstancia().getCartasbyJugador(jug, jugada);
+		
+		List<Carta> cartas = JugadorCartaDAO.getInstancia().getCartasbyJugador(jug,ju.getUltimaMano(), jugada);
 		List<CartaDTO> cartasDto = new ArrayList<>();
 
 		for (Carta carta : cartas) {

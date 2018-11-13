@@ -11,6 +11,7 @@ import dto.JugadorDTO;
 import entities.Tanto;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.ManoException;
 import excepciones.UsuarioException;
 
 public abstract class Jugador {
@@ -88,9 +89,9 @@ public abstract class Jugador {
 		this.cartas = cartas;
 	}
 
-	public void guardarCartas(List<Carta> cartas) throws UsuarioException, CategoriaException, CartaException {
+	public void guardarCartas(List<Carta> cartas, int idMano) throws UsuarioException, CategoriaException, CartaException, ManoException {
 		this.setCartas(cartas);
-		JugadorCartaDAO.getInstancia().guardarCartas(this.cartas, this);
+		JugadorCartaDAO.getInstancia().guardarCartas(this.cartas, this, idMano);
 
 	}
 

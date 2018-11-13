@@ -173,7 +173,7 @@ public class Chico {
 		envido.save(mano);
 		mano.setEnvido(envido);
 //		mano.altaBaza();
-
+		mano.repartir();
 		manos.add(mano);
 		
 		
@@ -304,6 +304,7 @@ public class Chico {
 		
 		Mano mano = new Mano(parejas, jugadores, this.getPuntosParaTerminar());
 		mano.save(this);		
+		mano.repartir();
 		
 		Trucoo truco = new Trucoo();
 		truco.save(mano);

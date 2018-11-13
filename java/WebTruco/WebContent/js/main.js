@@ -577,19 +577,21 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '<div class="divTable">';
 		tableDiv += '<div class="divTableBody">';
 		tableDiv += '<div class="divTableRow">';
+		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[3] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[0] + '</div>';
 		
-		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
-		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
-		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
 		
 		tableDiv += '<div class="divTableCell"></div>';
 
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
 
-		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
-		tableDiv += '<div class="divTableCell">' + cartasImg[3] + '</div>';
-		tableDiv += '<div class="divTableCell">' + cartasImg[0] + '</div>';
+
+		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
+		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
+		
 		
 		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
 
