@@ -49,7 +49,7 @@ public class UsuarioDAO {
 		
 	}
 
-	// CHEQUEAR = TE TRAE EL USUARIO CON LA CATEGORIA CARGADA?
+	
 	public Usuario buscarUsuarioById(int idUsuario) throws UsuarioException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();

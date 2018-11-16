@@ -3,8 +3,11 @@ package controlador;
 import java.util.List;
 import java.util.Vector;
 
+import dao.UsuarioDAO;
 import dto.GrupoDTO;
 import dto.JuegoDTO;
+import dto.JugadorDTO;
+import dto.ParejaDTO;
 import dto.UsuarioDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
@@ -83,17 +86,31 @@ public class ControladorArmadoJuegos {
 	public Vector<Pareja> getParejasEnEspera() {
 		return parejasEnEspera;
 	}
+	
+	public void crearParejaJuego(UsuarioDTO usuario) {
+		
+		// VER COMO CREAR UNA PAREJA CON UN SOLO JUGADOR Y PERSISTIRLA		
+	}
+	
+	public void agregarJugadorAPareja(UsuarioDTO usuario, ParejaDTO pareja) throws UsuarioException, CategoriaException {
+		
+		// BUSCAR UNA PAREJA YA CREADA
+		// CREAR JUGADORINDIVIDUAL
+		// AGREGAR JUGADOR CREADO A PAREJA	
+	}
+	
+	public void agregarParejaLibreAEspera(ParejaDTO pareja) throws CategoriaException, UsuarioException {
+		
+		// BUSCAR PAREJA YA CREADA
+		// AGREGAR PAREJA ENCONTRADA A ESPERA
+	}
 
 	public void agregarJugadorLibreAEspera(UsuarioDTO usuario) throws UsuarioException, CategoriaException {
 
 		Usuario us = ControladorUsuario.getInstancia().buscarUsuarioPorId(usuario.getIdUsuario());
 
 		getJugadoresEnEspera().add(new JugadorIndividual(us));
-	}
-
-	public void agregarParejaLibreAEspera(Pareja pareja) {
-		getParejasEnEspera().add(pareja);
-	}
+	}	
 
 	// TODO Renombrar en Diagrama
 	public void confirmarGrupo(GrupoJuego grupo)
@@ -119,7 +136,7 @@ public class ControladorArmadoJuegos {
 		// }
 		return false;
 	}
-
+	
 	public void iniciarPartidaLibre(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4)
 			throws UsuarioException, CategoriaException, JuegoException, ParejaException, ManoException, CartaException, ChicoException {
 		try {
@@ -150,12 +167,10 @@ public class ControladorArmadoJuegos {
 
 	}
 
-	public void iniciarPartidaEnPareja(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4)
+	public void iniciarPartidaEnPareja(Pareja p1, Pareja p2)
 			throws UsuarioException, CategoriaException, JuegoException, ParejaException, ManoException, CartaException, ChicoException {
 		try {
-
-			Pareja p1 = this.armarPareja(u1, u2);
-			Pareja p2 = this.armarPareja(u3, u4);
+			
 			GrupoJuego gj = new GrupoJuego(p1, p2);
 			gj.setTipoJuego("ENPAREJA");
 			ControladorJuego.getInstancia().iniciarJuego(gj);
@@ -224,7 +239,7 @@ public class ControladorArmadoJuegos {
 		return p.saveGrupal();
 
 	}
-
+	
 	public Pareja armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws UsuarioException, CategoriaException {
 
 		Usuario usuario1 = ControladorUsuario.getInstancia().buscarUsuarioPorId(u1.getIdUsuario());
