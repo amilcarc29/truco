@@ -283,7 +283,7 @@ body {
 .divTable {
 	display: table;
 	width: 100%;
-	padding-left: 5%;
+	padding-left: 0%;
 }
 /* DivTable.com */
 .divTableCenter {
@@ -372,10 +372,13 @@ body {
 </style>
 <link rel="stylesheet" href="css/jquery.alertable.css">
 <link rel="stylesheet" href="css/game.css">
+<link rel="stylesheet" href="css/jquery-confirm.css">
 
 <script src='js/jquery-3.3.1.min.js'></script>
 <script src="js/prefixfree.min.js"></script>
 <script src="js/jquery.alertable.js"></script>
+<script src="js/jquery-confirm.js"></script>
+
 <script src="js/main.js"></script>
 <script>
 	var user =
@@ -399,7 +402,7 @@ body {
 			<h6 id="usuarioEnEspera"></h6>
 
 		</div>
-		<div>
+		<div id="mainButton">
 
 			<button class="blob-btn" onCLick="unirsePartidaLibre()">
 				Unirse Partida Libre <span class="blob-btn__inner"> <span
@@ -437,12 +440,17 @@ body {
 						<div class="divTable">
 							<div class="divTableBody">
 								<div class="divTableRow">
-									<div class="divTableCell">&nbsp;</div>
-									<div id="jug3jug" class="divTableCell">&nbsp;</div>
-									<div class="divTableCell">&nbsp;</div>
+									<div class="divTableCell" id="divPuntosDatos">
+									
+									
+									
+									</div>
+									<div id="jug2jug" class="divTableCell">&nbsp;</div>
+									
+									<div class="divTableCell" id ="misCartas">&nbsp;</div>
 								</div>
 								<div class="divTableRow">
-									<div id="jug2jug" class="divTableCell">&nbsp;</div>
+									<div id="jug3jug" class="divTableCell">&nbsp;</div>
 									<div class="divTableCell">
 
 									</div>
@@ -451,7 +459,7 @@ body {
 								<div class="divTableRow">
 									<div class="divTableCell">&nbsp;</div>
 									<div id="jug1jug" class="divTableCell">&nbsp;</div>
-									<div class="divTableCell" id = "misCartas">&nbsp;</div>
+									<div class="divTableCell" >&nbsp;</div>
 								</div>
 							</div>
 						</div>

@@ -8,8 +8,10 @@ import dao.JugadorCartaDAO;
 import dao.JugadorDAO;
 import dto.CartaDTO;
 import dto.JugadorDTO;
+import entities.Tanto;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
+import excepciones.ManoException;
 import excepciones.UsuarioException;
 
 public abstract class Jugador {
@@ -21,7 +23,7 @@ public abstract class Jugador {
 
 	private int orden;
 
-	private boolean tieneQueContestar;
+	private String tanto;
 
 	// private static int cnt = 0;
 	//
@@ -87,9 +89,9 @@ public abstract class Jugador {
 		this.cartas = cartas;
 	}
 
-	public void guardarCartas(List<Carta> cartas) throws UsuarioException, CategoriaException, CartaException {
+	public void guardarCartas(List<Carta> cartas, int idMano) throws UsuarioException, CategoriaException, CartaException, ManoException {
 		this.setCartas(cartas);
-		JugadorCartaDAO.getInstancia().guardarCartas(this.cartas, this);
+		JugadorCartaDAO.getInstancia().guardarCartas(this.cartas, this, idMano);
 
 	}
 
@@ -219,6 +221,7 @@ public abstract class Jugador {
 		// TODO Auto-generated method stub
 		JugadorDTO j = new JugadorDTO(this.idJugador);
 		j.setApodo(this.apodo);
+		j.setTieneTurno(this.tieneTurno);		
 		List<Carta> c = JugadorCartaDAO.getInstancia().getCartasbyJugador(this, true);
 		List<CartaDTO> cdto = new ArrayList<>();
 
@@ -242,12 +245,12 @@ public abstract class Jugador {
 		this.idJugador = idJugador;
 	}
 
-	public boolean isTieneQueContestar() {
-		return tieneQueContestar;
+	public String getTanto() {
+		return tanto;
 	}
 
-	public void setTieneQueContestar(boolean tieneQueContestar) {
-		this.tieneQueContestar = tieneQueContestar;
+	public void setTanto(String tanto) {
+		this.tanto = tanto;
 	}
 
 	public int getOrden() {

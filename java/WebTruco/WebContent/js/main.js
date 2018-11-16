@@ -3,8 +3,11 @@ var partidasActivas = "";
 var tituloCargado = false;
 var juegoActual;
 var juegoJson;
+
 var turno;
 var partidas;
+var intTanto;
+var tantoMsgVis = false;
 var juegoActual;
 
 $(document).ready(function() {
@@ -68,6 +71,8 @@ function abrirJuego(idJuego) {
 function loopRenderGame() {
 	renderGame();
 	getCartas();
+	notificaTurno();
+
 	partidas = setInterval(function() {
 		renderGame();
 		getCartas();
@@ -75,14 +80,25 @@ function loopRenderGame() {
 		// getCartasJugadas(juegoActual);
 		// getPuntos(juegoActual);
 	}, 10000);
+
 	partidas = setInterval(function() {
 
 		turno = notificaTurno();
-		notificaTurno();
+
 	}, 50000);
+
+	tantoLoop();
 
 }
 
+function tantoLoop() {
+	intTanto = setInterval(function() {
+
+		notificaTanto()
+
+	}, 10000);
+
+}
 function renderGame() {
 
 	var url = '/WebTruco/Juegos';
@@ -97,6 +113,7 @@ function renderGame() {
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
 			render(data);
+
 		}
 	});
 
@@ -119,6 +136,9 @@ function render(data) {
 			jugNum++;
 		}
 	}
+
+	renderPunt(data);
+
 	$("#loader").fadeOut("fast");
 }
 
@@ -218,20 +238,185 @@ function notificaTurno() {
 		url : url,
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
-
-			if (data.TURNO == "TRUE") {
+			if (data.TURNO == true) {
 				notifyMe();
 			}
 
 		}
 	});
 }
-function openGameClass() {
+function alertTanto(tanto) {
 
+	if (tanto == "ENVIDO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO ENVIDO");
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO ENVIDO");
+				},
+				envido : function() {
+					notificaTantoRespuesta("ENVIDO");
+				},
+				realEnvido : function() {
+					notificaTantoRespuesta("REAL ENVIDO");
+				},
+				faltaEnvido : function() {
+					notificaTantoRespuesta("FALTA ENVIDO");
+
+				}
+			}
+		});
+
+	} else if (tanto == "FALTA ENVIDO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO ENVIDO");
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO ENVIDO");
+				}
+			}
+		});
+
+	} else if (tanto == "REAL ENVIDO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO ENVIDO");
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO ENVIDO");
+				},
+
+				faltaEnvido : function() {
+					notificaTantoRespuesta("FALTA ENVIDO");
+
+				}
+			}
+		});
+
+	} else if (tanto == "TRUCO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO TRUCO");
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO TRUCO");
+
+				},
+				retTruco : function() {
+					notificaTantoRespuesta("RE TRUCO");
+
+				},
+				valeCuatro : function() {
+					notificaTantoRespuesta("VALE CUATRO");
+
+				}
+			}
+		});
+
+	} else if (tanto == "RE TRUCO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO TRUCO");
+
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO TRUCO");
+
+				},
+				valeCuatro : function() {
+					notificaTantoRespuesta("VALE CUATRO");
+
+				}
+			}
+		});
+
+	}
+
+}
+function notificaTantoRespuesta(tantoResp) {
+	var url = '/WebTruco/Juegos';
+
+	var buscarJuegos = {
+		action : 'responderTanto',
+		idJuego : juegoActual,
+		jug : tantoResp
+	};
+
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : buscarJuegos, // serializes the form's elements.
+		success : function(data) {
+			tantoMsgVis = false;
+		}
+	});
+}
+function notificaTanto() {
+
+	var url = '/WebTruco/Juegos';
+	var buscarJuegos = {
+		action : 'esMiturno',
+		idJuego : juegoActual
+	};
+
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : buscarJuegos, // serializes the form's elements.
+		success : function(data) {
+
+			if ((data.TANTO != null)) {
+
+				if (!tantoMsgVis) {
+					alertTanto(data.TANTO)
+					tantoMsgVis = true;
+				}
+			} else {
+
+			}
+
+		}
+	});
+}
+
+function openGameClass() {
+	$("#mainButton").fadeOut("fast");
+	document.getElementById("userApodo").innerHTML = "";
+	document.getElementById('usuarioEnEspera').innerHTML =  "" ;
 	$("#bodyDiv").removeClass("body");
 	$("#gradDiv").removeClass("grad");
 }
 function closeGameClass() {
+	$("#mainButton").fadeIn("fast");
+
+	document.getElementById("userApodo").innerHTML = "";
 
 	$("#bodyDiv").addClass("body");
 	$("#gradDiv").addClass("grad");
@@ -264,7 +449,9 @@ function drawCartasSinJugar(data) {
 	var tableDiv = "";
 	tableDiv += '<div class="divTable">';
 	tableDiv += '<div class="divTableBody">';
-	tableDiv += '	<div class="divTableRow">';
+
+
+	tableDiv += '<div class="divTableRow">';
 	tableDiv += '	<div class="divTableCell">';
 	tableDiv += '		<div class="misCartas">Mis Cartas</div>';
 	tableDiv += '	</div>';
@@ -291,7 +478,7 @@ function drawCartas(data, juego, jugNum) {
 		imgtmp = "<img src='./img/" + data.cartas[i].palo + "/"
 				+ data.cartas[i].numero + ".jpg' height='70%' ";
 
-		if (jugNum == 2)
+		if (jugNum == 3)
 			imgtmp += " class='rotateimg90' ";
 
 		if (jugNum == 4)
@@ -304,12 +491,46 @@ function drawCartas(data, juego, jugNum) {
 
 	}
 
-	for (var x = i; x < 9; x++) {
-		if (x < 3)
+	if ((i == 3) || (i == 6) || (i == 0)) {
+
+		for (var n = 0; n < 3; n++) {
+
 			imgtmp = "<img src='./img/EMPTY/BACK.png' height='70%' ";
-		else
-			imgtmp = "<img src='./img/EMPTY/EMPTY.png' height='70%' ";
-		if (jugNum == 2)
+
+			if (jugNum == 3)
+				imgtmp += " class='rotateimg90' ";
+
+			if (jugNum == 4)
+				imgtmp += " class='rotateimg-90'  ";
+
+			imgtmp += ">";
+
+			cartasImg[i] = imgtmp;
+			i++;
+		}
+	}
+
+	while ((i % 3) != 0) {
+
+		imgtmp = "<img src='./img/EMPTY/BACK.png' height='70%' ";
+
+		if (jugNum == 3)
+			imgtmp += " class='rotateimg90' ";
+
+		if (jugNum == 4)
+			imgtmp += " class='rotateimg-90'  ";
+
+		imgtmp += ">";
+
+		cartasImg[i] = imgtmp;
+
+		i++;
+
+	}
+
+	for (var x = i; x < 9; x++) {
+		imgtmp = "<img src='./img/EMPTY/EMPTY.png' height='70%' ";
+		if (jugNum == 3)
 			imgtmp += " class='rotateimg90' ";
 
 		if (jugNum == 4)
@@ -319,6 +540,7 @@ function drawCartas(data, juego, jugNum) {
 
 		cartasImg[x] = imgtmp;
 	}
+
 	var tableDiv = "";
 	if (jugNum == 1) {
 
@@ -350,7 +572,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '</div>';
 	}
 
-	if (jugNum == 2) {
+	if (jugNum == 3) {
 
 		tableDiv += '<div class="divTable">';
 		tableDiv += '<div class="divTableBody">';
@@ -358,13 +580,19 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
 		tableDiv += '<div class="divTableCell">' + cartasImg[3] + '</div>';
 		tableDiv += '<div class="divTableCell">' + cartasImg[0] + '</div>';
+		
+		
 		tableDiv += '<div class="divTableCell"></div>';
 
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
+
+
 		tableDiv += '<div class="divTableCell">' + cartasImg[7] + '</div>';
 		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
 		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
+		
+		
 		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
 
 		tableDiv += '</div>';
@@ -378,7 +606,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '</div>';
 		tableDiv += '</div>';
 	}
-	if (jugNum == 3) {
+	if (jugNum == 2) {
 
 		tableDiv += '<div class="divTable">';
 		tableDiv += '<div class="divTableBody">';
@@ -438,8 +666,99 @@ function drawCartas(data, juego, jugNum) {
 
 	document.getElementById("jug" + jugNum + "jug").innerHTML = '<div class="divTable">'
 			+ '<div class="divTableBody">' + tableDiv + '</div>' + '</div>';
+
+}
+function renderPunt(data) {
+	var turno = "";
+	for (var i = 0; i < data.parejas.length; i++) {
+
+		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
+
+			if (data.parejas[i].jugadores[x].tieneTurno) {
+				turno = data.parejas[i].jugadores[x].apodo;
+				break;
+			}
+
+		}
+
+	}
+
+	
+	var divPnt = "";
+	divPnt += '<div class="divTable">';
+	divPnt += '<div class="divTableBody">';
+	
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">Turno De ' + turno + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 1  ' + data.parejas[0].jugadores[0].apodo + " " + data.parejas[0].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Puntos </div>';
+	divPnt += '</div>';
+	
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">Usuario ' + user.apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 2  ' + data.parejas[1].jugadores[0].apodo + " " + data.parejas[1].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 1 = '+data.chicos[0].puntosChico[0].puntos + ', Pareja 2 = ' + data.chicos[0].puntosChico[1].puntos +' </div>';
+	divPnt += '</div>';
+	
+	if (data.chicos.length>=2){
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">Pareja 1 ' + data.parejas[0].jugadores[0].apodo + " " + data.parejas[0].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 1 ='+data.chicos[1].puntosChico[0].puntos + ', Pareja 2 = ' + data.chicos[1].puntosChico[1].puntos +' </div>';
+	divPnt += '</div>';
+	}
+	
+	
+	if (data.chicos.length>=3){
+		
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">Pareja 2  '+ data.parejas[1].jugadores[0].apodo + " "	+ data.parejas[1].jugadores[1].apodo + ' </div>';
+	divPnt += '<div class="divTableCell">Pareja 1 = '+data.chicos[2].puntosChico[0].puntos + ', Pareja 2 = ' + data.chicos[2].puntosChico[1].puntos +' </div>';
+	divPnt += '</div>';
+	}
+	
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">  </div>';
+
+
+	divPnt += '</div>';
+
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell"></div>';
+	divPnt += '<div class="divTableCell"></div>';
+	divPnt += '</div>';
+
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">' + makeButton('ENVIDO', 'ENVIDO')
+			+ '</div>';
+	divPnt += '<div class="divTableCell"></div>';
+	divPnt += '</div>';
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">' + makeButton('TRUCO', 'TRUCO')
+			+ '</div>';
+	divPnt += '<div class="divTableCell"></div>';
+	divPnt += '</div>';
+	divPnt += '</div>';
+	divPnt += '</div>';
+
+	document.getElementById("divPuntosDatos").innerHTML = divPnt;
+
+
+
 }
 
+function makeButton(key, label) {
+
+	var but = '<button class="blob-btn"  onClick="cantarTanto(\'' + key
+			+ '\')">';
+	but += label + ' <span class="blob-btn__inner"> <span';
+	but += 'class="blob-btn__blobs"> <span class="blob-btn__blob"></span>';
+	but += '<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>';
+	but += '	<span class="blob-btn__blob"></span>';
+	but += '</span>';
+	but += '</span>';
+	but += '</button>';
+	return but;
+}
 function verificarTurno(idCarta, idJuego) {
 
 	var url = '/WebTruco/Juegos';
@@ -454,8 +773,7 @@ function verificarTurno(idCarta, idJuego) {
 		url : url,
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
-
-			if (data.TURNO == "TRUE") {
+			if (data.TURNO == true) {
 				jugar(idCarta, idJuego);
 			} else {
 
@@ -468,6 +786,36 @@ function verificarTurno(idCarta, idJuego) {
 		}
 	});
 }
+
+function cantarTanto(jugada) {
+
+	var url = '/WebTruco/Juegos';
+
+	var buscarJuegos = {
+		action : 'cantarTanto',
+		idJuego : juegoActual,
+		jug : jugada
+	};
+
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : buscarJuegos, // serializes the form's elements.
+		success : function(data) {
+			if (data.TURNO == false) {
+				$.alertable.alert('No es su turno').always(function() {
+
+				});
+			} else {
+				$.alertable.alert('Se canto ' + jugada).always(function() {
+
+				});
+			}
+		}
+	});
+
+}
+
 function jugar(idCarta, idJuego) {
 	$("#loader").fadeIn("fast");
 	var url = '/WebTruco/Juegos';
@@ -486,8 +834,7 @@ function jugar(idCarta, idJuego) {
 			if (data.JUGADA == "TRUE") {
 				renderGame();
 				getCartas();
-				
-				
+
 			}
 		}
 	});

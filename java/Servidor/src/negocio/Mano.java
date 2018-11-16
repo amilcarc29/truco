@@ -47,7 +47,7 @@ public class Mano {
 	}
 
 	public Mano(List<Pareja> parejas, List<Jugador> jugadores, int puntoParaTerminarChico)
-			throws UsuarioException, CategoriaException, CartaException {
+			throws UsuarioException, CategoriaException, CartaException, ManoException {
 		super();
 		this.parejas = parejas;
 		this.jugadores = jugadores;
@@ -60,7 +60,7 @@ public class Mano {
 		this.seCantoTruco = false;
 
 		mazo = new Mazo();
-		repartir();
+		//repartir();
 	}
 
 	public void altaBaza() throws ManoException {
@@ -75,7 +75,7 @@ public class Mano {
 		JugadorDAO.getInstancia().setTurno(this.jugadores.get(0));
 	}
 
-	private void repartir() throws UsuarioException, CategoriaException, CartaException {
+	public void repartir() throws UsuarioException, CategoriaException, CartaException, ManoException {
 
 		// arreglo pone todas las cartas del jugador como jugadas antes de pedir mas
 		for (Jugador jug : jugadores) {
@@ -84,7 +84,7 @@ public class Mano {
 
 		for (Jugador jug : jugadores) {
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
-			jug.guardarCartas(cartas);
+			jug.guardarCartas(cartas, this.getIdMano());
 		}
 
 	}
@@ -122,13 +122,13 @@ public class Mano {
 
 	// TODO AGREGAR BUSCA UN JUGADOR EN UNA PAREJA
 	
-	public void setTieneQueContestar (Jugador jugador) throws ParejaException {
+	public void setTieneQueContestar (Jugador jugador, String tanto) throws ParejaException {
 		
 		this.inicializarContestar();
 		
 		Pareja p = this.getParejaContrariaActual(jugador.getId());
 		
-		JugadorDAO.getInstancia().setTieneQueContestar(p);
+		JugadorDAO.getInstancia().setTieneQueContestar(p, tanto);
 				
 	}
 	

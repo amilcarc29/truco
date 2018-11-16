@@ -2,7 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
-public class CategoriaDTO implements Serializable {
+public class CategoriaDTO extends JsonDTO  implements Serializable {
 
 	private static final long serialVersionUID = -3374447334738410724L;
 
@@ -64,7 +64,9 @@ public class CategoriaDTO implements Serializable {
 		this.promedioMinimo = promedioMinimo;
 	}
 
+	@Override
 	public String toJson() {
-		return JsonDTO.getJson(this);
+		// TODO Auto-generated method stub
+		 return getJson(this);
 	}
 }

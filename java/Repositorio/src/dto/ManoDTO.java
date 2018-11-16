@@ -3,7 +3,7 @@ package dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class ManoDTO  implements Serializable{
+public class ManoDTO extends JsonDTO   implements Serializable{
 	
 	private int idMano;
 	private List<ParejaDTO> parejas;
@@ -85,7 +85,9 @@ public class ManoDTO  implements Serializable{
 		this.seCantoTruco = seCantoTruco;
 	}
 
+	@Override
 	public String toJson() {
-		return JsonDTO.getJson(this);
+		// TODO Auto-generated method stub
+		 return getJson(this);
 	}
 }

@@ -2,7 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
-public class UsuarioDTO implements Serializable {
+public class UsuarioDTO extends JsonDTO implements Serializable {
 
 	private static final long serialVersionUID = 913850522288957303L;
 
@@ -92,7 +92,10 @@ public class UsuarioDTO implements Serializable {
 		this.activo = activo;
 	}
 
+	@Override
 	public String toJson() {
-		return JsonDTO.getJson(this);
+		// TODO Auto-generated method stub
+		 return getJson(this);
 	}
+
 }

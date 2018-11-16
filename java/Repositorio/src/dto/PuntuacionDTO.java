@@ -2,7 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
-public class PuntuacionDTO  implements Serializable{
+public class PuntuacionDTO extends JsonDTO  implements Serializable{
 	
 	private int idPuntuacion;
 	private ParejaDTO pareja;
@@ -41,7 +41,9 @@ public class PuntuacionDTO  implements Serializable{
 		this.puntos = puntos;
 	}
 
+	@Override
 	public String toJson() {
-		return JsonDTO.getJson(this);
+		// TODO Auto-generated method stub
+		 return getJson(this);
 	}
 }

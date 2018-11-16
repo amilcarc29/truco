@@ -111,10 +111,10 @@ public abstract class Juego {
 		return getUltimoChico().getParejaGanadora();
 	}
 
-	public abstract void finalizarJuego() throws UsuarioException, CategoriaException, ParejaException, MiembroException;
+	public abstract void finalizarJuego()
+			throws UsuarioException, CategoriaException, ParejaException, MiembroException;
 
-	public int calcularPuntosSegunCategoria(Usuario usuario)
-			throws CategoriaException, UsuarioException {
+	public int calcularPuntosSegunCategoria(Usuario usuario) throws CategoriaException, UsuarioException {
 		int puntosAgregados = 0;
 		if (esCategoriaInferior(usuario.getCategoria().getNombre())) {
 			puntosAgregados = 2;
@@ -145,7 +145,8 @@ public abstract class Juego {
 	}
 
 	// TODO tener en cuenta el orden para cada mano
-	public void crearChico() throws UsuarioException, CategoriaException, ParejaException, ManoException, CartaException, ChicoException {
+	public void crearChico() throws UsuarioException, CategoriaException, ParejaException, ManoException,
+			CartaException, ChicoException {
 		Chico chico = new Chico(parejas);
 		chico.save(this);
 		chico.altaMano(chico.getPuntosParaTerminar());
@@ -174,7 +175,8 @@ public abstract class Juego {
 		throw new ParejaException("No se encontro la pareja del jugador: " + jugador.getId());
 	}
 
-	public void jugarCarta(Carta carta) throws JugadorException, CartaException, UsuarioException, CategoriaException, JuegoException, ManoException, BazaException, JugadaException {
+	public void jugarCarta(Carta carta) throws JugadorException, CartaException, UsuarioException, CategoriaException,
+			JuegoException, ManoException, BazaException, JugadaException {
 
 		// TODO ver si se pasa a baza
 		Jugador jugador = JugadorDAO.getInstancia().getJugadorConTurno(this);
@@ -231,11 +233,11 @@ public abstract class Juego {
 		for (Chico c : this.chicos) {
 			cdto.add(c.toDTO());
 		}
-		JuegoDTO j ;
-		if (this.ganador!=null)
-		 j = new JuegoDTO(this.idJuego, pdto, cdto, this.ganador.toDTO(), this.fecha);
+		JuegoDTO j;
+		if (this.ganador != null)
+			j = new JuegoDTO(this.idJuego, pdto, cdto, this.ganador.toDTO(), this.fecha);
 		else
-			 j = new JuegoDTO(this.idJuego, pdto, cdto, null, this.fecha);
+			j = new JuegoDTO(this.idJuego, pdto, cdto, null, this.fecha);
 
 		return j;
 	}
@@ -250,7 +252,7 @@ public abstract class Juego {
 	}
 
 	public Mano getUltimaMano() {
-	
+
 		return this.getUltimoChico().getUltimaMano();
 	}
 
@@ -264,7 +266,8 @@ public abstract class Juego {
 		return chicos.get(chicos.size() - 1);
 	}
 
-	public void armarNuevoChico() throws UsuarioException, CategoriaException, ParejaException, ManoException, CartaException, ChicoException {
+	public void armarNuevoChico() throws UsuarioException, CategoriaException, ParejaException, ManoException,
+			CartaException, ChicoException {
 		// TODO Auto-generated method stub
 
 		this.getUltimoChico().setJugadores(JugadorDAO.getInstancia().getJugadores(this.getId()));
@@ -306,7 +309,7 @@ public abstract class Juego {
 	// LE FALTA JUGADOR. VER! (DIFERENCIA CON TRUCO)
 
 	public void cantarEnvido() throws ManoException {
-		
+
 		this.getUltimoChico().cantarEnvido();
 
 	}
@@ -341,33 +344,30 @@ public abstract class Juego {
 
 	}
 
-	public void setTieneQueContestar(Jugador jug) throws ParejaException {
-		this.getUltimoChico().setTieneQueContestar(jug);
+	public void setTieneQueContestar(Jugador jug, String tanto) throws ParejaException {
+		this.getUltimoChico().setTieneQueContestar(jug, tanto);
 
 	}
 
-
 	public boolean alguienTieneQueContestar() {
-		return(this.getUltimoChico().alguienTieneQueContestar());
+		return (this.getUltimoChico().alguienTieneQueContestar());
 	}
 
 	public void inicializarContestar() {
 		this.getUltimoChico().inicializarContestar();
-		
+
 	}
 
-	
-	
-//	public boolean terminoUltimaMano() {
-		
-//		return this.getUltimoChico().terminoUlitmaM
-		
-//	}
+	// public boolean terminoUltimaMano() {
 
-//	public boolean terminoUltimaBaza() {
-//
-//		return this.getUltimoChico().terminoUltimaBaza();
-//		
-//	}
+	// return this.getUltimoChico().terminoUlitmaM
+
+	// }
+
+	// public boolean terminoUltimaBaza() {
+	//
+	// return this.getUltimoChico().terminoUltimaBaza();
+	//
+	// }
 
 }

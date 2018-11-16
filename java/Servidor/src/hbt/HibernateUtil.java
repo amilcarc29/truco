@@ -19,6 +19,7 @@ import entities.ManoEntity;
 import entities.MiembroEntity;
 import entities.ParejaEntity;
 import entities.PuntuacionEntity;
+import entities.TantoEntity;
 import entities.TrucooEntity;
 import entities.UsuarioEntity;
 
@@ -29,6 +30,8 @@ public class HibernateUtil {
 		try {
 			
 			AnnotationConfiguration config = new AnnotationConfiguration();
+			
+			
 			config.addAnnotatedClass(UsuarioEntity.class);
 			config.addAnnotatedClass(CategoriaEntity.class);
 			config.addAnnotatedClass(ParejaEntity.class);
@@ -46,6 +49,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(JugadorCartaEntity.class);
 			config.addAnnotatedClass(EnvidooEntity.class);
 			config.addAnnotatedClass(TrucooEntity.class);
+			config.addAnnotatedClass(TantoEntity.class);
 
 			sessionFactory = config.buildSessionFactory();
 			

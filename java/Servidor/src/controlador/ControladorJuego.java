@@ -91,7 +91,7 @@ public class ControladorJuego {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarTruco();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
-		jue.setTieneQueContestar(jug);
+		jue.setTieneQueContestar(jug, "TRUCO");
 	}
 
 	
@@ -100,7 +100,7 @@ public class ControladorJuego {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarReTruco();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
-		jue.setTieneQueContestar(jug);
+		jue.setTieneQueContestar(jug, "RE TRUCO");
 	}
 
 
@@ -108,7 +108,7 @@ public class ControladorJuego {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarVale4();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
-		jue.setTieneQueContestar(jug);
+		jue.setTieneQueContestar(jug, "VALE CUATRO");
 	}
 	
 	public void quieroTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
@@ -156,7 +156,8 @@ public class ControladorJuego {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarEnvido();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
-		jue.setTieneQueContestar(jug);
+		
+		jue.setTieneQueContestar(jug, "ENVIDO");
 	}
 
 
@@ -164,7 +165,7 @@ public class ControladorJuego {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarRealEnvido();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
-		jue.setTieneQueContestar(jug);
+		jue.setTieneQueContestar(jug, "REAL ENVIDO");
 	}
 
 
@@ -172,7 +173,7 @@ public class ControladorJuego {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.cantarFaltaEnvido();
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
-		jue.setTieneQueContestar(jug);
+		jue.setTieneQueContestar(jug, "FALTA ENVIDO");
 	}
 
 	public void quieroEnvido(JuegoDTO juego)
@@ -359,13 +360,13 @@ public class ControladorJuego {
 		return juegosDto;
 	}
 	
-	public boolean responderJugador(JuegoDTO juego, UsuarioDTO usuario)
+	public String responderJugador(JuegoDTO juego, UsuarioDTO usuario)
 			throws CategoriaException, UsuarioException, JuegoException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
 
-		return jug.isTieneQueContestar();
+		return jug.getTanto();
 	}
 
 	public boolean turnoJugador(JuegoDTO juego, UsuarioDTO usuario)
@@ -382,8 +383,8 @@ public class ControladorJuego {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
-
-		List<Carta> cartas = JugadorCartaDAO.getInstancia().getCartasbyJugador(jug, jugada);
+		
+		List<Carta> cartas = JugadorCartaDAO.getInstancia().getCartasbyJugador(jug,ju.getUltimaMano(), jugada);
 		List<CartaDTO> cartasDto = new ArrayList<>();
 
 		for (Carta carta : cartas) {

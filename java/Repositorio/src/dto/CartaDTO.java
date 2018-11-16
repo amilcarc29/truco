@@ -2,7 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
-public class CartaDTO implements Serializable{
+public class CartaDTO extends JsonDTO  implements Serializable{
 	/**
 	 * 
 	 */
@@ -55,7 +55,9 @@ public class CartaDTO implements Serializable{
 		return serialVersionUID;
 	}
 	
+	@Override
 	public String toJson() {
-		return JsonDTO.getJson(this);
+		// TODO Auto-generated method stub
+		 return getJson(this);
 	}
 }
