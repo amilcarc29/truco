@@ -105,9 +105,18 @@ public class ThreadParejas implements Runnable {
 					for (Iterator<Jugador> iterator = jugadores.iterator(); iterator.hasNext();) {
 						Jugador j = iterator.next();
 						JugadorIndividual jugadorIndividual = ((JugadorIndividual) j);
+						boolean existe;
+						existe=false;
 						if (jugadoresLibres.size() < 4) {
+							for(Iterator<JugadorIndividual> i=jugadoresLibres.iterator();i.hasNext();){
+								JugadorIndividual iIndividual = ((JugadorIndividual) i);
+								if(jugadorIndividual.getUsuario().getIdUsuario()==iIndividual.getUsuario().getIdUsuario())
+									existe=true;
+							}
+							if(existe==false){
 							jugadoresLibres.add(jugadorIndividual);
 							iterator.remove();
+							}
 						} else {
 							juntarParejas(jugadoresLibres);
 							jugadoresLibres = new Vector<>();
