@@ -24,20 +24,22 @@ public class JugadorCartaEntity {
 	@JoinColumn(name = "idCarta")
 	private CartaEntity Carta;
 
-	
 	@OneToOne
 	@JoinColumn(name = "idMano")
 	private ManoEntity mano;
 
-	
+	private Integer orden;
+
 	private boolean cartaJugada;
 
 	public JugadorCartaEntity() {
 
 	}
+
 	public void setMano(ManoEntity mano) {
 		this.mano = mano;
 	}
+
 	public JugadorCartaEntity(JugadorEntity jugador, CartaEntity carta) {
 		this.Jugador = jugador;
 		this.Carta = carta;
@@ -56,5 +58,13 @@ public class JugadorCartaEntity {
 
 	public void setCartaJugada(boolean cartaJugada) {
 		this.cartaJugada = cartaJugada;
+	}
+
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
 	}
 }
