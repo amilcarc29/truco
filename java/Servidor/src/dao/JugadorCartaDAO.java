@@ -132,9 +132,13 @@ public class JugadorCartaDAO {
 		// session.close();
 
 		Query q = session
-				.createQuery("select max(orden) from JugadorCartaEntity  where  idJugador = ? and cartaJugada = 0  ");
+				.createQuery("select max(orden) from JugadorCartaEntity  where  idJugador = ? and cartaJugada = 1  ");
 
-		Integer max = (Integer) q.setParameter(0, idJugador).setParameter(1, idCarta).uniqueResult();
+		Integer max = (Integer) q.setParameter(0, idJugador).uniqueResult();
+		if (max == null)
+			max = 0;
+		else
+			max = max + 1;
 
 		jugadorcartasEnt.setOrden(max);
 		jugadorcartasEnt.setCartaJugada(true);
