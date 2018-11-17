@@ -19,7 +19,6 @@ public abstract class Jugador {
 	private int idJugador;
 	private List<Carta> cartas;
 	private boolean tieneTurno;
-	private String apodo;
 
 	private int orden;
 
@@ -217,21 +216,7 @@ public abstract class Jugador {
 		this.tieneTurno = tieneTurno;
 	}
 
-	public JugadorDTO toDTO() {
-		// TODO Auto-generated method stub
-		JugadorDTO j = new JugadorDTO(this.idJugador);
-		j.setApodo(this.apodo);
-		j.setTieneTurno(this.tieneTurno);		
-		List<Carta> c = JugadorCartaDAO.getInstancia().getCartasbyJugador(this, true);
-		List<CartaDTO> cdto = new ArrayList<>();
-
-		for (Carta carta : c) {
-			cdto.add(carta.toDTO());
-		}
-		j.setCartas(cdto);
-
-		return j;
-	}
+	public abstract JugadorDTO toDTO();
 
 	public boolean isTieneTurno() {
 		return tieneTurno;
@@ -259,14 +244,6 @@ public abstract class Jugador {
 
 	public void setOrden(int orden) {
 		this.orden = orden;
-	}
-
-	public String getApodo() {
-		return apodo;
-	}
-
-	public void setApodo(String apodo) {
-		this.apodo = apodo;
 	}
 
 }

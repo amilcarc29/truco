@@ -22,6 +22,10 @@ public class ParejaEntity {
 	@JoinColumn(name = "idJugador2", referencedColumnName = "idJugador")
 	private JugadorEntity jugador2;
 	
+	@OneToOne
+	@JoinColumn(name = "idCategoriaMayor", referencedColumnName = "idCategoria")
+	private CategoriaEntity categoriaMayor;
+	
 	public ParejaEntity() {}
 	
 	
@@ -58,4 +62,16 @@ public class ParejaEntity {
 	public void setJugador2(JugadorEntity jugador2) {
 		this.jugador2 = jugador2;
 	}
+
+
+	public CategoriaEntity getCategoriaMayor() {
+		return categoriaMayor;
+	}
+
+
+	public void setCategoriaMayor(CategoriaEntity categoriaMayor) {
+		this.categoriaMayor = categoriaMayor;
+	}
+	
+	
 }

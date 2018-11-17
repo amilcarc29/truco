@@ -87,22 +87,11 @@ public class ControladorArmadoJuegos {
 		return parejasEnEspera;
 	}
 	
-	public void crearParejaJuego(UsuarioDTO usuario) {
+	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws CategoriaException, UsuarioException {
 		
-		// VER COMO CREAR UNA PAREJA CON UN SOLO JUGADOR Y PERSISTIRLA		
-	}
-	
-	public void agregarJugadorAPareja(UsuarioDTO usuario, ParejaDTO pareja) throws UsuarioException, CategoriaException {
+		Pareja pareja = this.armarPareja(usuario1, usuario2);
 		
-		// BUSCAR UNA PAREJA YA CREADA
-		// CREAR JUGADORINDIVIDUAL
-		// AGREGAR JUGADOR CREADO A PAREJA	
-	}
-	
-	public void agregarParejaLibreAEspera(ParejaDTO pareja) throws CategoriaException, UsuarioException {
-		
-		// BUSCAR PAREJA YA CREADA
-		// AGREGAR PAREJA ENCONTRADA A ESPERA
+		getParejasEnEspera().add(pareja);		
 	}
 
 	public void agregarJugadorLibreAEspera(UsuarioDTO usuario) throws UsuarioException, CategoriaException {
@@ -249,7 +238,8 @@ public class ControladorArmadoJuegos {
 		JugadorIndividual j2 = new JugadorIndividual(usuario2);
 
 		Pareja p = new Pareja(j1, j2);
-		return p.saveIndividual();
+		p.saveIndividual();
+		return p;
 
 	}
 

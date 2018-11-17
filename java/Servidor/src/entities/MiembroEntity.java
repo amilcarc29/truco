@@ -14,11 +14,11 @@ public class MiembroEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idMiembro;
 	@OneToOne
-	@JoinColumn(name = "idUsuario")
-	private UsuarioEntity usuario;
-	@OneToOne
 	@JoinColumn(name = "idGrupo")
 	private GrupoEntity grupo;
+	@OneToOne
+	@JoinColumn(name = "idUsuario")
+	private UsuarioEntity usuario;
 	private int puntaje;
 	private boolean enGrupo;
 	
@@ -48,14 +48,6 @@ public class MiembroEntity {
 		this.usuario = usuario;
 	}
 
-	public GrupoEntity getGrupo() {
-		return grupo;
-	}
-
-	public void setGrupo(GrupoEntity grupo) {
-		this.grupo = grupo;
-	}
-
 	public int getPuntaje() {
 		return puntaje;
 	}
@@ -71,4 +63,18 @@ public class MiembroEntity {
 	public void setEnGrupo(boolean enGrupo) {
 		this.enGrupo = enGrupo;
 	}
+
+	public GrupoEntity getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(GrupoEntity grupo) {
+		this.grupo = grupo;
+	}
+
+	public void setIdMiembro(Integer idMiembro) {
+		this.idMiembro = idMiembro;
+	}
+	
+	
 }

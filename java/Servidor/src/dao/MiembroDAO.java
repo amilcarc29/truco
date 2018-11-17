@@ -3,9 +3,13 @@ package dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.GrupoEntity;
 import entities.MiembroEntity;
+import entities.UsuarioEntity;
 import excepciones.CategoriaException;
+import excepciones.GrupoException;
 import excepciones.MiembroException;
+import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Miembro;
 
@@ -67,24 +71,36 @@ public class MiembroDAO {
 	public Miembro toNegocio(MiembroEntity miembroEntity) throws CategoriaException {
 		Miembro miembro = new Miembro(miembroEntity.getIdMiembro(), miembroEntity.getPuntaje(), miembroEntity.isEnGrupo());
 		miembro.setUsuario(UsuarioDAO.getInstancia().toNegocio(miembroEntity.getUsuario()));
-		miembro.setGrupo(GrupoDAO.getInstancia().toNegocio(miembroEntity.getGrupo()));
 		return miembro;
 	}
 
-	public void guardarMiembro(Miembro miembro) throws CategoriaException {
+	public int guardarMiembro(Miembro miembro, int idGrupo) throws CategoriaException, GrupoException, UsuarioException {
+		GrupoEntity grupo = null;
+		grupo = GrupoDAO.getInstancia().buscarGrupoByIdEntity(idGrupo);
+		
+		UsuarioEntity usuario = null;
+		usuario = UsuarioDAO.getInstancia().buscarUsuarioByIdEntity(miembro.getUsuario().getIdUsuario());
+				
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
+		
 		MiembroEntity miembroEntity = toEntity(miembro);
+		miembroEntity.setGrupo(grupo);
+		miembroEntity.setUsuario(usuario);
+		miembroEntity.setPuntaje(0);
+		miembroEntity.setEnGrupo(true);
+		
 		session.beginTransaction();
 		session.saveOrUpdate(miembroEntity);
 		session.getTransaction().commit();
 		session.close();
+		
+		return miembro.getIdMiembro();
 	}
 
 	public MiembroEntity toEntity(Miembro miembro) throws CategoriaException {
 		MiembroEntity miembroEntity = new MiembroEntity(miembro.getIdMiembro(), miembro.getPuntaje(), miembro.isEnGrupo());
 		miembroEntity.setUsuario(UsuarioDAO.getInstancia().toEntity(miembro.getUsuario()));
-		miembroEntity.setGrupo(GrupoDAO.getInstancia().toEntity(miembro.getGrupo()));
 		return miembroEntity;
 	}
 }

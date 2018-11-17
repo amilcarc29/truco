@@ -21,6 +21,20 @@ public class GrupoDAO {
 			instancia = new GrupoDAO();
 		return instancia;
 	}
+	
+	public GrupoEntity buscarGrupoByIdEntity(int idGrupo) throws GrupoException, CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		GrupoEntity grupoEntity = (GrupoEntity) session.createQuery("from GrupoEntity where idGrupo = ?")
+				.setParameter(0, idGrupo)
+				.uniqueResult();
+		session.close();
+		if (grupoEntity != null) {
+			return grupoEntity;
+		} else {
+			throw new GrupoException("El grupo con id: " + idGrupo + "no existe en la base de datos");
+		}
+	}
 
 	public Grupo buscarGrupoById(int idGrupo) throws GrupoException, CategoriaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();

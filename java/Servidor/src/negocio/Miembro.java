@@ -1,10 +1,12 @@
 package negocio;
 
+import dto.MiembroDTO;
+import dto.UsuarioDTO;
+
 public class Miembro {
 
 	private int idMiembro;
 	private Usuario usuario;
-	private Grupo grupo;
 	private int puntaje;
 	private boolean enGrupo;
 
@@ -21,14 +23,6 @@ public class Miembro {
 
 	public void setIdMiembro(int idMiembro) {
 		this.idMiembro = idMiembro;
-	}
-
-	public Grupo getGrupo() {
-		return grupo;
-	}
-
-	public void setGrupo(Grupo grupo) {
-		this.grupo = grupo;
 	}
 
 	public Usuario getUsuario() {
@@ -53,5 +47,9 @@ public class Miembro {
 
 	public void setEnGrupo(boolean enGrupo) {
 		this.enGrupo = enGrupo;
+	}
+	
+	public MiembroDTO toDTO() {
+		return new MiembroDTO(this.getIdMiembro(), this.getUsuario().toDTO(), this.getPuntaje(), this.isEnGrupo());
 	}
 }

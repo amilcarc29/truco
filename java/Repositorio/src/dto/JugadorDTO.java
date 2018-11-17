@@ -6,7 +6,8 @@ import java.util.List;
 public class JugadorDTO extends JsonDTO  implements Serializable {
 
 	private static final long serialVersionUID = -7553168826919721922L;
-	private String apodo;
+	private UsuarioDTO usuario;
+	private MiembroDTO miembro;
 	private List<CartaDTO> cartas;
 	private List<CartaDTO> cartasJugadas;
 
@@ -37,14 +38,6 @@ public class JugadorDTO extends JsonDTO  implements Serializable {
 		 return getJson(this);
 	}
 	
-	public String getApodo() {
-		return apodo;
-	}
-
-	public void setApodo(String apodo) {
-		this.apodo = apodo;
-	}
-
 	public List<CartaDTO> getCartas() {
 		return cartas;
 	}
@@ -68,4 +61,22 @@ public class JugadorDTO extends JsonDTO  implements Serializable {
 	public void setCartasJugadas(List<CartaDTO> cartasJugadas) {
 		this.cartasJugadas = cartasJugadas;
 	}
+
+	public UsuarioDTO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioDTO usuario) {
+		this.usuario = usuario;
+	}
+
+	public MiembroDTO getMiembro() {
+		return miembro;
+	}
+
+	public void setMiembro(MiembroDTO miembro) {
+		this.miembro = miembro;
+	}
+	
+	
 }

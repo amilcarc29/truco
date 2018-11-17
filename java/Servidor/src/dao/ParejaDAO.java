@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.CategoriaEntity;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
 import entities.MiembroEntity;
@@ -37,12 +38,22 @@ public class ParejaDAO {
 		UsuarioEntity ue2 = null;
 		JugadorIndividual ju1 = (JugadorIndividual) pareja.getJugador1();
 		JugadorIndividual ju2 = (JugadorIndividual) pareja.getJugador2();
+		CategoriaEntity cat = null;
+		
 		try {
 			ue1 = UsuarioDAO.getInstancia().buscarUsuarioByIdEntity(ju1.getUsuario().getIdUsuario());
 			ue2 = UsuarioDAO.getInstancia().buscarUsuarioByIdEntity(ju2.getUsuario().getIdUsuario());
 		} catch (UsuarioException e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			cat = CategoriaDAO.getInstancia().buscarCategoriaById(pareja.getCategoriaMayor().getIdCategoria());
+		} catch (CategoriaException e){
+			e.printStackTrace();
+		}
+		
+		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session ss = sf.openSession();
 		ss.beginTransaction();
@@ -58,6 +69,7 @@ public class ParejaDAO {
 		// alta de pareja
 
 		ParejaEntity pe = new ParejaEntity(je1, je2);
+		pe.setCategoriaMayor(cat);
 		ss.saveOrUpdate(pe);
 
 		// udate de id de pareja en jugador

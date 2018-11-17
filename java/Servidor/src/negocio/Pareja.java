@@ -16,11 +16,13 @@ import excepciones.UsuarioException;
 public class Pareja {
 	private int idPareja = 0;
 	private List<Jugador> jugadores;
+	private Categoria categoriaMayor;
 
-	public Pareja(Jugador j1, Jugador j2) {
+	public Pareja(Jugador j1, Jugador j2) throws CategoriaException, UsuarioException {
 		jugadores = new LinkedList<Jugador>();
 		jugadores.add(j1);
 		jugadores.add(j2);
+		categoriaMayor = this.obtenerMayorCategoria();
 	}
 
 	public void setJugadores(List<Jugador> jugadores) {
@@ -30,6 +32,7 @@ public class Pareja {
 	public Categoria obtenerMayorCategoria() throws CategoriaException, UsuarioException {
 		Usuario usuario1 = UsuarioDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador1().getId()).getUsuario());
 		Usuario usuario2 = UsuarioDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador2().getId()).getUsuario());
+		// ESTO ESTA MUY FORZADO. SI NO ES EL MISMO NOMBRE QUE TE ASEGURA QUE LA OTRA SEA MAYOR? VER!!!
 		if (usuario1.getCategoria().getNombre().equalsIgnoreCase(usuario2.getCategoria().getNombre())) {
 			return usuario1.getCategoria();
 		}
@@ -96,6 +99,14 @@ public class Pareja {
 
 	public Jugador getJugador2() {
 		return jugadores.get(1);
+	}
+
+	public Categoria getCategoriaMayor() {
+		return categoriaMayor;
+	}
+
+	public void setCategoriaMayor(Categoria categoriaMayor) {
+		this.categoriaMayor = categoriaMayor;
 	}
 
 	public Pareja saveIndividual() throws CategoriaException, UsuarioException {
