@@ -467,31 +467,32 @@ function drawCartasSinJugar(data) {
 	document.getElementById("misCartas").innerHTML = tableDiv;
 
 }
+
 function drawCartas(data, juego, jugNum) {
 
-	var i = 0;
 
+	var cartasArr = data.cartas;
+	
+	if (cartasArr.length >= 3 && cartasArr.length <= 6)
+		cartasArr.splice(0, 3);
+	
+	if (cartasArr.length >= 6 && cartasArr.length <= 9)
+		cartasArr.splice(0, 6);
+	
+	
 	var cartasImg = [];
 	var imgtmp = "";
 
-	while (i < data.cartas.length) {
-		imgtmp = "<img src='./img/" + data.cartas[i].palo + "/"
-				+ data.cartas[i].numero + ".jpg' height='70%' ";
+	
+	var i = 0;
+	
+	
+	
+	var cartas = cartasArr.length;
 
-		if (jugNum == 3)
-			imgtmp += " class='rotateimg90' ";
-
-		if (jugNum == 4)
-			imgtmp += " class='rotateimg-90'  ";
-
-		imgtmp += ">";
-
-		cartasImg[i] = imgtmp;
-		i++;
-
-	}
-
-	if ((i == 3) || (i == 6) || (i == 0)) {
+		
+	//si son 0 todo una linea de back
+	if  (cartas == 0) {
 
 		for (var n = 0; n < 3; n++) {
 
@@ -508,7 +509,39 @@ function drawCartas(data, juego, jugNum) {
 			cartasImg[i] = imgtmp;
 			i++;
 		}
+		
 	}
+
+	
+	while (i < cartasArr.length) {
+		imgtmp = "<img src='./img/" +cartasArr[i].palo + "/"
+				+ cartasArr[i].numero + ".jpg' height='70%' ";
+
+		if (jugNum == 3)
+			imgtmp += " class='rotateimg90' ";
+
+		if (jugNum == 4)
+			imgtmp += " class='rotateimg-90'  ";
+
+		imgtmp += ">";
+
+		cartasImg[i] = imgtmp;
+		i++;
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	while ((i % 3) != 0) {
 

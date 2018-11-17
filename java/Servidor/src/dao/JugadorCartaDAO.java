@@ -1,11 +1,13 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.mapping.Array;
 
 import entities.BazaEntity;
 import entities.CartaEntity;
@@ -61,14 +63,14 @@ public class JugadorCartaDAO {
 
 	public List<Carta> getCartasbyJugador(Jugador jug, boolean jugada) {
 		// TODO Auto-generated method stub
-
-		Vector<Carta> cartas = new Vector<>();
+		
+		List<Carta> cartas = new ArrayList<Carta>();
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 
 		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session
-				.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=?")
+				.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=? order by orden")
 				.setParameter(0, jug.getId()).setParameter(1, jugada).list();
 		session.close();
 
