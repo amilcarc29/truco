@@ -15,6 +15,7 @@ import excepciones.BazaException;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.ChicoException;
+import excepciones.ErrorCode;
 import excepciones.JuegoException;
 import excepciones.JugadaException;
 import excepciones.JugadorException;
@@ -37,11 +38,13 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			us = ControladorUsuario.getInstancia().loggearUsuario(apodo, password);
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode usuario = ErrorCode.USUARIO_NO_ENCONTRADO;
+			usuario.setDescripcion(e.getMessage());
+			System.out.println(usuario.toString());
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode categoria = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			categoria.setDescripcion(e.getMessage());
+			System.out.println(categoria.toString());
 		}
 		return us;
 	}
@@ -51,11 +54,13 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorUsuario.getInstancia().altaUsuario(apodo, email, password);
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode usuario = ErrorCode.USUARIO_NO_ENCONTRADO;
+			usuario.setDescripcion(e.getMessage());
+			System.out.println(usuario.toString());
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode categoria = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			categoria.setDescripcion(e.getMessage());
+			System.out.println(categoria.toString());
 		}
 	}
 
@@ -65,11 +70,13 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorArmadoJuegos.getInstancia().agregarJugadorLibreAEspera(usuario);
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 
@@ -77,9 +84,13 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorArmadoJuegos.getInstancia().armarPareja(u1, u2);
 		} catch (UsuarioException e) {
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e) {
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 
@@ -88,11 +99,13 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			return ControladorArmadoJuegos.getInstancia().getJuegosActivo(usuario);
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		// Devuelve una lista vacia en lugar de null
 		return new ArrayList<JuegoDTO>();
@@ -103,14 +116,17 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			return ControladorJuego.getInstancia().buscarJuego(idJuego).toDTO();
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		return null;
 	}
@@ -119,14 +135,17 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			return ControladorJuego.getInstancia().turnoJugador(juego, usuario);
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		return false;
 	}
@@ -136,14 +155,17 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			return ControladorJuego.getInstancia().getCartas(juego, usuario, false);
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		return null;
 	}
@@ -154,20 +176,25 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().cantarEnvido(juego, usuario);
 		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 	
@@ -176,20 +203,25 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().cantarRealEnvido(juego, usuario);
 		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 	
@@ -198,20 +230,25 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().cantarFaltaEnvido(juego, usuario);
 		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 	
@@ -219,29 +256,37 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().quieroEnvido(juego);
 		} catch (JuegoException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e2.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e3.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e4.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CartaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CARTA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (MiembroException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MIEMBRO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ChicoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CHICO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 	
@@ -249,29 +294,37 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().noQuieroEnvido(juego, usuario);
 		} catch (JuegoException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e2.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e3.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e4.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CartaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CARTA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (MiembroException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MIEMBRO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ChicoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CHICO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 
@@ -280,38 +333,49 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().jugarCarta(juego, carta, usuario);
 		} catch (JugadorException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUGADOR_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CartaException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			ErrorCode error = ErrorCode.CARTA_NO_ENCONTRADA;
+			error.setDescripcion(e1.getMessage());
+			System.out.println(error.toString());
 		} catch (JuegoException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e2.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e3.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e4.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (MiembroException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MIEMBRO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (BazaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.BAZA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ChicoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CHICO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (JugadaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUGADA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 	
@@ -323,9 +387,14 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	
 			try {
 				ControladorUsuario.getInstancia().modificarUsuario(apodo, password, nuevoEmail, nuevaPass, nuevoApodo);
-			} catch (UsuarioException | CategoriaException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (UsuarioException e) {
+				ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+				error.setDescripcion(e.getMessage());
+				System.out.println(error.toString());
+			} catch (CategoriaException e) {
+				ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+				error.setDescripcion(e.getMessage());
+				System.out.println(error.toString());
 			}
 	
 	}
@@ -335,20 +404,25 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().cantarTruco(juego, usuario);
 		} catch (JuegoException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e2.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e3.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e4.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		
 	}
@@ -358,20 +432,25 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().cantarReTruco(juego, usuario);
 		} catch (JuegoException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e2.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e3.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e4.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		
 	}
@@ -381,20 +460,25 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().cantarVale4(juego, usuario);
 		} catch (JuegoException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e2.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e3.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e4.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		
 	}
@@ -404,14 +488,17 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().quieroTruco(juego);
 		} catch (JuegoException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e2.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e3.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e4.getMessage());
+			System.out.println(error.toString());
 		}		
 	}
 
@@ -420,29 +507,37 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			ControladorJuego.getInstancia().noQuieroTruco(us1, juego);
 		} catch (JuegoException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e2.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e3.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e4.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CartaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CARTA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (MiembroException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MIEMBRO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ChicoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CHICO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		
 	}
@@ -452,14 +547,17 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			return ControladorJuego.getInstancia().responderJugador(juego, usuario);
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		return null;
 	}
@@ -469,17 +567,18 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		try {
 			return ControladorJuego.getInstancia().alguienTieneQueContestar(juego);
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		return false;
 	}
-
-	
 }
