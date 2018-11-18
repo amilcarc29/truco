@@ -91,6 +91,10 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 

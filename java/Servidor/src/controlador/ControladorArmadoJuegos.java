@@ -3,6 +3,7 @@ package controlador;
 import java.util.List;
 import java.util.Vector;
 
+import dao.JugadorDAO;
 import dao.UsuarioDAO;
 import dto.GrupoDTO;
 import dto.JuegoDTO;
@@ -87,7 +88,7 @@ public class ControladorArmadoJuegos {
 		return parejasEnEspera;
 	}
 	
-	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws CategoriaException, UsuarioException {
+	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws CategoriaException, UsuarioException, ParejaException {
 		
 		Pareja pareja = this.armarPareja(usuario1, usuario2);
 		
@@ -229,14 +230,14 @@ public class ControladorArmadoJuegos {
 
 	}
 	
-	public Pareja armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws UsuarioException, CategoriaException {
+	public Pareja armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws UsuarioException, CategoriaException, ParejaException {
 
 		Usuario usuario1 = ControladorUsuario.getInstancia().buscarUsuarioPorId(u1.getIdUsuario());
 		Usuario usuario2 = ControladorUsuario.getInstancia().buscarUsuarioPorId(u2.getIdUsuario());
 
 		JugadorIndividual j1 = new JugadorIndividual(usuario1);
 		JugadorIndividual j2 = new JugadorIndividual(usuario2);
-
+		
 		Pareja p = new Pareja(j1, j2);
 		p.saveIndividual();
 		return p;

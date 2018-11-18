@@ -33,27 +33,16 @@ public class ParejaDAO {
 		return instancia;
 	}
 
-	public Pareja guardarParejaIndividual(Pareja pareja) throws CategoriaException, UsuarioException {
+	public Pareja guardarParejaIndividual(Pareja pareja) throws CategoriaException, UsuarioException, ParejaException {
 		UsuarioEntity ue1 = null;
 		UsuarioEntity ue2 = null;
 		JugadorIndividual ju1 = (JugadorIndividual) pareja.getJugador1();
 		JugadorIndividual ju2 = (JugadorIndividual) pareja.getJugador2();
 		CategoriaEntity cat = null;
-		
-		try {
-			ue1 = UsuarioDAO.getInstancia().buscarUsuarioByIdEntity(ju1.getUsuario().getIdUsuario());
-			ue2 = UsuarioDAO.getInstancia().buscarUsuarioByIdEntity(ju2.getUsuario().getIdUsuario());
-		} catch (UsuarioException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			cat = CategoriaDAO.getInstancia().buscarCategoriaById(pareja.getCategoriaMayor().getIdCategoria());
-		} catch (CategoriaException e){
-			e.printStackTrace();
-		}
-		
-		
+
+		ue1 = UsuarioDAO.getInstancia().buscarUsuarioByIdEntity(ju1.getUsuario().getIdUsuario());
+		ue2 = UsuarioDAO.getInstancia().buscarUsuarioByIdEntity(ju2.getUsuario().getIdUsuario());
+
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session ss = sf.openSession();
 		ss.beginTransaction();
@@ -69,7 +58,7 @@ public class ParejaDAO {
 		// alta de pareja
 
 		ParejaEntity pe = new ParejaEntity(je1, je2);
-		pe.setCategoriaMayor(cat);
+		pe.setCategoriaMayor(null);
 		ss.saveOrUpdate(pe);
 
 		// udate de id de pareja en jugador
@@ -83,6 +72,20 @@ public class ParejaDAO {
 		ss.close();
 
 		pareja.setIdPareja(pe.getIdPareja());
+
+		Pareja pc = this.toNegocio(pe);
+
+		try {
+			cat = CategoriaDAO.getInstancia().buscarCategoriaById(pc.obtenerMayorCategoria().getIdCategoria());
+		} catch (CategoriaException e) {
+			e.printStackTrace();
+		}
+		pe.setCategoriaMayor(cat);
+		ss = sf.openSession();
+		ss.beginTransaction();
+		ss.saveOrUpdate(pe);
+		ss.getTransaction().commit();
+		ss.close();
 
 		return toNegocio(pe);
 	}
@@ -102,7 +105,6 @@ public class ParejaDAO {
 		session.close();
 
 	}
-	
 
 	public Pareja guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException, UsuarioException {
 		MiembroEntity mi1 = null;
@@ -158,9 +160,8 @@ public class ParejaDAO {
 	public ParejaEntity buscarParejaPorId(int idPareja) throws ParejaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		ParejaEntity parejaEnt = (ParejaEntity) session
-				.createQuery("from ParejaEntity where idPareja = ? ").setParameter(0, idPareja)
-				.uniqueResult();
+		ParejaEntity parejaEnt = (ParejaEntity) session.createQuery("from ParejaEntity where idPareja = ? ")
+				.setParameter(0, idPareja).uniqueResult();
 		session.close();
 		if (parejaEnt != null) {
 			return parejaEnt;
@@ -168,14 +169,13 @@ public class ParejaDAO {
 			throw new ParejaException("La pareja con id: " + idPareja + "no existe en la base de datos.");
 		} // TODO Auto-generated method stub
 	}
-	
-	public Pareja buscarParejaDeUnJugador (int idJugador) throws CategoriaException, UsuarioException, ParejaException{
+
+	public Pareja buscarParejaDeUnJugador(int idJugador) throws CategoriaException, UsuarioException, ParejaException {
 		ParejaEntity parejaEnt = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		parejaEnt = (ParejaEntity) session
-				.createQuery("from ParejaEntity where idJugador1 = ? or idJugador2 = ?").setParameter(0, idJugador)
-				.setParameter(1, idJugador).uniqueResult();
+		parejaEnt = (ParejaEntity) session.createQuery("from ParejaEntity where idJugador1 = ? or idJugador2 = ?")
+				.setParameter(0, idJugador).setParameter(1, idJugador).uniqueResult();
 		session.close();
 		if (parejaEnt != null) {
 			return toNegocio(parejaEnt);
@@ -187,9 +187,9 @@ public class ParejaDAO {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		
-		List<JugadorEntity> jugadorEntity = (List<JugadorEntity>) session.createQuery("from JugadorEntity where idPareja = ?")
-				.setParameter(0, idPareja).list();
+
+		List<JugadorEntity> jugadorEntity = (List<JugadorEntity>) session
+				.createQuery("from JugadorEntity where idPareja = ?").setParameter(0, idPareja).list();
 
 		JuegoEntity je = JuegoDAO.getInstancia().buscarJuegoPorID(idJuego);
 

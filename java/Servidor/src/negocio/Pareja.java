@@ -22,7 +22,7 @@ public class Pareja {
 		jugadores = new LinkedList<Jugador>();
 		jugadores.add(j1);
 		jugadores.add(j2);
-		categoriaMayor = this.obtenerMayorCategoria();
+
 	}
 
 	public void setJugadores(List<Jugador> jugadores) {
@@ -30,9 +30,12 @@ public class Pareja {
 	}
 
 	public Categoria obtenerMayorCategoria() throws CategoriaException, UsuarioException {
-		Usuario usuario1 = UsuarioDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador1().getId()).getUsuario());
-		Usuario usuario2 = UsuarioDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador2().getId()).getUsuario());
-		// ESTO ESTA MUY FORZADO. SI NO ES EL MISMO NOMBRE QUE TE ASEGURA QUE LA OTRA SEA MAYOR? VER!!!
+		Usuario usuario1 = UsuarioDAO.getInstancia()
+				.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador1().getId()).getUsuario());
+		Usuario usuario2 = UsuarioDAO.getInstancia()
+				.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador2().getId()).getUsuario());
+		// ESTO ESTA MUY FORZADO. SI NO ES EL MISMO NOMBRE QUE TE ASEGURA QUE LA OTRA
+		// SEA MAYOR? VER!!!
 		if (usuario1.getCategoria().getNombre().equalsIgnoreCase(usuario2.getCategoria().getNombre())) {
 			return usuario1.getCategoria();
 		}
@@ -43,7 +46,7 @@ public class Pareja {
 		return idPareja;
 	}
 
-	public void setIdPareja(int idPareja)  {
+	public void setIdPareja(int idPareja) {
 		this.idPareja = idPareja;
 	}
 
@@ -78,7 +81,7 @@ public class Pareja {
 	public int getMayorTantoTruco() {
 		int mayor = 0;
 		for (Jugador jug : jugadores) {
-			if (mayor<jug.getTantoTruco())
+			if (mayor < jug.getTantoTruco())
 				mayor = jug.getTantoTruco();
 		}
 		return mayor;
@@ -87,7 +90,7 @@ public class Pareja {
 	public int getMayorTantoEnvido() {
 		int mayor = 0;
 		for (Jugador jug : jugadores) {
-			if (mayor<jug.getTantoEnvido())
+			if (mayor < jug.getTantoEnvido())
 				mayor = jug.getTantoEnvido();
 		}
 		return mayor;
@@ -109,8 +112,10 @@ public class Pareja {
 		this.categoriaMayor = categoriaMayor;
 	}
 
-	public Pareja saveIndividual() throws CategoriaException, UsuarioException {
-		return ParejaDAO.getInstancia().guardarParejaIndividual(this);
+	public Pareja saveIndividual() throws CategoriaException, UsuarioException, ParejaException {
+		Pareja p = ParejaDAO.getInstancia().guardarParejaIndividual(this);
+		categoriaMayor = this.obtenerMayorCategoria();
+		return p;
 	}
 
 	public Pareja saveGrupal() throws CategoriaException, MiembroException, UsuarioException, ParejaException {
@@ -123,11 +128,11 @@ public class Pareja {
 		}
 		throw new ParejaException("No se pudo guardar la pareja grupal.");
 	}
-	
+
 	public ParejaDTO toDTO() {
 		// TODO Auto-generated method stub
-		List jugdto= new ArrayList<>();
-		for(Jugador j: jugadores){
+		List jugdto = new ArrayList<>();
+		for (Jugador j : jugadores) {
 			jugdto.add(j.toDTO());
 		}
 		return new ParejaDTO(jugdto);
