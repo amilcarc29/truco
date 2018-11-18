@@ -120,6 +120,7 @@ public class ThreadParejas implements Runnable {
 				} else {
 					System.out.println("no se encuentran jugadores libres");
 				}
+
 				Thread.sleep(loop);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
