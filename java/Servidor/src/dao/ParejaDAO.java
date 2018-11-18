@@ -69,19 +69,22 @@ public class ParejaDAO {
 		ss.saveOrUpdate(je1);
 
 		ss.getTransaction().commit();
+		ss.close();
 
 		pareja.setIdPareja(pe.getIdPareja());
 
-		ParejaEntity pc = this.buscarParejaPorId(pe.getIdPareja());
-		pc.setCategoriaMayor(cat);
-		ss.saveOrUpdate(pc);
+		Pareja pc = this.toNegocio(pe);
 
 		try {
-			cat = CategoriaDAO.getInstancia().buscarCategoriaById(pareja.getCategoriaMayor().getIdCategoria());
+			cat = CategoriaDAO.getInstancia().buscarCategoriaById(pc.obtenerMayorCategoria().getIdCategoria());
 		} catch (CategoriaException e) {
 			e.printStackTrace();
 		}
-
+		pe.setCategoriaMayor(cat);
+		ss = sf.openSession();
+		ss.beginTransaction();
+		ss.saveOrUpdate(pe);
+		ss.getTransaction().commit();
 		ss.close();
 
 		return toNegocio(pe);
