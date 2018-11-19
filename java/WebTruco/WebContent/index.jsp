@@ -8,7 +8,7 @@ session.invalidate();
 
 <meta charset="UTF-8">
 
-<title>CodePen - Random Login Form</title>
+<title>CodePen - Truco Login Form</title>
 
 <style>
 @import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
@@ -170,7 +170,7 @@ body {
 	<div class="grad"></div>
 	<div class="header">
 		<div>
-			Site<span>Random</span>
+			Site<span>Truco</span>
 		</div>
 	</div>
 	<br>
