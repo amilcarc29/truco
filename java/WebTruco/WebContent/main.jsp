@@ -5,7 +5,7 @@
 
 <meta charset="UTF-8">
 <%@include file="loginCheck.jsp"%>
-<title>CodePen - Random Login Form</title>
+<title>CodePen - Truco Login Form</title>
 
 <style>
 @import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
@@ -421,17 +421,6 @@ body {
 				</span>
 				</span>
 			</button>
-			
-			<button class="blob-btn" data-popup-open="popup-1">
-				Armar Pareja <span class="blob-btn__inner"> <span
-					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span>
-				</span>
-				</span>
-			</button>
-			
-			
 		</div>
 
 	</div>
