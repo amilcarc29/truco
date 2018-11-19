@@ -12,6 +12,7 @@ public class JugadorIndividual extends Jugador {
 	private Usuario usuario;
 
 	public JugadorIndividual(Usuario usuario) {
+		super();
 		setUsuario(usuario);
 	}
 
