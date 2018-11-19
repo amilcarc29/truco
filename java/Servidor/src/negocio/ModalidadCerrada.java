@@ -26,7 +26,7 @@ public class ModalidadCerrada  extends Juego{
 	}
 
 	public void save() throws ParejaException {
-		JuegoDAO.getInstancia().guardarJuegoCerrado(this);
+		this.setId(JuegoDAO.getInstancia().guardarJuegoCerrado(this));
 	}
 
 	@Override

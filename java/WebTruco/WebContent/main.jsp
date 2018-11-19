@@ -421,6 +421,17 @@ body {
 				</span>
 				</span>
 			</button>
+			
+			<button class="blob-btn" data-popup-open="popup-1">
+				Armar Pareja <span class="blob-btn__inner"> <span
+					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+						<span class="blob-btn__blob"></span>
+				</span>
+				</span>
+			</button>
+			
+			
 		</div>
 
 	</div>

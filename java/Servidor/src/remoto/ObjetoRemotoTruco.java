@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controlador.ControladorArmadoJuegos;
+import controlador.ControladorGrupo;
 import controlador.ControladorJuego;
 import controlador.ControladorUsuario;
 import dto.CartaDTO;
+import dto.GrupoDTO;
 import dto.JuegoDTO;
 import dto.UsuarioDTO;
 import excepciones.BazaException;
@@ -16,6 +18,7 @@ import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.ChicoException;
 import excepciones.ErrorCode;
+import excepciones.GrupoException;
 import excepciones.JuegoException;
 import excepciones.JugadaException;
 import excepciones.JugadorException;
@@ -611,4 +614,46 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		}
 		return false;
 	}
+
+	@Override
+	public void altaGrupo(String nombre, UsuarioDTO administrador) throws RemoteException {
+		try {
+			ControladorGrupo.getInstancia().altaGrupo(nombre, administrador);
+		} catch (UsuarioException e) {
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (CategoriaException e) {
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (GrupoException e) {
+			// Falta errores para Grupo
+			e.printStackTrace();
+		}		
+	}
+
+	@Override
+	public void agregarUsuarioAGrupo(UsuarioDTO user, GrupoDTO grupo) throws RemoteException {
+		try {
+			ControladorGrupo.getInstancia().agregarUsuarioAGrupo(user, grupo);
+		} catch (CategoriaException e) {
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (MiembroException e) {
+			ErrorCode error = ErrorCode.MIEMBRO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (UsuarioException e) {
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (GrupoException e) {
+			// Falta errores para Grupo
+			e.printStackTrace();
+		}		
+	}
+	
+	
 }

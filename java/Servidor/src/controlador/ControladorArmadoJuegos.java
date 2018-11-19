@@ -14,6 +14,7 @@ import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.ChicoException;
 import excepciones.ErrorCode;
+import excepciones.GrupoException;
 import excepciones.GrupoJuegoException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
@@ -21,6 +22,7 @@ import excepciones.ManoException;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
+import negocio.Grupo;
 import negocio.GrupoJuego;
 import negocio.Jugador;
 import negocio.JugadorGrupal;
@@ -174,7 +176,7 @@ public class ControladorArmadoJuegos {
 
 	public void iniciarPartidaCerrada(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4, GrupoDTO g)
 			throws UsuarioException, CategoriaException, JuegoException, MiembroException, ParejaException,
-			ManoException, CartaException, ChicoException {
+			ManoException, CartaException, ChicoException, GrupoException {
 		{
 			try {
 
@@ -208,11 +210,18 @@ public class ControladorArmadoJuegos {
 	}
 
 	public Pareja armarParejaCerrada(UsuarioDTO u1, UsuarioDTO u2, GrupoDTO g)
-			throws UsuarioException, CategoriaException, MiembroException, ParejaException {
-		Miembro m1 = ControladorGrupo.getInstancia().buscarMiembro(u1, g);
-		Miembro m2 = ControladorGrupo.getInstancia().buscarMiembro(u2, g);
+			throws UsuarioException, CategoriaException, MiembroException, ParejaException, GrupoException {
+		Grupo grupo = ControladorGrupo.getInstancia().buscarGrupo(g.getNombre());
+		
+		Usuario user1 = ControladorUsuario.getInstancia().buscarUsuarioPorId(u1.getIdUsuario());
+		Usuario user2 = ControladorUsuario.getInstancia().buscarUsuarioPorId(u2.getIdUsuario());
+		
+		Miembro m1 = grupo.buscarMiembro(user1);
+		Miembro m2 = grupo.buscarMiembro(user2);
+		
 		JugadorGrupal j1 = new JugadorGrupal(m1);
 		JugadorGrupal j2 = new JugadorGrupal(m2);
+		
 		Pareja p = new Pareja(j1, j2);
 		return p.saveGrupal();
 

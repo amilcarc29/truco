@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.JugadorDAO;
+import dao.MiembroDAO;
 import dao.ParejaDAO;
 import dao.UsuarioDAO;
 import dto.ParejaDTO;
@@ -27,6 +28,19 @@ public class Pareja {
 
 	public void setJugadores(List<Jugador> jugadores) {
 		this.jugadores = jugadores;
+	}
+	
+	public Categoria obtenerMayorCategoriaCerrada() throws CategoriaException, MiembroException, UsuarioException {
+		Usuario usuario1 = UsuarioDAO.getInstancia()
+				.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador1().getId()).getMiembro().getUsuario());
+		Usuario usuario2 = UsuarioDAO.getInstancia()
+				.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador2().getId()).getMiembro().getUsuario());
+		// ESTO ESTA MUY FORZADO. SI NO ES EL MISMO NOMBRE QUE TE ASEGURA QUE LA OTRA
+				// SEA MAYOR? VER!!!
+		if (usuario1.getCategoria().getNombre().equalsIgnoreCase(usuario2.getCategoria().getNombre())) {
+			return usuario1.getCategoria();
+		}
+		return usuario2.getCategoria();
 	}
 
 	public Categoria obtenerMayorCategoria() throws CategoriaException, UsuarioException {
@@ -118,13 +132,9 @@ public class Pareja {
 	}
 
 	public Pareja saveGrupal() throws CategoriaException, MiembroException, UsuarioException, ParejaException {
-		try {
-			return ParejaDAO.getInstancia().guardarParejaGrupal(this);
-		} catch (MiembroException e) {
-			throw e;
-		} catch (CategoriaException e1) {
-			throw e1;
-		}
+
+		return ParejaDAO.getInstancia().guardarParejaGrupal(this);
+		
 	}
 
 	public ParejaDTO toDTO() {

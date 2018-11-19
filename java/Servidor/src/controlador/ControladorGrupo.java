@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.Vector;
 
+import dao.GrupoDAO;
 import dao.MiembroDAO;
 import dto.GrupoDTO;
 import dto.UsuarioDTO;
@@ -11,6 +12,7 @@ import excepciones.MiembroException;
 import excepciones.UsuarioException;
 import negocio.Grupo;
 import negocio.Miembro;
+import negocio.Usuario;
 
 // TODO Hay nuevos metodos. Agregar a Diagrama.
 public class ControladorGrupo {
@@ -36,47 +38,44 @@ public class ControladorGrupo {
 	}
 
 	// FIXME Por qué String nombre si el grupo tiene un id?
-	public Grupo buscarGrupo(String nombre) throws GrupoException {
-		for (Grupo grupo : grupos) {
-			if (grupo.esGrupo(nombre)) {
-				return grupo;
-			}
-		}
-		throw new GrupoException("El grupo con nombre: " + nombre + "no existe.");
+	public Grupo buscarGrupo(String nombre) throws GrupoException, CategoriaException, UsuarioException {
+		Grupo g = GrupoDAO.getInstancia().buscarGrupoByNombre(nombre);
+		
+		return g;
 	}
 	
+	public void agregarUsuarioAGrupo (UsuarioDTO user, GrupoDTO grupo) throws CategoriaException, MiembroException, UsuarioException, GrupoException {
+		
+		Grupo gru = GrupoDAO.getInstancia().buscarGrupoById(grupo.getIdGrupo());
+		Usuario usuario = ControladorUsuario.getInstancia().buscarUsuarioPorId(user.getIdUsuario());
+		gru.agregarParticipante(usuario);			
+		
+	}
+		
+	public Miembro buscarMiembro(UsuarioDTO u, GrupoDTO g) throws GrupoException, CategoriaException, UsuarioException, MiembroException {
+		
+		Grupo grupo = GrupoDAO.getInstancia().buscarGrupoById(g.getIdGrupo());
+		Usuario usuario = ControladorUsuario.getInstancia().buscarUsuarioPorId(u.getIdUsuario());
+		Miembro miembro = grupo.buscarMiembro(usuario);
+		return miembro;		
+		
+	}
 
-	private void esNombreGrupoRepetido(String nombre) throws GrupoException {
-		for (Grupo grupo : grupos) {
-			if (grupo.esGrupo(nombre)) {
-				throw new GrupoException("El nombre de grupo: " + nombre + "ya está en uso.");
-			}
+	public void altaGrupo(String nombre, UsuarioDTO administrador) throws UsuarioException, GrupoException, CategoriaException {
+		Grupo g = GrupoDAO.getInstancia().buscarGrupoByNombre(nombre);
+		if (g == null) {
+			Usuario admin = ControladorUsuario.getInstancia().buscarUsuarioPorApodo(administrador.getApodo());
+			Grupo grupo = new Grupo(nombre, admin);
+			this.grupos.add(grupo);
+			grupo.save();
+		} else {
+			throw new GrupoException("El nombre de grupo: " + nombre + "ya esta en uso.");
 		}
 	}
-	
-	public Miembro buscarMiembro(UsuarioDTO u, GrupoDTO g) throws CategoriaException, MiembroException {
-		try {
-			Miembro m = MiembroDAO.getInstancia().buscarMiembro(u.getIdUsuario(), g.getIdGrupo());
-			return m;
-		} catch (CategoriaException e) {
-			throw e;
-		} catch (MiembroException e1) {
-			throw e1;
-		}
-	}
 
-	public void altaGrupo(String nombre, String apodoAdministrador, int puntoPorPartida) throws UsuarioException, GrupoException, CategoriaException {
-		Grupo grupo = new Grupo();
-		// FIXME Se puede mejorar.
-		esNombreGrupoRepetido(nombre);
-		grupo.setNombre(nombre);
-		grupo.setAdministrador(ControladorUsuario.getInstancia().buscarUsuarioPorApodo(apodoAdministrador));
-		grupo.setPuntoPorPartida(puntoPorPartida);
-		this.grupos.add(grupo);
-	}
-
-	public void bajaGrupo(String nombre) throws GrupoException {
-		this.grupos.remove(buscarGrupo(nombre));
+	public void bajaGrupo(GrupoDTO g) throws GrupoException, CategoriaException, UsuarioException {
+		Grupo grupo = GrupoDAO.getInstancia().buscarGrupoById(g.getIdGrupo());
+		grupo.bajaGrupo();
 	}
 
 	public void modificarGrupo(String nombreActual, String nombre, String apodoAdministrador, int puntoPorPartida) throws GrupoException, UsuarioException, CategoriaException {
@@ -84,7 +83,7 @@ public class ControladorGrupo {
 		grupo.setAdministrador(ControladorUsuario.getInstancia().buscarUsuarioPorApodo(apodoAdministrador));
 		grupo.setPuntoPorPartida(puntoPorPartida);
 		// FIXME Se puede mejorar
-		esNombreGrupoRepetido(nombre);
+//		esNombreGrupoRepetido(nombre);
 		grupo.setNombre(nombre);
 	}
 

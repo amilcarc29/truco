@@ -120,11 +120,13 @@ public class ParejaDAO {
 
 	}
 
-	public Pareja guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException, UsuarioException {
+	public Pareja guardarParejaGrupal(Pareja pareja) throws CategoriaException, MiembroException, UsuarioException, ParejaException {
 		MiembroEntity mi1 = null;
 		MiembroEntity mi2 = null;
 		JugadorGrupal ju1 = (JugadorGrupal) pareja.getJugador1();
 		JugadorGrupal ju2 = (JugadorGrupal) pareja.getJugador2();
+		CategoriaEntity cat = null;
+		
 		try {
 			mi1 = MiembroDAO.getInstancia().buscarMiembroByIdEntity(ju1.getMiembro().getIdMiembro());
 			mi2 = MiembroDAO.getInstancia().buscarMiembroByIdEntity(ju2.getMiembro().getIdMiembro());
@@ -136,31 +138,59 @@ public class ParejaDAO {
 		Session ss = sf.openSession();
 		ss.beginTransaction();
 
-		// alta de jugadores , pasarlo al dao o al save de jugador
+		// alta de jugadores
 
-		JugadorEntity je1 = new JugadorEntity(null, null, mi1, "grupal");
+		JugadorEntity je1 = new JugadorEntity(null, null, mi1, "individual");
 		ss.saveOrUpdate(je1);
 
-		JugadorEntity je2 = new JugadorEntity(null, null, mi2, "grupal");
+		JugadorEntity je2 = new JugadorEntity(null, null, mi2, "individual");
 		ss.saveOrUpdate(je2);
+		
+			
 
 		// alta de pareja
 
 		ParejaEntity pe = new ParejaEntity(je1, je2);
+		pe.setCategoriaMayor(null);
 		ss.saveOrUpdate(pe);
 
-		// udate de id de pareja en jugador
 		je1.setPareja(pe);
-		ss.saveOrUpdate(pe);
+		ss.saveOrUpdate(je1);
+
 
 		je2.setPareja(pe);
+		ss.saveOrUpdate(je2);
 
-		ss.saveOrUpdate(je1);
+
+		pareja.setIdPareja(pe.getIdPareja());
+
+		Pareja pc = this.toNegocio(pe);
+		
+		
+		
+		ss.getTransaction().commit();
+		ss.close();
+
+		
+		ss = sf.openSession();
+		ss.beginTransaction();
+		
+		pe = this.buscarParejaPorId(pc.getIdPareja());
+		try {
+			cat = CategoriaDAO.getInstancia().buscarCategoriaById(pc.obtenerMayorCategoriaCerrada().getIdCategoria());
+		} catch (CategoriaException e) {
+			throw e;
+		}
+		pe.setCategoriaMayor(cat);
+
+		ss.saveOrUpdate(pe);
+		
 
 		ss.getTransaction().commit();
 		ss.close();
 
-		return toNegocio(pe);
+
+		return toNegocio(this.buscarParejaPorId(pe.getIdPareja()));
 	}
 
 	public Pareja toNegocio(ParejaEntity pe) throws CategoriaException, UsuarioException {

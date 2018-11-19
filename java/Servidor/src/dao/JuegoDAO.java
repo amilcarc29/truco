@@ -80,16 +80,25 @@ public class JuegoDAO {
 		session.close();
 	}
 
-	public void guardarJuegoCerrado(Juego juego) throws ParejaException {
+	public int guardarJuegoCerrado(Juego juego) throws ParejaException {
+		
 		ParejaEntity par1 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja1().getIdPareja());
 		ParejaEntity par2 = ParejaDAO.getInstancia().buscarParejaPorId(juego.getPareja2().getIdPareja());
+		
 		JuegoEntity ent = new JuegoEntity(par1, par2, "CERRADA");
+		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
 		session.saveOrUpdate(ent);
 		session.getTransaction().commit();
 		session.close();
+		
+		// guarda el id de juego para los jugadores de la pareja
+		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja1().getIdPareja(), ent.getId());
+		ParejaDAO.getInstancia().actualizarJuego(juego.getPareja2().getIdPareja(), ent.getId());
+		
+		return ent.getId();
 	}
 
 	public JuegoEntity buscarJuegoPorID(int idJuego) throws ParejaException {

@@ -12,6 +12,7 @@ import excepciones.MiembroException;
 import excepciones.UsuarioException;
 import hbt.HibernateUtil;
 import negocio.Miembro;
+import negocio.Usuario;
 
 public class MiembroDAO {
 
@@ -27,7 +28,7 @@ public class MiembroDAO {
 		return instancia;
 	}
 
-	public Miembro buscarMiembroById(int idMiembro) throws MiembroException, CategoriaException {
+	public Miembro buscarMiembroById(int idMiembro) throws MiembroException, CategoriaException, UsuarioException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		MiembroEntity miembroEntity = (MiembroEntity) session.createQuery("from MiembroEntity where idMiembro = ?")
@@ -55,7 +56,7 @@ public class MiembroDAO {
 		}
 	}
 	
-	public Miembro buscarMiembro(int idUsuario, int idGrupo) throws CategoriaException, MiembroException {
+	public Miembro buscarMiembro(int idUsuario, int idGrupo) throws CategoriaException, MiembroException, UsuarioException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		MiembroEntity miembroEntity = (MiembroEntity) session.createQuery("from MiembrosEntity where idUsuario = ? and idGrupo = ?")
@@ -64,13 +65,16 @@ public class MiembroDAO {
 		if (miembroEntity != null) {
 			return toNegocio(miembroEntity);
 		} else {
-			throw new MiembroException("El miembro no existe en la base de datos.");
+			return null;
 		}
 	}
 
-	public Miembro toNegocio(MiembroEntity miembroEntity) throws CategoriaException {
-		Miembro miembro = new Miembro(miembroEntity.getIdMiembro(), miembroEntity.getPuntaje(), miembroEntity.isEnGrupo());
-		miembro.setUsuario(UsuarioDAO.getInstancia().toNegocio(miembroEntity.getUsuario()));
+	public Miembro toNegocio(MiembroEntity miembroEntity) throws CategoriaException, UsuarioException {
+		Usuario usuario = null;
+		usuario = UsuarioDAO.getInstancia().buscarUsuarioById(miembroEntity.getUsuario().getIdUsuario());
+				
+		Miembro miembro = new Miembro(miembroEntity.getPuntaje(), miembroEntity.isEnGrupo(), usuario);
+		miembro.setIdMiembro(miembroEntity.getIdMiembro());
 		return miembro;
 	}
 
@@ -84,12 +88,9 @@ public class MiembroDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
-		MiembroEntity miembroEntity = toEntity(miembro);
-		miembroEntity.setGrupo(grupo);
-		miembroEntity.setUsuario(usuario);
-		miembroEntity.setPuntaje(0);
-		miembroEntity.setEnGrupo(true);
 		
+		MiembroEntity miembroEntity = new MiembroEntity(grupo, usuario, miembro.getPuntaje(), miembro.isEnGrupo());
+				
 		session.beginTransaction();
 		session.saveOrUpdate(miembroEntity);
 		session.getTransaction().commit();
@@ -98,9 +99,4 @@ public class MiembroDAO {
 		return miembro.getIdMiembro();
 	}
 
-	public MiembroEntity toEntity(Miembro miembro) throws CategoriaException {
-		MiembroEntity miembroEntity = new MiembroEntity(miembro.getIdMiembro(), miembro.getPuntaje(), miembro.isEnGrupo());
-		miembroEntity.setUsuario(UsuarioDAO.getInstancia().toEntity(miembro.getUsuario()));
-		return miembroEntity;
-	}
 }

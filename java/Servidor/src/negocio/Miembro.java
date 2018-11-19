@@ -1,7 +1,11 @@
 package negocio;
 
+import dao.MiembroDAO;
 import dto.MiembroDTO;
 import dto.UsuarioDTO;
+import excepciones.CategoriaException;
+import excepciones.GrupoException;
+import excepciones.UsuarioException;
 
 public class Miembro {
 
@@ -10,9 +14,9 @@ public class Miembro {
 	private int puntaje;
 	private boolean enGrupo;
 
-	public Miembro(int idMiembro, int puntaje, boolean enGrupo) {
+	public Miembro(int puntaje, boolean enGrupo, Usuario usuario) {
 		super();
-		setIdMiembro(idMiembro);
+		setUsuario(usuario);
 		setPuntaje(puntaje);
 		setEnGrupo(enGrupo);
 	}
@@ -51,5 +55,11 @@ public class Miembro {
 	
 	public MiembroDTO toDTO() {
 		return new MiembroDTO(this.getIdMiembro(), this.getUsuario().toDTO(), this.getPuntaje(), this.isEnGrupo());
+	}
+
+	public void save(int idGrupo) throws CategoriaException, GrupoException, UsuarioException {
+
+		this.setIdMiembro(MiembroDAO.getInstancia().guardarMiembro(this, idGrupo));
+		
 	}
 }
