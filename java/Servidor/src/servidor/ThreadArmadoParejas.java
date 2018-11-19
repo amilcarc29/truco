@@ -15,6 +15,7 @@ import excepciones.ChicoException;
 import excepciones.ErrorCode;
 import excepciones.JuegoException;
 import excepciones.ManoException;
+import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
 import negocio.Pareja;
@@ -98,6 +99,10 @@ public class ThreadArmadoParejas implements Runnable {
 			System.out.println(error.toString());
 		} catch (ChicoException e) {
 			ErrorCode error = ErrorCode.CHICO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (MiembroException e) {
+			ErrorCode error = ErrorCode.MIEMBRO_NO_ENCONTRADO;
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
 		}
