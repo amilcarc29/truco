@@ -708,7 +708,7 @@ function renderPunt(data) {
 		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
 
 			if (data.parejas[i].jugadores[x].tieneTurno) {
-				turno = data.parejas[i].jugadores[x].apodo;
+				turno = data.parejas[i].jugadores[x].usuario.apodo;
 				break;
 			}
 
