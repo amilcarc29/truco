@@ -45,6 +45,10 @@ public class ThreadArmadoParejas implements Runnable {
 				ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
 				error.setDescripcion(e.getMessage());
 				System.out.println(error.toString());
+			} catch (ParejaException e) {
+				ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+				error.setDescripcion(e.getMessage());
+				System.out.println(error.toString());
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -99,7 +103,7 @@ public class ThreadArmadoParejas implements Runnable {
 		}
 	}
 
-	public void armarParejas() throws UsuarioException {
+	public void armarParejas() throws UsuarioException, ParejaException {
 		Vector<Pareja> parejasLibres = new Vector<>();
 		
 		//carga los juegos que quedaron guardados

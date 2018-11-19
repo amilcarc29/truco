@@ -110,11 +110,15 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		// Devuelve una lista vacia en lugar de null
 		return new ArrayList<JuegoDTO>();
 	}
-	
+
 	@Override
 	public JuegoDTO getJuegosById(int idJuego) throws RemoteException {
 		try {
@@ -131,9 +135,14 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		return null;
 	}
+
 	@Override
 	public boolean esMiTurno(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
@@ -148,6 +157,10 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		} catch (JuegoException e) {
 			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
 		}
@@ -170,13 +183,16 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 		return null;
 	}
 
-	
 	@Override
-	public void cantarEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException{
+	public void cantarEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
 			ControladorJuego.getInstancia().cantarEnvido(juego, usuario);
 		} catch (JuegoException e) {
@@ -201,9 +217,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		}
 	}
-	
+
 	@Override
-	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException{
+	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
 			ControladorJuego.getInstancia().cantarRealEnvido(juego, usuario);
 		} catch (JuegoException e) {
@@ -228,9 +244,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		}
 	}
-	
+
 	@Override
-	public void cantarFaltaEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException{
+	public void cantarFaltaEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
 			ControladorJuego.getInstancia().cantarFaltaEnvido(juego, usuario);
 		} catch (JuegoException e) {
@@ -255,7 +271,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		}
 	}
-	
+
 	public void quieroEnvido(JuegoDTO juego) throws RemoteException {
 		try {
 			ControladorJuego.getInstancia().quieroEnvido(juego);
@@ -293,7 +309,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		}
 	}
-	
+
 	public void noQuieroEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {
 			ControladorJuego.getInstancia().noQuieroEnvido(juego, usuario);
@@ -333,7 +349,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws RemoteException{
+	public void jugarCarta(JuegoDTO juego, CartaDTO carta, UsuarioDTO usuario) throws RemoteException {
 		try {
 			ControladorJuego.getInstancia().jugarCarta(juego, carta, usuario);
 		} catch (JugadorException e) {
@@ -382,25 +398,23 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		}
 	}
-	
-
 
 	@Override
 	public void modificarUsario(String apodo, String password, String nuevoEmail, String nuevaPass, String nuevoApodo)
 			throws RemoteException {
-	
-			try {
-				ControladorUsuario.getInstancia().modificarUsuario(apodo, password, nuevoEmail, nuevaPass, nuevoApodo);
-			} catch (UsuarioException e) {
-				ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
-				error.setDescripcion(e.getMessage());
-				System.out.println(error.toString());
-			} catch (CategoriaException e) {
-				ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
-				error.setDescripcion(e.getMessage());
-				System.out.println(error.toString());
-			}
-	
+
+		try {
+			ControladorUsuario.getInstancia().modificarUsuario(apodo, password, nuevoEmail, nuevaPass, nuevoApodo);
+		} catch (UsuarioException e) {
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (CategoriaException e) {
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		}
+
 	}
 
 	@Override
@@ -428,7 +442,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
 		}
-		
+
 	}
 
 	@Override
@@ -456,7 +470,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
 		}
-		
+
 	}
 
 	@Override
@@ -484,9 +498,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
 		}
-		
+
 	}
-	
+
 	@Override
 	public void quieroTruco(JuegoDTO juego) throws RemoteException {
 		try {
@@ -503,7 +517,11 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
 			error.setDescripcion(e4.getMessage());
 			System.out.println(error.toString());
-		}		
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		}
 	}
 
 	@Override
@@ -543,7 +561,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
 		}
-		
+
 	}
 
 	@Override
@@ -560,6 +578,10 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		} catch (JuegoException e) {
 			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
 		}
@@ -580,6 +602,10 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		} catch (JuegoException e) {
 			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
 		}

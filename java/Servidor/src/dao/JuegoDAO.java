@@ -17,6 +17,7 @@ import hbt.HibernateUtil;
 import negocio.Chico;
 import negocio.Juego;
 import negocio.ModalidadLibreIndividual;
+import negocio.Pareja;
 
 public class JuegoDAO {
 	private static JuegoDAO instancia;
@@ -103,7 +104,7 @@ public class JuegoDAO {
 		}
 	}
 
-	public List<Juego> buscarJuegosActivos(UsuarioDTO usuario) throws CategoriaException, UsuarioException {
+	public List<Juego> buscarJuegosActivos(UsuarioDTO usuario) throws CategoriaException, UsuarioException, ParejaException {
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -120,7 +121,7 @@ public class JuegoDAO {
 		return juegNeg;
 	}
 
-	public Juego toNegocio(JuegoEntity juegoEntity) throws CategoriaException, UsuarioException {
+	public Juego toNegocio(JuegoEntity juegoEntity) throws CategoriaException, UsuarioException, ParejaException {
 		Juego j = null;
 		if (juegoEntity.getTipoDeJuego().equals("LIBRE")) {
 			j = new ModalidadLibreIndividual();
@@ -129,14 +130,19 @@ public class JuegoDAO {
 			j.setChico(chicos);
 			j.setId(juegoEntity.getId());
 			
-			j.setParejas(chicos.get(0).getParejas());
+			
+			List<Pareja> parejas  = new ArrayList<>();
+			parejas.add(ParejaDAO.getInstancia().toNegocio((ParejaDAO.getInstancia().buscarParejaPorId( juegoEntity.getPareja1().getIdPareja()))));
+			parejas.add(ParejaDAO.getInstancia().toNegocio((ParejaDAO.getInstancia().buscarParejaPorId( juegoEntity.getPareja2().getIdPareja()))));
+
+			j.setParejas(parejas);
 			if (juegoEntity.getParejaGanadora()!=null)
 				j.setGanador(ParejaDAO.getInstancia().toNegocio(juegoEntity.getParejaGanadora()));
 		}
 		return j;
 	}
 
-	public Juego buscarJuego(int idJuego) throws CategoriaException, JuegoException, UsuarioException {
+	public Juego buscarJuego(int idJuego) throws CategoriaException, JuegoException, UsuarioException, ParejaException {
 		// TODO Auto-generated method stub
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -149,7 +155,7 @@ public class JuegoDAO {
 		}
 	}
 
-	public List<Juego> getJuegosActivos() throws CategoriaException, UsuarioException {
+	public List<Juego> getJuegosActivos() throws CategoriaException, UsuarioException, ParejaException {
 
 		List<Juego> juegNeg = new ArrayList<>();
 
