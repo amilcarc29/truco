@@ -12,6 +12,7 @@ import controlador.ControladorJuego;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.ChicoException;
+import excepciones.ErrorCode;
 import excepciones.JuegoException;
 import excepciones.ManoException;
 import excepciones.ParejaException;
@@ -41,8 +42,9 @@ public class ThreadArmadoParejas implements Runnable {
 				armarParejas();
 				
 			} catch (UsuarioException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+				error.setDescripcion(e.getMessage());
+				System.out.println(error.toString());
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -67,26 +69,33 @@ public class ThreadArmadoParejas implements Runnable {
 			
 			System.out.println("Parejas creadas");
 		} catch (UsuarioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (JuegoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ParejaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ManoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (CartaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CARTA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		} catch (ChicoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorCode error = ErrorCode.CHICO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}
 	}
 
