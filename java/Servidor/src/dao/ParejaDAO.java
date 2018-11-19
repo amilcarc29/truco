@@ -12,6 +12,7 @@ import entities.MiembroEntity;
 import entities.ParejaEntity;
 import entities.UsuarioEntity;
 import excepciones.CategoriaException;
+import excepciones.ErrorCode;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
@@ -179,7 +180,7 @@ public class ParejaDAO {
 		if (parejaEnt != null) {
 			return parejaEnt;
 		} else {
-			throw new ParejaException("La pareja con id: " + idPareja + "no existe en la base de datos.");
+			throw new ParejaException("La pareja con id: " + idPareja + " no existe en la base de datos.");
 		} // TODO Auto-generated method stub
 	}
 
@@ -193,7 +194,7 @@ public class ParejaDAO {
 		if (parejaEnt != null) {
 			return toNegocio(parejaEnt);
 		}
-		throw new ParejaException("La pareja con el jugador de id: " + idJugador + "no existe en la base de datos.");
+		throw new ParejaException("La pareja con el jugador de id: " + idJugador + " no existe en la base de datos.");
 	}
 
 	public void actualizarJuego(int idPareja, int idJuego) throws ParejaException {
