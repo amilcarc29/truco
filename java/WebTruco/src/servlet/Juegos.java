@@ -21,6 +21,7 @@ import dto.JuegoDTO;
 import dto.JugadorDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
+import excepciones.ErrorCode;
 import excepciones.MiembroException;
 
 /**
@@ -205,8 +206,10 @@ public class Juegos extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (MiembroException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// Probablemente haya que enviar un Status Code
+				ErrorCode error = ErrorCode.MIEMBRO_NO_ENCONTRADO;
+				error.setDescripcion(e.getMessage());
+				System.out.println(error.toString());
 			}
 		}
 		out.flush();

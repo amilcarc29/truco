@@ -59,11 +59,10 @@ public class ControladorGrupo {
 			Miembro m = MiembroDAO.getInstancia().buscarMiembro(u.getIdUsuario(), g.getIdGrupo());
 			return m;
 		} catch (CategoriaException e) {
-			e.printStackTrace();
+			throw e;
 		} catch (MiembroException e1) {
-			e1.printStackTrace();
+			throw e1;
 		}
-		throw new MiembroException("no se encontro el miembro: " + u.getApodo() + "en el grupo: " + g.getIdGrupo());
 	}
 
 	public void altaGrupo(String nombre, String apodoAdministrador, int puntoPorPartida) throws UsuarioException, GrupoException, CategoriaException {

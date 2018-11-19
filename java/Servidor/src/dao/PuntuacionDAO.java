@@ -41,7 +41,7 @@ public class PuntuacionDAO {
 			ch = ChicoDAO.getInstancia().buscarChicoPorID(chico.getIdChico());
 			pa = ParejaDAO.getInstancia().buscarParejaPorId(pareja.getIdPareja());
 		} catch (ParejaException e) {
-			e.printStackTrace();
+			throw e;
 		}
 
 		PuntuacionEntity pu = new PuntuacionEntity(ch, pa, 0);

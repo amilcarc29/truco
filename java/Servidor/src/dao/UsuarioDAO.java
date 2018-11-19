@@ -87,7 +87,7 @@ public class UsuarioDAO {
 		try {
 			cat = CategoriaDAO.getInstancia().buscarCategoriaByNombre(usuario.getCategoria().getNombre());
 		} catch (CategoriaException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		ue.setCategoria(cat);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -118,7 +118,7 @@ public class UsuarioDAO {
 		try {
 			cat = CategoriaDAO.getInstancia().buscarCategoriaByNombre("NOVATO");
 		} catch (CategoriaException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		
 		ue.setCategoria(cat);

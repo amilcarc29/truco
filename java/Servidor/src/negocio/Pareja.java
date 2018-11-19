@@ -121,11 +121,10 @@ public class Pareja {
 		try {
 			return ParejaDAO.getInstancia().guardarParejaGrupal(this);
 		} catch (MiembroException e) {
-			e.printStackTrace();
+			throw e;
 		} catch (CategoriaException e1) {
-			e1.printStackTrace();
+			throw e1;
 		}
-		throw new ParejaException("No se pudo guardar la pareja grupal.");
 	}
 
 	public ParejaDTO toDTO() {

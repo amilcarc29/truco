@@ -66,7 +66,7 @@ public class Jugada {
 		try {
 			this.setIdJugada(JugadaDAO.getInstancia().guardarJugada(this, baza));
 		} catch (UsuarioException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 }

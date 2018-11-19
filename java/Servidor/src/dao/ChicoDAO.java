@@ -47,7 +47,7 @@ public class ChicoDAO {
 		try {
 			jue = JuegoDAO.getInstancia().buscarJuegoPorID(juego.getId());
 		} catch (ParejaException e) {
-			e.printStackTrace();
+			throw e;
 		}
 
 //		try {

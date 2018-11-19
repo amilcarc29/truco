@@ -41,19 +41,18 @@ public class ControladorJuego {
 	private static FactoryJuegos fcJuegos;
 	private static ControladorJuego controlador;
 
-	public static ControladorJuego getInstancia() throws UsuarioException, ParejaException {
+	public static ControladorJuego getInstancia() throws UsuarioException, ParejaException, CategoriaException {
 		if (controlador == null)
 			controlador = new ControladorJuego();
 		return controlador;
 	}
 
-	public ControladorJuego() throws UsuarioException, ParejaException {
+	public ControladorJuego() throws UsuarioException, ParejaException, CategoriaException {
 		juegos = new LinkedList<Juego>();
 		try {
 			juegos = JuegoDAO.getInstancia().getJuegosActivos();
 		} catch (CategoriaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 		fcJuegos = new FactoryJuegos();
 	}

@@ -34,7 +34,7 @@ public class ControladorUsuario {
 				usuario.save();
 			} catch (CategoriaException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw e;
 			}
 
 			this.usuarios.add(usuario);

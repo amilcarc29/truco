@@ -42,9 +42,9 @@ public class JugadaDAO {
 		try {
 			jug = JugadorDAO.getInstancia().buscarJugadorById(jugada.getJugador().getId());
 		} catch (UsuarioException e) {
-			e.printStackTrace();
+			throw e;
 		} catch (CategoriaException e1) {
-			e1.printStackTrace();
+			throw e1;
 		}
 
 		// AGREGAR EXCEPCION CARTA

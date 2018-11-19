@@ -64,7 +64,7 @@ public class Puntuacion {
 		try {
 			this.setIdPuntuacion(PuntuacionDAO.getInstancia().guardarPuntuacion(chico, this.getPareja()));
 		} catch (ParejaException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
