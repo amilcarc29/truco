@@ -13,6 +13,7 @@ import dto.UsuarioDTO;
 import excepciones.CartaException;
 import excepciones.CategoriaException;
 import excepciones.ChicoException;
+import excepciones.ErrorCode;
 import excepciones.GrupoJuegoException;
 import excepciones.JuegoException;
 import excepciones.JugadorException;
@@ -129,7 +130,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public void iniciarPartidaLibre(UsuarioDTO u1, UsuarioDTO u2, UsuarioDTO u3, UsuarioDTO u4) throws UsuarioException,
-			CategoriaException, JuegoException, ParejaException, ManoException, CartaException, ChicoException {
+			CategoriaException, JuegoException, ParejaException, ManoException, CartaException, ChicoException, MiembroException {
 		try {
 
 			Pareja p1 = this.armarPareja(u1, u2);
@@ -140,23 +141,19 @@ public class ControladorArmadoJuegos {
 			ControladorJuego.getInstancia().iniciarJuego(grupo);
 
 		} catch (UsuarioException e) {
-
-			e.printStackTrace();
+			throw e;
 		} catch (CategoriaException e1) {
-
-			e1.printStackTrace();
+			throw e1;
 		} catch (JuegoException e2) {
-
-			e2.printStackTrace();
+			throw e2;
 		} catch (MiembroException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 
 	}
 
 	public void iniciarPartidaEnPareja(Pareja p1, Pareja p2) throws UsuarioException, CategoriaException,
-			JuegoException, ParejaException, ManoException, CartaException, ChicoException {
+			JuegoException, ParejaException, ManoException, CartaException, ChicoException, MiembroException {
 		try {
 
 			GrupoJuego gj = new GrupoJuego(p1, p2);
@@ -164,17 +161,13 @@ public class ControladorArmadoJuegos {
 			ControladorJuego.getInstancia().iniciarJuego(gj);
 
 		} catch (UsuarioException e) {
-
-			e.printStackTrace();
+			throw e;
 		} catch (CategoriaException e1) {
-
-			e1.printStackTrace();
+			throw e1;
 		} catch (JuegoException e2) {
-
-			e2.printStackTrace();
+			throw e2;
 		} catch (MiembroException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 
 	}
@@ -192,17 +185,13 @@ public class ControladorArmadoJuegos {
 				ControladorJuego.getInstancia().iniciarJuego(gj);
 
 			} catch (UsuarioException e) {
-
-				e.printStackTrace();
+				throw e;
 			} catch (CategoriaException e1) {
-
-				e1.printStackTrace();
+				throw e1;
 			} catch (JuegoException e2) {
-
-				e2.printStackTrace();
+				throw e2;
 			} catch (MiembroException e3) {
-
-				e3.printStackTrace();
+				throw e3;
 			}
 		}
 
@@ -258,7 +247,7 @@ public class ControladorArmadoJuegos {
 				return grupoJuego;
 			}
 		}
-		throw new GrupoJuegoException("El GrupoJuego: " + idGrupo + "no existe.");
+		throw new GrupoJuegoException("El GrupoJuego: " + idGrupo + " no existe.");
 	}
 
 	public Jugador buscarJugador(int idJugador) throws JugadorException {
@@ -267,7 +256,7 @@ public class ControladorArmadoJuegos {
 				return jugador;
 			}
 		}
-		throw new JugadorException("El jugador: " + idJugador + "no existe.");
+		throw new JugadorException("El jugador: " + idJugador + " no existe.");
 	}
 
 	public Pareja buscarPareja(int idPareja) throws ParejaException {
@@ -276,7 +265,7 @@ public class ControladorArmadoJuegos {
 				return pareja;
 			}
 		}
-		throw new ParejaException("La pareja: " + idPareja + "no existe.");
+		throw new ParejaException("La pareja: " + idPareja + " no existe.");
 	}
 
 	public static ControladorArmadoJuegos getInstancia() {

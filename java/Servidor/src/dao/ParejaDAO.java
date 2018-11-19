@@ -89,7 +89,7 @@ public class ParejaDAO {
 		try {
 			cat = CategoriaDAO.getInstancia().buscarCategoriaById(pc.obtenerMayorCategoria().getIdCategoria());
 		} catch (CategoriaException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		pe.setCategoriaMayor(cat);
 
@@ -108,7 +108,7 @@ public class ParejaDAO {
 		try {
 			pa = this.buscarParejaPorId(pareja.getIdPareja());
 		} catch (ParejaException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -128,7 +128,7 @@ public class ParejaDAO {
 			mi1 = MiembroDAO.getInstancia().buscarMiembroByIdEntity(ju1.getMiembro().getIdMiembro());
 			mi2 = MiembroDAO.getInstancia().buscarMiembroByIdEntity(ju2.getMiembro().getIdMiembro());
 		} catch (MiembroException e) {
-			e.printStackTrace();
+			throw e;
 		}
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
