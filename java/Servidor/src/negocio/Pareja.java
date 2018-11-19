@@ -113,9 +113,8 @@ public class Pareja {
 	}
 
 	public Pareja saveIndividual() throws CategoriaException, UsuarioException, ParejaException {
-		Pareja p = ParejaDAO.getInstancia().guardarParejaIndividual(this);
-		categoriaMayor = this.obtenerMayorCategoria();
-		return p;
+
+		return ParejaDAO.getInstancia().guardarParejaIndividual(this);
 	}
 
 	public Pareja saveGrupal() throws CategoriaException, MiembroException, UsuarioException, ParejaException {

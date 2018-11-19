@@ -96,6 +96,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		// Devuelve una lista vacia en lugar de null
 		return new ArrayList<JuegoDTO>();
@@ -114,6 +117,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (JuegoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -128,6 +134,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParejaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -145,6 +154,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParejaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -415,6 +427,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (UsuarioException e4) {
 			// TODO Auto-generated catch block
 			e4.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}		
 	}
 
@@ -463,6 +478,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 		} catch (JuegoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParejaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -478,6 +496,9 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JuegoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParejaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

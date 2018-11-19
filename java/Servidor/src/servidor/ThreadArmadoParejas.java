@@ -43,6 +43,9 @@ public class ThreadArmadoParejas implements Runnable {
 			} catch (UsuarioException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (ParejaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -90,7 +93,7 @@ public class ThreadArmadoParejas implements Runnable {
 		}
 	}
 
-	public void armarParejas() throws UsuarioException {
+	public void armarParejas() throws UsuarioException, ParejaException {
 		Vector<Pareja> parejasLibres = new Vector<>();
 		
 		//carga los juegos que quedaron guardados

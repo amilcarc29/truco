@@ -582,7 +582,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
 		tableDiv += '<div class="divTableCell"></div>';
-		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
+		tableDiv += '<div class="divTableCell">' + data.usuario.apodo + '</div>';
 		tableDiv += '<div class="divTableCell"></div>';
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
@@ -626,7 +626,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
 		
 		
-		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
+		tableDiv += '<div class="divTableCell">' + data.usuario.apodo + '</div>';
 
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
@@ -661,7 +661,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
 		tableDiv += '<div class="divTableCell"></div>';
-		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
+		tableDiv += '<div class="divTableCell">' + data.usuario.apodo + '</div>';
 		tableDiv += '<div class="divTableCell"></div>';
 		tableDiv += '</div>';
 		tableDiv += '</div>';
@@ -680,7 +680,7 @@ function drawCartas(data, juego, jugNum) {
 		tableDiv += '<div class="divTableCell">' + cartasImg[6] + '</div>';
 		tableDiv += '</div>';
 		tableDiv += '<div class="divTableRow">';
-		tableDiv += '<div class="divTableCell">' + data.apodo + '</div>';
+		tableDiv += '<div class="divTableCell">' + data.usuario.apodo + '</div>';
 
 		tableDiv += '<div class="divTableCell">' + cartasImg[1] + '</div>';
 		tableDiv += '<div class="divTableCell">' + cartasImg[4] + '</div>';
@@ -723,19 +723,19 @@ function renderPunt(data) {
 	
 	divPnt += '<div class="divTableRow">';
 	divPnt += '<div class="divTableCell">Turno De ' + turno + '</div>';
-	divPnt += '<div class="divTableCell">Pareja 1  ' + data.parejas[0].jugadores[0].apodo + " " + data.parejas[0].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 1  ' + data.parejas[0].jugadores[0].usuario.apodo + " " + data.parejas[0].jugadores[1].usuario.apodo + '</div>';
 	divPnt += '<div class="divTableCell">Puntos </div>';
 	divPnt += '</div>';
 	
 	divPnt += '<div class="divTableRow">';
 	divPnt += '<div class="divTableCell">Usuario ' + user.apodo + '</div>';
-	divPnt += '<div class="divTableCell">Pareja 2  ' + data.parejas[1].jugadores[0].apodo + " " + data.parejas[1].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 2  ' + data.parejas[1].jugadores[0].usuario.apodo + " " + data.parejas[1].jugadores[1].usuario.apodo + '</div>';
 	divPnt += '<div class="divTableCell">Pareja 1 = '+data.chicos[0].puntosChico[0].puntos + ', Pareja 2 = ' + data.chicos[0].puntosChico[1].puntos +' </div>';
 	divPnt += '</div>';
 	
 	if (data.chicos.length>=2){
 	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">Pareja 1 ' + data.parejas[0].jugadores[0].apodo + " " + data.parejas[0].jugadores[1].apodo + '</div>';
+	divPnt += '<div class="divTableCell">Pareja 1 ' + data.parejas[0].jugadores[0].usuario.apodo + " " + data.parejas[0].jugadores[1].usuario.apodo + '</div>';
 	divPnt += '<div class="divTableCell">Pareja 1 ='+data.chicos[1].puntosChico[0].puntos + ', Pareja 2 = ' + data.chicos[1].puntosChico[1].puntos +' </div>';
 	divPnt += '</div>';
 	}
@@ -744,7 +744,7 @@ function renderPunt(data) {
 	if (data.chicos.length>=3){
 		
 	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">Pareja 2  '+ data.parejas[1].jugadores[0].apodo + " "	+ data.parejas[1].jugadores[1].apodo + ' </div>';
+	divPnt += '<div class="divTableCell">Pareja 2  '+ data.parejas[1].jugadores[0].usuario.apodo + " "	+ data.parejas[1].jugadores[1].usuario.apodo + ' </div>';
 	divPnt += '<div class="divTableCell">Pareja 1 = '+data.chicos[2].puntosChico[0].puntos + ', Pareja 2 = ' + data.chicos[2].puntosChico[1].puntos +' </div>';
 	divPnt += '</div>';
 	}

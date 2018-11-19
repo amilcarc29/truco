@@ -41,13 +41,13 @@ public class ControladorJuego {
 	private static FactoryJuegos fcJuegos;
 	private static ControladorJuego controlador;
 
-	public static ControladorJuego getInstancia() throws UsuarioException {
+	public static ControladorJuego getInstancia() throws UsuarioException, ParejaException {
 		if (controlador == null)
 			controlador = new ControladorJuego();
 		return controlador;
 	}
 
-	public ControladorJuego() throws UsuarioException {
+	public ControladorJuego() throws UsuarioException, ParejaException {
 		juegos = new LinkedList<Juego>();
 		try {
 			juegos = JuegoDAO.getInstancia().getJuegosActivos();
@@ -65,7 +65,7 @@ public class ControladorJuego {
 
 			j.save();
 			// para tener el id el crear va despues del save
-
+			j = JuegoDAO.getInstancia().buscarJuego(j.getId());
 			j.crearChico();
 
 			juegos.add(j);
@@ -111,7 +111,7 @@ public class ControladorJuego {
 		jue.setTieneQueContestar(jug, "VALE CUATRO");
 	}
 	
-	public void quieroTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException {
+	public void quieroTruco(JuegoDTO juego) throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.inicializarContestar();
 	}
@@ -226,7 +226,7 @@ public class ControladorJuego {
 	 * FIN FUNCIONES DE ENVIDO
 	 */
 
-	public Juego buscarJuego(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
+	public Juego buscarJuego(int idJuego) throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		return JuegoDAO.getInstancia().buscarJuego(idJuego);
 	}
 
@@ -325,12 +325,12 @@ public class ControladorJuego {
 		return true;
 	}
 
-	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException, CategoriaException, UsuarioException {
+	public boolean sePuedeCantarEnvido(int idJuego) throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		Juego j = this.buscarJuego(idJuego);
 		return j.sePuedeCantarEnvido();
 	}
 
-	public void imprimirDbg() throws JuegoException, CategoriaException, UsuarioException {
+	public void imprimirDbg() throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		for (Juego juego : juegos) {
 			List<Pareja> par = juego.getParejas();
 			for (Pareja p : par) {
@@ -351,7 +351,7 @@ public class ControladorJuego {
 		}
 	}
 
-	public List<JuegoDTO> getJuegosActivos(UsuarioDTO usuario) throws CategoriaException, UsuarioException {
+	public List<JuegoDTO> getJuegosActivos(UsuarioDTO usuario) throws CategoriaException, UsuarioException, ParejaException {
 		List<Juego> juegos = JuegoDAO.getInstancia().buscarJuegosActivos(usuario);
 		List<JuegoDTO> juegosDto = new ArrayList<>();
 		for (Juego j : juegos) {
@@ -361,7 +361,7 @@ public class ControladorJuego {
 	}
 	
 	public String responderJugador(JuegoDTO juego, UsuarioDTO usuario)
-			throws CategoriaException, UsuarioException, JuegoException {
+			throws CategoriaException, UsuarioException, JuegoException, ParejaException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
@@ -370,7 +370,7 @@ public class ControladorJuego {
 	}
 
 	public boolean turnoJugador(JuegoDTO juego, UsuarioDTO usuario)
-			throws CategoriaException, UsuarioException, JuegoException {
+			throws CategoriaException, UsuarioException, JuegoException, ParejaException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
@@ -379,7 +379,7 @@ public class ControladorJuego {
 	}
 
 	public List<CartaDTO> getCartas(JuegoDTO juego, UsuarioDTO usuario, boolean jugada)
-			throws CategoriaException, UsuarioException, JuegoException {
+			throws CategoriaException, UsuarioException, JuegoException, ParejaException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
 		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
@@ -395,7 +395,7 @@ public class ControladorJuego {
 
 
 
-	public boolean alguienTieneQueContestar(JuegoDTO juego) throws CategoriaException, JuegoException, UsuarioException {
+	public boolean alguienTieneQueContestar(JuegoDTO juego) throws CategoriaException, JuegoException, UsuarioException, ParejaException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		return ju.alguienTieneQueContestar();
 	}

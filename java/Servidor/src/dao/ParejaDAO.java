@@ -54,6 +54,9 @@ public class ParejaDAO {
 
 		JugadorEntity je2 = new JugadorEntity(ue2, null, null, "individual");
 		ss.saveOrUpdate(je2);
+		
+		
+	
 
 		// alta de pareja
 
@@ -61,33 +64,43 @@ public class ParejaDAO {
 		pe.setCategoriaMayor(null);
 		ss.saveOrUpdate(pe);
 
-		// udate de id de pareja en jugador
 		je1.setPareja(pe);
-		ss.saveOrUpdate(pe);
-
-		je2.setPareja(pe);
 		ss.saveOrUpdate(je1);
 
-		ss.getTransaction().commit();
-		ss.close();
+
+		je2.setPareja(pe);
+		ss.saveOrUpdate(je2);
+
 
 		pareja.setIdPareja(pe.getIdPareja());
 
 		Pareja pc = this.toNegocio(pe);
+		
+		
+		
+		ss.getTransaction().commit();
+		ss.close();
 
+		
+		ss = sf.openSession();
+		ss.beginTransaction();
+		
+		pe = this.buscarParejaPorId(pc.getIdPareja());
 		try {
 			cat = CategoriaDAO.getInstancia().buscarCategoriaById(pc.obtenerMayorCategoria().getIdCategoria());
 		} catch (CategoriaException e) {
 			e.printStackTrace();
 		}
 		pe.setCategoriaMayor(cat);
-		ss = sf.openSession();
-		ss.beginTransaction();
+
 		ss.saveOrUpdate(pe);
+		
+
 		ss.getTransaction().commit();
 		ss.close();
 
-		return toNegocio(pe);
+
+		return toNegocio(this.buscarParejaPorId(pe.getIdPareja()));
 	}
 
 	public void aumentarPuntos(Pareja pareja) throws ParejaException {
