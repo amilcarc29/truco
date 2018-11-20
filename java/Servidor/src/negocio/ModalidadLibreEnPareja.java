@@ -26,7 +26,7 @@ public class ModalidadLibreEnPareja extends Juego{
 	}
 
 	public void save() throws ParejaException {
-		JuegoDAO.getInstancia().guardarJuegoLibreEnPareja(this);
+		this.setId(JuegoDAO.getInstancia().guardarJuegoLibreEnPareja(this));
 	}
 
 	@Override

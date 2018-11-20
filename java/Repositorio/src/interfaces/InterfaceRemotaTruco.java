@@ -40,4 +40,5 @@ public interface InterfaceRemotaTruco extends Remote {
 	public void quieroTruco(JuegoDTO juego) throws RemoteException;
 	public void altaGrupo(String nombre, UsuarioDTO administrador) throws RemoteException;
 	public void agregarUsuarioAGrupo (UsuarioDTO user, GrupoDTO grupo) throws RemoteException;
+	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws RemoteException;
 }

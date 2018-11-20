@@ -654,6 +654,25 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			e.printStackTrace();
 		}		
 	}
+
+	@Override
+	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws RemoteException {
+		try {
+			ControladorArmadoJuegos.getInstancia().agregarParejaLibreAEspera(usuario1, usuario2);
+		} catch (CategoriaException e) {
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (UsuarioException e) {
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		}		
+	}
 	
 	
 }

@@ -18,6 +18,7 @@ import excepciones.ManoException;
 import excepciones.MiembroException;
 import excepciones.ParejaException;
 import excepciones.UsuarioException;
+import negocio.JugadorIndividual;
 import negocio.Pareja;
 
 public class ThreadArmadoParejas implements Runnable {
@@ -126,7 +127,7 @@ public class ThreadArmadoParejas implements Runnable {
 					for (Iterator <Pareja> iterator = parejas.iterator(); iterator.hasNext();){
 						Pareja p = iterator.next();
 						Pareja pareja = p;
-						if (parejas.size() < 2) {
+						if (parejasLibres.size() < 2) {
 							parejasLibres.add(pareja);
 							iterator.remove();
 						} else {

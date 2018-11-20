@@ -24,10 +24,10 @@ public class ClienteRmiUs4 {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 			while (us1 != null) {
-				System.out.println("UsuarioLogeado");
-				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
-				for (JuegoDTO juegoDTO : juegos) {
-					System.out.println(juegoDTO.getIdJuego());
+//				System.out.println("UsuarioLogeado");
+//				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
+//				for (JuegoDTO juegoDTO : juegos) {
+//					System.out.println(juegoDTO.getIdJuego());
 //					if (new BusinessDelegateTruco().alguienTieneQueContestar(juegoDTO)) {
 //						if (new BusinessDelegateTruco().tengoQueContestar(juegoDTO, us1)) {
 //							String con = null;
@@ -111,7 +111,7 @@ public class ClienteRmiUs4 {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
+//			}
 
 		} catch (ComunicacionException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());

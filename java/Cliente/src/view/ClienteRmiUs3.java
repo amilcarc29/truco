@@ -20,15 +20,18 @@ public class ClienteRmiUs3 {
 		// TODO Auto-generated method stub
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Lucas", "pepe");
-			new BusinessDelegateTruco().agregarAListaEspera(us1);
+			UsuarioDTO us2 = new BusinessDelegateTruco().login("Amilcar", "pepe");
+//			new BusinessDelegateTruco().agregarAListaEspera(us1);
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("UsuariosLogeados");
+			new BusinessDelegateTruco().agregarParejaLibreAEspera(us1, us2);
 
 			while (us1 != null) {
-				System.out.println("UsuarioLogeado");
-
-				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
-				for (JuegoDTO juegoDTO : juegos) {
-					System.out.println(juegoDTO.getIdJuego());
+//				System.out.println("UsuarioLogeado");
+//
+//				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
+//				for (JuegoDTO juegoDTO : juegos) {
+//					System.out.println(juegoDTO.getIdJuego());
 //					if (new BusinessDelegateTruco().alguienTieneQueContestar(juegoDTO)) {
 //						if (new BusinessDelegateTruco().tengoQueContestar(juegoDTO, us1)) {
 //							String con = null;
@@ -115,7 +118,7 @@ public class ClienteRmiUs3 {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
+//			}
 
 		} catch (ComunicacionException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());

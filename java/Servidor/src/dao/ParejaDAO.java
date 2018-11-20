@@ -200,6 +200,19 @@ public class ParejaDAO {
 		p.setIdPareja(pe.getIdPareja());
 		return p;
 	}
+	
+	public Pareja buscarParejaPorIdNegocio(int idPareja) throws CategoriaException, UsuarioException, ParejaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		ParejaEntity parejaEnt = (ParejaEntity) session.createQuery("from ParejaEntity where idPareja = ? ")
+				.setParameter(0, idPareja).uniqueResult();
+		session.close();
+		if (parejaEnt != null) {
+			return toNegocio(parejaEnt);
+		} else {
+			throw new ParejaException("La pareja con id: " + idPareja + " no existe en la base de datos.");
+		} // TODO Auto-generated method stub
+	}
 
 	public ParejaEntity buscarParejaPorId(int idPareja) throws ParejaException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();

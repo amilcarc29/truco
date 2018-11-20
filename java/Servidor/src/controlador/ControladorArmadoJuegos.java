@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import dao.JugadorDAO;
+import dao.ParejaDAO;
 import dao.UsuarioDAO;
 import dto.GrupoDTO;
 import dto.JuegoDTO;
@@ -93,6 +94,7 @@ public class ControladorArmadoJuegos {
 
 	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2)
 			throws CategoriaException, UsuarioException, ParejaException {
+		
 
 		Pareja pareja = this.armarPareja(usuario1, usuario2);
 
@@ -157,8 +159,11 @@ public class ControladorArmadoJuegos {
 	public void iniciarPartidaEnPareja(Pareja p1, Pareja p2) throws UsuarioException, CategoriaException,
 			JuegoException, ParejaException, ManoException, CartaException, ChicoException, MiembroException {
 		try {
+			
+			Pareja pareja1 = ParejaDAO.getInstancia().buscarParejaPorIdNegocio(p1.getIdPareja());
+			Pareja pareja2 = ParejaDAO.getInstancia().buscarParejaPorIdNegocio(p2.getIdPareja());
 
-			GrupoJuego gj = new GrupoJuego(p1, p2);
+			GrupoJuego gj = new GrupoJuego(pareja1, pareja2);
 			gj.setTipoJuego("ENPAREJA");
 			ControladorJuego.getInstancia().iniciarJuego(gj);
 
