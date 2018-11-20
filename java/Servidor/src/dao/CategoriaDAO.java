@@ -78,6 +78,7 @@ public class CategoriaDAO {
 		}
 		 */
 		return FactoryCategoria.getCategoria(categoriaEntity.getIdCategoria(), categoriaEntity.getNombre(),
+				categoriaEntity.getScore(),
 				categoriaEntity.getMinimoPartida(), categoriaEntity.getMinimoPuntos(),
 				categoriaEntity.getPromedioMinimo());
 	}
@@ -93,7 +94,7 @@ public class CategoriaDAO {
 	}
 
 	public CategoriaEntity toEntity(Categoria categoria) {
-		return new CategoriaEntity(categoria.getIdCategoria(), categoria.getNombre(), categoria.getMinimoPartida(), categoria.getMinimoPuntos(),
+		return new CategoriaEntity(categoria.getIdCategoria(), categoria.getNombre(), categoria.getScore(), categoria.getMinimoPartida(), categoria.getMinimoPuntos(),
 				categoria.getPromedioMinimo());
 	}
 }

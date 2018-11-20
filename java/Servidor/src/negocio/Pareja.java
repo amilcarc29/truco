@@ -35,12 +35,11 @@ public class Pareja {
 				.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador1().getId()).getMiembro().getUsuario());
 		Usuario usuario2 = UsuarioDAO.getInstancia()
 				.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador2().getId()).getMiembro().getUsuario());
-		// ESTO ESTA MUY FORZADO. SI NO ES EL MISMO NOMBRE QUE TE ASEGURA QUE LA OTRA
-				// SEA MAYOR? VER!!!
-		if (usuario1.getCategoria().getNombre().equalsIgnoreCase(usuario2.getCategoria().getNombre())) {
-			return usuario1.getCategoria();
+		Categoria mayor = usuario1.getCategoria();
+		if (usuario2.getCategoria().getScore() > mayor.getScore()) {
+			mayor = usuario2.getCategoria();
 		}
-		return usuario2.getCategoria();
+		return mayor;
 	}
 
 	public Categoria obtenerMayorCategoria() throws CategoriaException, UsuarioException {
@@ -48,12 +47,11 @@ public class Pareja {
 				.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador1().getId()).getUsuario());
 		Usuario usuario2 = UsuarioDAO.getInstancia()
 				.toNegocio(JugadorDAO.getInstancia().buscarJugadorById(getJugador2().getId()).getUsuario());
-		// ESTO ESTA MUY FORZADO. SI NO ES EL MISMO NOMBRE QUE TE ASEGURA QUE LA OTRA
-		// SEA MAYOR? VER!!!
-		if (usuario1.getCategoria().getNombre().equalsIgnoreCase(usuario2.getCategoria().getNombre())) {
-			return usuario1.getCategoria();
+		Categoria mayor = usuario1.getCategoria();
+		if (usuario2.getCategoria().getScore() > mayor.getScore()) {
+			mayor = usuario2.getCategoria();
 		}
-		return usuario2.getCategoria();
+		return mayor;
 	}
 
 	public int getIdPareja() {

@@ -34,7 +34,7 @@ public class ClienteRmiUs1 {
 //					System.out.println(juegoDTO.getIdJuego());
 					
 					
-//					
+					
 //					if (new BusinessDelegateTruco().alguienTieneQueContestar(juegoDTO)) {
 //						if (new BusinessDelegateTruco().tengoQueContestar(juegoDTO, us1)) {
 //							String con = null;
