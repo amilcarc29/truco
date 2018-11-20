@@ -22,7 +22,7 @@ $(document).ready(function() {
 });
 var esperandoPartida = false;
 function loadUser() {
-	$("#userApodo").text("Hola " + user.apodo);
+	$("#userApodo").text("Hola " + user.apodo + " , " + user.categoria.nombre);
 
 }
 function unirsePartidaLibre() {
