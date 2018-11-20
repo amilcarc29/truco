@@ -37,7 +37,7 @@ public class ModalidadLibreIndividual extends Juego{
 			for (Jugador j : p.getJugadores()) {
 				Usuario usuario = UsuarioDAO.getInstancia().obtenerUsuarioJuegoIndividual(j);
 				if (ganadora.tieneJugador(j.getId())) {
-					int puntos = this.calcularPuntosSegunCategoria(usuario);
+					int puntos = this.calcularPuntos(usuario);
 					usuario.actualizarPuntos(1, 1, puntos);
 				}
 				else {
@@ -47,5 +47,27 @@ public class ModalidadLibreIndividual extends Juego{
 		}
 		this.getUltimaMano().finalizarMano();
 		JuegoDAO.getInstancia().finalizarJuego(this);
+	}
+
+	@Override
+	public Categoria obtenerCategoriaMayor() {
+		Categoria mayor = this.getPareja1().getCategoriaMayor();
+		if (mayor.getScore() < this.getPareja2().getCategoriaMayor().getScore())
+			mayor = this.getPareja2().getCategoriaMayor();
+		return mayor;
+	}
+
+	@Override
+	public int calcularPuntos(Usuario usuario) {
+		int puntosAgregados = 0;
+		if (esCategoriaInferior(usuario.getCategoria())) {
+			puntosAgregados = 2;
+		}
+		return calcularPuntos() + puntosAgregados;
+	}
+	
+	public boolean esCategoriaInferior(Categoria categoria) {
+		Categoria mayor = this.obtenerCategoriaMayor();
+		return (categoria.getScore() < mayor.getScore());
 	}
 }

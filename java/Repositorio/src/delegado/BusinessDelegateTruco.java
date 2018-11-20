@@ -205,8 +205,22 @@ public class BusinessDelegateTruco {
 		}
 		
 	}
-
 	
+	public void altaGrupo(String nombre, UsuarioDTO administrador) throws ComunicacionException {
+		try {
+			ir.altaGrupo(nombre, administrador);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
+	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws ComunicacionException {
+		try {
+			ir.agregarParejaLibreAEspera(usuario1, usuario2);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
 	
 	
 	

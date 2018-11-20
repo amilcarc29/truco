@@ -6,9 +6,16 @@ import excepciones.UsuarioException;
 
 public class Calificado  extends Categoria {
 
-	public Calificado(int idCategoria, String nombre, int minimoPartida, int minimoPuntos,
+	
+	public Calificado() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Calificado(int idCategoria, String nombre, int score, int minimoPartida, int minimoPuntos,
 			int promedioMinimo) {
-		super(idCategoria, nombre, minimoPartida, minimoPuntos, promedioMinimo);
+		super(idCategoria, nombre, score, minimoPartida, minimoPuntos, promedioMinimo);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

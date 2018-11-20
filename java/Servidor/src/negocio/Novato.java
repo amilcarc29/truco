@@ -6,14 +6,15 @@ import excepciones.UsuarioException;
 
 public class Novato extends Categoria {
 
-	public Novato(int idCategoria, String nombre, int minimoPartidas, int minimoPuntos, int promedioMinimo) {
-		super(idCategoria, nombre, minimoPartidas, minimoPuntos, promedioMinimo);
-	}
-
+	
 	public Novato() {
 		super();
-		
-		
+		// TODO Auto-generated constructor stub
+	}
+
+	public Novato(int idCategoria, String nombre, int score, int minimoPartida, int minimoPuntos, int promedioMinimo) {
+		super(idCategoria, nombre, score, minimoPartida, minimoPuntos, promedioMinimo);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

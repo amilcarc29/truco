@@ -26,26 +26,23 @@ public class ModalidadLibreEnPareja extends Juego{
 	}
 
 	public void save() throws ParejaException {
-		JuegoDAO.getInstancia().guardarJuegoLibreEnPareja(this);
+		this.setId(JuegoDAO.getInstancia().guardarJuegoLibreEnPareja(this));
 	}
 
 	@Override
 	public void finalizarJuego() throws UsuarioException, CategoriaException, ParejaException, MiembroException {
-		this.setGanador(this.obtenerGanador());
-		Pareja ganadora = this.getGanador();
-		for (Pareja p : this.getParejas()) {
-			for (Jugador j : p.getJugadores()) {
-				Usuario usuario = UsuarioDAO.getInstancia().obtenerUsuarioJuegoIndividual(j);
-				if (ganadora.tieneJugador(j.getId())) {
-					int puntos = this.calcularPuntosSegunCategoria(usuario); // CREAR NUEVO METODO. DEBE SER SEGUN LA CATEGORIA DE SU PAREJA
-					usuario.actualizarPuntos(1, 1, puntos);
-				}
-				else {
-					usuario.actualizarPuntos(0, 1, 0);
-				}
-			}
-		}
-		this.getUltimaMano().finalizarMano();
-		JuegoDAO.getInstancia().finalizarJuego(this);
+		
+	}
+
+	@Override
+	public Categoria obtenerCategoriaMayor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int calcularPuntos(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

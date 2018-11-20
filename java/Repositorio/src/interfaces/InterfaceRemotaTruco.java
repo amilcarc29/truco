@@ -5,10 +5,14 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import dto.CartaDTO;
+import dto.GrupoDTO;
 import dto.JuegoDTO;
 import dto.JugadorDTO;
 import dto.UsuarioDTO;
+import excepciones.CategoriaException;
+import excepciones.GrupoException;
 import excepciones.MiembroException;
+import excepciones.UsuarioException;
 
 public interface InterfaceRemotaTruco extends Remote {
 
@@ -34,4 +38,7 @@ public interface InterfaceRemotaTruco extends Remote {
 	public String tengoQueContestar(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	public boolean alguienTieneQueContestar(JuegoDTO juego) throws RemoteException;
 	public void quieroTruco(JuegoDTO juego) throws RemoteException;
+	public void altaGrupo(String nombre, UsuarioDTO administrador) throws RemoteException;
+	public void agregarUsuarioAGrupo (UsuarioDTO user, GrupoDTO grupo) throws RemoteException;
+	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws RemoteException;
 }

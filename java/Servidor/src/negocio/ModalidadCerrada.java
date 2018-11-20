@@ -26,7 +26,7 @@ public class ModalidadCerrada  extends Juego{
 	}
 
 	public void save() throws ParejaException {
-		JuegoDAO.getInstancia().guardarJuegoCerrado(this);
+		this.setId(JuegoDAO.getInstancia().guardarJuegoCerrado(this));
 	}
 
 	@Override
@@ -34,5 +34,17 @@ public class ModalidadCerrada  extends Juego{
 		// TODO Auto-generated method stub
 		// FALTA
 		
+	}
+
+	@Override
+	public Categoria obtenerCategoriaMayor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int calcularPuntos(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

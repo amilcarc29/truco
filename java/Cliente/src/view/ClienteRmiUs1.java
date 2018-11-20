@@ -20,18 +20,21 @@ public class ClienteRmiUs1 {
 		// TODO Auto-generated method stub
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano", "pepe");
+//			UsuarioDTO us2 = new BusinessDelegateTruco().login("Debi", "pepe");
 			new BusinessDelegateTruco().agregarAListaEspera(us1);
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-			while (us1 != null) {
-				System.out.println("UsuarioLogeado");
+			System.out.println("UsuariosLogeados");
+//			new BusinessDelegateTruco().agregarParejaLibreAEspera(us1, us2);
+			
+			while (us1 != null) {			
+				
 				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
 				for (JuegoDTO juegoDTO : juegos) {
-					
-					System.out.println(juegoDTO.getIdJuego());
-					
-					
 //					
+//					System.out.println(juegoDTO.getIdJuego());
+					
+					
+					
 //					if (new BusinessDelegateTruco().alguienTieneQueContestar(juegoDTO)) {
 //						if (new BusinessDelegateTruco().tengoQueContestar(juegoDTO, us1)) {
 //							String con = null;
@@ -60,25 +63,25 @@ public class ClienteRmiUs1 {
 //								new BusinessDelegateTruco().quieroTruco(juegoDTO);
 //						}
 //					} else {
-//						if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
-//							System.out.println("turno de " + us1.getApodo());
+						if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
+							System.out.println("turno de " + us1.getApodo());
 //
-//							List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
-//							for (CartaDTO cartaDTO : c) {
-//								System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
-//							}
-//							String jug = null;
-//							System.out.println("que desea hacer  ?: ");
-//							jug = br.readLine();
+							List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
+							for (CartaDTO cartaDTO : c) {
+								System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
+							}
+							String jug = null;
+							System.out.println("que desea hacer  ?: ");
+							jug = br.readLine();
 //
 //							if (jug.equals("env"))
 //								new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
 //							if (jug.equals("real"))
 //								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
-//							if (jug.equals("falta"))
-//								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
-//							if (jug.equals("qe"))
-//								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+							if (jug.equals("falta"))
+								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+							if (jug.equals("qe"))
+								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
 //							if (jug.equals("nqe"))
 //								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
 //							if (jug.equals("truco"))
@@ -103,7 +106,7 @@ public class ClienteRmiUs1 {
 //										new BusinessDelegateTruco().jugarCarta(juegoDTO, cartaDTO, us1);
 //									}
 //								}
-//							}
+							}
 //
 //						} else {
 //							System.out.println("No es mi turno");
@@ -124,3 +127,4 @@ public class ClienteRmiUs1 {
 		}
 	}
 }
+

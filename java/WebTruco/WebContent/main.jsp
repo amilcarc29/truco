@@ -5,7 +5,7 @@
 
 <meta charset="UTF-8">
 <%@include file="loginCheck.jsp"%>
-<title>CodePen - Random Login Form</title>
+<title>CodePen - Truco Login Form</title>
 
 <style>
 @import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);

@@ -6,8 +6,15 @@ import excepciones.UsuarioException;
 
 public class Experto extends Categoria{
 
-	public Experto(int idCategoria, String nombre, int minimoPartida, int minimoPuntos, int promedioMinimo) {
-		super(idCategoria, nombre, minimoPartida, minimoPuntos, promedioMinimo);
+		
+	public Experto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Experto(int idCategoria, String nombre, int score, int minimoPartida, int minimoPuntos, int promedioMinimo) {
+		super(idCategoria, nombre, score, minimoPartida, minimoPuntos, promedioMinimo);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

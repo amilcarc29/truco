@@ -113,36 +113,32 @@ public abstract class Juego {
 
 	public abstract void finalizarJuego()
 			throws UsuarioException, CategoriaException, ParejaException, MiembroException;
+	
+	public abstract int calcularPuntos(Usuario usuario);
 
-	public int calcularPuntosSegunCategoria(Usuario usuario) throws CategoriaException, UsuarioException {
-		int puntosAgregados = 0;
-		if (esCategoriaInferior(usuario.getCategoria().getNombre())) {
-			puntosAgregados = 2;
-		}
-		return calcularPuntos() + puntosAgregados;
-	}
+//	public int calcularPuntosSegunCategoria(Usuario usuario) throws CategoriaException, UsuarioException {
+//		int puntosAgregados = 0;
+//		if (esCategoriaInferior(usuario.getCategoria().getNombre())) {
+//			puntosAgregados = 2;
+//		}
+//		return calcularPuntos() + puntosAgregados;
+//	}
+//
+//	public boolean esCategoriaInferior(String nombreCategoria) throws CategoriaException, UsuarioException {
+//
+//		switch (nombreCategoria) {
+//		case "NOVATO":
+//			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("CALIFICADO") ? true : false;
+//		case "CALIFICADO":
+//			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("EXPERTO") ? true : false;
+//		case "EXPERTO":
+//			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("MASTER") ? true : false;
+//		default:
+//			return false;
+//		}
+//	}
 
-	public boolean esCategoriaInferior(String nombreCategoria) throws CategoriaException, UsuarioException {
-
-		switch (nombreCategoria) {
-		case "NOVATO":
-			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("CALIFICADO") ? true : false;
-		case "CALIFICADO":
-			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("EXPERTO") ? true : false;
-		case "EXPERTO":
-			return obtenerCategoriaMayor().getNombre().equalsIgnoreCase("MASTER") ? true : false;
-		default:
-			return false;
-		}
-	}
-
-	public Categoria obtenerCategoriaMayor() throws CategoriaException, UsuarioException {
-		if (getPareja1().obtenerMayorCategoria().getNombre()
-				.equalsIgnoreCase(getPareja2().obtenerMayorCategoria().getNombre())) {
-			return getPareja1().obtenerMayorCategoria();
-		}
-		return getPareja2().obtenerMayorCategoria();
-	}
+	public abstract Categoria obtenerCategoriaMayor();
 
 	// TODO tener en cuenta el orden para cada mano
 	public void crearChico() throws UsuarioException, CategoriaException, ParejaException, ManoException,

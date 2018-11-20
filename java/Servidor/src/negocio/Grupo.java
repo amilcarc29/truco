@@ -3,6 +3,13 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.GrupoDAO;
+import dao.MiembroDAO;
+import excepciones.CategoriaException;
+import excepciones.GrupoException;
+import excepciones.MiembroException;
+import excepciones.UsuarioException;
+
 public class Grupo {
 
 	private int idGrupo;
@@ -12,11 +19,12 @@ public class Grupo {
 	private List<Miembro> integrantes;
 	private List<ModalidadCerrada> partidas;
 
-	public Grupo(int idGrupo, String nombre) {
-		setIdGrupo(idGrupo);
+	public Grupo(String nombre, Usuario administrador) {
 		setNombre(nombre);
+		setAdministrador(administrador);
 		partidas = new ArrayList<>();
 		integrantes = new ArrayList<>();
+		this.puntoPorPartida = 5;
 	}
 
 	public Grupo() {
@@ -67,8 +75,15 @@ public class Grupo {
 
 	}
 
-	public void agregarParticipante(Usuario usuario) {
-
+	public void agregarParticipante(Usuario usuario) throws CategoriaException, MiembroException, UsuarioException, GrupoException {
+		Miembro miembro = MiembroDAO.getInstancia().buscarMiembro(usuario.getIdUsuario(), this.getIdGrupo());
+		if (miembro == null) {
+			Miembro m = new Miembro (0, true, usuario);
+			integrantes.add(m);
+			m.save(this.getIdGrupo());
+		} else {
+			throw new MiembroException ("El usuario " + usuario.getApodo() + "ya se encuentra en este Grupo");
+		}
 	}
 
 	public boolean esGrupo(int id) {
@@ -91,6 +106,21 @@ public class Grupo {
 		this.integrantes = integrantes;
 	}
 	
+	public void save () throws CategoriaException {
+		this.setIdGrupo(GrupoDAO.getInstancia().guardarGrupo(this));
+	}
+
+	public Miembro buscarMiembro(Usuario usuario) throws CategoriaException, MiembroException, UsuarioException {
+		Miembro m = null;
+		m = MiembroDAO.getInstancia().buscarMiembro(usuario.getIdUsuario(), this.getIdGrupo());
+		return m;
+	}
+
+	public void bajaGrupo() throws GrupoException, CategoriaException {
+
+		GrupoDAO.getInstancia().bajaGrupo(this);
+		
+	}
 	
 
 //	public GrupoDTO toDTO() {

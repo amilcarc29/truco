@@ -19,6 +19,7 @@ public class GrupoEntity {
 	@JoinColumn(name = "idUsuarioAdmin", referencedColumnName = "idUsuario")
 	private UsuarioEntity administrador;
 	private String nombre;
+	private boolean activo;
 
 	public GrupoEntity() {
 	}
@@ -28,6 +29,7 @@ public class GrupoEntity {
 		setIdGrupo(idGrupo);
 		setAdministrador(administrador);
 		setNombre(nombre);
+		setActivo(true);
 	}
 
 	public int getIdGrupo() {
@@ -53,4 +55,18 @@ public class GrupoEntity {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	public void setIdGrupo(Integer idGrupo) {
+		this.idGrupo = idGrupo;
+	}
+	
+	
 }
