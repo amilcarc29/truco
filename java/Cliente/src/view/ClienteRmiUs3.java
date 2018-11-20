@@ -20,11 +20,11 @@ public class ClienteRmiUs3 {
 		// TODO Auto-generated method stub
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Lucas", "pepe");
-//			UsuarioDTO us2 = new BusinessDelegateTruco().login("Amilcar", "pepe");
-			new BusinessDelegateTruco().agregarAListaEspera(us1);
+			UsuarioDTO us2 = new BusinessDelegateTruco().login("Amilcar", "pepe");
+//			new BusinessDelegateTruco().agregarAListaEspera(us1);
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("UsuariosLogeados");
-//			new BusinessDelegateTruco().agregarParejaLibreAEspera(us1, us2);
+			new BusinessDelegateTruco().agregarParejaLibreAEspera(us1, us2);
 
 			while (us1 != null) {
 				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);

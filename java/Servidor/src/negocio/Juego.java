@@ -114,7 +114,7 @@ public abstract class Juego {
 	public abstract void finalizarJuego()
 			throws UsuarioException, CategoriaException, ParejaException, MiembroException;
 	
-	public abstract int calcularPuntos(Usuario usuario);
+	public abstract int calcularPuntos(Usuario usuario) throws CategoriaException, UsuarioException, ParejaException;
 
 //	public int calcularPuntosSegunCategoria(Usuario usuario) throws CategoriaException, UsuarioException {
 //		int puntosAgregados = 0;

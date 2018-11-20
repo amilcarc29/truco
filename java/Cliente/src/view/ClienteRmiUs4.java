@@ -20,7 +20,7 @@ public class ClienteRmiUs4 {
 		// TODO Auto-generated method stub
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Amilcar", "pepe");
-			new BusinessDelegateTruco().agregarAListaEspera(us1);
+//			new BusinessDelegateTruco().agregarAListaEspera(us1);
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("UsuariosLogeados");
 			

@@ -25,6 +25,7 @@ public class ControladorUsuario {
 		this.usuarios = usuarios;
 	}
 
+	// REVISAR. FALTAN VALIDACIONES. VER SI EL MAIL ESTA EN USO.
 	public void altaUsuario(String apodo, String password, String email) throws UsuarioException, CategoriaException {
 		if (buscarUsuarioPorApodo(apodo) == null) {
 
@@ -48,6 +49,7 @@ public class ControladorUsuario {
 		return UsuarioDAO.getInstancia().buscarUsuarioByApodo(apodo);
 	}
 
+	// REVISAR
 	public Usuario buscarUsuarioPorEmail(String email) throws UsuarioException {
 		for (Usuario usuario : getUsuarios()) {
 			if (usuario.getEmail().equals(email)) {
@@ -62,7 +64,7 @@ public class ControladorUsuario {
 		return us;
 	}
 
-	// TODO Agregar a Diagrama.
+	// REVISAR
 	public void modificarUsuario(String apodo, String password, String nuevoEmail, String nuevaPass, String nuevoApodo)
 			throws UsuarioException, CategoriaException {
 
@@ -87,7 +89,7 @@ public class ControladorUsuario {
 
 	}
 
-	// TODO Agregar a Diagrama. Y Modificar
+	// REVISAR
 	public UsuarioDTO loggearUsuario(String apodo, String password) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		if ((usuario != null) && (usuario.validarLogin(password))) {
@@ -98,7 +100,8 @@ public class ControladorUsuario {
 		}
 		throw new UsuarioException("Usuario no encontrado: " + apodo);
 	}
-
+	
+	// REVISAR. CREO QUE NO HACE FALTA.
 	public void verificarCategoriaJugador(String apodo) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		Categoria siguienteCategoria = CategoriaDAO.getInstancia()
@@ -107,7 +110,8 @@ public class ControladorUsuario {
 			usuario.actualizarCategoria(siguienteCategoria);
 		}
 	}
-
+	
+	// REVISAR. CREO QUE NO HACE FALTA.
 	private String siguienteCategoria(String nombreActual) {
 		switch (nombreActual) {
 		case "NOVATO":

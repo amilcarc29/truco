@@ -246,15 +246,18 @@ public class ControladorArmadoJuegos {
 		return p;
 
 	}
-
+	
+	// REVISAR
 	public void cancelarEsperaJugador(int idJugador) throws JugadorException {
 		getJugadoresEnEspera().remove(buscarJugador(idJugador));
 	}
 
+	// REVISAR
 	public void cancelarEsperaPareja(int idPareja) throws ParejaException {
 		getParejasEnEspera().remove(buscarPareja(idPareja));
 	}
 
+	// REVISAR
 	public GrupoJuego buscarGrupoJuego(int idGrupo) throws GrupoJuegoException {
 		for (GrupoJuego grupoJuego : grupos) {
 			if (grupoJuego.esGrupoJuego(idGrupo)) {
@@ -263,7 +266,8 @@ public class ControladorArmadoJuegos {
 		}
 		throw new GrupoJuegoException("El GrupoJuego: " + idGrupo + " no existe.");
 	}
-
+	
+	// REVISAR
 	public Jugador buscarJugador(int idJugador) throws JugadorException {
 		for (Jugador jugador : jugadores) {
 			if (jugador.esJugador(idJugador)) {
@@ -273,6 +277,7 @@ public class ControladorArmadoJuegos {
 		throw new JugadorException("El jugador: " + idJugador + " no existe.");
 	}
 
+	// REVISAR
 	public Pareja buscarPareja(int idPareja) throws ParejaException {
 		for (Pareja pareja : parejas) {
 			if (pareja.esPareja(idPareja)) {
