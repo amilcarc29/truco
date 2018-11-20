@@ -97,4 +97,17 @@ public class CategoriaDAO {
 		return new CategoriaEntity(categoria.getIdCategoria(), categoria.getNombre(), categoria.getScore(), categoria.getMinimoPartida(), categoria.getMinimoPuntos(),
 				categoria.getPromedioMinimo());
 	}
+
+	public Categoria buscarCategoriaByIdNegocio(int idCategoria) throws CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		CategoriaEntity categoriaEntity = (CategoriaEntity) session.createQuery("from CategoriaEntity where idCategoria = ?")
+				.setParameter(0, idCategoria).uniqueResult();
+		session.close();
+		if (categoriaEntity != null) {
+			return toNegocio(categoriaEntity);
+		} else {
+			throw new CategoriaException("La categoria con id: " + idCategoria + "no existe en la base de datos.");
+		}
+	}
 }

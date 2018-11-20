@@ -192,6 +192,15 @@ public class ParejaDAO {
 
 		return toNegocio(this.buscarParejaPorId(pe.getIdPareja()));
 	}
+	
+	public Pareja toNegocioDespues(ParejaEntity pe) throws CategoriaException, UsuarioException {
+		// TODO Auto-generated method stub
+		Pareja p = new Pareja(JugadorDAO.getInstancia().toNegocio(pe.getJugador1()),
+				JugadorDAO.getInstancia().toNegocio(pe.getJugador2()));
+		p.setIdPareja(pe.getIdPareja());
+		p.setCategoriaMayor(CategoriaDAO.getInstancia().buscarCategoriaByIdNegocio(pe.getCategoriaMayor().getIdCategoria()));
+		return p;
+	}
 
 	public Pareja toNegocio(ParejaEntity pe) throws CategoriaException, UsuarioException {
 		// TODO Auto-generated method stub

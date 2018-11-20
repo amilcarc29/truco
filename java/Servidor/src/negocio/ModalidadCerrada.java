@@ -35,4 +35,16 @@ public class ModalidadCerrada  extends Juego{
 		// FALTA
 		
 	}
+
+	@Override
+	public Categoria obtenerCategoriaMayor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int calcularPuntos(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

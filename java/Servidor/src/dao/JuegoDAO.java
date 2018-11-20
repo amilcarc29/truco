@@ -153,10 +153,10 @@ public class JuegoDAO {
 			
 			
 			List<Pareja> parejas  = new ArrayList<>();
-			parejas.add(ParejaDAO.getInstancia().toNegocio((ParejaDAO.getInstancia().buscarParejaPorId( juegoEntity.getPareja1().getIdPareja()))));
-			parejas.add(ParejaDAO.getInstancia().toNegocio((ParejaDAO.getInstancia().buscarParejaPorId( juegoEntity.getPareja2().getIdPareja()))));
-
+			parejas.add(ParejaDAO.getInstancia().toNegocioDespues((ParejaDAO.getInstancia().buscarParejaPorId( juegoEntity.getPareja1().getIdPareja()))));
+			parejas.add(ParejaDAO.getInstancia().toNegocioDespues((ParejaDAO.getInstancia().buscarParejaPorId( juegoEntity.getPareja2().getIdPareja()))));
 			j.setParejas(parejas);
+			
 			if (juegoEntity.getParejaGanadora()!=null)
 				j.setGanador(ParejaDAO.getInstancia().toNegocio(juegoEntity.getParejaGanadora()));
 		}
@@ -168,8 +168,8 @@ public class JuegoDAO {
 			j.setId(juegoEntity.getId());
 			
 			List<Pareja> parejas = new ArrayList<>();
-			parejas.add(ParejaDAO.getInstancia().toNegocio(ParejaDAO.getInstancia().buscarParejaPorId(juegoEntity.getPareja1().getIdPareja())));
-			parejas.add(ParejaDAO.getInstancia().toNegocio(ParejaDAO.getInstancia().buscarParejaPorId(juegoEntity.getPareja2().getIdPareja())));
+			parejas.add(ParejaDAO.getInstancia().toNegocioDespues(ParejaDAO.getInstancia().buscarParejaPorId(juegoEntity.getPareja1().getIdPareja())));
+			parejas.add(ParejaDAO.getInstancia().toNegocioDespues(ParejaDAO.getInstancia().buscarParejaPorId(juegoEntity.getPareja2().getIdPareja())));
 			
 			j.setParejas(parejas);
 			if(juegoEntity.getParejaGanadora() != null)
@@ -184,8 +184,8 @@ public class JuegoDAO {
 			j.setId(juegoEntity.getId());
 			
 			List<Pareja> parejas = new ArrayList<>();
-			parejas.add(ParejaDAO.getInstancia().toNegocio(ParejaDAO.getInstancia().buscarParejaPorId(juegoEntity.getPareja1().getIdPareja())));
-			parejas.add(ParejaDAO.getInstancia().toNegocio(ParejaDAO.getInstancia().buscarParejaPorId(juegoEntity.getPareja2().getIdPareja())));
+			parejas.add(ParejaDAO.getInstancia().toNegocioDespues(ParejaDAO.getInstancia().buscarParejaPorId(juegoEntity.getPareja1().getIdPareja())));
+			parejas.add(ParejaDAO.getInstancia().toNegocioDespues(ParejaDAO.getInstancia().buscarParejaPorId(juegoEntity.getPareja2().getIdPareja())));
 			
 			j.setParejas(parejas);
 			if(juegoEntity.getParejaGanadora() != null)
