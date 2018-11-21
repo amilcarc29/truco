@@ -18,7 +18,7 @@ function login() {
 				if (data.ERROR){
 					
 					
-					$.alertable.alert('Error , el usuario no existe').always(function() {
+					$.alertable.alert('El usuario no existe o la password es incorrecta').always(function() {
 						
 					});
 					
@@ -32,7 +32,7 @@ function login() {
 		});
 		
 	} else {
-		$.alertable.alert('Falta usuario o pass').always(function() {
+		$.alertable.alert('Ingrese usuario y password').always(function() {
 			
 		});
 	}
