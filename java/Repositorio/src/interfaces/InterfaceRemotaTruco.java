@@ -8,10 +8,13 @@ import dto.CartaDTO;
 import dto.GrupoDTO;
 import dto.JuegoDTO;
 import dto.JugadorDTO;
+import dto.ParejaDTO;
 import dto.UsuarioDTO;
 import excepciones.CategoriaException;
 import excepciones.GrupoException;
+import excepciones.JugadorException;
 import excepciones.MiembroException;
+import excepciones.ParejaException;
 import excepciones.UsuarioException;
 
 public interface InterfaceRemotaTruco extends Remote {
@@ -40,5 +43,8 @@ public interface InterfaceRemotaTruco extends Remote {
 	public void quieroTruco(JuegoDTO juego) throws RemoteException;
 	public void altaGrupo(String nombre, UsuarioDTO administrador) throws RemoteException;
 	public void agregarUsuarioAGrupo (UsuarioDTO user, GrupoDTO grupo) throws RemoteException;
-	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws RemoteException;
+	public ParejaDTO agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws RemoteException;
+	public void cancelarEsperaJugador(UsuarioDTO usuario) throws RemoteException;
+	public void cancelarEsperaPareja(ParejaDTO pareja) throws RemoteException;
+	
 }

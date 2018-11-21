@@ -12,6 +12,7 @@ import controlador.ControladorUsuario;
 import dto.CartaDTO;
 import dto.GrupoDTO;
 import dto.JuegoDTO;
+import dto.ParejaDTO;
 import dto.UsuarioDTO;
 import excepciones.BazaException;
 import excepciones.CartaException;
@@ -656,9 +657,10 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws RemoteException {
+	public ParejaDTO agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws RemoteException {
+		ParejaDTO par = null;
 		try {
-			ControladorArmadoJuegos.getInstancia().agregarParejaLibreAEspera(usuario1, usuario2);
+			par = ControladorArmadoJuegos.getInstancia().agregarParejaLibreAEspera(usuario1, usuario2);
 		} catch (CategoriaException e) {
 			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
 			error.setDescripcion(e.getMessage());
@@ -671,8 +673,38 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
 			error.setDescripcion(e.getMessage());
 			System.out.println(error.toString());
+		}
+		return par;
+	}
+
+	@Override
+	public void cancelarEsperaJugador(UsuarioDTO usuario) throws RemoteException {
+		try {
+			ControladorArmadoJuegos.getInstancia().cancelarEsperaJugador(usuario);
+		} catch (JugadorException e) {
+			ErrorCode error = ErrorCode.JUGADOR_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (UsuarioException e) {
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (CategoriaException e) {
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
 		}		
 	}
-	
+
+	@Override
+	public void cancelarEsperaPareja(ParejaDTO pareja) throws RemoteException {
+		try {
+			ControladorArmadoJuegos.getInstancia().cancelarEsperaPareja(pareja);
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		}		
+	}	
 	
 }

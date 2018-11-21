@@ -20,11 +20,11 @@ public class ClienteRmiUs4 {
 		// TODO Auto-generated method stub
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Amilcar", "pepe");
-//			new BusinessDelegateTruco().agregarAListaEspera(us1);
+			new BusinessDelegateTruco().agregarAListaEspera(us1);
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("UsuariosLogeados");
 			
-			while (us1 != null) {
+			while (us1 != null) {			
 				
 				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
 				for (JuegoDTO juegoDTO : juegos) {
@@ -61,25 +61,27 @@ public class ClienteRmiUs4 {
 //								new BusinessDelegateTruco().quieroTruco(juegoDTO);
 //						}
 //					} else {
-						if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
-							System.out.println("turno de " + us1.getApodo());
+//						if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
+//							System.out.println("turno de " + us1.getApodo());
 //
-							List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
-							for (CartaDTO cartaDTO : c) {
-								System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
-							}
-							String jug = null;
-							System.out.println("que desea hacer  ?: ");
-							jug = br.readLine();
+//							List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
+//							for (CartaDTO cartaDTO : c) {
+//								System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
+//							}
+//							String jug = null;
+//							System.out.println("que desea hacer  ?: ");
+//							jug = br.readLine();
+//							if (jug.equals("salir"))
+//								new BusinessDelegateTruco().cancelarEsperaJugador(us1);
 //
 //							if (jug.equals("env"))
 //								new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
 //							if (jug.equals("real"))
 //								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
-							if (jug.equals("falta"))
-								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
-							if (jug.equals("qe"))
-								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+//							if (jug.equals("falta"))
+//								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+//							if (jug.equals("qe"))
+//								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
 //							if (jug.equals("nqe"))
 //								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
 //							if (jug.equals("truco"))
@@ -111,7 +113,7 @@ public class ClienteRmiUs4 {
 //						}
 //					}
 
-				}
+//				}
 				try {
 					Thread.sleep(6000);
 				} catch (InterruptedException e) {
