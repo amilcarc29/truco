@@ -21,19 +21,12 @@ public class ClienteRmiUs1 {
 		// TODO Auto-generated method stub
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Emiliano", "pepe");
-			UsuarioDTO us2 = new BusinessDelegateTruco().login("Debi", "pepe");
-//			new BusinessDelegateTruco().agregarAListaEspera(us1);
+//			UsuarioDTO us2 = new BusinessDelegateTruco().login("Debi", "pepe");
+			new BusinessDelegateTruco().agregarAListaEspera(us1);
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("UsuariosLogeados");
-			ParejaDTO par = new BusinessDelegateTruco().agregarParejaLibreAEspera(us1, us2);
-			
-			String con = null;
-			System.out.println("desea salir  ?: ");
-			con = br.readLine();
-			
-			if (con.equals("si"))
-				new BusinessDelegateTruco().cancelarEsperaPareja(par);
-			
+//			ParejaDTO par = new BusinessDelegateTruco().agregarParejaLibreAEspera(us1, us2);
+					
 			while (us1 != null) {			
 				
 				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
@@ -71,16 +64,19 @@ public class ClienteRmiUs1 {
 //								new BusinessDelegateTruco().quieroTruco(juegoDTO);
 //						}
 //					} else {
-//						if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
-//							System.out.println("turno de " + us1.getApodo());
+						if (new BusinessDelegateTruco().esMiTurno(juegoDTO, us1)) {
+							System.out.println("turno de " + us1.getApodo());
 //
-//							List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
-//							for (CartaDTO cartaDTO : c) {
-//								System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
-//							}
-//							String jug = null;
-//							System.out.println("que desea hacer  ?: ");
-//							jug = br.readLine();
+							List<CartaDTO> c = new BusinessDelegateTruco().getCartas(juegoDTO, us1);
+							for (CartaDTO cartaDTO : c) {
+								System.out.println("palo " + cartaDTO.getPalo() + " numero " + cartaDTO.getNumero());
+							}
+							String jug = null;
+							System.out.println("que desea hacer  ?: ");
+							jug = br.readLine();
+							
+							if (jug.equals("salir"))
+								new BusinessDelegateTruco().salirJuego(juegoDTO, us1);
 //
 //							if (jug.equals("env"))
 //								new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
@@ -121,7 +117,7 @@ public class ClienteRmiUs1 {
 //						}
 //					}
 
-//				}
+				}
 				try {
 					Thread.sleep(6000);
 				} catch (InterruptedException e) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import dao.ChicoDAO;
 import dao.JugadorDAO;
+import dao.ParejaDAO;
 import dao.PuntuacionDAO;
 import dto.ChicoDTO;
 import dto.JugadorDTO;
@@ -155,6 +156,20 @@ public class Chico {
 
 			}
 		}
+	}
+	
+	public void concederChico(Pareja pareja) throws ParejaException, ChicoException, CategoriaException {
+		
+		for (Puntuacion p : this.getPuntosChico()) {
+			if (p.esPuntuacion(pareja)) {
+				p.sumarPuntos(30);
+				// aumenta los puntos
+				PuntuacionDAO.getInstancia().actualizarPuntos(p);
+
+			}
+		}
+		
+		this.finalizarChico();
 	}
 
 	// TODO Agregar parámetro parejas a Diagrama.

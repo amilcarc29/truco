@@ -389,11 +389,17 @@ public class ControladorJuego {
 		return cartasDto;
 	}
 
-
-
 	public boolean alguienTieneQueContestar(JuegoDTO juego) throws CategoriaException, JuegoException, UsuarioException, ParejaException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		return ju.alguienTieneQueContestar();
+	}
+	
+	public void salirJuego(JuegoDTO juego, UsuarioDTO usuario) throws CategoriaException, JuegoException, UsuarioException, ParejaException, ChicoException, MiembroException {
+		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
+		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
+		
+		ju.concederJuego(jug);
 	}
 
 	

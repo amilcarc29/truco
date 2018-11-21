@@ -239,6 +239,14 @@ public class BusinessDelegateTruco {
 		}
 	}
 	
+	public void salirJuego(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
+		try {
+			ir.salirJuego(juego, usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}		
+	}	
+	
 	
 	
 }

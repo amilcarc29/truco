@@ -354,6 +354,14 @@ public abstract class Juego {
 
 	}
 
+	public void concederJuego(Jugador jug) throws ParejaException, ChicoException, UsuarioException, CategoriaException, MiembroException {
+		Pareja par = this.obtenerParejaContraria(jug);
+		
+		this.getUltimoChico().concederChico(par);
+		
+		this.finalizarJuego();		
+	}
+
 	// public boolean terminoUltimaMano() {
 
 	// return this.getUltimoChico().terminoUlitmaM
