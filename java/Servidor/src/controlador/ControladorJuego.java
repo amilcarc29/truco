@@ -265,13 +265,13 @@ public class ControladorJuego {
 						}
 					} else {
 
-						ultimoChico.setJugadores(JugadorDAO.getInstancia().getJugadores(jue.getId()));
+//						ultimoChico.setJugadores(JugadorDAO.getInstancia().getJugadores(jue.getId()));
 						ultimoChico.armarNuevaMano();
 					}
 
 				} else {
 					List<Jugador> nuevoOrdenJugadores = cambiarOrden(jue.getId(), jue.getUltimaBaza());
-					ultimaM.setJugadores(nuevoOrdenJugadores);
+//					ultimaM.setJugadores(nuevoOrdenJugadores);
 					ultimaM.armarNuevaBaza();
 				}
 			}

@@ -266,21 +266,17 @@ public abstract class Juego {
 			CartaException, ChicoException {
 		// TODO Auto-generated method stub
 
-		this.getUltimoChico().setJugadores(JugadorDAO.getInstancia().getJugadores(this.getId()));
-		this.getUltimoChico().cambiarOrden();
-
 		List<Jugador> jugadores = this.getUltimoChico().getJugadores();
-		Pareja p1 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jugadores.get(0).getId());
-		Pareja p2 = ParejaDAO.getInstancia().buscarParejaDeUnJugador(jugadores.get(1).getId());
-
-		this.parejas = new ArrayList<>();
-		this.parejas.add(p1);
-		this.parejas.add(p2);
 
 		Chico chico = new Chico(parejas);
 		chico.save(this);
-		chico.altaMano(chico.getPuntosParaTerminar());
 		chicos.add(chico);
+		
+		this.getUltimoChico().setJugadores(jugadores);
+		this.getUltimoChico().cambiarOrden();
+		
+		chico.altaMano(chico.getPuntosParaTerminar());
+		
 
 	}
 

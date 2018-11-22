@@ -43,30 +43,23 @@ public class Chico {
 		this.parejas = parejas;
 		this.puntosChico = new ArrayList<>();
 
-		/// se tiene que pasar a una funcion
 		jugadores.add(this.parejas.get(0).getJugadores().get(0));
 		jugadores.add(this.parejas.get(1).getJugadores().get(0));
 		jugadores.add(this.parejas.get(0).getJugadores().get(1));
 		jugadores.add(this.parejas.get(1).getJugadores().get(1));
 
-		// CREAR LAS PUNTUACIONES ACA PUEDE GENERAR PROBLEMAS. HAY QUE PERSISTIR
-		// PUNTUACIONES Y CHICO A LA VEZ
 		for (Pareja pareja : this.parejas) {
 
 			/// puntos en 0
 			Puntuacion p = new Puntuacion(pareja);
-//			p.setChico(this);
 			this.puntosChico.add(p);
 		}
 
-		// puntos por manos
 
 		this.ganador = null;
 
 		// puntos totales para terminar el chico (30). Es un chico, no dos de 15
 		this.puntosPorGanar = 30;
-		// altaMano(this.puntosPorGanar);
-		//JugadorDAO.getInstancia().setJugadores(jugadores);
 	}
 
 	public Pareja getGanador() {
@@ -302,11 +295,42 @@ public class Chico {
 		// TODO Auto-generated method stub
 		return this.getManos().get(this.getManos().size() - 1);
 	}
+
 	public void cambiarOrden() throws UsuarioException, CategoriaException {
-		jugadores.add(jugadores.get(0));
-		jugadores.remove(0);
-		JugadorDAO.getInstancia().actualizarTurnos(jugadores);
+		// preguntar quien gano , ponerlo adelante
+		Jugador jugador = this.jugadores.get(1);
+
+		int i = 0;
+		int j = 0;
 		
+		List<Jugador> jugadores = this.getJugadores();
+		for (int x = 0; x < jugadores.size(); x++) {
+
+			if (jugadores.get(x).esJugador(jugador.getId()))
+				break;
+
+			j++;
+		}
+
+		List<Jugador> jugadoresNuevo = new ArrayList<Jugador>();
+
+		jugadoresNuevo.add(jugador);
+
+		while (i < 3) {
+			j++;
+
+			if (j > 3)
+				j = 0;
+
+			jugadoresNuevo.add(jugadores.get(j));
+
+			i++;
+
+		}
+		jugadores = jugadoresNuevo;
+
+		JugadorDAO.getInstancia().actualizarTurnos(jugadores);
+
 	}
 	public void armarNuevaMano() throws UsuarioException, CategoriaException, ManoException, CartaException, ChicoException {
 		// TODO Auto-generated method stub
