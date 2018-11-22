@@ -37,7 +37,7 @@ public class ControladorArmadoJuegos {
 	private Vector<GrupoJuego> grupos;
 	private Vector<Jugador> jugadores;
 	private Vector<Pareja> parejas;
-	private static Vector<Jugador> jugadoresEnEspera;
+	private static Vector<JugadorIndividual> jugadoresEnEspera;
 	private static Vector<Pareja> parejasEnEspera;
 
 	private static ControladorArmadoJuegos instancia;
@@ -51,7 +51,7 @@ public class ControladorArmadoJuegos {
 	}
 
 	public ControladorArmadoJuegos(Vector<GrupoJuego> grupos, Vector<Jugador> jugadores, Vector<Pareja> parejas,
-			Vector<Jugador> jugadoresEnEspera, Vector<Pareja> parejasEnEspera) {
+			Vector<JugadorIndividual> jugadoresEnEspera, Vector<Pareja> parejasEnEspera) {
 		super();
 		this.grupos = grupos;
 		this.jugadores = jugadores;
@@ -84,7 +84,7 @@ public class ControladorArmadoJuegos {
 		this.parejas = parejas;
 	}
 
-	public Vector<Jugador> getJugadoresEnEspera() {
+	public Vector<JugadorIndividual> getJugadoresEnEspera() {
 		return jugadoresEnEspera;
 	}
 
@@ -92,15 +92,17 @@ public class ControladorArmadoJuegos {
 		return parejasEnEspera;
 	}
 
-	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2)
+	public ParejaDTO agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2)
 			throws CategoriaException, UsuarioException, ParejaException {
 		
 
 		Pareja pareja = this.armarPareja(usuario1, usuario2);
 
 		getParejasEnEspera().add(pareja);
+		
+		return pareja.toDTO();
 	}
-
+	
 	public void agregarJugadorLibreAEspera(UsuarioDTO usuario) throws UsuarioException, CategoriaException {
 
 		Usuario us = ControladorUsuario.getInstancia().buscarUsuarioPorId(usuario.getIdUsuario());
@@ -246,42 +248,45 @@ public class ControladorArmadoJuegos {
 		return p;
 
 	}
-
-	public void cancelarEsperaJugador(int idJugador) throws JugadorException {
-		getJugadoresEnEspera().remove(buscarJugador(idJugador));
+	
+	public void cancelarEsperaJugador(UsuarioDTO usuario) throws JugadorException, UsuarioException, CategoriaException {
+		
+		JugadorIndividual jug = buscarJugadorEnEspera(usuario.getIdUsuario());
+		
+		if (jug != null) {
+			this.getJugadoresEnEspera().remove(jug);
+		} else {
+			throw new UsuarioException("No estas en la cola de espera para Juegos Individuales");
+		}		
 	}
-
-	public void cancelarEsperaPareja(int idPareja) throws ParejaException {
-		getParejasEnEspera().remove(buscarPareja(idPareja));
-	}
-
-	public GrupoJuego buscarGrupoJuego(int idGrupo) throws GrupoJuegoException {
-		for (GrupoJuego grupoJuego : grupos) {
-			if (grupoJuego.esGrupoJuego(idGrupo)) {
-				return grupoJuego;
-			}
+	
+	public JugadorIndividual buscarJugadorEnEspera(int idUsuario) {
+		for (JugadorIndividual jug : jugadoresEnEspera) {
+			if (jug.getUsuario().getIdUsuario() == idUsuario)
+				return jug;
 		}
-		throw new GrupoJuegoException("El GrupoJuego: " + idGrupo + " no existe.");
+		return null;
 	}
-
-	public Jugador buscarJugador(int idJugador) throws JugadorException {
-		for (Jugador jugador : jugadores) {
-			if (jugador.esJugador(idJugador)) {
-				return jugador;
-			}
+	
+	// La ParejaDTO la tenemos en el front porque al agregarla en la funcion retornamos la versión DTO de la misma
+	public void cancelarEsperaPareja(ParejaDTO pareja) throws ParejaException {
+		Pareja par = buscarParejaEnEspera (pareja.getIdPareja());
+		
+		if (par != null) {
+			this.getParejasEnEspera().remove(par);
+		} else {
+			throw new ParejaException("Tu pareja no esta en la cola de espera para Juegos en Pareja");
 		}
-		throw new JugadorException("El jugador: " + idJugador + " no existe.");
 	}
-
-	public Pareja buscarPareja(int idPareja) throws ParejaException {
-		for (Pareja pareja : parejas) {
-			if (pareja.esPareja(idPareja)) {
-				return pareja;
-			}
+	
+	public Pareja buscarParejaEnEspera(int idPareja) throws ParejaException {
+		for (Pareja par : parejasEnEspera) {
+			if (par.esPareja(idPareja)) 
+				return par;
 		}
-		throw new ParejaException("La pareja: " + idPareja + " no existe.");
+		return null;
 	}
-
+	
 	public static ControladorArmadoJuegos getInstancia() {
 		if (instancia == null) {
 			instancia = new ControladorArmadoJuegos();

@@ -6,6 +6,7 @@ import java.util.List;
 
 import dao.BazaDAO;
 import dao.JugadorCartaDAO;
+import dao.JugadorDAO;
 import dto.BazaDTO;
 import dto.JugadorDTO;
 import excepciones.BazaException;
@@ -187,7 +188,7 @@ public class Baza {
 		
 		
 		return new BazaDTO(idBaza,jugDTO,parda);
-	}
+	}	
 
 
 }

@@ -20,7 +20,6 @@ public class ClienteRmiUs2 {
 		// TODO Auto-generated method stub
 		try {
 			UsuarioDTO us1 = new BusinessDelegateTruco().login("Debi", "pepe");
-//			UsuarioDTO us2 = new BusinessDelegateTruco().login("Debi", "pepe");
 			new BusinessDelegateTruco().agregarAListaEspera(us1);
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("UsuariosLogeados");
@@ -73,15 +72,18 @@ public class ClienteRmiUs2 {
 							String jug = null;
 							System.out.println("que desea hacer  ?: ");
 							jug = br.readLine();
+							
+							if (jug.equals("salir"))
+								new BusinessDelegateTruco().salirJuego(juegoDTO, us1);
 //
 //							if (jug.equals("env"))
 //								new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
 //							if (jug.equals("real"))
 //								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
-							if (jug.equals("falta"))
-								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
-							if (jug.equals("qe"))
-								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+//							if (jug.equals("falta"))
+//								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+//							if (jug.equals("qe"))
+//								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
 //							if (jug.equals("nqe"))
 //								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
 //							if (jug.equals("truco"))

@@ -24,7 +24,7 @@ public class ClienteRmiUs4 {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("UsuariosLogeados");
 			
-			while (us1 != null) {
+			while (us1 != null) {			
 				
 				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
 				for (JuegoDTO juegoDTO : juegos) {
@@ -71,15 +71,18 @@ public class ClienteRmiUs4 {
 							String jug = null;
 							System.out.println("que desea hacer  ?: ");
 							jug = br.readLine();
+							
+							if (jug.equals("salir"))
+								new BusinessDelegateTruco().salirJuego(juegoDTO, us1);
 //
 //							if (jug.equals("env"))
 //								new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
 //							if (jug.equals("real"))
 //								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
-							if (jug.equals("falta"))
-								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
-							if (jug.equals("qe"))
-								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+//							if (jug.equals("falta"))
+//								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+//							if (jug.equals("qe"))
+//								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
 //							if (jug.equals("nqe"))
 //								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
 //							if (jug.equals("truco"))

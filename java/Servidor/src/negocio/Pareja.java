@@ -141,6 +141,6 @@ public class Pareja {
 		for (Jugador j : jugadores) {
 			jugdto.add(j.toDTO());
 		}
-		return new ParejaDTO(jugdto);
+		return new ParejaDTO(this.getIdPareja(), jugdto);
 	}
 }

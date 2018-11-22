@@ -36,8 +36,7 @@ public class ControladorGrupo {
 	public void setGrupos(Vector<Grupo> grupos) {
 		this.grupos = grupos;
 	}
-
-	// FIXME Por qué String nombre si el grupo tiene un id?
+	
 	public Grupo buscarGrupo(String nombre) throws GrupoException, CategoriaException, UsuarioException {
 		Grupo g = GrupoDAO.getInstancia().buscarGrupoByNombre(nombre);
 		
@@ -78,6 +77,7 @@ public class ControladorGrupo {
 		grupo.bajaGrupo();
 	}
 
+	// REVISAR
 	public void modificarGrupo(String nombreActual, String nombre, String apodoAdministrador, int puntoPorPartida) throws GrupoException, UsuarioException, CategoriaException {
 		Grupo grupo = buscarGrupo(nombreActual);
 		grupo.setAdministrador(ControladorUsuario.getInstancia().buscarUsuarioPorApodo(apodoAdministrador));

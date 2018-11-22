@@ -81,8 +81,7 @@ public class ControladorJuego {
 	// --------------------------------------------------------------------------------------------------------------------------------
 
 	/*
-	 * FUNCIONES DE TRUCO FALTA HACER LA PARTE DE LA BD. TRAER EL TRUCO AL LEVANTAR
-	 * UN JUEGO Y ACTUALIZAR EL TRUCO EN LA BD
+	 * FUNCIONES DE TRUCO
 	 */
 
 
@@ -114,8 +113,7 @@ public class ControladorJuego {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
 		jue.inicializarContestar();
 	}
-
-	// ESTA FUNCION ES PARA CUANDO DICEN NO QUIERO A UN TRUCO (VALE 1 PUNTO)
+	
 	public void noQuieroTruco(UsuarioDTO usuario, JuegoDTO juego)
 			throws JuegoException, CategoriaException, UsuarioException, ParejaException, ManoException, MiembroException, CartaException, ChicoException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
@@ -124,8 +122,6 @@ public class ControladorJuego {
 
 		jue.inicializarContestar();
 		jue.aumentarPuntosTrucoNoQuerido(parejaG);
-
-		// FALTA TERMINAR LA MANO
 
 		if (jue.terminoUltimoChico()) {
 
@@ -269,13 +265,13 @@ public class ControladorJuego {
 						}
 					} else {
 
-						ultimoChico.setJugadores(JugadorDAO.getInstancia().getJugadores(jue.getId()));
+//						ultimoChico.setJugadores(JugadorDAO.getInstancia().getJugadores(jue.getId()));
 						ultimoChico.armarNuevaMano();
 					}
 
 				} else {
 					List<Jugador> nuevoOrdenJugadores = cambiarOrden(jue.getId(), jue.getUltimaBaza());
-					ultimaM.setJugadores(nuevoOrdenJugadores);
+//					ultimaM.setJugadores(nuevoOrdenJugadores);
 					ultimaM.armarNuevaBaza();
 				}
 			}
@@ -284,7 +280,7 @@ public class ControladorJuego {
 	}
 
 	public List<Jugador> cambiarOrden(int idJuego, Baza ultima) throws UsuarioException, CategoriaException {
-		// // preguntar quien gano , ponerlo adelante
+		// preguntar quien gano , ponerlo adelante
 		Jugador jugador = ultima.getJugadaMayor().getJugador();
 
 		int i = 0;
@@ -329,6 +325,7 @@ public class ControladorJuego {
 		return j.sePuedeCantarEnvido();
 	}
 
+	// REVISAR PARA QUE ESTA
 	public void imprimirDbg() throws JuegoException, CategoriaException, UsuarioException, ParejaException {
 		for (Juego juego : juegos) {
 			List<Pareja> par = juego.getParejas();
@@ -392,11 +389,17 @@ public class ControladorJuego {
 		return cartasDto;
 	}
 
-
-
 	public boolean alguienTieneQueContestar(JuegoDTO juego) throws CategoriaException, JuegoException, UsuarioException, ParejaException {
 		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
 		return ju.alguienTieneQueContestar();
+	}
+	
+	public void salirJuego(JuegoDTO juego, UsuarioDTO usuario) throws CategoriaException, JuegoException, UsuarioException, ParejaException, ChicoException, MiembroException {
+		Juego ju = JuegoDAO.getInstancia().buscarJuego(juego.getIdJuego());
+		Usuario us = UsuarioDAO.getInstancia().buscarUsuarioById(usuario.getIdUsuario());
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(ju.getId(), us.getIdUsuario());
+		
+		ju.concederJuego(jug);
 	}
 
 	

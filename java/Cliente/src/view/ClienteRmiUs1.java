@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import delegado.BusinessDelegateTruco;
 import dto.CartaDTO;
 import dto.JuegoDTO;
+import dto.ParejaDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 import excepciones.MiembroException;
@@ -24,8 +25,8 @@ public class ClienteRmiUs1 {
 			new BusinessDelegateTruco().agregarAListaEspera(us1);
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("UsuariosLogeados");
-//			new BusinessDelegateTruco().agregarParejaLibreAEspera(us1, us2);
-			
+//			ParejaDTO par = new BusinessDelegateTruco().agregarParejaLibreAEspera(us1, us2);
+					
 			while (us1 != null) {			
 				
 				List<JuegoDTO> juegos = new BusinessDelegateTruco().getJuegosActivo(us1);
@@ -73,15 +74,18 @@ public class ClienteRmiUs1 {
 							String jug = null;
 							System.out.println("que desea hacer  ?: ");
 							jug = br.readLine();
+							
+							if (jug.equals("salir"))
+								new BusinessDelegateTruco().salirJuego(juegoDTO, us1);
 //
 //							if (jug.equals("env"))
 //								new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
 //							if (jug.equals("real"))
 //								new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
-							if (jug.equals("falta"))
-								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
-							if (jug.equals("qe"))
-								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
+//							if (jug.equals("falta"))
+//								new BusinessDelegateTruco().cantarFaltaEnvido(juegoDTO, us1);
+//							if (jug.equals("qe"))
+//								new BusinessDelegateTruco().quieroEnvido(juegoDTO);
 //							if (jug.equals("nqe"))
 //								new BusinessDelegateTruco().noQuieroEnvido(juegoDTO, us1);
 //							if (jug.equals("truco"))

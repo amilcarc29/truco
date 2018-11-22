@@ -217,7 +217,7 @@ public class ParejaDAO {
 				.setParameter(0, idPareja).uniqueResult();
 		session.close();
 		if (parejaEnt != null) {
-			return toNegocio(parejaEnt);
+			return toNegocioDespues(parejaEnt);
 		} else {
 			throw new ParejaException("La pareja con id: " + idPareja + " no existe en la base de datos.");
 		} // TODO Auto-generated method stub
@@ -244,7 +244,7 @@ public class ParejaDAO {
 				.setParameter(0, idJugador).setParameter(1, idJugador).uniqueResult();
 		session.close();
 		if (parejaEnt != null) {
-			return toNegocio(parejaEnt);
+			return toNegocioDespues(parejaEnt);
 		}
 		throw new ParejaException("La pareja con el jugador de id: " + idJugador + " no existe en la base de datos.");
 	}

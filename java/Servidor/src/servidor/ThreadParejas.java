@@ -123,11 +123,11 @@ public class ThreadParejas implements Runnable {
 		while (!stop) {
 			try {
 				System.out.println("buscando jugadores individuales");
-				Vector<Jugador> jugadores = ControladorArmadoJuegos.getInstancia().getJugadoresEnEspera();
+				Vector<JugadorIndividual> jugadores = ControladorArmadoJuegos.getInstancia().getJugadoresEnEspera();
 				if (!jugadores.isEmpty()) {
-					for (Iterator<Jugador> iterator = jugadores.iterator(); iterator.hasNext();) {
-						Jugador j = iterator.next();
-						JugadorIndividual jugadorIndividual = ((JugadorIndividual) j);
+					for (Iterator<JugadorIndividual> iterator = jugadores.iterator(); iterator.hasNext();) {
+						JugadorIndividual j = iterator.next();
+						JugadorIndividual jugadorIndividual = j;
 						if (jugadoresLibres.size() < 4) {
 							jugadoresLibres.add(jugadorIndividual);
 							iterator.remove();

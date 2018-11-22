@@ -9,6 +9,7 @@ import java.util.List;
 import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.JugadorDTO;
+import dto.ParejaDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
 import excepciones.MiembroException;
@@ -214,13 +215,37 @@ public class BusinessDelegateTruco {
 		}
 	}
 	
-	public void agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws ComunicacionException {
+	public ParejaDTO agregarParejaLibreAEspera(UsuarioDTO usuario1, UsuarioDTO usuario2) throws ComunicacionException {
 		try {
-			ir.agregarParejaLibreAEspera(usuario1, usuario2);
+			return ir.agregarParejaLibreAEspera(usuario1, usuario2);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
+	
+	public void cancelarEsperaJugador(UsuarioDTO usuario) throws ComunicacionException {
+		try {
+			ir.cancelarEsperaJugador(usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
+	public void cancelarEsperaPareja(ParejaDTO pareja) throws ComunicacionException{
+		try {
+			ir.cancelarEsperaPareja(pareja);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
+	public void salirJuego(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
+		try {
+			ir.salirJuego(juego, usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}		
+	}	
 	
 	
 	
