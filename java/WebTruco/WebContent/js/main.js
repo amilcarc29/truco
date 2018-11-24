@@ -964,6 +964,17 @@ function loadActions() {
 
 }
 
+function logout() {
+	var url = '/WebTruco/Logout';
+	$.ajax({
+		type : "POST",
+		url : url,
+		success : function(data) {
+			window.location.replace("/WebTruco/index.jsp");
+		}
+	});
+}
+
 function notifyCheck() {
 	// Comprobamos si el navegador soporta las notificaciones
 	if (!("Notification" in window)) {

@@ -5,7 +5,7 @@
 
 <meta charset="UTF-8">
 <%@include file="loginCheck.jsp"%>
-<title>CodePen - Truco Login Form</title>
+<title>CodePen - Truco</title>
 
 <style>
 @import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
@@ -404,7 +404,7 @@ body {
 
 		</div>
 		<div id="mainButton">
-
+		
 
 			<div class="divTable2">
 				<div class="divTableBody">
@@ -418,6 +418,26 @@ body {
 						
 					</div>
 					
+
+				</div>
+			</div>
+			<div class="divTable">
+				<div class="divTableBody">
+					<div class="divTableRow">
+						<div class="divTableCell"></div>
+						<div class="divTableCell">
+							<button class="blob-btn" onClick="logout()">
+								Logout <span class="blob-btn__inner"> <span
+									class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+										<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+										<span class="blob-btn__blob"></span>
+								</span>
+								</span>
+							</button>
+						</div>
+						<div class="divTableCell"></div>
+						<div class="divTableCell"></div>
+					</div>
 
 				</div>
 			</div>
