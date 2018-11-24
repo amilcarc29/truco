@@ -7,22 +7,14 @@ import java.util.List;
 import dto.CartaDTO;
 import dto.GrupoDTO;
 import dto.JuegoDTO;
-import dto.JugadorDTO;
 import dto.ParejaDTO;
 import dto.UsuarioDTO;
-import excepciones.CategoriaException;
-import excepciones.ChicoException;
-import excepciones.GrupoException;
-import excepciones.JuegoException;
-import excepciones.JugadorException;
 import excepciones.MiembroException;
-import excepciones.ParejaException;
-import excepciones.UsuarioException;
 
 public interface InterfaceRemotaTruco extends Remote {
 
 	public UsuarioDTO login(String usuario, String pass) throws RemoteException;
-	public void altaUsuario(String apodo, String email, String password) throws RemoteException;
+	public int altaUsuario(String apodo, String email, String password) throws RemoteException;
 	public void modificarUsario(String apodo, String password, String nuevoEmail, String nuevaPass, String nuevoApodo) throws RemoteException;
 	public void agregarAListaEspera(UsuarioDTO usuario) throws RemoteException;
 	public void armarPareja(UsuarioDTO u1, UsuarioDTO u2) throws RemoteException;

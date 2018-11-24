@@ -54,18 +54,20 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void altaUsuario(String apodo, String email, String password) throws RemoteException {
+	public int altaUsuario(String apodo, String email, String password) throws RemoteException {
 		try {
 			ControladorUsuario.getInstancia().altaUsuario(apodo, email, password);
 		} catch (UsuarioException e) {
-			ErrorCode usuario = ErrorCode.USUARIO_NO_ENCONTRADO;
+			ErrorCode usuario = ErrorCode.USUARIO_APODO_EMAIL_EN_USO;
 			usuario.setDescripcion(e.getMessage());
 			System.out.println(usuario.toString());
+			return e.getError();
 		} catch (CategoriaException e) {
 			ErrorCode categoria = ErrorCode.CATEGORIA_NO_ENCONTRADA;
 			categoria.setDescripcion(e.getMessage());
 			System.out.println(categoria.toString());
 		}
+		return 0;
 	}
 
 	@Override

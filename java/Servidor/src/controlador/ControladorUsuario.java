@@ -25,23 +25,26 @@ public class ControladorUsuario {
 		this.usuarios = usuarios;
 	}
 
-	// REVISAR. FALTAN VALIDACIONES. VER SI EL MAIL ESTA EN USO.
-	public void altaUsuario(String apodo, String password, String email) throws UsuarioException, CategoriaException {
-		if (buscarUsuarioPorApodo(apodo) == null) {
-
-			Usuario usuario = new Usuario(apodo, email, password);
-
+	public void altaUsuario(String apodo, String email, String password) throws UsuarioException, CategoriaException {
+		int error = 0;
+		String campoEnUso = null;
+		Usuario usuario = null;
+		try {
+			buscarUsuarioPorApodo(apodo);
+			error = 1;
+			campoEnUso = "apodo";
+		} catch (UsuarioException e) {
 			try {
+				buscarUsuarioPorEmail(email);
+				error = 2;
+				campoEnUso = "email";
+			} catch (UsuarioException e2) {
+				usuario = new Usuario(apodo, email, password);
 				usuario.save();
-			} catch (CategoriaException e) {
-				// TODO Auto-generated catch block
-				throw e;
 			}
-
-			this.usuarios.add(usuario);
-
-		} else {
-			throw new UsuarioException("El usuario: " + apodo + " existe.");
+		}
+		if (usuario == null) {
+			throw new UsuarioException(String.format("El %s: %s ya está en uso.", campoEnUso, error == 1 ? apodo : email), error);
 		}
 	}
 
@@ -49,14 +52,8 @@ public class ControladorUsuario {
 		return UsuarioDAO.getInstancia().buscarUsuarioByApodo(apodo);
 	}
 
-	// REVISAR
-	public Usuario buscarUsuarioPorEmail(String email) throws UsuarioException {
-		for (Usuario usuario : getUsuarios()) {
-			if (usuario.getEmail().equals(email)) {
-				return usuario;
-			}
-		}
-		throw new UsuarioException("El usuario: " + email + "no existe.");
+	public Usuario buscarUsuarioPorEmail(String email) throws UsuarioException, CategoriaException {
+		return UsuarioDAO.getInstancia().buscarUsuarioByEmail(email);
 	}
 
 	public Usuario buscarUsuarioPorId(int id) throws UsuarioException, CategoriaException {
