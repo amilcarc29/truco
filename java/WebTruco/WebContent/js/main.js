@@ -440,7 +440,7 @@ function notificaTanto() {
 					alertTanto(data.TANTO)
 					tantoMsgVis = true;
 				}
-			} else {
+			} else  {
 
 			}
 
@@ -857,8 +857,17 @@ function verificarTurno(idCarta, idJuego) {
 		url : url,
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
-			if (data.TURNO == true) {
+			
+			if(data.CANTARON == true){
+
+				$.alertable.alert('Cantaron tanto , antes de jugar espere que respondan').always(function() {
+
+				});
+				
+			} else if (data.TURNO == true) {
+				
 				jugar(idCarta, idJuego);
+				
 			} else {
 
 				$.alertable.alert('No es su turno').always(function() {
