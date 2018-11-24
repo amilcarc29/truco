@@ -158,7 +158,7 @@ function render(data) {
 	for (var i = 0; i < data.parejas.length; i++) {
 
 		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
-
+			
 			drawCartas(data.parejas[i].jugadores[x], juegoActual, jugNum,
 					(data.chicos[data.chicos.length - 1].manos.length));
 			jugNum++;
@@ -512,40 +512,19 @@ function drawCartasSinJugar(data) {
 function drawCartas(data, juego, jugNum, mano) {
 
 	var cartasArr  = [];
+	var inx = (3*(mano-1));
 
-	if (mano == 1) {
-		// mano1
-		if (data.cartas[0] != undefined)
-			cartasArr[0] = data.cartas[0];
 
-		if (data.cartas[1] != undefined)
-			cartasArr[1] = data.cartas[1];
+		if (data.cartas[inx] != undefined)
+			cartasArr[0] = data.cartas[inx];
 
-		if (data.cartas[2] != undefined)
-			cartasArr[2] = data.cartas[2];
+		if (data.cartas[inx+1] != undefined)
+			cartasArr[1] = data.cartas[inx+1];
 
-	} else if (mano == 2) {
-		// mano2
-		if (data.cartas[3] != undefined)
-			cartasArr[0] = data.cartas[3];
+		if (data.cartas[inx+2] != undefined)
+			cartasArr[2] = data.cartas[inx+2];
 
-		if (data.cartas[4] != undefined)
-			cartasArr[1] = data.cartas[4];
-
-		if (data.cartas[5] != undefined)
-			cartasArr[2] = data.cartas[5];
-
-	} else if (mano == 3) {
-		if (data.cartas[6] != undefined)
-			cartasArr[0] = data.cartas[6];
-
-		if (data.cartas[7] != undefined)
-			cartasArr[1] = data.cartas[7];
-
-		if (data.cartas[8] != undefined)
-			cartasArr[2] = data.cartas[8];
-	}
-
+	
 	var cartasImg = [];
 	var imgtmp = "";
 
