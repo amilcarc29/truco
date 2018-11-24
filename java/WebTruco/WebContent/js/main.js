@@ -25,6 +25,7 @@ function loadUser() {
 	$("#userApodo").text("Hola " + user.apodo);
 
 }
+
 function unirsePartidaLibre() {
 
 	if (esperandoPartida) {
@@ -52,6 +53,17 @@ function unirsePartidaLibre() {
 				}
 			});
 
+}
+
+function logout() {
+	var url = '/WebTruco/Logout';
+	$.ajax({
+		type : "POST",
+		url : url,
+		success : function(data) {
+			window.location.replace("/WebTruco/index.jsp");
+		}
+	});
 }
 
 function loopPartidas() {
