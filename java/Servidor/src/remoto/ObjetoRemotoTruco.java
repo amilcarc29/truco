@@ -743,7 +743,7 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	public List<UsuarioDTO> usuariosLibres() throws RemoteException {
 	
 		
-		return 	ControladorUsuario.getInstancia().listarUsuarios();
+		return null;
 	}	
 	
 }

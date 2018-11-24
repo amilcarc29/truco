@@ -265,7 +265,7 @@ public class ControladorJuego {
 						}
 					} else {
 
-//						ultimoChico.setJugadores(JugadorDAO.getInstancia().getJugadores(jue.getId()));
+						ultimoChico.setJugadores(JugadorDAO.getInstancia().getJugadores(jue.getId())); // DESCOMENTEN ESTA LINEA
 						ultimoChico.armarNuevaMano();
 					}
 
