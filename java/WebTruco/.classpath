@@ -5,6 +5,11 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="var" path="TOMCAT"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="C:/Program Files/apache-tomcat-9.0.13/lib/annotations-api.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/apache-tomcat-9.0.13/lib/catalina.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/apache-tomcat-9.0.13/lib/catalina-ant.jar"/>
@@ -32,10 +37,5 @@
 	<classpathentry kind="lib" path="C:/Program Files/apache-tomcat-9.0.13/lib/tomcat-util-scan.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/apache-tomcat-9.0.13/lib/tomcat-websocket.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/apache-tomcat-9.0.13/lib/websocket-api.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
-		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

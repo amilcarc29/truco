@@ -67,9 +67,6 @@ body {
 	font-weight: 200;
 }
 
-.header div span {
-	color: #5379fa !important;
-}
 
 .login {
 	position: absolute;
@@ -285,11 +282,17 @@ body {
 	width: 100%;
 	padding-left: 0%;
 }
+.divTable2 {
+	display: table;
+	width: 100%;
+	padding-left: 2%;
+}
 /* DivTable.com */
 .divTableCenter {
 	display: table;
 	width: 100%;
 }
+
 .divTableRow {
 	display: table-row;
 }
@@ -303,11 +306,13 @@ body {
 	display: table-cell;
 	padding: 3px 10px;
 }
+
 .divTableCell2, .divTableHead {
 	display: table-cell;
 	padding: 3px 10px;
 	width: 50%;
 }
+
 .divTableCell1, .divTableHead {
 	display: table-cell;
 	padding: 3px 10px;
@@ -350,25 +355,21 @@ body {
 	background-image: url("./img/table.jpg");
 	background-size: 100%;
 }
-.misCartas{
-    font-size: 150%;
 
-
+.misCartas {
+	font-size: 150%;
 }
+
 .loader {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 999!important;
-    background: url(./img/load.gif) 50% 50% no-repeat rgba(41, 37, 37, 0.89);
-    background-size: 55px 55px;
-   
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 999 !important;
+	background: url(./img/load.gif) 50% 50% no-repeat rgba(41, 37, 37, 0.89);
+	background-size: 55px 55px;
 }
-
-
-
 </style>
 <link rel="stylesheet" href="css/jquery.alertable.css">
 <link rel="stylesheet" href="css/game.css">
@@ -397,40 +398,123 @@ body {
 
 
 		<div id="main">
-			<span id="userApodo"></span>
+			
 
-			<h6 id="usuarioEnEspera"></h6>
+		
 
 		</div>
 		<div id="mainButton">
+		
 
-			<button class="blob-btn" onCLick="unirsePartidaLibre()">
-				Unirse Partida Libre <span class="blob-btn__inner"> <span
-					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span>
-				</span>
-				</span>
-			</button>
+			<div class="divTable2">
+				<div class="divTableBody">
+					<div class="divTableRow">
+						<div class="divTableCell"><span id="userApodo"></span>,</div>
+						<div class="divTableCell"><span id="userPuntaje"></span>,</div>
+						<div class="divTableCell"><span id="userCategoria"></span>,</div>
+						<div class="divTableCell"><span id="userPganadas"></span>,</div>
+						<div class="divTableCell"><span id="userPperdidas"></span></div>
+						<div class="divTableCell"><span id="usuarioEnEspera"></span></div>
+						
+					</div>
+					
 
-			<button class="blob-btn" data-popup-open="popup-1">
-				Mis Juegos <span class="blob-btn__inner"> <span
-					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span>
-				</span>
-				</span>
-			</button>
-			
-			<button class="blob-btn" onClick="logout()">
-				Logout <span class="blob-btn__inner"> <span
-					class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
-						<span class="blob-btn__blob"></span>
-				</span>
-				</span>
-			</button>
+				</div>
+			</div>
+			<div class="divTable">
+				<div class="divTableBody">
+					<div class="divTableRow">
+						<div class="divTableCell"></div>
+						<div class="divTableCell">
+							<button class="blob-btn" onClick="logout()">
+								Logout <span class="blob-btn__inner"> <span
+									class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+										<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+										<span class="blob-btn__blob"></span>
+								</span>
+								</span>
+							</button>
+						</div>
+						<div class="divTableCell"></div>
+						<div class="divTableCell"></div>
+					</div>
+
+				</div>
+			</div>
+			<div class="divTable">
+				<div class="divTableBody">
+					<div class="divTableRow">
+						<div class="divTableCell"></div>
+						<div class="divTableCell">
+							<button class="blob-btn" onCLick="unirsePartidaPareja()">
+								Unirse Partida En Pareja <span class="blob-btn__inner"> <span
+									class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+										<span class="blob-btn__blob"></span> <span
+										class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+								</span>
+								</span>
+							</button>
+						</div>
+						<div class="divTableCell"></div>
+						<div class="divTableCell"></div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="divTable">
+				<div class="divTableBody">
+					<div class="divTableRow">
+						<div class="divTableCell"></div>
+						<div class="divTableCell">
+							<button class="blob-btn" onCLick="unirsePartidaLibre()">
+								Unirse Partida Libre <span class="blob-btn__inner"> <span
+									class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+										<span class="blob-btn__blob"></span> <span
+										class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+								</span>
+								</span>
+							</button>
+						</div>
+						<div class="divTableCell"></div>
+						<div class="divTableCell"></div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="divTable">
+				<div class="divTableBody">
+					<div class="divTableRow">
+						<div class="divTableCell"></div>
+						<div class="divTableCell">
+
+
+							<button class="blob-btn" data-popup-open="popup-1" onclick="buscarPartida();">
+								Mis Juegos <span class="blob-btn__inner"> <span
+									class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
+										<span class="blob-btn__blob"></span> <span
+										class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
+								</span>
+								</span>
+							</button>
+
+						</div>
+						<div class="divTableCell"></div>
+						<div class="divTableCell"></div>
+					</div>
+
+				</div>
+			</div>
+
+
+
 		</div>
+
+
+
+
+	</div>
 
 	</div>
 	<br>
@@ -449,26 +533,20 @@ body {
 						<div class="divTable">
 							<div class="divTableBody">
 								<div class="divTableRow">
-									<div class="divTableCell" id="divPuntosDatos">
-									
-									
-									
-									</div>
+									<div class="divTableCell" id="divPuntosDatos"></div>
 									<div id="jug2jug" class="divTableCell">&nbsp;</div>
-									
-									<div class="divTableCell" id ="misCartas">&nbsp;</div>
+
+									<div class="divTableCell" id="misCartas">&nbsp;</div>
 								</div>
 								<div class="divTableRow">
 									<div id="jug3jug" class="divTableCell">&nbsp;</div>
-									<div class="divTableCell">
-
-									</div>
+									<div class="divTableCell"></div>
 									<div id="jug4jug" class="divTableCell">&nbsp;</div>
 								</div>
 								<div class="divTableRow">
 									<div class="divTableCell">&nbsp;</div>
 									<div id="jug1jug" class="divTableCell">&nbsp;</div>
-									<div class="divTableCell" >&nbsp;</div>
+									<div class="divTableCell">&nbsp;</div>
 								</div>
 							</div>
 						</div>
@@ -488,8 +566,8 @@ body {
 
 	<div class="popup" data-popup="popup-1">
 		<div class="popup-inner">
-			<h2 id="JuegosTit" style="color: black;">Cargando Juegos...</h2>
-
+			<h2 id="JuegosTit" style="color: black;">Mis Juegos</h2>
+			<a href="#" onClick="buscarPartida();">Actualizar</a>
 
 			<div id="games" class="numberlist"></div>
 

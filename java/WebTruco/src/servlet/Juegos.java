@@ -200,6 +200,12 @@ public class Juegos extends HttpServlet {
 						jsonOb.put("TURNO", true);
 					}
 					out.write(jsonOb.toString());
+					
+					
+				}else if (action.equals("buscarUsuarios")) {
+					
+//					new BusinessDelegateTruco()
+					
 				}
 				
 			} catch (ComunicacionException | JSONException e) {

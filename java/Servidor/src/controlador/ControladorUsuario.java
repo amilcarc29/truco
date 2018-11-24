@@ -1,6 +1,7 @@
 
 package controlador;
 
+import java.util.List;
 import java.util.Vector;
 
 import dao.CategoriaDAO;
@@ -90,7 +91,7 @@ public class ControladorUsuario {
 	public UsuarioDTO loggearUsuario(String apodo, String password) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		if ((usuario != null) && (usuario.validarLogin(password))) {
-			System.out.println("Usuario: " + usuario.getApodo() + " se loggeó.");
+			System.out.println("Usuario: " + usuario.getApodo() + " se loggea");
 			return usuario.toDTO();
 		} else {
 			System.out.println("Usuario o Contraseña incorrecta para: " + apodo);
@@ -127,5 +128,11 @@ public class ControladorUsuario {
 			instancia = new ControladorUsuario();
 		}
 		return instancia;
+	}
+
+	public List<UsuarioDTO> listarUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
+
 	}
 }

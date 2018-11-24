@@ -1,8 +1,11 @@
 package dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import dto.UsuarioDTO;
 import entities.CategoriaEntity;
 import entities.JugadorEntity;
 import entities.UsuarioEntity;
@@ -184,5 +187,10 @@ public class UsuarioDAO {
 		session.getTransaction().commit();
 		session.close();
 		
+	}
+
+	public List<UsuarioDTO> listarUsuarios(Usuario usuario) {
+	
+		return null;
 	}
 }
