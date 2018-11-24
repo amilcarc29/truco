@@ -50,4 +50,6 @@ public interface InterfaceRemotaTruco extends Remote {
 	public void cancelarEsperaPareja(ParejaDTO pareja) throws RemoteException;
 	public void salirJuego(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	
+	public  List<UsuarioDTO> usuariosLibres()  throws RemoteException;
+	
 }

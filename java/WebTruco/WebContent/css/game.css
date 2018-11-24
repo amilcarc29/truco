@@ -21,10 +21,9 @@ body {
   margin-bottom: 30px;
   text-align: center;
   text-transform: uppercase;
-  color: #0fe0f5;
+  color: black;
   font-size: 16px;
   font-weight: bold;
-  background-color: transparent;
   outline: none;
   border: none;
   -webkit-transition: color 0.5s;
