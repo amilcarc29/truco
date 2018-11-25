@@ -441,26 +441,26 @@ body {
 
 				</div>
 			</div>
-			<div class="divTable">
-				<div class="divTableBody">
-					<div class="divTableRow">
-						<div class="divTableCell"></div>
-						<div class="divTableCell">
-							<button class="blob-btn" onCLick="unirsePartidaPareja()">
-								Unirse Partida En Pareja <span class="blob-btn__inner"> <span
-									class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
-										<span class="blob-btn__blob"></span> <span
-										class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
-								</span>
-								</span>
-							</button>
-						</div>
-						<div class="divTableCell"></div>
-						<div class="divTableCell"></div>
-					</div>
+<!-- 			<div class="divTable"> -->
+<!-- 				<div class="divTableBody"> -->
+<!-- 					<div class="divTableRow"> -->
+<!-- 						<div class="divTableCell"></div> -->
+<!-- 						<div class="divTableCell"> -->
+<!-- 							<button class="blob-btn" onCLick="unirsePartidaPareja()"> -->
+<!-- 								Unirse Partida En Pareja <span class="blob-btn__inner"> <span -->
+<!-- 									class="blob-btn__blobs"> <span class="blob-btn__blob"></span> -->
+<!-- 										<span class="blob-btn__blob"></span> <span -->
+<!-- 										class="blob-btn__blob"></span> <span class="blob-btn__blob"></span> -->
+<!-- 								</span> -->
+<!-- 								</span> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
+<!-- 						<div class="divTableCell"></div> -->
+<!-- 						<div class="divTableCell"></div> -->
+<!-- 					</div> -->
 
-				</div>
-			</div>
+<!-- 				</div> -->
+<!-- 			</div> -->
 
 			<div class="divTable">
 				<div class="divTableBody">

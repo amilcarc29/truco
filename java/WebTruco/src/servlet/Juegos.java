@@ -173,11 +173,17 @@ public class Juegos extends HttpServlet {
 					Integer idJu = Integer.valueOf(request.getParameter("idJuego"));
 					JuegoDTO juegoDTO = new BusinessDelegateTruco().getJuegosById(idJu);
 					String jug = request.getParameter("jug");
+
 					boolean turno = new BusinessDelegateTruco().esMiTurno(juegoDTO, us1);
+					boolean cantaron = new BusinessDelegateTruco().alguienTieneQueContestar(juegoDTO);
+					
 					JSONObject jsonOb = new JSONObject();
-					if (!turno) {
+
+					
+					if ((cantaron)||(!turno) ) {
 						
-						jsonOb.put("TURNO", false);
+						jsonOb.put("CANTARON", cantaron);
+						jsonOb.put("TURNO", turno);
 						
 					} else {
 						if (jug.equals("ENVIDO"))

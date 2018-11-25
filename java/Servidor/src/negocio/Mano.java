@@ -383,6 +383,10 @@ public class Mano {
 		
 		this.setEnvido(env);
 		env.save(this);		
+		
+		ManoDAO.getInstancia().setManoConEnvido(this.getIdMano());
+		
+		this.seCantoEnvido=true;
 
 	}
 
