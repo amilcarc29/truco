@@ -277,7 +277,7 @@ public class ControladorJuego {
 
 				} else {
 					List<Jugador> nuevoOrdenJugadores = cambiarOrden(jue.getId(), jue.getUltimaBaza());
-//					ultimaM.setJugadores(nuevoOrdenJugadores);
+//					ultimaM.setJugadores(nuevoOrdenJugadores);					
 					ultimaM.armarNuevaBaza();
 				}
 			}
