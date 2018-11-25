@@ -35,7 +35,7 @@ function loadUser() {
 	$("#userPganadas")
 			.text("Cantidad Partidas Ganadas " + user.partidasGanadas);
 	$("#userPperdidas").text(
-			"Cantidad Partidas Perdidas " + user.partidasPerdidas);
+			"Cantidad Partidas Jugadas " + user.partidasJugadas);
 
 }
 function unirsePartidaLibre() {
