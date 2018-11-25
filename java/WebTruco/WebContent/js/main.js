@@ -103,7 +103,7 @@ function loopRenderGame() {
 		turno = notificaTurno();
 		notificaTanto();
 
-	}, 50000);
+	}, 5000);
 
 }
 
