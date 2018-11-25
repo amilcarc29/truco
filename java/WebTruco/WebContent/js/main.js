@@ -35,15 +35,14 @@ function loadUser() {
 	$("#userPganadas")
 			.text("Cantidad Partidas Ganadas " + user.partidasGanadas);
 	$("#userPperdidas").text(
-			"Cantidad Partidas Perdidas " + user.partidasPerdidas);
+			"Cantidad Partidas Jugadas " + user.partidasPerdidas);
 
 }
 function unirsePartidaLibre() {
 
 	if (esperandoPartida) {
 
-		$.alertable.alert('Se encuentra en espera.').always(function() {
-
+		$.alertable.alert('Se encuentra en espera.').always(function() {	
 		});
 
 		return;
@@ -59,8 +58,7 @@ function unirsePartidaLibre() {
 				url : url,
 				data : unirsePartida, // serializes the form's elements.
 				success : function(data) {
-					esperandoPartida = true;
-					document.getElementById('usuarioEnEspera').innerHTML = ", Ya se encuentra en Lista de espera";
+					esperandoPartida = true;	
 
 				}
 			});
