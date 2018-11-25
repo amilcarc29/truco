@@ -154,7 +154,13 @@ public class ControladorJuego {
 		
 		jue.setTieneQueContestar(jug, "ENVIDO");
 	}
-
+	public void cantarEnvidoEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException, ParejaException {
+		Juego jue = this.buscarJuego(juego.getIdJuego());
+		jue.cantarEnvido();
+		Jugador jug = JugadorDAO.getInstancia().buscarJugadorByUsario(jue.getId(), usuario.getIdUsuario());
+		
+		jue.setTieneQueContestar(jug, "ENVIDO ENVIDO");
+	}
 
 	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws JuegoException, CategoriaException, UsuarioException, ManoException, ParejaException {
 		Juego jue = this.buscarJuego(juego.getIdJuego());
