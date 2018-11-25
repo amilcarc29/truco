@@ -33,7 +33,7 @@ public class ManoDAO {
 		ch = ChicoDAO.getInstancia().buscarChicoPorID(chico.getIdChico());
 
 		ManoEntity me = new ManoEntity(ch);
-
+		me.setSeCantoEnvido(false);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
@@ -75,6 +75,22 @@ public class ManoDAO {
 
 	private Mano toNegocio(ManoEntity manoEntity) {
 		// TODO Auto-generated method stub
-		return new Mano(manoEntity.getIdMano());
+		Mano mano = new Mano(manoEntity.getIdMano());
+		mano.setSeCantoEnvido(manoEntity.isSeCantoEnvido());
+		return mano;
 	}
+
+	public void setManoConEnvido(int idMano) throws ManoException {
+		ManoEntity me = this.buscarManoPorID(idMano);
+		me.setSeCantoEnvido(true);
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(me);
+		session.getTransaction().commit();
+		session.close();
+	}
+	
+	
 }

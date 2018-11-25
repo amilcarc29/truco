@@ -8,12 +8,17 @@ var turno;
 var partidas;
 var intTanto;
 var tantoMsgVis = false;
-var juegoActual;
+
 
 var manoActual = null;
 var chicoActual = null;
 
 var ultimoTanto = null;
+
+var seCantoEnvido = false;
+var seCantoTruco = false;
+
+
 
 $(document).ready(function() {
 
@@ -100,9 +105,9 @@ function loopRenderGame() {
 
 		renderGame();
 		getCartas();
-	//	notificaTurno();
+		// notificaTurno();
 		notificaTanto();
-		
+
 		console.log("rendering game");
 
 	}, 5000);
@@ -137,7 +142,7 @@ function render(data) {
 	// + data.chicos[data.chicos.length - 1].puntosChico[1].puntos
 	// + "]</p>";
 	// document.getElementById('status').innerHTML = txtStatus;
-
+	seCantoEnvido = data.chicos[data.chicos.length-1].manos[data.chicos[data.chicos.length-1].manos.length-1].seCantoEnvido;
 	if ((manoActual != null)
 			&& (manoActual != data.chicos[data.chicos.length - 1].manos.length)) {
 		alertFinMano(manoActual);
@@ -286,6 +291,26 @@ function alertFinMano(mano) {
 			},
 		}
 	});
+
+	seCantoEnvido = false;
+	seCantoTruco = false;
+}
+
+function alertFinChico(chico) {
+
+	$.confirm({
+		title : 'Termino el chico ',
+		theme : 'supervan',
+		content : 'Termino  el chico ' + chico,
+		buttons : {
+			ok : function() {
+				loopRenderGame();
+			},
+		}
+	});
+
+	seCantoEnvido = false;
+	seCantoTruco = false;
 }
 function alertTanto(tanto) {
 
@@ -314,8 +339,9 @@ function alertTanto(tanto) {
 				}
 			}
 		});
+		seCantoEnvido = true;
 
-	} else if (tanto = "ENVIDO ENVIDO") {
+	} else if (tanto == "ENVIDO ENVIDO") {
 
 		$.confirm({
 			title : 'Cantaron',
@@ -337,6 +363,8 @@ function alertTanto(tanto) {
 				}
 			}
 		});
+		seCantoEnvido = true;
+
 	} else if (tanto == "FALTA ENVIDO") {
 
 		$.confirm({
@@ -352,6 +380,7 @@ function alertTanto(tanto) {
 				}
 			}
 		});
+		seCantoEnvido = true;
 
 	} else if (tanto == "REAL ENVIDO") {
 
@@ -373,6 +402,7 @@ function alertTanto(tanto) {
 				}
 			}
 		});
+		seCantoEnvido = true;
 
 	} else if (tanto == "TRUCO") {
 
@@ -398,6 +428,7 @@ function alertTanto(tanto) {
 				}
 			}
 		});
+		seCantoTruco = true;
 
 	} else if (tanto == "RE TRUCO") {
 
@@ -420,6 +451,26 @@ function alertTanto(tanto) {
 				}
 			}
 		});
+		seCantoTruco = true;
+
+	}else if (tanto == "VALE CUATRO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO TRUCO");
+
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO TRUCO");
+
+				}
+			}
+		});
+		seCantoTruco = true;
 
 	}
 
@@ -499,8 +550,7 @@ function drawCartasSinJugar(data) {
 		imgtmp = "<img src='./img/" + data[i].palo + "/" + data[i].numero
 				+ ".jpg' style='cursor: pointer;' ";
 
-		imgtmp += " onclick='verificarTurno(" + data[i].idCarta + ","
-				+ juegoActual + ")' ";
+		imgtmp += " onclick='jugarCarta(" + data[i].idCarta + ")' ";
 		imgtmp += ">";
 
 		cartasImg[i] = imgtmp;
@@ -823,22 +873,19 @@ function renderPunt(data) {
 	divPnt += '</div>';
 
 	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">' + makeButton(null, 'ENVIDO')
-			+ '</div>';
+	divPnt += '<div class="divTableCell">' + makeButton('ENVIDO') + '</div>';
 	divPnt += '<div class="divTableCell"></div>';
 	divPnt += '</div>';
 
 	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">' + makeButton('TRUCO', 'TRUCO')
-			+ '</div>';
+	divPnt += '<div class="divTableCell">' + makeButton('TRUCO') + '</div>';
 	divPnt += '<div class="divTableCell"></div>';
 	divPnt += '</div>';
 	divPnt += '</div>';
 	divPnt += '</div>';
 
 	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">' + makeButton(null, 'SALIR')
-			+ '</div>';
+	divPnt += '<div class="divTableCell">' + makeButton('SALIR') + '</div>';
 	divPnt += '<div class="divTableCell"></div>';
 	divPnt += '</div>';
 	divPnt += '</div>';
@@ -847,88 +894,44 @@ function renderPunt(data) {
 	document.getElementById("divPuntosDatos").innerHTML = divPnt;
 
 }
+
+
 function envido() {
+	if (seCantoEnvido) {
 
-	$.confirm({
-		title : 'Cantar Envido',
-		theme : 'supervan',
-		content : 'Cantar Envido',
-		buttons : {
-			Envido : function() {
-				cantarTanto("ENVIDO");
+		$.alertable.alert('Ya se canto envido en la mano').always(function() {
 
-			},
-			RealEnvido : function() {
-				cantarTanto("REAL ENVIDO");
+		});
 
-			},
-			FaltaEnvido : function() {
-				cantarTanto("FALTA ENVIDO");
+	} else {
+		$.confirm({
+			title : 'Cantar Envido',
+			theme : 'supervan',
+			content : 'Cantar Envido',
+			buttons : {
+				Envido : function() {
+					cantarTanto("ENVIDO");
 
-			},
-			Cancelar : function() {
-				loopRenderGame();
+				},
+				RealEnvido : function() {
+					cantarTanto("REAL ENVIDO");
+
+				},
+				FaltaEnvido : function() {
+					cantarTanto("FALTA ENVIDO");
+
+				},
+				Cancelar : function() {
+					loopRenderGame();
+				}
 			}
-		}
-	});
-
+		});
+	}
 }
-function makeButton(key, label) {
-	var but = '';
-	if (key != null)
-		but = '<button class="blob-btn"  onClick="cantarTanto(\'' + key
-				+ '\')">';
-	else if (label == 'SALIR')
-		but = '<button class="blob-btn"  onClick="back()">';
-	else if (label == 'ENVIDO')
-		but = '<button class="blob-btn"  onClick="envido()">';
 
-	but += label + ' <span class="blob-btn__inner"> <span';
-	but += 'class="blob-btn__blobs"> <span class="blob-btn__blob"></span>';
-	but += '<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>';
-	but += '	<span class="blob-btn__blob"></span>';
-	but += '</span>';
-	but += '</span>';
-	but += '</button>';
-	return but;
-}
-function verificarTurno(idCarta, idJuego) {
+function truco(jugada) {
+	 cantarTanto(jugada);
 
-	var url = '/WebTruco/Juegos';
-
-	var buscarJuegos = {
-		action : 'esMiturno',
-		idJuego : idJuego
-	};
-
-	$.ajax({
-		type : "POST",
-		url : url,
-		data : buscarJuegos, // serializes the form's elements.
-		success : function(data) {
-
-			if (data.CANTARON == true) {
-
-				$.alertable.alert(
-						'Cantaron tanto , antes de jugar espere que respondan')
-						.always(function() {
-
-						});
-
-			} else if (data.TURNO == true) {
-
-				jugar(idCarta, idJuego);
-
-			} else {
-
-				$.alertable.alert('No es su turno').always(function() {
-
-				});
-
-			}
-
-		}
-	});
 }
 
 function cantarTanto(jugada) {
@@ -950,12 +953,16 @@ function cantarTanto(jugada) {
 				$.alertable.alert('No es su turno').always(function() {
 
 				});
-			} else {
+			} else if (data.CANTARON == true) {
+				$.alertable.alert('Ya se canto el tanto').always(function() {
+
+				});
+			}else {
 				$.alertable.alert('Se canto ' + jugada).always(function() {
 					renderGame();
 					ultimoTanto = jugada;
-					
-					if(jugada!="TRUCO")
+
+					if (jugada != "TRUCO")
 						loopRenderGame();
 				});
 			}
@@ -964,13 +971,83 @@ function cantarTanto(jugada) {
 
 }
 
-function jugar(idCarta, idJuego) {
+function makeButton(key) {
+	var but = '';
+
+	if (key == 'TRUCO')
+		but = '<button class="blob-btn"  onClick="cantarTanto(\'' + key
+				+ '\')">';
+
+	else if (key == 'SALIR')
+		but = '<button class="blob-btn"  onClick="back()">';
+
+	else if (key == 'ENVIDO')
+		but = '<button class="blob-btn"  onClick="envido()">';
+
+	but += key + ' <span class="blob-btn__inner"> <span';
+	but += 'class="blob-btn__blobs"> <span class="blob-btn__blob"></span>';
+	but += '<span class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>';
+	but += '	<span class="blob-btn__blob"></span>';
+	but += '</span>';
+	but += '</span>';
+	but += '</button>';
+	return but;
+}
+
+function jugarCarta(idCarta) {
+	verificarTurno(jugar, idCarta);
+}
+
+function verificarTurno(callbk, idCarta, jugada) {
+
+	var url = '/WebTruco/Juegos';
+
+	var buscarJuegos = {
+		action : 'esMiturno',
+		idJuego : juegoActual
+	};
+
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : buscarJuegos, // serializes the form's elements.
+		success : function(data) {
+
+			if (data.CANTARON == true) {
+
+				$.alertable.alert(
+						'Cantaron tanto , antes de jugar espere que respondan')
+						.always(function() {
+
+						});
+
+			} else if (data.TURNO == true) {
+				if (idCarta != null)
+					callbk(idCarta);
+				else if (jugada != null)
+					callbk(jugada);
+				else
+					callbk();
+
+			} else {
+
+				$.alertable.alert('No es su turno').always(function() {
+
+				});
+
+			}
+
+		}
+	});
+}
+
+function jugar(idCarta) {
 	$("#loader").fadeIn("fast");
 	var url = '/WebTruco/Juegos';
 
 	var buscarJuegos = {
 		action : 'JugarCarta',
-		idJuego : idJuego,
+		idJuego : juegoActual,
 		idCarta : idCarta
 	};
 

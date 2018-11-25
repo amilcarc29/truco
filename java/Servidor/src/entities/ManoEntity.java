@@ -20,11 +20,14 @@ public class ManoEntity {
 	@JoinColumn(name = "idChico")
 	private ChicoEntity chico;
 	
+	private boolean seCantoEnvido;
+	
 	public ManoEntity() {}
 	
 	public ManoEntity(ChicoEntity chico) {
 		super();
 		this.chico = chico;
+		this.seCantoEnvido=false;
 	}
 
 	public Integer getIdMano() {
@@ -42,7 +45,16 @@ public class ManoEntity {
 	public void setChico(ChicoEntity chico) {
 		this.chico = chico;
 	}
-	
+
+	public boolean isSeCantoEnvido() {
+		return seCantoEnvido;
+	}
+
+	public void setSeCantoEnvido(boolean seCantoEnvido) {
+		this.seCantoEnvido = seCantoEnvido;
+	}
+
+
 	
 
 }
