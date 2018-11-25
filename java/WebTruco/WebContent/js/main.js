@@ -11,7 +11,9 @@ var tantoMsgVis = false;
 var juegoActual;
 
 var manoActual = null;
-var chicoActual  = null;
+var chicoActual = null;
+
+var ultimoTanto = null;
 
 $(document).ready(function() {
 
@@ -84,7 +86,6 @@ function unirsePartidaPareja() {
 	});
 }
 
-
 function abrirJuego(idJuego) {
 	$("#loader").fadeIn("fast");
 
@@ -98,16 +99,15 @@ function loopRenderGame() {
 	notificaTurno();
 
 	partidas = setInterval(function() {
-		
+
 		renderGame();
 		getCartas();
 		turno = notificaTurno();
 		notificaTanto();
 
-	}, 100000);
+	}, 50000);
 
 }
-
 
 function renderGame() {
 
@@ -137,28 +137,28 @@ function render(data) {
 	// + data.chicos[data.chicos.length - 1].puntosChico[1].puntos
 	// + "]</p>";
 	// document.getElementById('status').innerHTML = txtStatus;
-	
-	if ((manoActual!=null)&&(manoActual!= data.chicos[data.chicos.length - 1].manos.length)){
+
+	if ((manoActual != null)
+			&& (manoActual != data.chicos[data.chicos.length - 1].manos.length)) {
 		alertFinMano(manoActual);
 		manoActual = data.chicos[data.chicos.length - 1].manos.length;
-	}else{
+	} else {
 		manoActual = data.chicos[data.chicos.length - 1].manos.length;
 
 	}
-	
-	if ((chicoActual!=null)&&(chicoActual!= data.chicos.length)){
+
+	if ((chicoActual != null) && (chicoActual != data.chicos.length)) {
 		alertFinChico(chicoActual);
 		chicoActual = data.chicos.length;
-	}else{
+	} else {
 		chicoActual = data.chicos.length;
 	}
-	
-	
+
 	var jugNum = 1;
 	for (var i = 0; i < data.parejas.length; i++) {
 
 		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
-			
+
 			drawCartas(data.parejas[i].jugadores[x], juegoActual, jugNum,
 					(data.chicos[data.chicos.length - 1].manos.length));
 			jugNum++;
@@ -274,15 +274,15 @@ function notificaTurno() {
 	});
 }
 
-function alertFinMano(mano){
-	
+function alertFinMano(mano) {
+
 	$.confirm({
 		title : 'Termino la mano ',
 		theme : 'supervan',
 		content : 'Termino la mano ' + mano,
 		buttons : {
 			ok : function() {
-				
+
 			},
 		}
 	});
@@ -303,7 +303,7 @@ function alertTanto(tanto) {
 					notificaTantoRespuesta("NO QUIERO ENVIDO");
 				},
 				envido : function() {
-					notificaTantoRespuesta("ENVIDO");
+					notificaTantoRespuesta("ENVIDO ENVIDO");
 				},
 				realEnvido : function() {
 					notificaTantoRespuesta("REAL ENVIDO");
@@ -315,6 +315,28 @@ function alertTanto(tanto) {
 			}
 		});
 
+	} else if (tanto = "ENVIDO ENVIDO") {
+
+		$.confirm({
+			title : 'Cantaron',
+			theme : 'supervan',
+			content : 'Cantaron ' + tanto,
+			buttons : {
+				aceptar : function() {
+					notificaTantoRespuesta("QUIERO ENVIDO");
+				},
+				cancel : function() {
+					notificaTantoRespuesta("NO QUIERO ENVIDO");
+				},
+				realEnvido : function() {
+					notificaTantoRespuesta("REAL ENVIDO");
+				},
+				faltaEnvido : function() {
+					notificaTantoRespuesta("FALTA ENVIDO");
+
+				}
+			}
+		});
 	} else if (tanto == "FALTA ENVIDO") {
 
 		$.confirm({
@@ -511,20 +533,18 @@ function drawCartasSinJugar(data) {
 
 function drawCartas(data, juego, jugNum, mano) {
 
-	var cartasArr  = [];
-	var inx = (3*(mano-1));
+	var cartasArr = [];
+	var inx = (3 * (mano - 1));
 
+	if (data.cartas[inx] != undefined)
+		cartasArr[0] = data.cartas[inx];
 
-		if (data.cartas[inx] != undefined)
-			cartasArr[0] = data.cartas[inx];
+	if (data.cartas[inx + 1] != undefined)
+		cartasArr[1] = data.cartas[inx + 1];
 
-		if (data.cartas[inx+1] != undefined)
-			cartasArr[1] = data.cartas[inx+1];
+	if (data.cartas[inx + 2] != undefined)
+		cartasArr[2] = data.cartas[inx + 2];
 
-		if (data.cartas[inx+2] != undefined)
-			cartasArr[2] = data.cartas[inx+2];
-
-	
 	var cartasImg = [];
 	var imgtmp = "";
 
@@ -801,7 +821,7 @@ function renderPunt(data) {
 	divPnt += '</div>';
 
 	divPnt += '<div class="divTableRow">';
-	divPnt += '<div class="divTableCell">' + makeButton('ENVIDO', 'ENVIDO')
+	divPnt += '<div class="divTableCell">' + makeButton(null, 'ENVIDO')
 			+ '</div>';
 	divPnt += '<div class="divTableCell"></div>';
 	divPnt += '</div>';
@@ -825,14 +845,41 @@ function renderPunt(data) {
 	document.getElementById("divPuntosDatos").innerHTML = divPnt;
 
 }
+function envido() {
 
+	$.confirm({
+		title : 'Cantar Envido',
+		theme : 'supervan',
+		content : 'Cantar Envido',
+		buttons : {
+			Envido : function() {
+				cantarTanto("ENVIDO");
+
+			},
+			RealEnvido : function() {
+				cantarTanto("REAL ENVIDO");
+
+			},
+			FaltaEnvido : function() {
+				cantarTanto("FALTA ENVIDO");
+
+			},
+			Cancelar : function() {
+
+			}
+		}
+	});
+
+}
 function makeButton(key, label) {
 	var but = '';
 	if (key != null)
 		but = '<button class="blob-btn"  onClick="cantarTanto(\'' + key
 				+ '\')">';
-	else
+	else if (label == 'SALIR')
 		but = '<button class="blob-btn"  onClick="back()">';
+	else if (label == 'ENVIDO')
+		but = '<button class="blob-btn"  onClick="envido()">';
 
 	but += label + ' <span class="blob-btn__inner"> <span';
 	but += 'class="blob-btn__blobs"> <span class="blob-btn__blob"></span>';
@@ -857,8 +904,19 @@ function verificarTurno(idCarta, idJuego) {
 		url : url,
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
-			if (data.TURNO == true) {
+
+			if (data.CANTARON == true) {
+
+				$.alertable.alert(
+						'Cantaron tanto , antes de jugar espere que respondan')
+						.always(function() {
+
+						});
+
+			} else if (data.TURNO == true) {
+
 				jugar(idCarta, idJuego);
+
 			} else {
 
 				$.alertable.alert('No es su turno').always(function() {
@@ -892,7 +950,8 @@ function cantarTanto(jugada) {
 				});
 			} else {
 				$.alertable.alert('Se canto ' + jugada).always(function() {
-
+					renderGame();
+					ultimoTanto = jugada;
 				});
 			}
 		}
@@ -955,17 +1014,6 @@ function loadActions() {
 
 }
 
-function logout() {
-	var url = '/WebTruco/Logout';
-	$.ajax({
-		type : "POST",
-		url : url,
-		success : function(data) {
-			window.location.replace("/WebTruco/index.jsp");
-		}
-	});
-}
-
 function notifyCheck() {
 	// Comprobamos si el navegador soporta las notificaciones
 	if (!("Notification" in window)) {
@@ -990,4 +1038,14 @@ function notifyCheck() {
 
 	// Finalmente, si el usuario te ha denegado el permiso y
 	// quieres ser respetuoso no hay necesidad molestar más.
+}
+function logout() {
+	var url = '/WebTruco/Logout';
+	$.ajax({
+		type : "POST",
+		url : url,
+		success : function(data) {
+			window.location.replace("/WebTruco/index.jsp");
+		}
+	});
 }

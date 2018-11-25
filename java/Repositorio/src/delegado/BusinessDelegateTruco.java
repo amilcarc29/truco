@@ -117,7 +117,13 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
-	
+	public void cantarEnvidoEnvido(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
+		try {
+			ir.cantarEnvidoEnvido(juego, usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
 	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException{
 		try {
 			ir.cantarRealEnvido(juego, usuario);
