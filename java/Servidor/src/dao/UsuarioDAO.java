@@ -148,6 +148,19 @@ public class UsuarioDAO {
 			throw new UsuarioException("El usuario con apodo: " + apodo + "no existe en la base de datos.");
 		}
 	}
+	
+	public Usuario buscarUsuarioByEmail(String email) throws CategoriaException, UsuarioException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		UsuarioEntity usuarioEntity = (UsuarioEntity) session.createQuery("from UsuarioEntity where email = ?")
+				.setParameter(0, email).uniqueResult();
+		session.close();
+		if (usuarioEntity != null) {
+			return toNegocio(usuarioEntity);
+		} else {
+			throw new UsuarioException("El usuario con email: " + email + "no existe en la base de datos.");
+		}
+	}
 
 	public UsuarioEntity toEntity(Usuario usuario) throws CategoriaException {
 		UsuarioEntity usuarioEntity = new UsuarioEntity(usuario.getIdUsuario(), usuario.getPartidasGanadas(), usuario.getPuntaje(), usuario.getApodo(), usuario.getPass(),

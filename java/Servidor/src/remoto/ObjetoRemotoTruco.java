@@ -54,18 +54,20 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	}
 
 	@Override
-	public void altaUsuario(String apodo, String email, String password) throws RemoteException {
+	public int altaUsuario(String apodo, String email, String password) throws RemoteException {
 		try {
 			ControladorUsuario.getInstancia().altaUsuario(apodo, email, password);
 		} catch (UsuarioException e) {
-			ErrorCode usuario = ErrorCode.USUARIO_NO_ENCONTRADO;
+			ErrorCode usuario = ErrorCode.USUARIO_APODO_EMAIL_EN_USO;
 			usuario.setDescripcion(e.getMessage());
 			System.out.println(usuario.toString());
+			return e.getError();
 		} catch (CategoriaException e) {
 			ErrorCode categoria = ErrorCode.CATEGORIA_NO_ENCONTRADA;
 			categoria.setDescripcion(e.getMessage());
 			System.out.println(categoria.toString());
 		}
+		return 0;
 	}
 
 	@Override
@@ -221,7 +223,32 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		}
 	}
-
+	@Override
+	public void cantarEnvidoEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
+		try {
+			ControladorJuego.getInstancia().cantarEnvidoEnvido(juego, usuario);
+		} catch (JuegoException e) {
+			ErrorCode error = ErrorCode.JUEGO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (CategoriaException e) {
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (UsuarioException e) {
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (ManoException e) {
+			ErrorCode error = ErrorCode.MANO_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (ParejaException e) {
+			ErrorCode error = ErrorCode.PAREJA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		}
+	}
 	@Override
 	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException {
 		try {

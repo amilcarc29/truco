@@ -143,6 +143,8 @@ public class Juegos extends HttpServlet {
 					} else {
 						if (jug.equals("ENVIDO"))
 							new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
+						if (jug.equals("ENVIDO ENVIDO"))
+							new BusinessDelegateTruco().cantarEnvidoEnvido(juegoDTO, us1);
 						if (jug.equals("REAL ENVIDO"))
 							new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);
 						if (jug.equals("FALTA ENVIDO"))
@@ -179,6 +181,8 @@ public class Juegos extends HttpServlet {
 						
 					} else {
 						if (jug.equals("ENVIDO"))
+							new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
+						if (jug.equals("ENVIDO ENVIDO"))
 							new BusinessDelegateTruco().cantarEnvido(juegoDTO, us1);
 						if (jug.equals("REAL ENVIDO"))
 							new BusinessDelegateTruco().cantarRealEnvido(juegoDTO, us1);

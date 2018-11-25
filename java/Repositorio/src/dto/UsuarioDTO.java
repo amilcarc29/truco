@@ -8,19 +8,19 @@ public class UsuarioDTO extends JsonDTO implements Serializable {
 
 	private int idUsuario;
 	private int partidasGanadas;
-	private int partidasPerdidas;
+	private int partidasJugadas;
 	private int puntaje;
 	private String apodo;
 	private String email;
 	private CategoriaDTO categoria;
 	private boolean activo;
 
-	public UsuarioDTO(int idUsuario, int partidasGanadas, int partidasPerdidas, int puntaje, String apodo, String pass,
+	public UsuarioDTO(int idUsuario, int partidasGanadas, int partidasJugadas, int puntaje, String apodo, String pass,
 			String email, CategoriaDTO categoria, boolean activo) {
 		super();
 		this.idUsuario = idUsuario;
 		this.partidasGanadas = partidasGanadas;
-		this.partidasPerdidas = partidasPerdidas;
+		this.partidasJugadas = partidasJugadas;
 		this.puntaje = puntaje;
 		this.apodo = apodo;
 		this.email = email;
@@ -44,12 +44,12 @@ public class UsuarioDTO extends JsonDTO implements Serializable {
 		this.partidasGanadas = partidasGanadas;
 	}
 
-	public int getPartidasPerdidas() {
-		return partidasPerdidas;
+	public int getPartidasJugadas() {
+		return partidasJugadas;
 	}
 
-	public void setPartidasPerdidas(int partidasPerdidas) {
-		this.partidasPerdidas = partidasPerdidas;
+	public void setPartidasJugadas(int partidasJugadas) {
+		this.partidasJugadas = partidasJugadas;
 	}
 
 	public int getPuntaje() {

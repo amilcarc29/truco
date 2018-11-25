@@ -14,7 +14,8 @@ public enum ErrorCode {
 	JUGADA_NO_ENCONTRADA(11),
 	MANO_NO_ENCONTRADA(12),
 	MIEMBRO_NO_ENCONTRADO(13),
-	PAREJA_NO_ENCONTRADA(14);
+	PAREJA_NO_ENCONTRADA(14),
+	USUARIO_APODO_EMAIL_EN_USO(15);
 
 	private final int codigo;
 	private String descripcion;

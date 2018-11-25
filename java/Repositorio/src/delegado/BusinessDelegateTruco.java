@@ -8,7 +8,6 @@ import java.util.List;
 
 import dto.CartaDTO;
 import dto.JuegoDTO;
-import dto.JugadorDTO;
 import dto.ParejaDTO;
 import dto.UsuarioDTO;
 import excepciones.ComunicacionException;
@@ -39,9 +38,9 @@ public class BusinessDelegateTruco {
 		}
 	}
 
-	public void alta(String apodo, String email, String password) throws ComunicacionException {
+	public int alta(String apodo, String email, String password) throws ComunicacionException {
 		try {
-			ir.altaUsuario(apodo, email, password);
+			return ir.altaUsuario(apodo, email, password);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
@@ -118,7 +117,13 @@ public class BusinessDelegateTruco {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
-	
+	public void cantarEnvidoEnvido(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException {
+		try {
+			ir.cantarEnvidoEnvido(juego, usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
 	public void cantarRealEnvido(JuegoDTO juego, UsuarioDTO usuario) throws ComunicacionException{
 		try {
 			ir.cantarRealEnvido(juego, usuario);

@@ -20,7 +20,7 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(String apodo, String pass, String email) {
+	public Usuario(String apodo, String email, String pass) {
 		super();
 		this.partidasGanadas = 0;
 		this.partidasJugadas = 0;
@@ -29,7 +29,6 @@ public class Usuario {
 		this.pass = pass;
 		this.email = email;
 		this.activo = true;
-		//categoria = new Novato(idUsuario, email, idUsuario, idUsuario, idUsuario);
 	}
 
 	public boolean esUsuario(String apodo) {
