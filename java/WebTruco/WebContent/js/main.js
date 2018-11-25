@@ -9,16 +9,14 @@ var partidas;
 var intTanto;
 var tantoMsgVis = false;
 
-
 var manoActual = null;
 var chicoActual = null;
+var bazaActual = 1;
 
 var ultimoTanto = null;
 
 var seCantoEnvido = false;
 var seCantoTruco = false;
-
-
 
 $(document).ready(function() {
 
@@ -142,7 +140,9 @@ function render(data) {
 	// + data.chicos[data.chicos.length - 1].puntosChico[1].puntos
 	// + "]</p>";
 	// document.getElementById('status').innerHTML = txtStatus;
-	seCantoEnvido = data.chicos[data.chicos.length-1].manos[data.chicos[data.chicos.length-1].manos.length-1].seCantoEnvido;
+	seCantoEnvido = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoEnvido;
+	bazaActual = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].bazas.length;
+
 	if ((manoActual != null)
 			&& (manoActual != data.chicos[data.chicos.length - 1].manos.length)) {
 		alertFinMano(manoActual);
@@ -453,7 +453,7 @@ function alertTanto(tanto) {
 		});
 		seCantoTruco = true;
 
-	}else if (tanto == "VALE CUATRO") {
+	} else if (tanto == "VALE CUATRO") {
 
 		$.confirm({
 			title : 'Cantaron',
@@ -895,42 +895,51 @@ function renderPunt(data) {
 
 }
 
-
 function envido() {
-	if (seCantoEnvido) {
 
-		$.alertable.alert('Ya se canto envido en la mano').always(function() {
+	if (bazaActual > 1) {
+		$.alertable.alert('No se puede cantar envido luego de la primera Baza')
+				.always(function() {
 
-		});
-
+				});
 	} else {
-		$.confirm({
-			title : 'Cantar Envido',
-			theme : 'supervan',
-			content : 'Cantar Envido',
-			buttons : {
-				Envido : function() {
-					cantarTanto("ENVIDO");
 
-				},
-				RealEnvido : function() {
-					cantarTanto("REAL ENVIDO");
+		if (seCantoEnvido) {
 
-				},
-				FaltaEnvido : function() {
-					cantarTanto("FALTA ENVIDO");
+			$.alertable.alert('Ya se canto envido en la mano').always(
+					function() {
 
-				},
-				Cancelar : function() {
-					loopRenderGame();
+					});
+
+		} else {
+			$.confirm({
+				title : 'Cantar Envido',
+				theme : 'supervan',
+				content : 'Cantar Envido',
+				buttons : {
+					Envido : function() {
+						cantarTanto("ENVIDO");
+
+					},
+					RealEnvido : function() {
+						cantarTanto("REAL ENVIDO");
+
+					},
+					FaltaEnvido : function() {
+						cantarTanto("FALTA ENVIDO");
+
+					},
+					Cancelar : function() {
+						loopRenderGame();
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 }
 
 function truco(jugada) {
-	 cantarTanto(jugada);
+	cantarTanto(jugada);
 
 }
 
@@ -957,7 +966,7 @@ function cantarTanto(jugada) {
 				$.alertable.alert('Ya se canto el tanto').always(function() {
 
 				});
-			}else {
+			} else {
 				$.alertable.alert('Se canto ' + jugada).always(function() {
 					renderGame();
 					ultimoTanto = jugada;
