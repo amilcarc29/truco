@@ -107,7 +107,7 @@ function loopRenderGame() {
 		
 		console.log("rendering game");
 
-	}, 10000);
+	}, 5000);
 
 }
 
