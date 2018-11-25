@@ -102,10 +102,12 @@ function loopRenderGame() {
 
 		renderGame();
 		getCartas();
-		turno = notificaTurno();
+	//	notificaTurno();
 		notificaTanto();
+		
+		console.log("rendering game");
 
-	}, 50000);
+	}, 10000);
 
 }
 
@@ -282,7 +284,7 @@ function alertFinMano(mano) {
 		content : 'Termino la mano ' + mano,
 		buttons : {
 			ok : function() {
-
+				loopRenderGame();
 			},
 		}
 	});
@@ -439,6 +441,7 @@ function notificaTantoRespuesta(tantoResp) {
 		data : buscarJuegos, // serializes the form's elements.
 		success : function(data) {
 			tantoMsgVis = false;
+			loopRenderGame();
 		}
 	});
 }
@@ -459,8 +462,9 @@ function notificaTanto() {
 			if ((data.TANTO != null)) {
 
 				if (!tantoMsgVis) {
-					alertTanto(data.TANTO)
+					alertTanto(data.TANTO);
 					tantoMsgVis = true;
+					notificaTurno();
 				}
 			} else {
 
@@ -865,7 +869,7 @@ function envido() {
 
 			},
 			Cancelar : function() {
-
+				loopRenderGame();
 			}
 		}
 	});
@@ -952,6 +956,9 @@ function cantarTanto(jugada) {
 				$.alertable.alert('Se canto ' + jugada).always(function() {
 					renderGame();
 					ultimoTanto = jugada;
+					
+					if(jugada!="TRUCO")
+						loopRenderGame();
 				});
 			}
 		}
