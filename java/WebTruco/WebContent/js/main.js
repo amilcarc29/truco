@@ -162,15 +162,26 @@ function render(data) {
 	}
 
 	var jugNum = 1;
-	for (var i = 0; i < data.parejas.length; i++) {
+//	for (var i = 0; i < data.parejas.length; i++) {
+//
+//		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
+//
+//			drawCartas(data.parejas[i].jugadores[x], juegoActual, jugNum,
+//					(data.chicos[data.chicos.length - 1].manos.length));
+//			jugNum++;
+//		}
+//	}
+	
+	
+	jug = data.chicos[data.chicos.length-1].manos[data.chicos[data.chicos.length-1].manos.length-1].jugadores;
+	for (var x = 0; x < jug.length; x++) {
 
-		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
-
-			drawCartas(data.parejas[i].jugadores[x], juegoActual, jugNum,
-					(data.chicos[data.chicos.length - 1].manos.length));
-			jugNum++;
-		}
+		drawCartas(jug[x], jugNum,
+				(data.chicos[data.chicos.length - 1].manos.length));
+		jugNum++;
 	}
+	
+	
 
 	renderPunt(data);
 
@@ -585,7 +596,7 @@ function drawCartasSinJugar(data) {
 
 }
 
-function drawCartas(data, juego, jugNum, mano) {
+function drawCartas(data, jugNum, mano) {
 
 	var cartasArr = [];
 	var inx = (3 * (mano - 1));

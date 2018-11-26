@@ -3,6 +3,7 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.JuegoDAO;
 import dao.JugadorCartaDAO;
 import dto.CartaDTO;
 import dto.JugadorDTO;
