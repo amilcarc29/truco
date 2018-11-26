@@ -102,7 +102,7 @@ function loopRenderGame() {
 	renderGame();
 	getCartas();
 	notificaTurno();
-
+	
 	partidas = setInterval(function() {
 
 		if (ganador == null) {
@@ -130,9 +130,9 @@ function loopRenderGame() {
 
 		}
 
-		console.log("rendering game");
+		console.log("rendering game pid=>" + partidas);
 
-	}, 5000);
+	}, 10000);
 
 }
 
@@ -625,8 +625,8 @@ function drawCartasSinJugar(data) {
 function drawCartas(data, jugNum, mano) {
 
 	var cartasArr = [];
-	var inx = (3 * (mano - 1));
-
+//	var inx = (3 * (mano - 1));
+	var inx = 0;
 	if (data.cartas[inx] != undefined)
 		cartasArr[0] = data.cartas[inx];
 
