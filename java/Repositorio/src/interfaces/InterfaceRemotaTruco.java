@@ -50,6 +50,8 @@ public interface InterfaceRemotaTruco extends Remote {
 	public List<UsuarioDTO> generarRanking() throws RemoteException;
 	
 	public void desloggearUsuario(UsuarioDTO usuario) throws RemoteException;
-	public List<UsuarioDTO> obtenerUsuariosLoggeados() throws RemoteException;
+	public List<UsuarioDTO> obtenerUsuariosLoggeados(UsuarioDTO usuario) throws RemoteException;
+	
+	public UsuarioDTO buscarUsuarioPorApodoDTO(String apodo) throws RemoteException;
 	
 }

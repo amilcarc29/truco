@@ -483,20 +483,23 @@ body {
 
 				</div>
 			</div>
-			
+						
 			<div class="divTable">
 				<div class="divTableBody">
 					<div class="divTableRow">
 						<div class="divTableCell"></div>
 						<div class="divTableCell">
-							<button class="blob-btn" onCLick="armarPareja()">
-								Armar Pareja Juego <span class="blob-btn__inner"> <span
+
+
+							<button class="blob-btn" data-popup-open="popup-2" onclick="buscarUsuarios();">
+								Unirse Partida en Pareja <span class="blob-btn__inner"> <span
 									class="blob-btn__blobs"> <span class="blob-btn__blob"></span>
 										<span class="blob-btn__blob"></span> <span
 										class="blob-btn__blob"></span> <span class="blob-btn__blob"></span>
 								</span>
 								</span>
 							</button>
+
 						</div>
 						<div class="divTableCell"></div>
 						<div class="divTableCell"></div>
@@ -597,6 +600,20 @@ body {
 
 
 			<a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+		</div>
+	</div>
+	
+	<div class="popup" data-popup="popup-2">
+		<div class="popup-inner">
+			<h2 id="usuariosTit" style="color: black;">Seleccione a su Compañero</h2>
+			<a href="#" onClick="buscarUsuarios();">Actualizar</a>
+
+			<div id="usuariosl" class="numberlist"></div>
+
+
+
+
+			<a class="popup-close" data-popup-close="popup-2" href="#">x</a>
 		</div>
 	</div>
 

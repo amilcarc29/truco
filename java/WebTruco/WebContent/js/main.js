@@ -1,8 +1,11 @@
 var interval;
 var partidasActivas = "";
+var usuariosActivos = "";
 var tituloCargado = false;
 var juegoActual;
 var juegoJson;
+
+var usuarioSeleccionado;
 
 var turno;
 var partidas;
@@ -111,13 +114,17 @@ function unirsePartidaLibre() {
 			});
 
 }
-function unirsePartidaPareja() {
+function unirsePartidaPareja(apodo) {
 	$("#loader").fadeIn("fast");
+	
+	usuarioSeleccionado = apodo;
 
 	var unirsePartida = {
-		action : 'buscarUsuarios'
+		action : 'unirsePartidaPareja',
+		apodo : usuarioSeleccionado
 	};
-
+		
+	document.getElementById('usuarioEnEspera').innerHTML = "Buscando partida en Pareja..."
 	$.ajax({
 		type : "POST",
 		url : url,
@@ -250,6 +257,49 @@ data.ganador.jugadores[1].usuario.apodo;
 	renderPunt(data);
 
 	$("#loader").fadeOut("fast");
+}
+
+function buscarUsuarios() {
+	
+	var url = '/WebTruco/Juegos';
+	var buscarUsuarios = {
+			action : 'getUsuarios'
+	};
+	
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : buscarUsuarios, // serializes the form's elements.
+		success : function(data) {
+			usuariosActivos = data;
+
+			listarUsuarios();
+		}
+	});
+}
+
+function listarUsuarios() {
+	var lista = " <ol>";
+
+	for (var i = 0; i < usuariosActivos.length; i++) {
+
+		lista += "  <li><a href=\"#\" data-popup-close=\"popup-2\"  onclick=\"unirsePartidaPareja("
+				+ usuariosActivos[i].apodo
+				+ ")\">"
+				+ usuariosActivos[i].apodo + "</a></li>";
+
+	}
+	lista += " </ol>";
+	document.getElementById('usuariosl').innerHTML = lista;
+	if (!tituloCargado) {
+		tituloCargado = true;
+		if (partidasActivas.length == 0) {
+			document.getElementById('UsuariosTit').innerHTML = "No hay usuarios loggeados.";
+		} else {
+			document.getElementById('UsuariosTit').innerHTML = "Usuarios loggeados";
+		}
+	}
+	loadActions();
 }
 
 function buscarPartida() {

@@ -53,6 +53,10 @@ public class ControladorUsuario {
 	public Usuario buscarUsuarioPorApodo(String apodo) throws UsuarioException, CategoriaException {
 		return UsuarioDAO.getInstancia().buscarUsuarioByApodo(apodo);
 	}
+	
+	public UsuarioDTO buscarUsuarioPorApodoDTO(String apodo) throws UsuarioException, CategoriaException {
+		return UsuarioDAO.getInstancia().buscarUsuarioByApodo(apodo).toDTO();
+	}
 
 	public Usuario buscarUsuarioPorEmail(String email) throws UsuarioException, CategoriaException {
 		return UsuarioDAO.getInstancia().buscarUsuarioByEmail(email);
@@ -158,15 +162,16 @@ public class ControladorUsuario {
 		return rankingDTO;
 	}
 	
-	public List<UsuarioDTO> obtenerUsuariosLoggeados() throws CategoriaException {
+	public List<UsuarioDTO> obtenerUsuariosLoggeados(UsuarioDTO usuario) throws CategoriaException {
 		
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
 		
 		usuarios = UsuarioDAO.getInstancia().getUsuariosLoggeados();
 		
-		for (Usuario usuario : usuarios) {
-			usuariosDTO.add(usuario.toDTO());
+		for (Usuario user : usuarios) {
+			if (user.getIdUsuario() != usuario.getIdUsuario())
+				usuariosDTO.add(user.toDTO());
 		}
 		
 		return usuariosDTO;
