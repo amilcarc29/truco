@@ -68,10 +68,14 @@ public class JugadorCartaDAO {
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
+		
+		Integer s = (Integer)session.createSQLQuery("Select max(idMano) from JugadorCarta where idJugador = ? ").setParameter(0,jug.getId()).uniqueResult();
+	
 
 		List<JugadorCartaEntity> jugadorcartasEnt = (List<JugadorCartaEntity>) session
-				.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=? order by orden")
-				.setParameter(0, jug.getId()).setParameter(1, jugada).list();
+				.createQuery("from JugadorCartaEntity where idJugador = ? and cartaJugada=? and idMano = ?  order by orden")
+				.setParameter(0, jug.getId()).setParameter(1, jugada).setParameter(2, s).list();
+		
 		session.close();
 
 		for (JugadorCartaEntity jc : jugadorcartasEnt) {
