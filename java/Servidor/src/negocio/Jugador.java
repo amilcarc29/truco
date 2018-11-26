@@ -21,6 +21,8 @@ public abstract class Jugador {
 	private boolean tieneTurno;
 
 	private int orden;
+	
+	private int puntosEnvido;
 
 	private String tanto;
 
@@ -93,6 +95,11 @@ public abstract class Jugador {
 		JugadorCartaDAO.getInstancia().guardarCartas(this.cartas, this, idMano);
 
 	}
+	
+	public void guardarPuntosEnvido() {
+		this.setPuntosEnvido(this.getTantoEnvido());
+		JugadorDAO.getInstancia().actualizarPuntosEnvido(this);
+	}
 
 	// calcula cuanto tiene de envido un jugador
 	public int getTantoEnvido() {
@@ -100,37 +107,101 @@ public abstract class Jugador {
 
 		String palo = cartas.get(0).getPalo();
 		int rep = 0;
-		int mayotenvido = 0;
-		int envido = cartas.get(0).getPesoEnvido();
-
-		for (int i = 1; i < cartas.size(); i++) {
-
-			if (palo.equals(cartas.get(i).getPalo())) {
-				rep++;
-				envido += cartas.get(i).getPesoEnvido();
-			}
-
-			if (mayotenvido < cartas.get(i).getPesoEnvido())
-				mayotenvido = cartas.get(i).getPesoEnvido();
-		}
-
+		int envido = 0;
+		
+		for (int i = 1; i < cartas.size(); i++)
+			if (palo.equals(cartas.get(i).getPalo()))
+				rep ++;
+		
 		if (rep == 2) {
-			if (cartas.get(1).getPesoEnvido() < cartas.get(2).getPesoEnvido()) {
-				envido += cartas.get(2).getPesoEnvido();
-			} else {
-				envido += cartas.get(1).getPesoEnvido();
-
+			if (cartas.get(0).getPesoEnvido() <= cartas.get(1).getPesoEnvido() &&
+					cartas.get(0).getPesoEnvido() <= cartas.get(2).getPesoEnvido())
+				
+				envido = cartas.get(1).getPesoEnvido() + cartas.get(2).getPesoEnvido();
+			
+			else if (cartas.get(1).getPesoEnvido() <= cartas.get(0).getPesoEnvido() &&
+						cartas.get(1).getPesoEnvido() <= cartas.get(2).getPesoEnvido())
+				
+				envido = cartas.get(0).getPesoEnvido() + cartas.get(2).getPesoEnvido();
+			
+			else if (cartas.get(2).getPesoEnvido() <= cartas.get(0).getPesoEnvido() &&
+						cartas.get(2).getPesoEnvido() <= cartas.get(1).getPesoEnvido())
+				
+				envido = cartas.get(0).getPesoEnvido() + cartas.get(1).getPesoEnvido();				
+		} else if (rep == 1) {
+			
+			if (cartas.get(0).getPalo().equals(cartas.get(1).getPalo()))
+				
+				envido = cartas.get(0).getPesoEnvido() + cartas.get(1).getPesoEnvido();
+			
+			else if (cartas.get(1).getPalo().equals(cartas.get(2).getPalo()))
+				
+				envido = cartas.get(1).getPesoEnvido() + cartas.get(2).getPesoEnvido();
+			
+			else 
+				
+				envido = cartas.get(0).getPesoEnvido() + cartas.get(2).getPesoEnvido();		
+			
+		} else {
+			
+			if (cartas.get(1).getPalo().equals(cartas.get(2).getPalo()))
+				
+				envido = cartas.get(1).getPesoEnvido() + cartas.get(2).getPesoEnvido();
+			
+			else {
+				if (cartas.get(0).getPesoEnvido() >= cartas.get(1).getPesoEnvido() &&
+						cartas.get(0).getPesoEnvido() >= cartas.get(2).getPesoEnvido())
+					
+					return cartas.get(0).getPesoEnvido();
+				
+				else if (cartas.get(1).getPesoEnvido() >= cartas.get(0).getPesoEnvido() &&
+						cartas.get(1).getPesoEnvido() >= cartas.get(2).getPesoEnvido())
+					
+					return cartas.get(1).getPesoEnvido();
+				
+				else
+					
+					return cartas.get(2).getPesoEnvido();
+				
 			}
 		}
-
-		if (rep == 0) {
-			return mayotenvido;
-		} else if (rep == 1) {
-			return envido + 20;
-		} else if (rep == 2)
-			return envido + 20;
-
-		return 0;
+		
+		return envido + 20;
+		
+		
+//		String palo = cartas.get(0).getPalo();
+//		int rep = 0;
+//		int mayotenvido = 0;
+//		int envido = cartas.get(0).getPesoEnvido();
+//
+//		for (int i = 1; i < cartas.size(); i++) {
+//
+//			if (palo.equals(cartas.get(i).getPalo())) {
+//				rep++;
+//				envido += cartas.get(i).getPesoEnvido();
+//			}
+//
+//			if (mayotenvido < cartas.get(i).getPesoEnvido())
+//				mayotenvido = cartas.get(i).getPesoEnvido();
+//		}
+//
+//		if (rep == 2) {
+//			if (cartas.get(1).getPesoEnvido() < cartas.get(2).getPesoEnvido()) {
+//				envido += cartas.get(2).getPesoEnvido();
+//			} else {
+//				envido += cartas.get(1).getPesoEnvido();
+//
+//			}
+//		}
+//
+//		if (rep == 0) {
+//			return mayotenvido;
+//		} else if (rep == 1) {
+//			return envido + 20;
+//		} else if (rep == 2)
+//			return envido + 20;
+//
+//		return 0;
 	}
 
 	public int getTantoTruco() {
@@ -245,6 +316,16 @@ public abstract class Jugador {
 	public void setOrden(int orden) {
 		this.orden = orden;
 	}
+
+	public int getPuntosEnvido() {
+		return puntosEnvido;
+	}
+
+	public void setPuntosEnvido(int puntosEnvido) {
+		this.puntosEnvido = puntosEnvido;
+	}
+	
+	
 
 
 }
