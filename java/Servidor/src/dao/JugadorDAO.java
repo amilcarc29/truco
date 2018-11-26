@@ -127,6 +127,7 @@ public class JugadorDAO {
 			j.setId(pe.getIdJugador());
 			j.setPuntosEnvido(pe.getPuntosEnvido());
 			j.setCartas(JugadorCartaDAO.getInstancia().getTodasCartasbyJugador(j));
+			j.setPuntosEnvido(pe.getPuntosEnvido());
 
 		}
 		return j;

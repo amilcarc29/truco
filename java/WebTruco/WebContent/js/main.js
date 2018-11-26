@@ -19,6 +19,8 @@ var seCantoEnvido = false;
 var seCantoTruco = false;
 
 var ganador = null;
+var ganadorEnvido = "";
+
 
 $(document).ready(function() {
 
@@ -110,6 +112,7 @@ function unirsePartidaLibre() {
 				}
 			});
 
+	
 }
 function unirsePartidaPareja() {
 	$("#loader").fadeIn("fast");
@@ -193,6 +196,22 @@ function renderGame() {
 	});
 
 }
+
+function mostrarGanador(jugadores){
+	
+	
+	var maxPuntos = 0;
+	
+
+	for (var i =0 ; i <jugadores.length;i++ ){
+		if (maxPuntos<jugadores[i].puntoEnvido)
+			maxPuntos = i;
+	}
+	ganadorEnvido = "Ganador Envido " + jugadores[maxPuntos].usuario.apodo + " con " + jugadores[maxPuntos].puntoEnvido + " de tanto"; 
+	 
+}
+
+
 function render(data) {
 	// var txtStatus = "<p style='color: blue'>Chico " + data.chicos.length
 	// + "\n, Mano " + data.chicos[data.chicos.length - 1].manos.length
@@ -215,8 +234,13 @@ function render(data) {
 	
 		seCantoEnvido = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoEnvido;
 		seCantoTruco = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoTruco;
-		
 		bazaActual = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].bazas.length;
+		
+		
+		if(seCantoEnvido){
+			mostrarGanador(data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].jugadores);
+
+		}
 	
 		if ((manoActual != null)
 				&& (manoActual != data.chicos[data.chicos.length - 1].manos.length)) {
@@ -945,7 +969,14 @@ function renderPunt(data) {
 				+ data.chicos[2].puntosChico[1].puntos + ' </div>';
 		divPnt += '</div>';
 	}
+	
+	
+	divPnt += '<div class="divTableRow">';
+	divPnt += '<div class="divTableCell">'+ganadorEnvido+' </div>';
 
+	divPnt += '</div>';
+	
+	
 	divPnt += '<div class="divTableRow">';
 	divPnt += '<div class="divTableCell">  </div>';
 

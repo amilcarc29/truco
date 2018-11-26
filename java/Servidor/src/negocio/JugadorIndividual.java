@@ -31,6 +31,7 @@ public class JugadorIndividual extends Jugador {
 		JugadorDTO j = new JugadorDTO(this.getIdJugador());
 		j.setTieneTurno(this.isTieneTurno());
 		j.setUsuario(this.getUsuario().toDTO());
+		j.setPuntoEnvido(this.getPuntosEnvido());
 		// VER SI FUNCIONA EL JSON
 		j.setMiembro(null);
 		List<Carta> c = JugadorCartaDAO.getInstancia().getCartasbyJugador(this, true);

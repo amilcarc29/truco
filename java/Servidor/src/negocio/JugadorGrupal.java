@@ -30,6 +30,7 @@ public class JugadorGrupal extends Jugador {
 		JugadorDTO j = new JugadorDTO(this.getIdJugador());
 		j.setTieneTurno(this.isTieneTurno());
 		j.setUsuario(null);
+		j.setPuntoEnvido(this.getPuntosEnvido());
 		// VER SI FUNCIONA EL JSON
 		j.setMiembro(this.getMiembro().toDTO());
 		List<Carta> c = JugadorCartaDAO.getInstancia().getCartasbyJugador(this, true);

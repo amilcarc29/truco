@@ -14,6 +14,8 @@ public class JugadorDTO extends JsonDTO  implements Serializable {
 	private boolean tieneTurno;
 
 	private int idJugador;
+	
+	private int puntoEnvido;
 
 	public JugadorDTO(int idJugador) {
 		super();
@@ -76,6 +78,14 @@ public class JugadorDTO extends JsonDTO  implements Serializable {
 
 	public void setMiembro(MiembroDTO miembro) {
 		this.miembro = miembro;
+	}
+
+	public int getPuntoEnvido() {
+		return puntoEnvido;
+	}
+
+	public void setPuntoEnvido(int puntoEnvido) {
+		this.puntoEnvido = puntoEnvido;
 	}
 	
 	
