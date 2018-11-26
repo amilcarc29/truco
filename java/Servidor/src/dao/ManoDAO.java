@@ -103,7 +103,6 @@ public class ManoDAO {
 		session.saveOrUpdate(me);
 		session.getTransaction().commit();
 		session.close();
-		//como se canto truco ya no se puede cantar envido
-		setManoConEnvido(idMano);
+	
 	}
 }
