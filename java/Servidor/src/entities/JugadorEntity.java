@@ -36,6 +36,8 @@ public class JugadorEntity {
 	@OneToOne
 	@JoinColumn(name = "tanto")
 	private TantoEntity tanto;
+	
+	private int puntosEnvido;
 
 	public JugadorEntity() {
 	}
@@ -127,5 +129,15 @@ public class JugadorEntity {
 	public void setIdJugador(Integer idJugador) {
 		this.idJugador = idJugador;
 	}
+
+	public int getPuntosEnvido() {
+		return puntosEnvido;
+	}
+
+	public void setPuntosEnvido(int puntosEnvido) {
+		this.puntosEnvido = puntosEnvido;
+	}
+	
+	
 
 }

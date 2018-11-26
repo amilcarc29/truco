@@ -85,6 +85,7 @@ public class Mano {
 		for (Jugador jug : jugadores) {
 			Vector<Carta> cartas = this.mazo.getTresCartasRandom();
 			jug.guardarCartas(cartas, this.getIdMano());
+			jug.guardarPuntosEnvido();
 		}
 
 	}

@@ -37,20 +37,32 @@ function back() {
 var esperandoPartida = false;
 function loadUser() {
 	$("#userApodo").text("Hola " + user.apodo);
-	$("#userPuntaje").text("Tu Puntaje es " + user.puntaje);
-	$("#userCategoria").text("Tu categoria es " + user.categoria.nombre);
-	$("#userPganadas")
-			.text("Cantidad Partidas Ganadas " + user.partidasGanadas);
-	$("#userPperdidas").text(
-			"Cantidad Partidas Jugadas " + user.partidasJugadas);
+	document.getElementById("userApodo").style.color = "#000000";
+	document.getElementById("userApodo").style.fontWeight = "900";
 
+	$("#userPuntaje").text("Tu Puntaje es " + user.puntaje);
+	document.getElementById("userPuntaje").style.color = "#000000";
+	document.getElementById("userPuntaje").style.fontWeight = "900";
+	
+	$("#userCategoria").text("Tu categoria es " + user.categoria.nombre);
+	document.getElementById("userCategoria").style.color = "#000000";
+	document.getElementById("userCategoria").style.fontWeight = "900";
+	
+	$("#userPganadas").text("Cantidad Partidas Ganadas " + user.partidasGanadas);
+	document.getElementById("userPganadas").style.color = "#000000";
+	document.getElementById("userPganadas").style.fontWeight = "900";
+	
+	$("#userPperdidas").text("Cantidad Partidas Jugadas " + user.partidasJugadas);
+	document.getElementById("userPperdidas").style.color = "#000000";
+	document.getElementById("userPperdidas").style.fontWeight = "900";
+	
 }
+
 function unirsePartidaLibre() {
 
 	if (esperandoPartida) {
 
-		$.alertable.alert('Se encuentra en espera.').always(function() {
-
+		$.alertable.alert('Se encuentra en espera.').always(function() {	
 		});
 
 		return;
@@ -66,8 +78,7 @@ function unirsePartidaLibre() {
 				url : url,
 				data : unirsePartida, // serializes the form's elements.
 				success : function(data) {
-					esperandoPartida = true;
-					document.getElementById('usuarioEnEspera').innerHTML = ", Ya se encuentra en Lista de espera";
+					esperandoPartida = true;	
 
 				}
 			});

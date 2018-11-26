@@ -34,6 +34,20 @@ public class JugadorDAO {
 
 	public JugadorDAO() {
 	}
+	
+	public void actualizarPuntosEnvido(Jugador jugador) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JugadorEntity jugadorEntity = (JugadorEntity) session
+				.createQuery("from JugadorEntity where idJugador = ?")
+				.setParameter(0, jugador.getId()).uniqueResult();
+		
+		jugadorEntity.setPuntosEnvido(jugador.getPuntosEnvido());
+		session.beginTransaction();
+		session.saveOrUpdate(jugadorEntity);
+		session.getTransaction().commit();
+		session.close();
+	}
 
 	public void setTieneQueContestar(Pareja pareja, String tanto) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -111,7 +125,7 @@ public class JugadorDAO {
 			j.setOrden(pe.getOrden());
 			j.setTanto((pe.getTanto()==null)?null:pe.getTanto().getTanto());
 			j.setId(pe.getIdJugador());
-
+			j.setPuntosEnvido(pe.getPuntosEnvido());
 			j.setCartas(JugadorCartaDAO.getInstancia().getTodasCartasbyJugador(j));
 
 		}

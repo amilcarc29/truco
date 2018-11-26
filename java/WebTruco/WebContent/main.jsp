@@ -20,6 +20,7 @@ body {
 	background: #fff;
 	color: #fff;
 	font-family: Arial;
+	font-color: Black;
 	font-size: 12px;
 }
 
