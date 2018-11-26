@@ -221,7 +221,7 @@ function render(data) {
 	
 	
 		seCantoEnvido = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoEnvido;
-		seCantoTruco = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoEnvido;
+		seCantoTruco = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoTruco;
 		
 		bazaActual = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].bazas.length;
 	

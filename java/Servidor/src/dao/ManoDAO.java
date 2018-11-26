@@ -77,7 +77,7 @@ public class ManoDAO {
 		// TODO Auto-generated method stub
 		Mano mano = new Mano(manoEntity.getIdMano());
 		mano.setSeCantoEnvido(manoEntity.isSeCantoEnvido());
-		mano.setSeCantoEnvido(manoEntity.isSeCantoTruco());
+		mano.setSeCantoTruco(manoEntity.isSeCantoTruco());
 		return mano;
 	}
 
