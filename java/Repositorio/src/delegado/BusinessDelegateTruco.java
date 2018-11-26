@@ -260,5 +260,21 @@ public class BusinessDelegateTruco {
 		}	
 	}
 	
+	public void desloggearUsuario(UsuarioDTO usuario) throws ComunicacionException{
+		try {
+			ir.desloggearUsuario(usuario);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
+	public List<UsuarioDTO> obtenerUsuariosLoggeados() throws ComunicacionException {
+		try {
+			return ir.obtenerUsuariosLoggeados();
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
 	
 }

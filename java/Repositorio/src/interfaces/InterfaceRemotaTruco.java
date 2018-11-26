@@ -9,7 +9,9 @@ import dto.GrupoDTO;
 import dto.JuegoDTO;
 import dto.ParejaDTO;
 import dto.UsuarioDTO;
+import excepciones.CategoriaException;
 import excepciones.MiembroException;
+import excepciones.UsuarioException;
 
 public interface InterfaceRemotaTruco extends Remote {
 
@@ -46,5 +48,8 @@ public interface InterfaceRemotaTruco extends Remote {
 	
 	public  List<UsuarioDTO> usuariosLibres()  throws RemoteException;
 	public List<UsuarioDTO> generarRanking() throws RemoteException;
+	
+	public void desloggearUsuario(UsuarioDTO usuario) throws RemoteException;
+	public List<UsuarioDTO> obtenerUsuariosLoggeados() throws RemoteException;
 	
 }

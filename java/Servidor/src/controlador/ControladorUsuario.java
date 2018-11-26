@@ -92,12 +92,19 @@ public class ControladorUsuario {
 	public UsuarioDTO loggearUsuario(String apodo, String password) throws UsuarioException, CategoriaException {
 		Usuario usuario = buscarUsuarioPorApodo(apodo);
 		if ((usuario != null) && (usuario.validarLogin(password))) {
+			usuario.loggear();
 			System.out.println("Usuario: " + usuario.getApodo() + " se loggea");
 			return usuario.toDTO();
 		} else {
 			System.out.println("Usuario o Contraseña incorrecta para: " + apodo);
 		}
 		throw new UsuarioException("Usuario no encontrado: " + apodo);
+	}
+	
+	public void desloggearUsuario(UsuarioDTO usuario) throws UsuarioException, CategoriaException {
+		Usuario user = this.buscarUsuarioPorId(usuario.getIdUsuario());
+		if (user != null)
+			user.desloggear();
 	}
 	
 	// REVISAR. CREO QUE NO HACE FALTA.
@@ -149,5 +156,19 @@ public class ControladorUsuario {
 		}
 		
 		return rankingDTO;
+	}
+	
+	public List<UsuarioDTO> obtenerUsuariosLoggeados() throws CategoriaException {
+		
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
+		
+		usuarios = UsuarioDAO.getInstancia().getUsuariosLoggeados();
+		
+		for (Usuario usuario : usuarios) {
+			usuariosDTO.add(usuario.toDTO());
+		}
+		
+		return usuariosDTO;
 	}
 }

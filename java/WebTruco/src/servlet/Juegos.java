@@ -62,11 +62,17 @@ public class Juegos extends HttpServlet {
 						JSONObject obj = new JSONObject(juegoDTO.toJson());
 						arr.put(obj);
 					}
-					out.write(arr.toString());
+					out.write(arr.toString());					
+					
 
 				} else if (action.equals("unirsePartida")) {
 
 					new BusinessDelegateTruco().agregarAListaEspera(us1);
+					out.write("{\"ERROR\":\"FALSE\"}");
+					
+				} else if (action.equals("cancelarEspera")) {
+					
+					new BusinessDelegateTruco().cancelarEsperaJugador(us1);
 					out.write("{\"ERROR\":\"FALSE\"}");
 
 				} else if (action.equals("getCartas")) {

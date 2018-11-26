@@ -1,5 +1,6 @@
 package controlador;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -254,17 +255,21 @@ public class ControladorArmadoJuegos {
 		JugadorIndividual jug = buscarJugadorEnEspera(usuario.getIdUsuario());
 		
 		if (jug != null) {
-			this.getJugadoresEnEspera().remove(jug);
+			ControladorArmadoJuegos.getInstancia().getJugadoresEnEspera().remove(jug);
 		} else {
 			throw new UsuarioException("No estas en la cola de espera para Juegos Individuales");
 		}		
 	}
 	
 	public JugadorIndividual buscarJugadorEnEspera(int idUsuario) {
-		for (JugadorIndividual jug : jugadoresEnEspera) {
-			if (jug.getUsuario().getIdUsuario() == idUsuario)
+		
+		Vector<JugadorIndividual> jugadores = ControladorArmadoJuegos.getInstancia().getJugadoresEnEspera();
+		
+		for (JugadorIndividual jug : jugadores) {
+			if (jug.getUsuario().sosElUsuario(idUsuario))
 				return jug;
 		}
+		
 		return null;
 	}
 	

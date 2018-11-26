@@ -16,6 +16,7 @@ public class Usuario {
 	private String email;
 	private Categoria categoria;
 	boolean activo;
+	private boolean loggeado;
 
 	public Usuario() {
 	}
@@ -29,6 +30,7 @@ public class Usuario {
 		this.pass = pass;
 		this.email = email;
 		this.activo = true;
+		this.loggeado = false;
 	}
 
 	public boolean esUsuario(String apodo) {
@@ -149,4 +151,28 @@ public class Usuario {
 	public UsuarioDTO toDTO() {
 		return new UsuarioDTO(idUsuario, partidasGanadas, partidasJugadas, puntaje, apodo, pass, email, getCategoria().toDTO(), activo);
 	}
+
+	public boolean sosElUsuario(int idUsuario2) {
+		return (this.getIdUsuario() == idUsuario2);
+	}
+
+	public boolean isLoggeado() {
+		return loggeado;
+	}
+
+	public void setLoggeado(boolean loggeado) {
+		this.loggeado = loggeado;
+	}
+
+	public void loggear() throws UsuarioException, CategoriaException {
+		this.setLoggeado(true);
+		UsuarioDAO.getInstancia().actualizarLoggeado(this);		
+	}
+
+	public void desloggear() throws UsuarioException, CategoriaException {
+		this.setLoggeado(false);
+		UsuarioDAO.getInstancia().actualizarLoggeado(this);			
+	}
+	
+	
 }

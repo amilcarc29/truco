@@ -27,6 +27,7 @@ public class UsuarioEntity {
 	@JoinColumn(name = "idCategoria")
 	private CategoriaEntity categoria;
 	private boolean activo;
+	private boolean loggeado;
 
 	public UsuarioEntity() {
 	}
@@ -117,4 +118,14 @@ public class UsuarioEntity {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
+	public boolean isLoggeado() {
+		return loggeado;
+	}
+
+	public void setLoggeado(boolean loggeado) {
+		this.loggeado = loggeado;
+	}
+	
+	
 }

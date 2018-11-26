@@ -36,6 +36,20 @@ public class UsuarioDAO {
 		return toNegocio(je.getUsuario());
 	}
 	
+	public void actualizarLoggeado(Usuario usuario) throws UsuarioException, CategoriaException {
+		UsuarioEntity usuarioEntity = this.buscarUsuarioByIdEntity(usuario.getIdUsuario());
+		
+		usuarioEntity.setLoggeado(usuario.isLoggeado());
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(usuarioEntity);
+		session.getTransaction().commit();
+		session.close();
+		
+	}
+	
 	public void actualizarPuntajesUsuario(Usuario usuario) throws UsuarioException, CategoriaException {
 		UsuarioEntity ue = null;
 		ue = this.buscarUsuarioByIdEntity(usuario.getIdUsuario());
@@ -112,6 +126,7 @@ public class UsuarioDAO {
 		usuario.setEmail(usuarioEntity.getEmail());
 		usuario.setCategoria(CategoriaDAO.getInstancia().toNegocio(usuarioEntity.getCategoria()));
 		usuario.setPass(usuarioEntity.getPass());
+		usuario.setLoggeado(usuarioEntity.isLoggeado());
 		return usuario;
 	}
 
@@ -201,8 +216,8 @@ public class UsuarioDAO {
 		
 		List<Usuario> rankingNegocio = new ArrayList<Usuario>();
 		
-		List<UsuarioEntity> ranking = (List<UsuarioEntity>) session.createQuery("from UsuarioEntity where id > ? order by puntaje desc")
-				.setParameter(0, 0).list();
+		List<UsuarioEntity> ranking = (List<UsuarioEntity>) session.createQuery("from UsuarioEntity order by puntaje desc")
+				.list();
 		
 		session.close();
 		
@@ -210,5 +225,22 @@ public class UsuarioDAO {
 			rankingNegocio.add(toNegocio(usuarioEntity));
 		
 		return rankingNegocio;
+	}
+
+	public List<Usuario> getUsuariosLoggeados() throws CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		List<Usuario> usuariosNegocio = new ArrayList<Usuario>();
+		
+		List<UsuarioEntity> usuarios = (List<UsuarioEntity>) session.createQuery("from UsuarioEntity where loggeado = ?")
+				.setParameter(0, true).list();
+		
+		session.close();
+		
+		for (UsuarioEntity usuarioEntity : usuarios)
+			usuariosNegocio.add(toNegocio(usuarioEntity));
+		
+		return usuariosNegocio;
 	}
 }

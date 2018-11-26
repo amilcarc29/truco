@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import delegado.BusinessDelegateTruco;
+import dto.UsuarioDTO;
+import excepciones.ComunicacionException;
+
 /**
  * Servlet implementation class Logout
  */
@@ -32,7 +36,17 @@ public class Logout extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		HttpSession newSession = request.getSession(true);
+		UsuarioDTO us1 = (UsuarioDTO) newSession.getAttribute("userObj");
+		
+		try {
+			new BusinessDelegateTruco().desloggearUsuario(us1);
+		} catch (ComunicacionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		newSession.invalidate();
+		
 		response.sendRedirect("./index.jsp");
 		System.out.println("El usuario se deslogueo.");
 

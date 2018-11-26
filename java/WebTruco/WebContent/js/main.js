@@ -58,6 +58,33 @@ function loadUser() {
 	
 }
 
+function cancelarEsperaLibre() {
+	if (!esperandoPartida){
+		
+		$.alertable.alert('No estas buscando partidas Libres.').always(function() {	
+		});
+		
+		return
+	}
+	
+	var url = '/WebTruco/Juegos';
+	var cancelarEsperaL = {
+			action : 'cancelarEspera'
+	};
+	
+	document.getElementById('usuarioEnEspera').innerHTML = "Removido de espera";
+	$
+		.ajax({
+			type : "POST",
+			url : url,
+			data : cancelarEsperaL, // serializes the form's elements.
+			success : function(data) {
+				esperandoPartida = false;	
+			
+			}
+		});	
+}
+
 function unirsePartidaLibre() {
 
 	if (esperandoPartida) {

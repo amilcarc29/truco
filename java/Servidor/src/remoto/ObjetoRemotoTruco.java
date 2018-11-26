@@ -783,6 +783,34 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 			System.out.println(error.toString());
 		}
 		return null;
+	}
+
+	@Override
+	public void desloggearUsuario(UsuarioDTO usuario) throws RemoteException {
+		try {
+			ControladorUsuario.getInstancia().desloggearUsuario(usuario);
+		} catch (UsuarioException e) {
+			ErrorCode error = ErrorCode.USUARIO_NO_ENCONTRADO;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		} catch (CategoriaException e) {
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		}
+		
+	}
+
+	@Override
+	public List<UsuarioDTO> obtenerUsuariosLoggeados() throws RemoteException {
+		try {
+			return ControladorUsuario.getInstancia().obtenerUsuariosLoggeados();
+		} catch (CategoriaException e) {
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		}
+		return null;
 	}	
 	
 }
