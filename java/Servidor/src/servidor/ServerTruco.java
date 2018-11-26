@@ -22,8 +22,8 @@ public class ServerTruco {
 			Thread t1 = new Thread(new ThreadParejas());
 			t1.start();
 			
-			Thread t2 = new Thread(new ThreadArmadoParejas());
-			t2.start();
+//			Thread t2 = new Thread(new ThreadArmadoParejas());
+//			t2.start();
 			
 		
 	}
