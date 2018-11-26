@@ -300,7 +300,7 @@ function listarUsuarios() {
 	document.getElementById('usuariosl').innerHTML = lista;
 	if (!tituloCargado) {
 		tituloCargado = true;
-		if (partidasActivas.length == 0) {
+		if (usuariosActivos.length == 0) {
 			document.getElementById('UsuariosTit').innerHTML = "No hay usuarios loggeados.";
 		} else {
 			document.getElementById('UsuariosTit').innerHTML = "Usuarios loggeados";
