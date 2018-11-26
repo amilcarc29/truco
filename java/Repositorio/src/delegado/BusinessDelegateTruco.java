@@ -268,13 +268,23 @@ public class BusinessDelegateTruco {
 		}
 	}
 	
-	public List<UsuarioDTO> obtenerUsuariosLoggeados() throws ComunicacionException {
+	public List<UsuarioDTO> obtenerUsuariosLoggeados(UsuarioDTO usuario) throws ComunicacionException {
 		try {
-			return ir.obtenerUsuariosLoggeados();
+			return ir.obtenerUsuariosLoggeados(usuario);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
+	
+	public UsuarioDTO buscarUsuarioPorApodoDTO(String apodo) throws ComunicacionException {
+		try {
+			return ir.buscarUsuarioPorApodoDTO(apodo);
+		} catch (RemoteException e){
+			throw new ComunicacionException("Error en las comunicaciones");
+		}
+	}
+	
+	
 	
 	
 }

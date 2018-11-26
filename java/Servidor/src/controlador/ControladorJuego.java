@@ -122,7 +122,9 @@ public class ControladorJuego {
 
 		jue.inicializarContestar();
 		jue.aumentarPuntosTrucoNoQuerido(parejaG);
-
+		
+		jue.getUltimaMano().finalizarMano();
+		
 		if (jue.terminoUltimoChico()) {
 
 			jue.finalizarUltimoChico();
@@ -136,6 +138,9 @@ public class ControladorJuego {
 				jue.armarNuevoChico();
 
 			}
+		} else {
+			jue.getUltimoChico().setJugadores(JugadorDAO.getInstancia().getJugadores(jue.getId())); // DESCOMENTEN ESTA LINEA
+			jue.getUltimoChico().armarNuevaMano();
 		}
 	}
 

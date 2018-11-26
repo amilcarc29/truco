@@ -62,8 +62,17 @@ public class Juegos extends HttpServlet {
 						JSONObject obj = new JSONObject(juegoDTO.toJson());
 						arr.put(obj);
 					}
-					out.write(arr.toString());					
+					out.write(arr.toString());
 					
+				} else if (action.equals("getUsuarios")) {
+					
+					List<UsuarioDTO> usuarios = new BusinessDelegateTruco().obtenerUsuariosLoggeados(us1);
+					JSONArray arr = new JSONArray();
+					for (UsuarioDTO usuarioDTO : usuarios) {
+						JSONObject obj = new JSONObject(usuarioDTO.toJson());
+						arr.put(obj);
+					}
+					out.write(arr.toString());
 
 				} else if (action.equals("unirsePartida")) {
 
