@@ -252,6 +252,13 @@ public class BusinessDelegateTruco {
 		}		
 	}	
 	
+	public List<UsuarioDTO> generarRanking() throws ComunicacionException{
+		try {
+			return ir.generarRanking();
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");
+		}	
+	}
 	
 	
 }

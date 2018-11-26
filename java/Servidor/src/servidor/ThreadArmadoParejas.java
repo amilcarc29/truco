@@ -131,7 +131,7 @@ public class ThreadArmadoParejas implements Runnable {
 							parejasLibres.add(pareja);
 							iterator.remove();
 						} else {
-							juntarParejas(parejasLibres);
+//							juntarParejas(parejasLibres);
 							parejasLibres = new Vector <>();
 						}
 					}

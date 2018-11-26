@@ -1,6 +1,7 @@
 
 package controlador;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -134,5 +135,19 @@ public class ControladorUsuario {
 		// TODO Auto-generated method stub
 		return null;
 
+	}
+	
+	public List<UsuarioDTO> generarRanking() throws CategoriaException {
+		
+		List<Usuario> ranking = new ArrayList<Usuario>();
+		List<UsuarioDTO> rankingDTO = new ArrayList<UsuarioDTO>();
+
+		ranking = UsuarioDAO.getInstancia().generarRanking();
+		
+		for (Usuario usuario : ranking) {
+			rankingDTO.add(usuario.toDTO());
+		}
+		
+		return rankingDTO;
 	}
 }

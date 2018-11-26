@@ -132,7 +132,7 @@ public class ThreadParejas implements Runnable {
 							jugadoresLibres.add(jugadorIndividual);
 							iterator.remove();
 						} else {
-							juntarParejas(jugadoresLibres);
+//							juntarParejas(jugadoresLibres);
 							jugadoresLibres = new Vector<>();
 						}
 					}

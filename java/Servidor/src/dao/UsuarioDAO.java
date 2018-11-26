@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -192,5 +193,22 @@ public class UsuarioDAO {
 	public List<UsuarioDTO> listarUsuarios(Usuario usuario) {
 	
 		return null;
+	}
+
+	public List<Usuario> generarRanking() throws CategoriaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		List<Usuario> rankingNegocio = new ArrayList<Usuario>();
+		
+		List<UsuarioEntity> ranking = (List<UsuarioEntity>) session.createQuery("from UsuarioEntity where id > ? order by puntaje desc")
+				.setParameter(0, 0).list();
+		
+		session.close();
+		
+		for (UsuarioEntity usuarioEntity : ranking)
+			rankingNegocio.add(toNegocio(usuarioEntity));
+		
+		return rankingNegocio;
 	}
 }

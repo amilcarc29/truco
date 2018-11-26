@@ -1,5 +1,8 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import delegado.BusinessDelegateTruco;
@@ -12,6 +15,14 @@ public class ClienteRmi {
 		// TODO Auto-generated method stub
 
 		try {
+			
+			List <UsuarioDTO> ranking = new ArrayList<UsuarioDTO>();
+			ranking = new BusinessDelegateTruco().generarRanking();
+			
+			for (UsuarioDTO usuario : ranking) {
+				System.out.println(usuario.getApodo());
+				System.out.println(usuario.getPuntaje());
+			}
 
 			// usuarios.add(new Usuario("Emiliano", "Emiliano", "pepe"));
 			// usuarios.add(new Usuario("Debi", "Debi", "pepe"));
@@ -20,10 +31,10 @@ public class ClienteRmi {
 
 
 			
-			new BusinessDelegateTruco().alta("Emiliano", "pepe", "pepe");
-			new BusinessDelegateTruco().alta("Debi", "pepe", "pepe");
-			new BusinessDelegateTruco().alta("Lucas", "pepe", "pepe");
-			new BusinessDelegateTruco().alta("Amilcar", "pepe", "pepe");
+//			new BusinessDelegateTruco().alta("Emiliano", "pepe", "pepe");
+//			new BusinessDelegateTruco().alta("Debi", "pepe", "pepe");
+//			new BusinessDelegateTruco().alta("Lucas", "pepe", "pepe");
+//			new BusinessDelegateTruco().alta("Amilcar", "pepe", "pepe");
 			
 		
 //

@@ -45,5 +45,6 @@ public interface InterfaceRemotaTruco extends Remote {
 	public void salirJuego(JuegoDTO juego, UsuarioDTO usuario) throws RemoteException;
 	
 	public  List<UsuarioDTO> usuariosLibres()  throws RemoteException;
+	public List<UsuarioDTO> generarRanking() throws RemoteException;
 	
 }

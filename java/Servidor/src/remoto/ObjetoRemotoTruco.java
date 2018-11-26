@@ -771,6 +771,18 @@ public class ObjetoRemotoTruco extends UnicastRemoteObject implements InterfaceR
 	
 		
 		return null;
+	}
+
+	@Override
+	public List<UsuarioDTO> generarRanking() throws RemoteException {
+		try {
+			return ControladorUsuario.getInstancia().generarRanking();
+		} catch (CategoriaException e) {
+			ErrorCode error = ErrorCode.CATEGORIA_NO_ENCONTRADA;
+			error.setDescripcion(e.getMessage());
+			System.out.println(error.toString());
+		}
+		return null;
 	}	
 	
 }
