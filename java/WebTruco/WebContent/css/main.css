@@ -98,12 +98,13 @@ grey:#2a2a2a ;
 form {
 	display: block;
 	width: 100%;
+	color: lighten(@ black, 20%);
 	padding: 2em;
 }
 
 h2 {
 	width: 100%;
-	color: lighten(@ grey, 20%);
+	color: lighten(@ black, 20%);
 	font-family: 'open sans condensed';
 	font-size: 1.35em;
 	display: block;
