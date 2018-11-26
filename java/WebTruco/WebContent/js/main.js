@@ -18,6 +18,8 @@ var ultimoTanto = null;
 var seCantoEnvido = false;
 var seCantoTruco = false;
 
+var ganador = null;
+
 $(document).ready(function() {
 
 	loadUser();
@@ -114,10 +116,30 @@ function loopRenderGame() {
 
 	partidas = setInterval(function() {
 
-		renderGame();
-		getCartas();
-		// notificaTurno();
-		notificaTanto();
+		if (ganador == null) {
+
+			renderGame();
+			getCartas();
+			// notificaTurno();
+			notificaTanto();
+
+		} else {
+			
+			clearInterval(partidas);
+
+
+			$.confirm({
+				title : 'Termino el juego ',
+				theme : 'supervan',
+				content : ganador,
+				buttons : {
+					ok : function() {
+						back();
+					},
+				}
+			});
+
+		}
 
 		console.log("rendering game");
 
@@ -153,6 +175,13 @@ function render(data) {
 	// + data.chicos[data.chicos.length - 1].puntosChico[1].puntos
 	// + "]</p>";
 	// document.getElementById('status').innerHTML = txtStatus;
+	if (data.ganador!=null)
+	ganador = "Pareja ganadora "
+		+ data.ganador.jugadores[0].usuario.apodo + " y "+
+data.ganador.jugadores[1].usuario.apodo;
+	
+	
+
 	seCantoEnvido = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoEnvido;
 	bazaActual = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].bazas.length;
 
@@ -173,26 +202,23 @@ function render(data) {
 	}
 
 	var jugNum = 1;
-//	for (var i = 0; i < data.parejas.length; i++) {
-//
-//		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
-//
-//			drawCartas(data.parejas[i].jugadores[x], juegoActual, jugNum,
-//					(data.chicos[data.chicos.length - 1].manos.length));
-//			jugNum++;
-//		}
-//	}
-	
-	
-	jug = data.chicos[data.chicos.length-1].manos[data.chicos[data.chicos.length-1].manos.length-1].jugadores;
+	//	for (var i = 0; i < data.parejas.length; i++) {
+	//
+	//		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
+	//
+	//			drawCartas(data.parejas[i].jugadores[x], juegoActual, jugNum,
+	//					(data.chicos[data.chicos.length - 1].manos.length));
+	//			jugNum++;
+	//		}
+	//	}
+
+	jug = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].jugadores;
 	for (var x = 0; x < jug.length; x++) {
 
 		drawCartas(jug[x], jugNum,
 				(data.chicos[data.chicos.length - 1].manos.length));
 		jugNum++;
 	}
-	
-	
 
 	renderPunt(data);
 
