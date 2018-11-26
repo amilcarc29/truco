@@ -77,6 +77,7 @@ public class ManoDAO {
 		// TODO Auto-generated method stub
 		Mano mano = new Mano(manoEntity.getIdMano());
 		mano.setSeCantoEnvido(manoEntity.isSeCantoEnvido());
+		mano.setSeCantoEnvido(manoEntity.isSeCantoTruco());
 		return mano;
 	}
 
@@ -92,5 +93,17 @@ public class ManoDAO {
 		session.close();
 	}
 	
-	
+	public void setManoConTruco(int idMano) throws ManoException {
+		ManoEntity me = this.buscarManoPorID(idMano);
+		me.setSeCantoTruco(true);
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(me);
+		session.getTransaction().commit();
+		session.close();
+		//como se canto truco ya no se puede cantar envido
+		setManoConEnvido(idMano);
+	}
 }
