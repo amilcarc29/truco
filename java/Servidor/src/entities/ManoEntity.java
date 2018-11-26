@@ -22,6 +22,8 @@ public class ManoEntity {
 	
 	private boolean seCantoEnvido;
 	
+	private boolean seCantoTruco;
+	
 	public ManoEntity() {}
 	
 	public ManoEntity(ChicoEntity chico) {
@@ -52,6 +54,14 @@ public class ManoEntity {
 
 	public void setSeCantoEnvido(boolean seCantoEnvido) {
 		this.seCantoEnvido = seCantoEnvido;
+	}
+
+	public boolean isSeCantoTruco() {
+		return seCantoTruco;
+	}
+
+	public void setSeCantoTruco(boolean seCantoTruco) {
+		this.seCantoTruco = seCantoTruco;
 	}
 
 

@@ -146,6 +146,7 @@ public class Mano {
 		this.setTruco(truco);
 		truco.save(this);
 		
+		ManoDAO.getInstancia().setManoConTruco(this.getIdMano());
 	}
 
 	public void cantarReTruco() throws ManoException {

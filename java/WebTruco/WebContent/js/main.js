@@ -209,54 +209,61 @@ function render(data) {
 	// + data.chicos[data.chicos.length - 1].puntosChico[1].puntos
 	// + "]</p>";
 	// document.getElementById('status').innerHTML = txtStatus;
-	if (data.ganador!=null)
-	ganador = "Pareja ganadora "
-		+ data.ganador.jugadores[0].usuario.apodo + " y "+
-data.ganador.jugadores[1].usuario.apodo;
+	if (data.ganador!=null){
+		ganador = "Pareja ganadora "
+			+ data.ganador.jugadores[0].usuario.apodo + " y "+
+	data.ganador.jugadores[1].usuario.apodo;
+		
+				
+	}else{
+
 	
 	
-
-	seCantoEnvido = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoEnvido;
-	bazaActual = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].bazas.length;
-
-	if ((manoActual != null)
-			&& (manoActual != data.chicos[data.chicos.length - 1].manos.length)) {
-		alertFinMano(manoActual);
-		manoActual = data.chicos[data.chicos.length - 1].manos.length;
-	} else {
-		manoActual = data.chicos[data.chicos.length - 1].manos.length;
-
+	
+		seCantoEnvido = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoEnvido;
+		seCantoTruco = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].seCantoEnvido;
+		
+		bazaActual = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].bazas.length;
+	
+		if ((manoActual != null)
+				&& (manoActual != data.chicos[data.chicos.length - 1].manos.length)) {
+			alertFinMano(manoActual);
+			manoActual = data.chicos[data.chicos.length - 1].manos.length;
+		} else {
+			manoActual = data.chicos[data.chicos.length - 1].manos.length;
+	
+		}
+	
+		if ((chicoActual != null) && (chicoActual != data.chicos.length)) {
+			alertFinChico(chicoActual);
+			chicoActual = data.chicos.length;
+		} else {
+			chicoActual = data.chicos.length;
+		}
+	
+		var jugNum = 1;
+		//	for (var i = 0; i < data.parejas.length; i++) {
+		//
+		//		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
+		//
+		//			drawCartas(data.parejas[i].jugadores[x], juegoActual, jugNum,
+		//					(data.chicos[data.chicos.length - 1].manos.length));
+		//			jugNum++;
+		//		}
+		//	}
+	
+		jug = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].jugadores;
+		for (var x = 0; x < jug.length; x++) {
+	
+			drawCartas(jug[x], jugNum,
+					(data.chicos[data.chicos.length - 1].manos.length));
+			jugNum++;
+		}
+	
+		renderPunt(data);
+	
+		$("#loader").fadeOut("fast");
 	}
-
-	if ((chicoActual != null) && (chicoActual != data.chicos.length)) {
-		alertFinChico(chicoActual);
-		chicoActual = data.chicos.length;
-	} else {
-		chicoActual = data.chicos.length;
-	}
-
-	var jugNum = 1;
-	//	for (var i = 0; i < data.parejas.length; i++) {
-	//
-	//		for (var x = 0; x < data.parejas[i].jugadores.length; x++) {
-	//
-	//			drawCartas(data.parejas[i].jugadores[x], juegoActual, jugNum,
-	//					(data.chicos[data.chicos.length - 1].manos.length));
-	//			jugNum++;
-	//		}
-	//	}
-
-	jug = data.chicos[data.chicos.length - 1].manos[data.chicos[data.chicos.length - 1].manos.length - 1].jugadores;
-	for (var x = 0; x < jug.length; x++) {
-
-		drawCartas(jug[x], jugNum,
-				(data.chicos[data.chicos.length - 1].manos.length));
-		jugNum++;
-	}
-
-	renderPunt(data);
-
-	$("#loader").fadeOut("fast");
 }
 
 function buscarUsuarios() {
@@ -1065,8 +1072,18 @@ function envido() {
 	}
 }
 
-function truco(jugada) {
-	cantarTanto(jugada);
+function truco() {
+	if (seCantoTruco) {
+
+		$.alertable.alert('Ya se canto truco en la mano').always(
+				function() {
+
+				});
+
+	} else{
+		cantarTanto('TRUCO');
+
+	}
 
 }
 
@@ -1111,8 +1128,7 @@ function makeButton(key) {
 	var but = '';
 
 	if (key == 'TRUCO')
-		but = '<button class="blob-btn"  onClick="cantarTanto(\'' + key
-				+ '\')">';
+		but = '<button class="blob-btn"  onClick="truco()">';
 
 	else if (key == 'SALIR')
 		but = '<button class="blob-btn"  onClick="back()">';
